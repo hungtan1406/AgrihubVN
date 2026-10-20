@@ -6,6 +6,7 @@ import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import SectionTitle from '@/components/SectionTitle';
+import { getProducts } from '@/lib/wordpress';
 
 interface PageProps {
   params: { lang: string };
@@ -22,33 +23,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
-export default function ProductsPage({ params }: PageProps) {
+export default async function ProductsPage({ params }: PageProps) {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
-
-  const sampleProducts = [
-    {
-      slug: 'dragon-fruit-powder',
-      category: 'Bột trái cây',
-      name: 'Bột Thanh Long Đỏ (Red Dragon Fruit Powder)',
-      specs: 'Độ ẩm ≤ 5% | 80-100 mesh | 100% tự nhiên',
-      application: 'Bánh kẹo, Đồ uống, Sữa chua, Tạo màu tự nhiên',
-    },
-    {
-      slug: 'freeze-dried-mango',
-      category: 'Trái cây sấy',
-      name: 'Xoài Sấy Thăng Hoa (Freeze-Dried Mango)',
-      specs: 'Độ ẩm ≤ 4% | Cắt lát 5-7mm | Giữ nguyên hình thái & vị',
-      application: 'Ngũ cốc ăn sáng, Socola bọc trái cây, Snack cao cấp',
-    },
-    {
-      slug: 'passion-fruit-puree',
-      category: 'Nước cốt & Puree',
-      name: 'Nước Cốt Chanh Dây Không Hạt (Passion Fruit Puree)',
-      specs: 'Brix 14-16% | Thanh trùng | Đóng phuy vô trùng 200L',
-      application: 'Sản xuất nước ép, Nước giải khát, Si-rô, Kem',
-    },
-  ];
+  const products = await getProducts();
 
   return (
     <div className="py-12 sm:py-16">
@@ -75,15 +53,25 @@ export default function ProductsPage({ params }: PageProps) {
           subtitle={dict.pages.products.subtitle}
         />
 
-        {/* Product Grid Sample */}
+        {/* Product Grid - Dữ liệu lấy từ WordPress API */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          {sampleProducts.map((p) => (
+          {products.map((p) => (
             <div
               key={p.slug}
-              className="bg-white border border-cream-200 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors"
+              className="bg-white border border-cream-200 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors group"
             >
               <div>
-                <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider bg-primary-leaf/10 px-3 py-1 rounded-full border border-primary-leaf/20">
+                {p.image && (
+                  <div className="mb-4 overflow-hidden rounded-xl bg-cream-100 aspect-video flex items-center justify-center">
+                    <img
+                      src={p.image}
+                      alt={p.name}
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                )}
+                <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider bg-primary-leaf/10 px-3 py-1 rounded-full border border-primary-leaf/20 inline-block">
                   {p.category}
                 </span>
                 <h2 className="text-lg font-bold text-primary-850 mt-4 mb-2">{p.name}</h2>
@@ -111,13 +99,13 @@ export default function ProductsPage({ params }: PageProps) {
           ))}
         </div>
 
-        {/* Pending Data Notice */}
+        {/* CMS Synchronization Notice */}
         <div className="mt-12 p-6 bg-cream-100 rounded-2xl border border-cream-300 text-center">
           <p className="text-sm text-primary-850 font-bold">
-            {dict.common.placeholderNotice}
+            ⚡ Hệ thống Quản trị Nội dung (WordPress CMS)
           </p>
           <p className="text-xs text-slate-600 mt-1">
-            [CẦN BỔ SUNG: Danh mục toàn bộ các loại bột trái cây, trái cây sấy, nước cốt và bảng TDS đầy đủ từ Agrihub]
+            Danh mục sản phẩm được đồng bộ tự động từ WordPress API. Mọi cập nhật trong WordPress Admin sẽ hiển thị trực tiếp tại đây.
           </p>
         </div>
       </Container>

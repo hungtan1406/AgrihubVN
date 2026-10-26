@@ -53,7 +53,7 @@ export default function HomePageContent({
   return (
     <div className="flex flex-col gap-12 sm:gap-20 lg:gap-24">
       {/* SECTION 1: HERO BANNER (INSPIRED BY IMAGE 1) */}
-      <section className="relative bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 overflow-hidden rounded-b-3xl sm:rounded-b-4xl shadow-soft font-arial">
+      <section className="h-screen relative bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 overflow-hidden shadow-soft font-arial">
         {/* Subtle leaf and sunlit ambient glow */}
         <div className="absolute right-0 top-0 w-96 h-96 bg-primary-leaf/25 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute -left-10 bottom-0 w-80 h-80 bg-accent-gold/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -115,9 +115,7 @@ export default function HomePageContent({
                 size="lg"
                 className="w-full sm:w-auto shadow-lg hover:shadow-xl font-bold"
               >
-                <span>
-                  {dict.pages.home.heroCtaSample}
-                </span>
+                <span>{dict.pages.home.heroCtaSample}</span>
               </Button>
 
               {/* CTA bên phải: màu vàng cam sáng chữ trắng (TEXT: Tư vấn báo giá) */}
@@ -236,10 +234,10 @@ export default function HomePageContent({
                 index === 0
                   ? '#nguyen-lieu'
                   : index === 1
-                  ? '#xuat-khau'
-                  : index === 2
-                  ? '#oem-odm'
-                  : `/${currentLang}/distribution-partners`;
+                    ? '#xuat-khau'
+                    : index === 2
+                      ? '#oem-odm'
+                      : `/${currentLang}/distribution-partners`;
               return (
                 <StaggerItem key={aud.code} className="h-full">
                   <motion.div
@@ -258,12 +256,7 @@ export default function HomePageContent({
                       </p>
                     </div>
                     <div className="pt-6">
-                      <Button
-                        href={href}
-                        variant="primary"
-                        size="sm"
-                        fullWidth
-                      >
+                      <Button href={href} variant="primary" size="sm" fullWidth>
                         <span>{aud.btn}</span>
                         <span>&rarr;</span>
                       </Button>
@@ -773,9 +766,7 @@ export default function HomePageContent({
                     <span className="font-bold text-primary-850 text-sm block">
                       UAE
                     </span>
-                    <span className="text-slate-500">
-                      {ui.global.uaeNote}
-                    </span>
+                    <span className="text-slate-500">{ui.global.uaeNote}</span>
                   </div>
                   <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 hover:border-primary-leaf/50 transition-colors">
                     <span className="font-bold text-primary-850 text-sm block">
@@ -981,18 +972,10 @@ export default function HomePageContent({
                           required
                           className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
                         >
-                          <option value="quote">
-                            {formT.purposeQuote}
-                          </option>
-                          <option value="sample">
-                            {formT.purposeSample}
-                          </option>
-                          <option value="oem">
-                            {formT.purposeOem}
-                          </option>
-                          <option value="export">
-                            {formT.purposeExport}
-                          </option>
+                          <option value="quote">{formT.purposeQuote}</option>
+                          <option value="sample">{formT.purposeSample}</option>
+                          <option value="oem">{formT.purposeOem}</option>
+                          <option value="export">{formT.purposeExport}</option>
                           <option value="distributor">
                             {formT.purposeDistributor}
                           </option>
@@ -1007,15 +990,9 @@ export default function HomePageContent({
                           <option value="fruit-powder">
                             {formT.catPowder}
                           </option>
-                          <option value="dried-fruits">
-                            {formT.catDried}
-                          </option>
-                          <option value="puree">
-                            {formT.catPuree}
-                          </option>
-                          <option value="multiple">
-                            {formT.catMultiple}
-                          </option>
+                          <option value="dried-fruits">{formT.catDried}</option>
+                          <option value="puree">{formT.catPuree}</option>
+                          <option value="multiple">{formT.catMultiple}</option>
                         </select>
                       </div>
                     </div>

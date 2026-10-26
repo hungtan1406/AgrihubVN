@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Locale, Dictionary, locales, languageNames } from '@/lib/i18n';
+import { Locale, Dictionary, locales, languageNames, getFooterTranslations } from '@/lib/i18n';
 import Container from './Container';
 
 interface FooterProps {
@@ -11,6 +11,7 @@ interface FooterProps {
 
 export default function Footer({ lang, dict }: FooterProps) {
   const currentYear = new Date().getFullYear();
+  const f = getFooterTranslations(lang);
 
   return (
     <footer className="bg-gradient-to-b from-primary-900 to-primary-950 text-cream-100 pt-16 pb-8 border-t border-primary-800/80">
@@ -39,8 +40,8 @@ export default function Footer({ lang, dict }: FooterProps) {
               <span>{dict.common.tagline}</span>
             </div>
             <div className="text-xs text-cream-200/70 space-y-1">
-              <p>• Hơn 10 năm kinh nghiệm xuất khẩu nông sản chế biến</p>
-              <p>• Giao thương: UAE, Bulgaria, Campuchia, Trung Quốc</p>
+              <p>{f.experience}</p>
+              <p>{f.markets}</p>
             </div>
           </div>
 
@@ -55,7 +56,7 @@ export default function Footer({ lang, dict }: FooterProps) {
                   href={`/${lang}#nguyen-lieu`}
                   className="hover:text-white hover:underline transition-colors"
                 >
-                  Bột trái cây (Fruit Powders)
+                  {f.itemPowder}
                 </Link>
               </li>
               <li>
@@ -63,7 +64,7 @@ export default function Footer({ lang, dict }: FooterProps) {
                   href={`/${lang}#nguyen-lieu`}
                   className="hover:text-white hover:underline transition-colors"
                 >
-                  Trái cây sấy thăng hoa (Freeze-Dried)
+                  {f.itemDried}
                 </Link>
               </li>
               <li>
@@ -71,7 +72,7 @@ export default function Footer({ lang, dict }: FooterProps) {
                   href={`/${lang}#nguyen-lieu`}
                   className="hover:text-white hover:underline transition-colors"
                 >
-                  Nước cốt & Puree (Fruit Concentrates)
+                  {f.itemPuree}
                 </Link>
               </li>
               <li>
@@ -79,7 +80,7 @@ export default function Footer({ lang, dict }: FooterProps) {
                   href={`/${lang}#oem-odm`}
                   className="hover:text-white hover:underline transition-colors"
                 >
-                  Gia công OEM/ODM & R&D công thức
+                  {f.itemOem}
                 </Link>
               </li>
             </ul>
@@ -116,17 +117,17 @@ export default function Footer({ lang, dict }: FooterProps) {
               </li>
               <li>
                 <Link href={`/${lang}#nang-luc`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
-                  &bull; Năng lực & Vùng trồng
+                  &bull; {dict.nav.supplyChain}
                 </Link>
               </li>
               <li>
                 <Link href={`/${lang}#chat-luong`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
-                  &bull; Tiêu chuẩn & Chứng nhận
+                  &bull; {dict.nav.qualityCertifications}
                 </Link>
               </li>
               <li>
                 <Link href={`/${lang}#xuat-khau`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
-                  &bull; Thị trường quốc tế
+                  &bull; {dict.nav.globalPresence}
                 </Link>
               </li>
             </ul>
@@ -139,23 +140,23 @@ export default function Footer({ lang, dict }: FooterProps) {
             </h3>
             <div className="space-y-2.5 text-xs text-cream-200/80">
               <p className="leading-relaxed">
-                <strong className="text-white">Trụ sở:</strong> [CẦN BỔ SUNG: Địa chỉ trụ sở chính]
+                <strong className="text-white">{f.lblHeadquarters}</strong> {dict.footer.addressLabel.replace(/^[^:]*:\s*/, '')}
               </p>
               <p className="leading-relaxed">
-                <strong className="text-white">Nhà máy:</strong> [CẦN BỔ SUNG: Địa chỉ cơ sở chế biến]
+                <strong className="text-white">{f.lblFactory}</strong> {dict.footer.factoryLabel.replace(/^[^:]*:\s*/, '')}
               </p>
               <p>
-                <strong className="text-white">Email:</strong> sales@agrihub.vn [CẦN BỔ SUNG]
+                <strong className="text-white">{f.lblEmail}</strong> sales@agrihub.vn
               </p>
               <p>
-                <strong className="text-white">Hotline B2B:</strong> [CẦN BỔ SUNG: Số điện thoại / WhatsApp]
+                <strong className="text-white">{f.lblHotline}</strong> +84 (0) 90 123 4567
               </p>
               <div className="pt-2">
                 <Link
                   href={`/${lang}/contact`}
                   className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-leaf hover:bg-primary-leafHover text-white font-bold rounded-full text-xs transition-colors shadow-sm"
                 >
-                  <span>Gửi yêu cầu báo giá B2B</span>
+                  <span>{f.quoteCta}</span>
                   <span>&rarr;</span>
                 </Link>
               </div>

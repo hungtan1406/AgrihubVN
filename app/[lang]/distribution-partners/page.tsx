@@ -1,5 +1,11 @@
 import { Metadata } from 'next';
-import { Locale, getDictionary, isValidLocale, defaultLocale } from '@/lib/i18n';
+import {
+  Locale,
+  getDictionary,
+  isValidLocale,
+  defaultLocale,
+  getDistributionPartnersContent,
+} from '@/lib/i18n';
 import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
@@ -24,29 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default function DistributionPartnersPage({ params }: PageProps) {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
-
-  const benefits = [
-    {
-      icon: '🏷️',
-      title: 'Bảng giá sỉ trực tiếp từ nhà máy',
-      desc: 'Mức chiết khấu hấp dẫn theo bậc thang doanh số, không qua trung gian thương mại.',
-    },
-    {
-      icon: '📦',
-      title: 'Nguồn hàng ổn định quanh năm',
-      desc: 'Dự trữ nguyên liệu và thành phẩm lớn tại kho, đảm bảo không đứt gãy nguồn cung vào mùa cao điểm.',
-    },
-    {
-      icon: '📑',
-      title: 'Hồ sơ pháp lý & COA đầy đủ',
-      desc: 'Cung cấp toàn bộ giấy tờ công bố chất lượng, kiểm nghiệm vi sinh hỗ trợ đại lý chào bán cho khách hàng lớn.',
-    },
-    {
-      icon: '🎁',
-      title: 'Hỗ trợ mẫu thử & Tài liệu marketing',
-      desc: 'Cung cấp bộ kit mẫu thử (sample kit), tài liệu kỹ thuật (TDS) và tư vấn kỹ thuật ứng dụng.',
-    },
-  ];
+  const content = getDistributionPartnersContent(currentLang);
 
   return (
     <div className="py-12 sm:py-16">
@@ -71,7 +55,7 @@ export default function DistributionPartnersPage({ params }: PageProps) {
         <FadeIn direction="up" delay={0.1}>
           <SectionTitle
             as="h1"
-            badge="Hợp Tác Phân Phối"
+            badge={content.badge}
             title={dict.pages.distributionPartners.title}
             subtitle={dict.pages.distributionPartners.subtitle}
           />
@@ -79,7 +63,7 @@ export default function DistributionPartnersPage({ params }: PageProps) {
 
         {/* Distributor Benefits */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
-          {benefits.map((b, idx) => (
+          {content.benefits.map((b, idx) => (
             <FadeIn key={b.title} direction="up" delay={idx * 0.08}>
               <div className="bg-white p-6 rounded-3xl border border-cream-200 shadow-soft h-full hover:border-primary-leaf transition-colors">
                 <span className="text-3xl mb-2 block">{b.icon}</span>
@@ -94,15 +78,15 @@ export default function DistributionPartnersPage({ params }: PageProps) {
         <FadeIn direction="up" delay={0.2}>
           <div className="bg-white p-8 rounded-3xl border border-cream-200 shadow-soft my-8">
             <h3 className="text-lg font-bold text-primary-850 mb-3">
-              Điều kiện & Quy trình đăng ký đại lý
+              {content.policyTitle}
             </h3>
             <p className="text-sm text-slate-600 mb-4 leading-relaxed">
-              Agrihub chào đón các công ty thương mại thực phẩm, đơn vị cung ứng nguyên liệu làm bánh/pha chế và nhà phân phối sỉ trên toàn quốc.
+              {content.policyDesc}
             </p>
             <div className="text-xs text-slate-600 bg-cream-100 p-5 rounded-2xl border border-cream-300 space-y-2">
-              <p>• [CẦN BỔ SUNG: Mức nhập đơn hàng tối thiểu (MOQ) cho đại lý cấp 1 và cấp 2]</p>
-              <p>• [CẦN BỔ SUNG: Chính sách công nợ và hỗ trợ vận chuyển nội địa]</p>
-              <p>• [CẦN BỔ SUNG: Quy định bảo vệ khu vực độc quyền phân phối]</p>
+              {content.notes.map((note) => (
+                <p key={note}>• [{note}]</p>
+              ))}
             </div>
           </div>
         </FadeIn>

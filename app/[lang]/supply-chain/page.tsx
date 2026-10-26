@@ -1,6 +1,12 @@
 import React from 'react';
 import { Metadata } from 'next';
-import { Locale, getDictionary, isValidLocale, defaultLocale } from '@/lib/i18n';
+import {
+  Locale,
+  getDictionary,
+  isValidLocale,
+  defaultLocale,
+  getSupplyChainContent,
+} from '@/lib/i18n';
 import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
@@ -24,6 +30,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default function SupplyChainPage({ params }: PageProps) {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
+  const content = getSupplyChainContent(currentLang);
 
   return (
     <div className="py-12 sm:py-16">
@@ -45,7 +52,7 @@ export default function SupplyChainPage({ params }: PageProps) {
 
         <SectionTitle
           as="h1"
-          badge="Cơ Sở Hạ Tầng & Vùng Trồng"
+          badge={content.badge}
           title={dict.pages.supplyChain.title}
           subtitle={dict.pages.supplyChain.subtitle}
         />
@@ -53,42 +60,62 @@ export default function SupplyChainPage({ params }: PageProps) {
         {/* Key Metrics Grid */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 my-8">
           <div className="bg-white p-5 rounded-2xl border border-cream-200 shadow-soft text-center">
-            <span className="text-2xl sm:text-3xl font-extrabold text-primary-850 block">10+</span>
-            <span className="text-xs text-slate-600 font-bold mt-1 block">Năm kinh nghiệm xuất khẩu</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-primary-850 block">
+              {content.stat1}
+            </span>
+            <span className="text-xs text-slate-600 font-bold mt-1 block">
+              {content.stat1Label}
+            </span>
           </div>
           <div className="bg-white p-5 rounded-2xl border border-cream-200 shadow-soft text-center">
-            <span className="text-2xl sm:text-3xl font-extrabold text-primary-leaf block">[CẦN BỔ SUNG]</span>
-            <span className="text-xs text-slate-600 font-bold mt-1 block">Diện tích nhà xưởng chế biến (m²)</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-primary-leaf block">
+              {content.stat2}
+            </span>
+            <span className="text-xs text-slate-600 font-bold mt-1 block">
+              {content.stat2Label}
+            </span>
           </div>
           <div className="bg-white p-5 rounded-2xl border border-cream-200 shadow-soft text-center">
-            <span className="text-2xl sm:text-3xl font-extrabold text-primary-850 block">[CẦN BỔ SUNG]</span>
-            <span className="text-xs text-slate-600 font-bold mt-1 block">Sản lượng cung ứng (tấn/năm)</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-primary-850 block">
+              {content.stat3}
+            </span>
+            <span className="text-xs text-slate-600 font-bold mt-1 block">
+              {content.stat3Label}
+            </span>
           </div>
           <div className="bg-white p-5 rounded-2xl border border-cream-200 shadow-soft text-center">
-            <span className="text-2xl sm:text-3xl font-extrabold text-primary-leaf block">[CẦN BỔ SUNG]</span>
-            <span className="text-xs text-slate-600 font-bold mt-1 block">Quy mô vùng trồng liên kết (ha)</span>
+            <span className="text-2xl sm:text-3xl font-extrabold text-primary-leaf block">
+              {content.stat4}
+            </span>
+            <span className="text-xs text-slate-600 font-bold mt-1 block">
+              {content.stat4Label}
+            </span>
           </div>
         </div>
 
         {/* Content Blocks */}
         <div className="space-y-6 sm:space-y-8 my-10">
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft">
-            <h2 className="text-lg font-bold text-primary-850 mb-3">1. Vùng nguyên liệu nông sản Việt Nam</h2>
+            <h2 className="text-lg font-bold text-primary-850 mb-3">
+              {content.block1Title}
+            </h2>
             <p className="text-sm text-slate-600 leading-relaxed mb-3">
-              Agrihub liên kết trực tiếp với các hợp tác xã và nông hộ tại các vựa trái cây nhiệt đới nổi tiếng của Việt Nam (Đồng bằng Sông Cửu Long, Tây Nguyên, Bình Thuận...). Nguồn quả tươi được tuyển chọn kỹ càng, kiểm soát chặt chẽ dư lượng thuốc BVTV ngay từ khâu canh tác.
+              {content.block1Desc}
             </p>
             <p className="text-xs text-slate-500 italic bg-cream-50 p-3 rounded-xl border border-cream-200">
-              [CẦN BỔ SUNG: Bản đồ vùng trồng liên kết chi tiết và hình ảnh mùa vụ thu hoạch]
+              {content.block1Notice}
             </p>
           </div>
 
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft">
-            <h2 className="text-lg font-bold text-primary-850 mb-3">2. Công nghệ chế biến & Hệ thống kho bãi</h2>
+            <h2 className="text-lg font-bold text-primary-850 mb-3">
+              {content.block2Title}
+            </h2>
             <p className="text-sm text-slate-600 leading-relaxed mb-3">
-              Trang bị hệ thống máy sấy thăng hoa (Freeze Dryer), sấy nhiệt đối lưu và thiết bị nghiền bột siêu mịn đạt chuẩn vệ sinh an toàn công nghiệp. Kho bảo quản duy trì nhiệt độ và độ ẩm tiêu chuẩn giúp ổn định chất lượng bột và quả sấy quanh năm.
+              {content.block2Desc}
             </p>
             <p className="text-xs text-slate-500 italic bg-cream-50 p-3 rounded-xl border border-cream-200">
-              [CẦN BỔ SUNG: Hình ảnh máy móc dây chuyền sản xuất và hệ thống kho lạnh]
+              {content.block2Notice}
             </p>
           </div>
         </div>

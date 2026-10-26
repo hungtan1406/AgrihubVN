@@ -1,7 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { Locale, getDictionary, isValidLocale, defaultLocale } from '@/lib/i18n';
+import {
+  Locale,
+  getDictionary,
+  isValidLocale,
+  defaultLocale,
+  getProductsPageTranslations,
+  getIngredients,
+} from '@/lib/i18n';
 import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
@@ -26,7 +33,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProductsPage({ params }: PageProps) {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
-  const products = await getProducts();
+  const products = await getProducts(currentLang);
+  const t = getProductsPageTranslations(currentLang);
+  const localizedIngredients = getIngredients(currentLang);
 
   return (
     <div className="py-12 sm:py-16">
@@ -53,59 +62,67 @@ export default async function ProductsPage({ params }: PageProps) {
           subtitle={dict.pages.products.subtitle}
         />
 
-        {/* Product Grid - Dữ liệu lấy từ WordPress API */}
+        {/* Product Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
-          {products.map((p) => (
-            <div
-              key={p.slug}
-              className="bg-white border border-cream-200 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors group"
-            >
-              <div>
-                {p.image && (
-                  <div className="mb-4 overflow-hidden rounded-xl bg-cream-100 aspect-video flex items-center justify-center">
-                    <img
-                      src={p.image}
-                      alt={p.name}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                      loading="lazy"
-                    />
+          {products.map((p) => {
+            const match = localizedIngredients.find((ing) => ing.id === p.slug);
+            const displayName = match?.name || p.name;
+            const displayCategory = match?.categoryName || p.category;
+            const displaySpecs = match?.specs || p.specs;
+            const displayApp = match?.applications || p.application;
+
+            return (
+              <div
+                key={p.slug}
+                className="bg-white border border-cream-200 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors group"
+              >
+                <div>
+                  {p.image && (
+                    <div className="mb-4 overflow-hidden rounded-xl bg-cream-100 aspect-video flex items-center justify-center">
+                      <img
+                        src={p.image}
+                        alt={displayName}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                        loading="lazy"
+                      />
+                    </div>
+                  )}
+                  <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider bg-primary-leaf/10 px-3 py-1 rounded-full border border-primary-leaf/20 inline-block">
+                    {displayCategory}
+                  </span>
+                  <h2 className="text-lg font-bold text-primary-850 mt-4 mb-2">{displayName}</h2>
+                  <div className="space-y-1.5 text-xs text-slate-600 mb-4 bg-cream-50 p-3.5 rounded-xl border border-cream-200/60">
+                    <p>
+                      <strong className="text-primary-850">{t.specLabel}</strong> {displaySpecs}
+                    </p>
+                    <p>
+                      <strong className="text-primary-850">{t.appLabel}</strong> {displayApp}
+                    </p>
                   </div>
-                )}
-                <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider bg-primary-leaf/10 px-3 py-1 rounded-full border border-primary-leaf/20 inline-block">
-                  {p.category}
-                </span>
-                <h2 className="text-lg font-bold text-primary-850 mt-4 mb-2">{p.name}</h2>
-                <div className="space-y-1.5 text-xs text-slate-600 mb-4 bg-cream-50 p-3.5 rounded-xl border border-cream-200/60">
-                  <p>
-                    <strong className="text-primary-850">Thông số kỹ thuật:</strong> {p.specs}
-                  </p>
-                  <p>
-                    <strong className="text-primary-850">Ứng dụng chính:</strong> {p.application}
-                  </p>
+                </div>
+                <div className="pt-4 border-t border-cream-200 flex items-center justify-between">
+                  <Link
+                    href={`/${currentLang}/products/${p.slug}`}
+                    className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover"
+                  >
+                    {t.viewTds}
+                  </Link>
+                  <Button href={`/${currentLang}/contact`} variant="pill" size="sm">
+                    {t.sampleBtn}
+                  </Button>
                 </div>
               </div>
-              <div className="pt-4 border-t border-cream-200 flex items-center justify-between">
-                <Link
-                  href={`/${currentLang}/products/${p.slug}`}
-                  className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover"
-                >
-                  Xem Spec & TDS &rarr;
-                </Link>
-                <Button href={`/${currentLang}/contact`} variant="pill" size="sm">
-                  Xin mẫu thử
-                </Button>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* CMS Synchronization Notice */}
         <div className="mt-12 p-6 bg-cream-100 rounded-2xl border border-cream-300 text-center">
           <p className="text-sm text-primary-850 font-bold">
-            ⚡ Hệ thống Quản trị Nội dung (WordPress CMS)
+            {t.cmsTitle}
           </p>
           <p className="text-xs text-slate-600 mt-1">
-            Danh mục sản phẩm được đồng bộ tự động từ WordPress API. Mọi cập nhật trong WordPress Admin sẽ hiển thị trực tiếp tại đây.
+            {t.cmsDesc}
           </p>
         </div>
       </Container>

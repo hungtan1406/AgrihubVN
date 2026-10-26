@@ -1,6 +1,12 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Locale, getDictionary, isValidLocale, defaultLocale } from '@/lib/i18n';
+import {
+  Locale,
+  getDictionary,
+  isValidLocale,
+  defaultLocale,
+  getContactPageContent,
+} from '@/lib/i18n';
 import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import SectionTitle from '@/components/SectionTitle';
@@ -26,6 +32,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default function ContactPage({ params }: PageProps) {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
+  const content = getContactPageContent(currentLang);
 
   return (
     <div className="py-12 sm:py-16">
@@ -42,7 +49,7 @@ export default function ContactPage({ params }: PageProps) {
               </span>
             </div>
             <span className="text-xs text-primary-leaf font-extrabold bg-cream-200/80 px-3 py-1.5 rounded-full border border-cream-300">
-              Phản hồi 24h
+              {content.responseBadge}
             </span>
           </div>
         </FadeIn>
@@ -62,25 +69,36 @@ export default function ContactPage({ params }: PageProps) {
             <div className="space-y-6">
               <div className="bg-white p-6 rounded-3xl border border-cream-200 shadow-soft">
                 <h2 className="text-base font-extrabold text-primary-850 mb-4">
-                  Kênh liên hệ trực tiếp B2B
+                  {content.channelTitle}
                 </h2>
                 <div className="space-y-4 text-xs text-slate-600">
                   <div>
-                    <strong className="block text-primary-850 mb-1">Email phòng Thương mại & Xuất khẩu:</strong>
-                    <span className="text-primary-leaf font-bold text-sm">sales@agrihub.vn</span>
-                    <span className="text-slate-400 block mt-0.5">[CẦN BỔ SUNG: Email chính thức]</span>
+                    <strong className="block text-primary-850 mb-1">
+                      {content.emailTitle}
+                    </strong>
+                    <span className="text-primary-leaf font-bold text-sm">
+                      {content.emailVal}
+                    </span>
                   </div>
                   <div>
-                    <strong className="block text-primary-850 mb-1">Hotline / WhatsApp / WeChat:</strong>
-                    <span className="text-primary-leaf font-bold text-sm">[CẦN BỔ SUNG: Hotline]</span>
+                    <strong className="block text-primary-850 mb-1">
+                      {content.phoneTitle}
+                    </strong>
+                    <span className="text-primary-leaf font-bold text-sm">
+                      {content.phoneVal}
+                    </span>
                   </div>
                   <div>
-                    <strong className="block text-primary-850 mb-1">Trụ sở chính:</strong>
-                    <span>[CẦN BỔ SUNG: Địa chỉ văn phòng giao dịch]</span>
+                    <strong className="block text-primary-850 mb-1">
+                      {content.addressTitle}
+                    </strong>
+                    <span>{content.addressVal}</span>
                   </div>
                   <div>
-                    <strong className="block text-primary-850 mb-1">Cơ sở sản xuất & Kho hàng:</strong>
-                    <span>[CẦN BỔ SUNG: Địa chỉ nhà máy chế biến nông sản]</span>
+                    <strong className="block text-primary-850 mb-1">
+                      {content.factoryTitle}
+                    </strong>
+                    <span>{content.factoryVal}</span>
                   </div>
                 </div>
               </div>
@@ -88,16 +106,16 @@ export default function ContactPage({ params }: PageProps) {
               <div className="bg-gradient-to-br from-primary-900 to-primary-850 text-cream-100 p-6 rounded-3xl shadow-soft border border-primary-700/40">
                 <h3 className="font-bold text-sm text-accent-gold mb-2 flex items-center gap-1.5">
                   <span>🌿</span>
-                  <span>Cam kết dịch vụ B2B</span>
+                  <span>{content.commitmentTitle}</span>
                 </h3>
                 <p className="text-xs text-cream-200/80 leading-relaxed mb-3">
-                  • Phản hồi bảng giá kỹ thuật và thông số TDS trong vòng 24 giờ làm việc.
+                  {content.commitment1}
                 </p>
                 <p className="text-xs text-cream-200/80 leading-relaxed mb-3">
-                  • Hỗ trợ gửi mẫu thử phòng Lab qua đường chuyển phát nhanh quốc tế.
+                  {content.commitment2}
                 </p>
                 <p className="text-xs text-cream-200/80 leading-relaxed">
-                  • Ký kết thỏa thuận bảo mật công thức (NDA) đối với các dự án gia công OEM.
+                  {content.commitment3}
                 </p>
               </div>
             </div>
@@ -108,13 +126,13 @@ export default function ContactPage({ params }: PageProps) {
             <FadeIn direction="up" delay={0.2}>
               <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft">
                 <h2 className="text-lg font-extrabold text-primary-850 mb-2">
-                  Biểu mẫu yêu cầu Báo giá & Mẫu thử B2B
+                  {content.formTitle}
                 </h2>
                 <p className="text-xs text-slate-500 mb-6">
-                  Vui lòng cung cấp thông tin để chuyên viên thương mại Agrihub chuẩn bị hồ sơ kỹ thuật chính xác nhất.
+                  {content.formSubtitle}
                 </p>
 
-                <ContactForm dict={dict} />
+                <ContactForm dict={dict} lang={currentLang} />
               </div>
             </FadeIn>
           </div>

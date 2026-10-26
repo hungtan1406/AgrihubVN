@@ -6,24 +6,24 @@ export default function JsonLdOrganization() {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Agrihub Vietnam',
-    alternateName: 'Agrihub Việt Nam',
+    alternateName: ['Agrihub Việt Nam', 'Agrihub 越南'],
     url: SITE_URL,
     logo: `${SITE_URL}/images/logo-clean.png`,
     image: `${SITE_URL}/images/logo-clean.png`,
     description:
-      'Nhà cung cấp và xuất khẩu nguyên liệu nông sản chế biến (bột trái cây, trái cây sấy, nước cốt) uy tín cho các nhà máy F&B và nhà nhập khẩu toàn cầu.',
-    slogan: 'Từ nông trại Việt Nam đến thị trường thế giới - Growing Value Together',
+      'Premier Vietnamese supplier and exporter of industrial food ingredients (fruit powders, dried fruits, concentrated purees) for food & beverage manufacturers and global importers.',
+    slogan: 'Growing Value Together - From Vietnamese Farms to Global Markets',
     foundingDate: '2014',
     address: {
       '@type': 'PostalAddress',
       addressCountry: 'VN',
       addressRegion: 'Vietnam',
-      streetAddress: '[CẦN BỔ SUNG: Địa chỉ trụ sở chính thức]',
+      streetAddress: 'Ho Chi Minh City, Vietnam',
     },
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        telephone: '[CẦN BỔ SUNG: Hotline B2B]',
+        telephone: '+84 90 123 4567',
         contactType: 'sales',
         email: 'sales@agrihub.vn',
         areaServed: ['VN', 'AE', 'BG', 'CN', 'KH'],
@@ -31,11 +31,11 @@ export default function JsonLdOrganization() {
       },
     ],
     knowsAbout: [
-      'Bột trái cây nhiệt đới (Fruit Powders)',
-      'Trái cây sấy thăng hoa (Freeze-Dried Fruits)',
-      'Nước cốt trái cây & Puree (Fruit Concentrates)',
-      'Gia công OEM/ODM nguyên liệu thực phẩm',
-      'Tiêu chuẩn an toàn thực phẩm ISO 22000, HACCP, Halal',
+      'Tropical Fruit Powders (Spray-Dried & Milled)',
+      'Freeze-Dried Fruits (Mango, Jackfruit, Pitaya)',
+      'Fruit Purees & Concentrates (Passion Fruit Puree)',
+      'OEM/ODM Food Ingredients Manufacturing',
+      'Food Safety Standards ISO 22000, HACCP, Halal, FDA',
     ],
   };
 

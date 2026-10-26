@@ -3,6 +3,8 @@
  * Kết nối Headless WordPress với Next.js 14 App Router
  */
 
+import { Locale } from './i18n/types';
+
 export interface Product {
   id: string | number;
   slug: string;
@@ -56,15 +58,11 @@ export interface WordPressPost {
   [key: string]: unknown;
 }
 
-/**
- * Dữ liệu dự phòng (Fallback) khi WordPress local chưa khởi động
- * Đảm bảo website luôn hoạt động ổn định và không bị gián đoạn.
- */
-export const FALLBACK_PRODUCTS: Product[] = [
+export const FALLBACK_PRODUCTS_VI: Product[] = [
   {
     id: 'dragon-fruit-powder',
     slug: 'dragon-fruit-powder',
-    category: 'Bột trái cây',
+    category: 'Bột sấy nghiền',
     name: 'Bột Thanh Long Đỏ (Red Dragon Fruit Powder)',
     specs: 'Độ ẩm ≤ 5% | 80-100 mesh | 100% tự nhiên',
     application: 'Bánh kẹo, Đồ uống, Sữa chua, Tạo màu tự nhiên Clean-label',
@@ -96,7 +94,7 @@ export const FALLBACK_PRODUCTS: Product[] = [
   {
     id: 'passion-fruit-puree',
     slug: 'passion-fruit-puree',
-    category: 'Nước cốt & Puree',
+    category: 'Nước cốt & Pure',
     name: 'Nước Cốt Chanh Dây Không Hạt (Passion Fruit Puree)',
     specs: 'Brix 14-16% | Thanh trùng | Đóng phuy vô trùng 200L',
     application: 'Sản xuất nước ép, Nước giải khát, Si-rô, Kem',
@@ -110,6 +108,116 @@ export const FALLBACK_PRODUCTS: Product[] = [
     specCode: 'SPEC-AGRI-PFP-03',
   },
 ];
+
+export const FALLBACK_PRODUCTS_EN: Product[] = [
+  {
+    id: 'dragon-fruit-powder',
+    slug: 'dragon-fruit-powder',
+    category: 'Milled Fruit Powder',
+    name: 'Red Dragon Fruit Powder (Milled)',
+    specs: 'Moisture ≤ 5% | 80-100 mesh | 100% natural, clean-label',
+    application: 'Confectionery, nutrition beverages, yogurt, clean-label natural coloring',
+    moisture: '≤ 5.0%',
+    mesh: '80 - 100 mesh',
+    brix: 'Natural fruit sugar',
+    shelfLife: '24 months',
+    packaging: 'Sterile aluminum bags 5kg x 4 / 20kg export carton',
+    moq: '100 kg (trial) / 500 kg (commercial)',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-DFP-01',
+  },
+  {
+    id: 'freeze-dried-mango',
+    slug: 'freeze-dried-mango',
+    category: 'Freeze-Dried Fruit',
+    name: 'Freeze-Dried Mango Slices',
+    specs: 'Moisture ≤ 4% | 5-7mm cut slices | Crisp texture & authentic taste',
+    application: 'Granola cereal, chocolate enrobing, gourmet fruit snacks',
+    moisture: '≤ 4.0%',
+    mesh: '5-7mm slices or 3-5mm granules',
+    brix: '14 - 16 Brix natural',
+    shelfLife: '18 months',
+    packaging: '10kg export carton with inert nitrogen barrier liner',
+    moq: '200 kg',
+    grade: 'PREMIUM EXPORT',
+    specCode: 'SPEC-AGRI-FDM-02',
+  },
+  {
+    id: 'passion-fruit-puree',
+    slug: 'passion-fruit-puree',
+    category: 'Puree & Concentrate',
+    name: 'Seedless Passion Fruit Puree (Concentrate)',
+    specs: 'Brix 14-16% | Pasteurised | Aseptic 200L steel drum',
+    application: 'Juice manufacturing, beverage syrups, ice cream',
+    moisture: 'Smooth liquid puree',
+    mesh: 'Filtered through 0.5mm mesh seedless',
+    brix: '14 - 16%',
+    shelfLife: '24 months (at -18°C)',
+    packaging: 'Aseptic bag in 200L steel drum / 20kg bag-in-box',
+    moq: '1 drum (200kg) or 1 pallet',
+    grade: 'ASEPTIC INDUSTRIAL',
+    specCode: 'SPEC-AGRI-PFP-03',
+  },
+];
+
+export const FALLBACK_PRODUCTS_ZH: Product[] = [
+  {
+    id: 'dragon-fruit-powder',
+    slug: 'dragon-fruit-powder',
+    category: '低温研磨果粉',
+    name: '红心火龙果原粉 (低温研磨)',
+    specs: '含水率 ≤ 5% | 80-100目 | 100%纯天然清洁标签',
+    application: '烘焙糖果、功能饮料、风味酸奶、天然健康护色',
+    moisture: '≤ 5.0%',
+    mesh: '80 - 100 目',
+    brix: '纯天然果糖',
+    shelfLife: '24 个月',
+    packaging: '无菌铝箔袋 5kg x 4 / 20kg 出口瓦楞纸箱',
+    moq: '100 kg (中试打样) / 500 kg (商业量产)',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-DFP-01',
+  },
+  {
+    id: 'freeze-dried-mango',
+    slug: 'freeze-dried-mango',
+    category: '冻干精品果干',
+    name: '冻干芒果脆片 (Freeze-Dried Mango)',
+    specs: '含水率 ≤ 4% | 5-7mm原切片 | 98%锁鲜保形保风味',
+    application: '早餐谷物燕麦、巧克力果脆涂层、高档轻食果干',
+    moisture: '≤ 4.0%',
+    mesh: '5-7mm 原切片或 3-5mm 颗粒',
+    brix: '14 - 16 Brix 天然果糖',
+    shelfLife: '18 个月',
+    packaging: '10kg 瓦楞纸箱内置充氮隔氧铝箔袋',
+    moq: '200 kg',
+    grade: 'PREMIUM EXPORT',
+    specCode: 'SPEC-AGRI-FDM-02',
+  },
+  {
+    id: 'passion-fruit-puree',
+    slug: 'passion-fruit-puree',
+    category: '果浆与原汁',
+    name: '无籽浓缩百香果原浆 (Puree)',
+    specs: '糖度 14-16 Brix | 高温瞬时巴氏杀菌 | 200L 无菌大桶',
+    application: '果汁原浆、调配饮品、特调风味糖浆、高端冰淇淋',
+    moisture: '浓稠原果浆 (Puree)',
+    mesh: '0.5mm 超细不锈钢筛网过滤无籽',
+    brix: '14 - 16%',
+    shelfLife: '24 个月 (-18°C 恒温冷冻)',
+    packaging: '200L 钢桶内置无菌 Aseptic 袋 / 20kg 箱中袋',
+    moq: '1 桶 (200kg) 或 1 托盘',
+    grade: 'ASEPTIC INDUSTRIAL',
+    specCode: 'SPEC-AGRI-PFP-03',
+  },
+];
+
+export const FALLBACK_PRODUCTS = FALLBACK_PRODUCTS_VI;
+
+export function getFallbackProducts(lang: Locale = 'vi'): Product[] {
+  if (lang === 'en') return FALLBACK_PRODUCTS_EN;
+  if (lang === 'zh') return FALLBACK_PRODUCTS_ZH;
+  return FALLBACK_PRODUCTS_VI;
+}
 
 // Quản lý trạng thái kết nối máy chủ để tránh nghẽn DNS khi offline
 let isHostOffline = false;
@@ -145,14 +253,28 @@ function cleanHtmlEntities(text: string): string {
 /**
  * Chuyển đổi dữ liệu WordPress Post sang cấu trúc Product của Agrihub
  */
-export function mapWordPressPostToProduct(post: WordPressPost): Product {
+export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'vi'): Product {
   const acf = post.acf || {};
 
   // Lấy ảnh đại diện
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
 
   // Lấy danh mục từ taxonomy hoặc trường ACF
-  let categoryName = 'Nguyên liệu nông sản';
+  let defaultCategory = 'Nguyên liệu nông sản';
+  let defaultSpecs = 'Tiêu chuẩn xuất khẩu B2B';
+  let defaultApp = 'Ứng dụng trong sản xuất thực phẩm & đồ uống';
+
+  if (lang === 'en') {
+    defaultCategory = 'Processed Agricultural Ingredients';
+    defaultSpecs = 'Export B2B Standard Specification';
+    defaultApp = 'Food & Beverage industrial manufacturing';
+  } else if (lang === 'zh') {
+    defaultCategory = '深加工特色农产品原料';
+    defaultSpecs = '国际出口 B2B 工业级技术标准';
+    defaultApp = '食品与饮料工业制造应用';
+  }
+
+  let categoryName = defaultCategory;
   if (typeof acf.category === 'string' && acf.category.trim()) {
     categoryName = acf.category;
   } else if (post._embedded?.['wp:term']?.[0]?.[0]?.name) {
@@ -168,7 +290,24 @@ export function mapWordPressPostToProduct(post: WordPressPost): Product {
   }
 
   const rawTitle = post.title?.rendered || post.slug;
-  const name = cleanHtmlEntities(rawTitle);
+  let name = cleanHtmlEntities(rawTitle);
+
+  // Auto-translate test post titles when switching language
+  if (lang === 'en') {
+    if (post.slug === 'san-pham' || /thanh long/i.test(name)) {
+      name = 'Freeze-Dried Dragon Fruit (Export Grade)';
+      categoryName = 'Freeze-Dried Fruit';
+      defaultSpecs = 'Moisture ≤ 4% | 5-7mm slices | 100% natural, clean-label';
+      defaultApp = 'Bakery, confectionery, breakfast cereals, healthy snacks';
+    }
+  } else if (lang === 'zh') {
+    if (post.slug === 'san-pham' || /thanh long/i.test(name)) {
+      name = '冻干火龙果脆片 (出口级)';
+      categoryName = '精品冻干果品';
+      defaultSpecs = '水分 ≤ 4% | 5-7mm 原切片 | 100% 纯天然清洁标签';
+      defaultApp = '烘焙西点、糖果巧克力、燕麦代餐、健康果脆';
+    }
+  }
 
   const rawSpecs = acf.specs || post.excerpt?.rendered || '';
   const specs = cleanHtmlEntities(rawSpecs);
@@ -181,8 +320,8 @@ export function mapWordPressPostToProduct(post: WordPressPost): Product {
     slug: post.slug,
     name,
     category: categoryName,
-    specs: specs || 'Tiêu chuẩn xuất khẩu B2B',
-    application: application || 'Ứng dụng trong sản xuất thực phẩm & đồ uống',
+    specs: specs || defaultSpecs,
+    application: application || defaultApp,
     moisture: acf.moisture,
     mesh: acf.mesh || acf.mesh_size,
     brix: acf.brix,
@@ -249,12 +388,12 @@ async function fetchFromEndpoints(pathSuffix: string): Promise<Response | null> 
 /**
  * Lấy toàn bộ danh sách sản phẩm từ WordPress
  */
-export async function getProducts(): Promise<Product[]> {
+export async function getProducts(lang: Locale = 'vi'): Promise<Product[]> {
   try {
     const res = await fetchFromEndpoints('?_embed&per_page=100');
 
     if (!res) {
-      return FALLBACK_PRODUCTS;
+      return getFallbackProducts(lang);
     }
 
     const data = await res.json();
@@ -264,28 +403,28 @@ export async function getProducts(): Promise<Product[]> {
       );
     }
     if (!Array.isArray(data) || data.length === 0) {
-      return FALLBACK_PRODUCTS;
+      return getFallbackProducts(lang);
     }
 
-    const mapped = data.map((post: WordPressPost) => mapWordPressPostToProduct(post));
+    const mapped = data.map((post: WordPressPost) => mapWordPressPostToProduct(post, lang));
     const validProducts = mapped.filter((p) => p.slug !== 'hello-world');
-    return validProducts.length > 0 ? validProducts : FALLBACK_PRODUCTS;
+    return validProducts.length > 0 ? validProducts : getFallbackProducts(lang);
   } catch {
-    return FALLBACK_PRODUCTS;
+    return getFallbackProducts(lang);
   }
 }
 
 /**
  * Lấy chi tiết một sản phẩm theo slug
  */
-export async function getProductBySlug(slug: string): Promise<Product | null> {
+export async function getProductBySlug(slug: string, lang: Locale = 'vi'): Promise<Product | null> {
   try {
     const res = await fetchFromEndpoints(`?_embed&slug=${encodeURIComponent(slug)}`);
 
     if (res) {
       const data = await res.json();
       if (Array.isArray(data) && data.length > 0) {
-        return mapWordPressPostToProduct(data[0]);
+        return mapWordPressPostToProduct(data[0], lang);
       }
     }
   } catch {
@@ -293,7 +432,7 @@ export async function getProductBySlug(slug: string): Promise<Product | null> {
   }
 
   // Tìm trong fallback nếu không có trên WordPress hoặc chưa kết nối
-  const fallback = FALLBACK_PRODUCTS.find((p) => p.slug === slug);
+  const fallback = getFallbackProducts(lang).find((p) => p.slug === slug);
   return fallback || null;
 }
 

@@ -61,6 +61,12 @@ const flagComponents: Record<Locale, React.ReactNode> = {
   zh: <FlagChina />,
 };
 
+const dropdownTitles: Record<Locale, string> = {
+  vi: 'Chọn ngôn ngữ',
+  en: 'Select Language',
+  zh: '选择语言',
+};
+
 export default function LanguageSelect({
   currentLang,
   className = '',
@@ -128,7 +134,7 @@ export default function LanguageSelect({
       {isOpen && (
         <div className="absolute right-0 mt-1.5 w-48 bg-white rounded-2xl shadow-xl border border-cream-200 py-1.5 z-50 animate-in fade-in zoom-in-95 duration-100">
           <div className="px-3 py-1.5 text-[10px] uppercase font-bold tracking-wider text-slate-400 border-b border-cream-200/80">
-            Select Language / Chọn ngôn ngữ
+            {dropdownTitles[currentLang]}
           </div>
           <div role="listbox">
             {locales.map((l) => {

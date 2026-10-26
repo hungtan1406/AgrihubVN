@@ -1,15 +1,17 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Dictionary } from '@/lib/i18n';
+import { Dictionary, Locale, getFormTranslations } from '@/lib/i18n';
 import Button from './Button';
 
 interface ContactFormProps {
   dict: Dictionary;
+  lang?: Locale;
 }
 
-export default function ContactForm({ dict }: ContactFormProps) {
+export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
+  const t = getFormTranslations(lang);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -19,12 +21,12 @@ export default function ContactForm({ dict }: ContactFormProps) {
   if (submitted) {
     return (
       <div className="bg-cream-100 border border-primary-leaf/30 p-6 sm:p-8 rounded-2xl text-center space-y-3">
-        <div className="text-primary-leaf text-2xl sm:text-3xl font-black">✓ Đã tiếp nhận yêu cầu</div>
+        <div className="text-primary-leaf text-2xl sm:text-3xl font-black">{t.successTitle}</div>
         <p className="text-xs sm:text-sm text-slate-700">
-          Cảm ơn quý đối tác đã liên hệ. Đội ngũ kinh doanh B2B của Agrihub sẽ liên hệ qua email/điện thoại trong vòng 24 giờ làm việc.
+          {t.successDesc}
         </p>
         <Button onClick={() => setSubmitted(false)} variant="pill" size="sm">
-          Gửi yêu cầu khác
+          {t.anotherBtn}
         </Button>
       </div>
     );
@@ -35,23 +37,23 @@ export default function ContactForm({ dict }: ContactFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
-            Họ và tên người liên hệ *
+            {t.nameLabel}
           </label>
           <input
             type="text"
             required
-            placeholder="Nguyễn Văn A"
+            placeholder={t.namePlaceholder}
             className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
           />
         </div>
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
-            Tên doanh nghiệp / Nhà máy *
+            {t.companyLabel}
           </label>
           <input
             type="text"
             required
-            placeholder="Công ty TNHH Sản xuất Thực phẩm ABC"
+            placeholder={t.companyPlaceholder}
             className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
           />
         </div>
@@ -60,23 +62,23 @@ export default function ContactForm({ dict }: ContactFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
-            Email doanh nghiệp *
+            {t.emailLabel}
           </label>
           <input
             type="email"
             required
-            placeholder="purchasing@company.com"
+            placeholder={t.emailPlaceholder}
             className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
           />
         </div>
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
-            Số điện thoại / WhatsApp / WeChat *
+            {t.phoneLabel}
           </label>
           <input
             type="tel"
             required
-            placeholder="+84 90 123 4567"
+            placeholder={t.phonePlaceholder}
             className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
           />
         </div>
@@ -85,49 +87,49 @@ export default function ContactForm({ dict }: ContactFormProps) {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
-            Mục đích liên hệ chính *
+            {t.purposeLabel}
           </label>
           <select
             required
             className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
           >
-            <option value="quote">Báo giá nguyên liệu số lượng lớn</option>
-            <option value="sample">Đăng ký nhận mẫu thử phòng Lab</option>
-            <option value="oem">Gia công OEM / Đặt công thức riêng</option>
-            <option value="export">Thương mại xuất khẩu quốc tế</option>
-            <option value="distributor">Đăng ký Đại lý / Phân phối sỉ nội địa</option>
+            <option value="quote">{t.purposeQuote}</option>
+            <option value="sample">{t.purposeSample}</option>
+            <option value="oem">{t.purposeOem}</option>
+            <option value="export">{t.purposeExport}</option>
+            <option value="distributor">{t.purposeDistributor}</option>
           </select>
         </div>
 
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
-            Nhóm nguyên liệu quan tâm
+            {t.categoryLabel}
           </label>
           <select
             className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
           >
-            <option value="fruit-powder">Bột trái cây (Fruit Powders)</option>
-            <option value="dried-fruits">Trái cây sấy (Dried Fruits)</option>
-            <option value="puree">Nước cốt & Puree (Fruit Purees)</option>
-            <option value="multiple">Nhiều nhóm nguyên liệu</option>
+            <option value="fruit-powder">{t.catPowder}</option>
+            <option value="dried-fruits">{t.catDried}</option>
+            <option value="puree">{t.catPuree}</option>
+            <option value="multiple">{t.catMultiple}</option>
           </select>
         </div>
       </div>
 
       <div>
         <label className="block text-xs font-bold text-primary-850 mb-1">
-          Chi tiết yêu cầu kỹ thuật, sản lượng dự kiến hoặc địa điểm giao hàng
+          {t.detailsLabel}
         </label>
         <textarea
           rows={4}
-          placeholder="Ví dụ: Cần 500kg bột thanh long đỏ mesh 100, giao hàng tại Cảng Cát Lái hoặc KCN Tân Bình..."
+          placeholder={t.detailsPlaceholder}
           className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
         ></textarea>
       </div>
 
       <div className="pt-2">
         <Button type="submit" variant="primary" size="lg" fullWidth className="font-extrabold tracking-wide min-h-[48px]">
-          <span>{dict.pages.contact.primaryCta}</span>
+          <span>{t.submitBtn}</span>
           <span className="ml-1">&rarr;</span>
         </Button>
       </div>

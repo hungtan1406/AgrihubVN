@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'pill' | 'outline' | 'ghost';
+  variant?: 'primary' | 'secondary' | 'pill' | 'outline' | 'ghost' | 'amber';
   size?: 'sm' | 'md' | 'lg';
   href?: string;
   fullWidth?: boolean;
@@ -37,6 +37,9 @@ export default function Button({
     // Ghost: Subtle hover
     ghost:
       'text-primary-850 hover:bg-cream-300/60 focus:ring-primary-leaf bg-transparent',
+    // Amber: Bright yellow-orange pill with white text
+    amber:
+      'bg-[#f59e0b] hover:bg-[#d97706] text-white shadow-sm hover:shadow-md focus:ring-amber-400 active:scale-98',
   };
 
   const sizes = {

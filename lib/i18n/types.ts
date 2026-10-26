@@ -50,6 +50,8 @@ export interface Dictionary {
       heroSubtitle: string;
       primaryCta: string;
       secondaryCta: string;
+      heroCtaSample?: string;
+      heroCtaQuote?: string;
       audienceBadge: string;
       audienceTitle: string;
       audienceSubtitle: string;
@@ -59,6 +61,10 @@ export interface Dictionary {
       ingredientsBadge: string;
       ingredientsTitle: string;
       ingredientsSubtitle: string;
+      tabAll?: string;
+      tabPowder?: string;
+      tabPuree?: string;
+      tabDried?: string;
       oemBadge: string;
       oemTitle: string;
       oemSubtitle: string;

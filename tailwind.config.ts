@@ -55,6 +55,11 @@ const config: Config = {
           "Roboto",
           "sans-serif",
         ],
+        arial: [
+          "Arial",
+          "Helvetica",
+          "sans-serif",
+        ],
       },
       borderRadius: {
         sm: "6px",

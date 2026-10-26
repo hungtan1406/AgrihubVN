@@ -1,7 +1,14 @@
 import React from 'react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { Locale, getDictionary, isValidLocale, defaultLocale } from '@/lib/i18n';
+import {
+  Locale,
+  getDictionary,
+  isValidLocale,
+  defaultLocale,
+  getProductDetailPageTranslations,
+  getIngredients,
+} from '@/lib/i18n';
 import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
@@ -30,8 +37,10 @@ interface PageProps {
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
-  const product = await getProductBySlug(params.slug);
-  const productName = product?.name || params.slug.replace(/-/g, ' ');
+  const product = await getProductBySlug(params.slug, currentLang);
+  const localizedIngredients = getIngredients(currentLang);
+  const matchedIngredient = localizedIngredients.find((ing) => ing.id === params.slug);
+  const productName = matchedIngredient?.name || product?.name || params.slug.replace(/-/g, ' ');
 
   return buildPageMetadata({
     lang: currentLang,
@@ -44,12 +53,15 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function ProductDetailPage({ params }: PageProps) {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
-  const product = await getProductBySlug(params.slug);
+  const t = getProductDetailPageTranslations(currentLang);
+  const product = await getProductBySlug(params.slug, currentLang);
+  const localizedIngredients = getIngredients(currentLang);
+  const matchedIngredient = localizedIngredients.find((ing) => ing.id === params.slug);
 
   const fallbackName = params.slug
     .replace(/-/g, ' ')
     .replace(/\b\w/g, (c) => c.toUpperCase());
-  const productName = product?.name || fallbackName;
+  const productName = matchedIngredient?.name || product?.name || fallbackName;
 
   return (
     <div className="py-12 sm:py-16">
@@ -86,9 +98,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
         <SectionTitle
           as="h1"
-          badge={product?.category ? `B2B Ingredient • ${product.category}` : 'B2B Technical Data Sheet'}
-          title={`Chi tiết nguyên liệu: ${productName}`}
-          subtitle={product?.specs || dict.pages.productDetail.subtitle}
+          badge={
+            (matchedIngredient?.categoryName || product?.category)
+              ? `B2B Ingredient • ${matchedIngredient?.categoryName || product?.category}`
+              : 'B2B Technical Data Sheet'
+          }
+          title={`${t.specDetailTitle} ${productName}`}
+          subtitle={matchedIngredient?.specs || product?.specs || dict.pages.productDetail.subtitle}
         />
 
         {/* Product Featured Image (if available) */}
@@ -107,10 +123,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
           <div className="bg-primary-900 text-white px-5 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
             <div>
               <h2 className="font-bold text-sm sm:text-base tracking-wide">
-                BẢNG THÔNG SỐ KỸ THUẬT TIÊU CHUẨN (STANDARD SPECIFICATION)
+                {t.tableTitle}
               </h2>
               <p className="text-xs text-cream-200/80">
-                Mã tham chiếu: {product?.specCode || `SPEC-AGRI-${params.slug.toUpperCase()}`}
+                {t.refCode} {product?.specCode || `SPEC-AGRI-${params.slug.toUpperCase()}`}
               </p>
             </div>
             <span className="text-xs font-bold text-accent-gold bg-primary-800 px-3 py-1 rounded-full border border-primary-700 self-start sm:self-auto">
@@ -120,67 +136,67 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
           <div className="divide-y divide-cream-200 text-xs sm:text-sm">
             <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">Tên thương mại & Sản phẩm</span>
+              <span className="font-bold text-primary-850">{t.colTradeName}</span>
               <span className="sm:col-span-2 text-slate-800 font-medium">
                 {productName}
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 p-4 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">Phân loại danh mục</span>
+              <span className="font-bold text-primary-850">{t.colCategory}</span>
               <span className="sm:col-span-2 text-slate-800">
-                {product?.category || 'Nguyên liệu nông sản chế biến'}
+                {matchedIngredient?.categoryName || product?.category || t.defaultCategory}
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">Độ ẩm (Moisture)</span>
+              <span className="font-bold text-primary-850">{t.colMoisture}</span>
               <span className="sm:col-span-2 text-slate-800">
-                {product?.moisture || '≤ 5.0% hoặc chuẩn hóa theo yêu cầu nhà máy'}
+                {matchedIngredient?.moisture || product?.moisture || t.defaultMoisture}
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 p-4 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">Độ mịn / Kích cỡ (Mesh Size)</span>
+              <span className="font-bold text-primary-850">{t.colMesh}</span>
               <span className="sm:col-span-2 text-slate-800">
-                {product?.mesh || '80 - 120 mesh qua sàng 95%'}
+                {matchedIngredient?.mesh || product?.mesh || t.defaultMesh}
               </span>
             </div>
 
-            {product?.brix && (
+            {(matchedIngredient?.brix || product?.brix) && (
               <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-                <span className="font-bold text-primary-850">Độ ngọt / Chỉ số Brix</span>
+                <span className="font-bold text-primary-850">{t.colBrix}</span>
                 <span className="sm:col-span-2 text-slate-800">
-                  {product.brix}
+                  {matchedIngredient?.brix || product?.brix}
                 </span>
               </div>
             )}
 
             <div className="grid grid-cols-1 sm:grid-cols-3 p-4 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">Hạn sử dụng (Shelf Life)</span>
+              <span className="font-bold text-primary-850">{t.colShelfLife}</span>
               <span className="sm:col-span-2 text-slate-800">
-                {product?.shelfLife || '18 - 24 tháng kể từ ngày sản xuất'}
+                {matchedIngredient?.shelfLife || product?.shelfLife || t.defaultShelfLife}
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">Quy cách đóng gói xuất khẩu</span>
+              <span className="font-bold text-primary-850">{t.colPackaging}</span>
               <span className="sm:col-span-2 text-slate-800">
-                {product?.packaging || 'Túi nhôm hút chân không 5kg/10kg x thùng carton, phuy 20kg'}
+                {matchedIngredient?.packaging || product?.packaging || t.defaultPackaging}
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 p-4 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">Ứng dụng chính trong sản xuất</span>
+              <span className="font-bold text-primary-850">{t.colApplication}</span>
               <span className="sm:col-span-2 text-slate-800">
-                {product?.application || 'Bánh kẹo, đồ uống, sữa chua, thực phẩm dinh dưỡng'}
+                {matchedIngredient?.applications || product?.application || t.defaultApplication}
               </span>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">Số lượng đặt hàng tối thiểu (MOQ)</span>
+              <span className="font-bold text-primary-850">{t.colMoq}</span>
               <span className="sm:col-span-2 text-slate-800">
-                {product?.moq || '100 kg đối với đơn thử nghiệm, 500 kg đối với đơn sản xuất'}
+                {product?.moq || t.defaultMoq}
               </span>
             </div>
           </div>
@@ -189,7 +205,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
           <Button href={`/${currentLang}/contact`} variant="primary" size="md">
-            <span>Yêu cầu Báo giá & Nhận mẫu thử (Lab Sample)</span>
+            <span>{t.btnQuoteSample}</span>
             <span className="ml-1">&rarr;</span>
           </Button>
 
@@ -200,12 +216,12 @@ export default async function ProductDetailPage({ params }: PageProps) {
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-primary-leaf border-2 border-primary-leaf hover:bg-primary-leaf hover:text-white transition-all shadow-xs"
             >
-              📄 Tải Spec & TDS (PDF)
+              {t.btnDownloadPdf}
             </a>
           )}
 
           <Button href={`/${currentLang}/products`} variant="pill" size="md">
-            Quay lại Danh mục nguyên liệu
+            {t.btnBackCatalog}
           </Button>
         </div>
       </Container>

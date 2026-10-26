@@ -27,3 +27,4 @@ export function isValidLocale(locale: string): locale is Locale {
 }
 
 export * from './types';
+export * from './content';

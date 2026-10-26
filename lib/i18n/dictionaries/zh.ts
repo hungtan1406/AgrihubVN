@@ -18,10 +18,10 @@ export const zh: Dictionary = {
   nav: {
     home: '首页',
     aboutUs: '关于我们',
-    distributionPartners: '国内经销与渠道政策',
-    contact: '商务联系与 B2B 报价',
+    products: '产品中心',
+    distributionPartners: '渠道经销',
+    contact: '商务联系',
     requestQuoteBtn: '获取报价',
-    products: '原料产品',
     ingredients: '核心原料矩阵',
     oemOdm: 'OEM/ODM 代工',
     supplyChain: '产能与种植基地',

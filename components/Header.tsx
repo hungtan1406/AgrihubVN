@@ -19,10 +19,11 @@ export default function Header({ lang, dict }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const pathname = usePathname();
 
-  // 4 Core Pages as approved
+  // Navigation Links
   const navLinks = [
     { href: `/${lang}`, label: dict.nav.home },
     { href: `/${lang}/about-us`, label: dict.nav.aboutUs },
+    { href: `/${lang}/products`, label: dict.nav.products },
     { href: `/${lang}/distribution-partners`, label: dict.nav.distributionPartners },
     { href: `/${lang}/contact`, label: dict.nav.contact },
   ];

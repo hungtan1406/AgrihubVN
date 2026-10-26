@@ -18,10 +18,10 @@ export const en: Dictionary = {
   nav: {
     home: 'Home',
     aboutUs: 'About Us',
-    distributionPartners: 'Domestic Distribution Policy',
-    contact: 'Contact & B2B Quotation',
+    products: 'Products',
+    distributionPartners: 'Distribution Partners',
+    contact: 'Contact',
     requestQuoteBtn: 'Request Quote',
-    products: 'Ingredients',
     ingredients: 'Ingredients Showcase',
     oemOdm: 'OEM/ODM Processing',
     supplyChain: 'Supply & Facilities',

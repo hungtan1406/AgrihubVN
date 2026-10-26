@@ -18,10 +18,10 @@ export const vi: Dictionary = {
   nav: {
     home: 'Trang chủ',
     aboutUs: 'Về chúng tôi',
-    distributionPartners: 'Chính sách Đại lý & Phân phối Nội địa',
-    contact: 'Liên hệ & Yêu cầu Báo giá B2B',
+    products: 'Sản phẩm',
+    distributionPartners: 'Đại lý & Phân phối',
+    contact: 'Liên hệ',
     requestQuoteBtn: 'Xin báo giá',
-    products: 'Nguyên liệu',
     ingredients: 'Danh mục Nguyên liệu',
     oemOdm: 'Gia công OEM/ODM',
     supplyChain: 'Năng lực & Vùng trồng',

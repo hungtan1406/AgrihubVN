@@ -44,80 +44,117 @@ export default function HomePageContent({
 
   return (
     <div className="flex flex-col gap-12 sm:gap-20 lg:gap-24">
-      {/* SECTION 1: HERO BANNER (INSPIRED BY IMAGE 1) */}
-      <section className="h-screen relative bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 overflow-hidden shadow-soft">
-        {/* Subtle leaf and sunlit ambient glow */}
-        <div className="absolute right-0 top-0 w-96 h-96 bg-primary-leaf/25 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute -left-10 bottom-0 w-80 h-80 bg-accent-gold/15 rounded-full blur-3xl pointer-events-none"></div>
+      {/* SECTION 1: HERO BANNER (FULL-WIDTH BACKGROUND WITH HIGH-CONTRAST OVERLAY) */}
+      <section className="relative min-h-[520px] sm:min-h-[580px] lg:min-h-[640px] xl:min-h-[700px] flex items-center overflow-hidden py-14 sm:py-20 lg:py-24 text-white shadow-soft">
+        {/* Full-width Background Image & Gradient Overlays for WCAG AA Contrast */}
+        <div className="absolute inset-0 z-0 pointer-events-none">
+          <Image
+            src="/images/banners/hero-banner.svg"
+            alt="Agrihub Vietnam - Nông sản xuất khẩu"
+            fill
+            priority
+            className="object-cover object-center"
+            sizes="100vw"
+          />
+          {/* Multi-layered gradient overlay to ensure WCAG AA 4.5:1 text contrast */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-950/95 via-primary-900/85 to-primary-950/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-950/90 via-transparent to-primary-950/30" />
+          {/* Subtle natural sunlit glow accents */}
+          <div className="absolute right-0 top-0 w-96 h-96 bg-primary-leaf/20 rounded-full blur-3xl" />
+          <div className="absolute -left-10 bottom-0 w-80 h-80 bg-accent-gold/15 rounded-full blur-3xl" />
+        </div>
 
-        <Container>
-          <div className="max-w-3xl space-y-5 sm:space-y-6 relative z-10">
+        <Container className="relative z-10 w-full">
+          <div className="max-w-3xl space-y-5 sm:space-y-6">
             {/* Pill Badge */}
             <motion.div
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-300/20 backdrop-blur-md border border-cream-200/30 text-cream-200 text-xs font-bold uppercase tracking-wider"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-300/20 backdrop-blur-md border border-cream-200/30 text-cream-200 text-xs font-bold uppercase tracking-wider shadow-2xs"
             >
               <span>🌿</span>
               <span>{dict.common.tagline}</span>
             </motion.div>
 
-            {/* Giant Friendly Geometric Headline */}
+            {/* Headline - fluid responsive sizing to prevent overflow on laptops with 125%-150% scaling */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 18 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.65,
+                duration: 0.6,
                 delay: 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-balance leading-[1.1] text-white"
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-balance leading-[1.15] text-white"
             >
               {ui.heroTagline}
             </motion.h1>
 
             {/* Subtitle */}
             <motion.p
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{
-                duration: 0.6,
+                duration: 0.55,
                 delay: 0.2,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-sm sm:text-lg lg:text-xl text-cream-100/90 leading-relaxed max-w-2xl font-medium"
+              className="text-sm sm:text-base md:text-lg text-cream-100/95 leading-relaxed max-w-2xl font-normal"
             >
               {dict.pages.home.heroSubtitle}
             </motion.p>
 
-            {/* CTA Buttons */}
+            {/* CTA Buttons - Full-width on mobile, auto on sm+ */}
             <motion.div
-              initial={{ opacity: 0, y: 14 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2"
+              transition={{ duration: 0.5, delay: 0.3 }}
+              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2"
             >
-              {/* CTA bên trái: màu xanh chữ trắng (TEXT: Đăng kí mẫu thử) */}
+              {/* CTA bên trái: Đăng ký mẫu thử */}
               <Button
                 href="#bao-gia"
                 variant="primary"
                 size="lg"
-                className="w-full sm:w-auto shadow-lg hover:shadow-xl font-bold"
+                className="w-full sm:w-auto shadow-md hover:shadow-lg font-bold justify-center"
               >
                 <span>{dict.pages.home.heroCtaSample}</span>
               </Button>
 
-              {/* CTA bên phải: màu vàng cam sáng chữ trắng (TEXT: Tư vấn báo giá) */}
+              {/* CTA bên phải: Tư vấn báo giá */}
               <Button
                 href="#bao-gia"
                 variant="amber"
                 size="lg"
-                className="w-full sm:w-auto shadow-lg hover:shadow-xl font-bold"
+                className="w-full sm:w-auto shadow-md hover:shadow-lg font-bold justify-center"
               >
                 <span>{dict.pages.home.heroCtaQuote}</span>
               </Button>
             </motion.div>
+
+            {/* Quick Trust Highlights (3 trụ cột uy tín B2B) */}
+            {/* {ui.heroTrust && (
+              <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.4 }}
+                className="pt-4 sm:pt-6 border-t border-cream-200/20 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs text-cream-100/85"
+              >
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-gold shrink-0" />
+                  <span>{ui.heroTrust.exp}</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-gold shrink-0" />
+                  <span>{ui.heroTrust.certs}</span>
+                </div>
+                <div className="flex items-center gap-2 col-span-2 sm:col-span-1">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-gold shrink-0" />
+                  <span>{ui.heroTrust.markets}</span>
+                </div>
+              </motion.div>
+            )} */}
           </div>
         </Container>
       </section>

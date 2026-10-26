@@ -377,6 +377,11 @@ export function getHomePageUi(lang: Locale) {
   if (lang === 'en') {
     return {
       heroTagline: 'From Vietnamese Farms To Global Markets',
+      heroTrust: {
+        exp: '10+ Years Export Experience',
+        certs: 'HACCP • FSSC 22000 • ISO',
+        markets: 'Global Export Markets',
+      },
       about: {
         tag: 'Vietnamese Tropical Fruits',
         natural: '100% Natural',
@@ -528,6 +533,11 @@ export function getHomePageUi(lang: Locale) {
   if (lang === 'zh') {
     return {
       heroTagline: '源自越南农场，服务全球市场',
+      heroTrust: {
+        exp: '10+ 年出海履约经验',
+        certs: 'HACCP • FSSC 22000 • ISO',
+        markets: '全球主流出口市场',
+      },
       about: {
         tag: '越南核心热带水果',
         natural: '100% 天然纯正',
@@ -679,6 +689,11 @@ export function getHomePageUi(lang: Locale) {
   // Default: Vietnamese
   return {
     heroTagline: 'Từ nông trại Việt Nam đến thị trường thế giới',
+    heroTrust: {
+      exp: '10+ năm kinh nghiệm xuất khẩu',
+      certs: 'HACCP • FSSC 22000 • ISO',
+      markets: 'Thị trường toàn cầu',
+    },
     about: {
       tag: 'Vietnamese Tropical Fruits',
       natural: '100% Tự Nhiên',

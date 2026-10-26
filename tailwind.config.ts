@@ -39,27 +39,25 @@ const config: Config = {
         accent: {
           gold: "#c8963e", // Gold from Agrihub logo
           goldLight: "#f4e0af",
-          mango: "#f59e0b",
-          dragon: "#e11d48",
-          passion: "#7c3aed",
+          mango: "#f59e0b", // Primary amber for CTA button
         },
       },
       fontFamily: {
+        // Primary font for vi + en. For zh-CN, Next.js will use the CJK fallback stack below.
         sans: [
           "Plus Jakarta Sans",
           "Outfit",
           "Inter",
+          "Noto Sans SC",   // CJK Simplified Chinese fallback
+          "PingFang SC",
+          "Microsoft YaHei",
           "-apple-system",
           "BlinkMacSystemFont",
           "Segoe UI",
           "Roboto",
           "sans-serif",
         ],
-        arial: [
-          "Arial",
-          "Helvetica",
-          "sans-serif",
-        ],
+        // font-arial removed — violates 1-font rule. Use font-sans everywhere.
       },
       borderRadius: {
         sm: "6px",

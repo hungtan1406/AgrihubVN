@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Metadata } from 'next';
 import {
   Locale,
@@ -77,16 +78,22 @@ export default async function ProductsPage({ params }: PageProps) {
                 className="bg-white border border-cream-200 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors group"
               >
                 <div>
-                  {p.image && (
-                    <div className="mb-4 overflow-hidden rounded-xl bg-cream-100 aspect-video flex items-center justify-center">
-                      <img
+                  {/* Product image — aspect-square per brand rules (1:1) */}
+                  <div className="mb-4 overflow-hidden rounded-xl bg-cream-100 aspect-square relative">
+                    {p.image ? (
+                      <Image
                         src={p.image}
                         alt={displayName}
-                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        loading="lazy"
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-300"
                       />
-                    </div>
-                  )}
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs font-bold p-4 text-center">
+                        [ẢNH THẬT CẦN BỔ SUNG]
+                      </div>
+                    )}
+                  </div>
                   <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider bg-primary-leaf/10 px-3 py-1 rounded-full border border-primary-leaf/20 inline-block">
                     {displayCategory}
                   </span>

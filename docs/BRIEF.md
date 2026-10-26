@@ -21,10 +21,10 @@ Agrihub làm website để bán nguyên liệu nông sản chế biến cho nhà
 
 | Mục tiêu | Chỉ số đề xuất | Ghi chú |
 |---|---|---|
-| Tạo yêu cầu báo giá B2B | Số form báo giá và tư vấn đại lý mỗi tháng | |
-| Củng cố uy tín với khách quốc tế | Có đủ trang chứng nhận, năng lực, sự kiện, bản tiếng Anh | |
-| Tăng truy cập tự nhiên từ Google | Lượt truy cập organic, thứ hạng nhóm từ khóa nguyên liệu | |
-| Trang tải nhanh, dùng tốt trên điện thoại | Tải trang dưới 2 giây | Do IT phụ trách |
+| Tạo yêu cầu báo giá B2B | Số form báo giá và tư vấn đại lý mỗi tháng | Target: đặt baseline sau tháng đầu go-live, review mỗi tháng. Do Marketing phụ trách. |
+| Củng cố uy tín với khách quốc tế | Có đủ trang chứng nhận, năng lực, sự kiện, bản tiếng Anh | Nghiệm thu kỹ thuật: đủ 8 trang trọng yếu, bản EN hoạt động đầy đủ. |
+| Tăng truy cập tự nhiên từ Google | Lượt truy cập organic, thứ hạng nhóm từ khóa nguyên liệu nông sản | Target: đặt baseline sau tháng đầu go-live. SEO kỹ thuật (title/meta/hreflang) do IT phụ trách; nội dung từ khóa do Marketing phụ trách. |
+| Trang tải nhanh, dùng tốt trên điện thoại | Tải trang dưới 2 giây (Lighthouse Performance ≥ 80) | Do IT phụ trách. |
 
 ## 3. Khách hàng B2B
 

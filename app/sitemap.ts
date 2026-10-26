@@ -7,13 +7,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     { path: '', priority: 1.0, changeFrequency: 'daily' as const },
     { path: '/about-us', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/distribution-partners', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/contact', priority: 0.9, changeFrequency: 'monthly' as const },
     { path: '/products', priority: 0.9, changeFrequency: 'weekly' as const },
-    { path: '/oem-odm', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/supply-chain', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/quality-certifications', priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/global-presence', priority: 0.8, changeFrequency: 'monthly' as const },
+    { path: '/contact', priority: 0.9, changeFrequency: 'monthly' as const },
   ];
 
   const productSlugs = await getAllProductSlugs();

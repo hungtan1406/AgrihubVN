@@ -37,9 +37,9 @@ export default function Button({
     // Ghost: Subtle hover
     ghost:
       'text-primary-850 hover:bg-cream-300/60 focus:ring-primary-leaf bg-transparent',
-    // Amber: Bright yellow-orange pill with white text
+    // Amber: Bright yellow-orange pill with DARK text (per brand rule: no white text on amber/yellow)
     amber:
-      'bg-[#f59e0b] hover:bg-[#d97706] text-white shadow-sm hover:shadow-md focus:ring-amber-400 active:scale-98',
+      'bg-accent-mango hover:bg-[#d97706] text-primary-900 shadow-sm hover:shadow-md focus:ring-amber-400 active:scale-98',
   };
 
   const sizes = {

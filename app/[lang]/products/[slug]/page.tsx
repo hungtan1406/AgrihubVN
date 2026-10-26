@@ -1,5 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Metadata } from 'next';
 import {
   Locale,
@@ -107,13 +108,16 @@ export default async function ProductDetailPage({ params }: PageProps) {
           subtitle={matchedIngredient?.specs || product?.specs || dict.pages.productDetail.subtitle}
         />
 
-        {/* Product Featured Image (if available) */}
+        {/* Product Featured Image — aspect-square (1:1) + next/image per brand rules */}
         {product?.image && (
-          <div className="my-6 overflow-hidden rounded-2xl border border-cream-200 shadow-soft max-h-96 bg-cream-50">
-            <img
+          <div className="my-6 overflow-hidden rounded-2xl border border-cream-200 shadow-soft bg-cream-50 aspect-square relative max-w-md mx-auto lg:mx-0">
+            <Image
               src={product.image}
               alt={productName}
-              className="w-full h-full object-cover max-h-96"
+              fill
+              sizes="(max-width: 1024px) 90vw, 448px"
+              className="object-cover"
+              priority
             />
           </div>
         )}
@@ -204,7 +208,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
 
         {/* Action Buttons */}
         <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
-          <Button href={`/${currentLang}/contact`} variant="primary" size="md">
+          {/* CTA chính: amber (chữ tối trên nền vàng) per brand rules */}
+          <Button href={`/${currentLang}/contact`} variant="amber" size="md">
             <span>{t.btnQuoteSample}</span>
             <span className="ml-1">&rarr;</span>
           </Button>

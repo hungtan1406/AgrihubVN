@@ -2,16 +2,11 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import {
-  Locale,
-  Dictionary,
-  getIngredients,
-  getHomePageUi,
-  getFormTranslations,
-} from '@/lib/i18n';
+import { Locale, Dictionary, getIngredients, getHomePageUi } from '@/lib/i18n';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import SectionTitle from '@/components/SectionTitle';
+import ContactForm from '@/components/ContactForm';
 import FadeIn from '@/components/animations/FadeIn';
 import StaggerContainer, {
   StaggerItem,
@@ -33,13 +28,9 @@ export default function HomePageContent({
   // Selected product for technical TDS drawer/modal
   const [selectedTds, setSelectedTds] = useState<string | null>(null);
 
-  // Form submit state
-  const [submitted, setSubmitted] = useState(false);
-
   // Localized datasets
   const ingredients = getIngredients(currentLang);
   const ui = getHomePageUi(currentLang);
-  const formT = getFormTranslations(currentLang);
 
   const filteredIngredients =
     activeCategory === 'all'
@@ -53,7 +44,7 @@ export default function HomePageContent({
   return (
     <div className="flex flex-col gap-12 sm:gap-20 lg:gap-24">
       {/* SECTION 1: HERO BANNER (INSPIRED BY IMAGE 1) */}
-      <section className="h-screen relative bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 overflow-hidden shadow-soft font-arial">
+      <section className="h-screen relative bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white pt-12 sm:pt-20 lg:pt-24 pb-12 sm:pb-16 overflow-hidden shadow-soft">
         {/* Subtle leaf and sunlit ambient glow */}
         <div className="absolute right-0 top-0 w-96 h-96 bg-primary-leaf/25 rounded-full blur-3xl pointer-events-none"></div>
         <div className="absolute -left-10 bottom-0 w-80 h-80 bg-accent-gold/15 rounded-full blur-3xl pointer-events-none"></div>
@@ -65,7 +56,7 @@ export default function HomePageContent({
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-300/20 backdrop-blur-md border border-cream-200/30 text-cream-200 text-xs font-bold uppercase tracking-wider font-arial"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-300/20 backdrop-blur-md border border-cream-200/30 text-cream-200 text-xs font-bold uppercase tracking-wider"
             >
               <span>🌿</span>
               <span>{dict.common.tagline}</span>
@@ -80,7 +71,7 @@ export default function HomePageContent({
                 delay: 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-balance leading-[1.1] text-white font-arial"
+              className="text-3xl sm:text-5xl lg:text-6xl xl:text-7xl font-bold tracking-tight text-balance leading-[1.1] text-white"
             >
               {currentLang === 'zh'
                 ? ui.heroTagline
@@ -96,7 +87,7 @@ export default function HomePageContent({
                 delay: 0.2,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-sm sm:text-lg lg:text-xl text-cream-100/90 leading-relaxed max-w-2xl font-medium font-arial"
+              className="text-sm sm:text-lg lg:text-xl text-cream-100/90 leading-relaxed max-w-2xl font-medium"
             >
               {dict.pages.home.heroSubtitle}
             </motion.p>
@@ -106,7 +97,7 @@ export default function HomePageContent({
               initial={{ opacity: 0, y: 14 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2 font-arial"
+              className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2"
             >
               {/* CTA bên trái: màu xanh chữ trắng (TEXT: Đăng kí mẫu thử) */}
               <Button
@@ -123,7 +114,7 @@ export default function HomePageContent({
                 href="#bao-gia"
                 variant="amber"
                 size="lg"
-                className="w-full sm:w-auto shadow-lg hover:shadow-xl font-bold bg-[#f59e0b] hover:bg-[#d97706] text-white"
+                className="w-full sm:w-auto shadow-lg hover:shadow-xl font-bold"
               >
                 <span>{dict.pages.home.heroCtaQuote}</span>
               </Button>
@@ -273,7 +264,7 @@ export default function HomePageContent({
       <section id="nguyen-lieu" className="scroll-mt-24">
         <Container>
           <FadeIn direction="up">
-            <div className="flex flex-col xl:flex-row xl:items-end justify-between mb-8">
+            <div className="flex flex-col justify-between mb-8">
               <SectionTitle
                 badge={dict.pages.home.ingredientsBadge}
                 title={dict.pages.home.ingredientsTitle}
@@ -884,143 +875,7 @@ export default function HomePageContent({
 
             <FadeIn direction="up" delay={0.15}>
               <div className="bg-white text-primary-850 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl">
-                {submitted ? (
-                  <motion.div
-                    initial={{ scale: 0.95, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="bg-cream-100 border border-primary-leaf/30 p-6 sm:p-8 rounded-2xl text-center space-y-3"
-                  >
-                    <div className="text-primary-leaf text-2xl sm:text-3xl font-black">
-                      {formT.successTitle}
-                    </div>
-                    <p className="text-xs sm:text-sm text-slate-700">
-                      {formT.successDesc}
-                    </p>
-                    <Button
-                      onClick={() => setSubmitted(false)}
-                      variant="pill"
-                      size="sm"
-                    >
-                      {formT.anotherBtn}
-                    </Button>
-                  </motion.div>
-                ) : (
-                  <form
-                    onSubmit={(e) => {
-                      e.preventDefault();
-                      setSubmitted(true);
-                    }}
-                    className="space-y-4"
-                  >
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold text-primary-850 mb-1">
-                          {formT.nameLabel}
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder={formT.namePlaceholder}
-                          className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-primary-850 mb-1">
-                          {formT.companyLabel}
-                        </label>
-                        <input
-                          type="text"
-                          required
-                          placeholder={formT.companyPlaceholder}
-                          className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold text-primary-850 mb-1">
-                          {formT.emailLabel}
-                        </label>
-                        <input
-                          type="email"
-                          required
-                          placeholder={formT.emailPlaceholder}
-                          className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
-                        />
-                      </div>
-                      <div>
-                        <label className="block text-xs font-bold text-primary-850 mb-1">
-                          {formT.phoneLabel}
-                        </label>
-                        <input
-                          type="tel"
-                          required
-                          placeholder={formT.phonePlaceholder}
-                          className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
-                        />
-                      </div>
-                    </div>
-
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                      <div>
-                        <label className="block text-xs font-bold text-primary-850 mb-1">
-                          {formT.purposeLabel}
-                        </label>
-                        <select
-                          required
-                          className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
-                        >
-                          <option value="quote">{formT.purposeQuote}</option>
-                          <option value="sample">{formT.purposeSample}</option>
-                          <option value="oem">{formT.purposeOem}</option>
-                          <option value="export">{formT.purposeExport}</option>
-                          <option value="distributor">
-                            {formT.purposeDistributor}
-                          </option>
-                        </select>
-                      </div>
-
-                      <div>
-                        <label className="block text-xs font-bold text-primary-850 mb-1">
-                          {formT.categoryLabel}
-                        </label>
-                        <select className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none">
-                          <option value="fruit-powder">
-                            {formT.catPowder}
-                          </option>
-                          <option value="dried-fruits">{formT.catDried}</option>
-                          <option value="puree">{formT.catPuree}</option>
-                          <option value="multiple">{formT.catMultiple}</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div>
-                      <label className="block text-xs font-bold text-primary-850 mb-1">
-                        {formT.detailsLabel}
-                      </label>
-                      <textarea
-                        rows={3}
-                        placeholder={formT.detailsPlaceholder}
-                        className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
-                      ></textarea>
-                    </div>
-
-                    <div className="pt-2">
-                      <Button
-                        type="submit"
-                        variant="primary"
-                        size="lg"
-                        fullWidth
-                        className="font-black tracking-wide text-sm sm:text-base min-h-[48px]"
-                      >
-                        <span>{formT.submitBtn}</span>
-                      </Button>
-                    </div>
-                  </form>
-                )}
+                <ContactForm dict={dict} lang={currentLang} />
               </div>
             </FadeIn>
           </div>

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 140" width="280" height="140" fill="none">
+  <!-- Card background & subtle border -->
+  <rect x="2" y="2" width="276" height="136" rx="18" fill="#FBFDFB" stroke="#2D7A4D" stroke-width="1.5" stroke-opacity="0.35"/>
+  
+  <!-- Outer decorative ring -->
+  <g transform="translate(68, 70)">
+    <!-- Stamp outer circle -->
+    <circle cx="0" cy="0" r="50" fill="#1B4D3E"/>
+    <circle cx="0" cy="0" r="44" fill="none" stroke="#E2B13C" stroke-width="2" stroke-dasharray="4 2.5"/>
+    <circle cx="0" cy="0" r="36" fill="#143D31"/>
+    
+    <!-- Shield / Laurel icon in center -->
+    <path d="M-12 -6 L0 -16 L12 -6 C12 10 0 20 0 20 C0 20 -12 10 -12 -6 Z" fill="#E2B13C" fill-opacity="0.25" stroke="#E2B13C" stroke-width="1.8"/>
+    <!-- Checkmark inside shield -->
+    <path d="M-6 2 L-1 7 L7 -2" stroke="#FFFFFF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  
+  <!-- Typography -->
+  <g transform="translate(136, 44)">
+    <text x="0" y="0" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="28" font-weight="900" fill="#1B4D3E" letter-spacing="1.5">HACCP</text>
+    <rect x="0" y="10" width="130" height="2" fill="#E2B13C" rx="1"/>
+    <text x="0" y="26" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="9.5" font-weight="800" fill="#2D7A4D" letter-spacing="0.8">FOOD SAFETY</text>
+    <text x="0" y="40" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="700" fill="#475569" letter-spacing="0.4">HAZARD ANALYSIS</text>
+    <text x="0" y="52" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="8" font-weight="600" fill="#64748B" letter-spacing="0.2">CRITICAL CONTROL POINT</text>
+    <text x="0" y="68" font-family="system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif" font-size="7.5" font-weight="800" fill="#1B4D3E" letter-spacing="0.5">✓ CERTIFIED SYSTEM</text>
+  </g>
+</svg>

@@ -86,7 +86,7 @@ export default function HomePageContent({
                 delay: 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-2xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight text-balance leading-[1.15] text-white"
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-normal text-balance leading-[1.3] sm:leading-[1.28] text-white"
             >
               {ui.heroTagline}
             </motion.h1>

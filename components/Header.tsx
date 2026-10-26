@@ -24,6 +24,7 @@ export default function Header({ lang, dict }: HeaderProps) {
     { href: `/${lang}`, label: dict.nav.home },
     { href: `/${lang}/about-us`, label: dict.nav.aboutUs },
     { href: `/${lang}/products`, label: dict.nav.products },
+    { href: `/${lang}/news`, label: dict.nav.news },
     { href: `/${lang}/contact`, label: dict.nav.contact },
   ];
 
@@ -92,7 +93,7 @@ export default function Header({ lang, dict }: HeaderProps) {
             className="hidden lg:inline-flex items-center gap-1.5 shadow-sm text-xs font-bold shrink-0"
           >
             <span>{dict.nav.requestQuoteBtn}</span>
-            <span className="text-sm font-black">&rarr;</span>
+            {/* <span className="text-sm font-black">&rarr;</span> */}
           </Button>
 
           {/* Mobile & Tablet Drawer Menu Toggle (< lg) */}
@@ -102,11 +103,26 @@ export default function Header({ lang, dict }: HeaderProps) {
             className="lg:hidden p-2 text-primary-850 bg-cream-300/80 hover:bg-cream-300 rounded-full focus:outline-none transition-colors shrink-0"
             aria-label="Toggle Navigation Menu"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               {mobileMenuOpen ? (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M6 18L18 6M6 6l12 12" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               ) : (
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.2} d="M4 6h16M4 12h16M4 18h16" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2.2}
+                  d="M4 6h16M4 12h16M4 18h16"
+                />
               )}
             </svg>
           </button>

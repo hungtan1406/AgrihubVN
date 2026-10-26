@@ -1,13 +1,14 @@
 import { MetadataRoute } from 'next';
 import { locales } from '@/lib/i18n';
 import { SITE_URL } from '@/lib/seo';
-import { getAllProductSlugs } from '@/lib/wordpress';
+import { getAllProductSlugs, getAllNewsEventSlugs } from '@/lib/wordpress';
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const staticRoutes = [
     { path: '', priority: 1.0, changeFrequency: 'daily' as const },
     { path: '/about-us', priority: 0.8, changeFrequency: 'monthly' as const },
     { path: '/products', priority: 0.9, changeFrequency: 'weekly' as const },
+    { path: '/news', priority: 0.9, changeFrequency: 'weekly' as const },
     { path: '/contact', priority: 0.9, changeFrequency: 'monthly' as const },
   ];
 
@@ -18,7 +19,14 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     changeFrequency: 'monthly' as const,
   }));
 
-  const routes = [...staticRoutes, ...productRoutes];
+  const newsSlugs = await getAllNewsEventSlugs();
+  const newsRoutes = newsSlugs.map((slug) => ({
+    path: `/news/${slug}`,
+    priority: 0.7,
+    changeFrequency: 'weekly' as const,
+  }));
+
+  const routes = [...staticRoutes, ...productRoutes, ...newsRoutes];
 
   const sitemapEntries: MetadataRoute.Sitemap = [];
 

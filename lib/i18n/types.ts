@@ -22,6 +22,7 @@ export interface Dictionary {
     contact: string;
     requestQuoteBtn: string;
     products: string;
+    news: string;
     // Internal jump anchors for consolidated home sections
     ingredients: string;
     oemOdm: string;
@@ -135,5 +136,24 @@ export interface Dictionary {
       targetAudience: string;
       primaryCta: string;
     };
+  };
+  news: {
+    metaTitle: string;
+    metaDescription: string;
+    pageTitle: string;
+    pageSubtitle: string;
+    filterAll: string;
+    filterNews: string;
+    filterEvents: string;
+    filterAnnouncements: string;
+    readMore: string;
+    backToNews: string;
+    eventDateLabel: string;
+    eventLocationLabel: string;
+    externalLinkLabel: string;
+    noPostsFound: string;
+    ctaTitle: string;
+    ctaSubtitle: string;
+    ctaButton: string;
   };
 }

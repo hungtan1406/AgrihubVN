@@ -108,6 +108,11 @@ export default function Footer({ lang, dict }: FooterProps) {
                 </Link>
               </li>
               <li>
+                <Link href={`/${lang}/news`} className="hover:text-white hover:underline transition-colors">
+                  {dict.nav.news}
+                </Link>
+              </li>
+              <li>
                 <Link href={`/${lang}/contact`} className="hover:text-white hover:underline transition-colors">
                   {dict.nav.contact}
                 </Link>

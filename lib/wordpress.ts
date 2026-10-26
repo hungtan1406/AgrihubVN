@@ -5,6 +5,8 @@
 
 import { Locale } from './i18n/types';
 
+
+
 export interface Product {
   id: string | number;
   slug: string;
@@ -442,4 +444,290 @@ export async function getProductBySlug(slug: string, lang: Locale = 'vi'): Promi
 export async function getAllProductSlugs(): Promise<string[]> {
   const products = await getProducts();
   return products.map((p) => p.slug);
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// NEWS & EVENTS
+// ─────────────────────────────────────────────────────────────────────────────
+
+export interface NewsEvent {
+  id: number;
+  slug: string;
+  lang: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;          // ISO 8601
+  image: string | null;
+  category: string;      // "Tin tức" | "Sự kiện" | "Thông báo" | "News" | "Events" | "新闻" etc.
+  tags: string[];
+  // ACF fields
+  eventDate?: string;       // acf.event_date
+  eventLocation?: string;   // acf.event_location
+  externalUrl?: string;     // acf.external_url
+}
+
+function mapWordPressPostToNewsEvent(post: WordPressPost, lang: string): NewsEvent {
+  const acf = (post.acf || {}) as Record<string, string | undefined>;
+  const image =
+    post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null;
+  const rawCategory =
+    post._embedded?.['wp:term']?.[0]?.[0]?.name ?? '';
+  const tags =
+    (post._embedded?.['wp:term']?.[1] ?? []).map((t: { name: string }) => t.name);
+
+  return {
+    id: post.id,
+    slug: post.slug,
+    lang,
+    title: post.title?.rendered ?? '',
+    excerpt: post.excerpt?.rendered?.replace(/<[^>]*>/g, '').trim() ?? '',
+    content: post.content?.rendered ?? '',
+    date: (post.date as string) ?? '',
+    image,
+    category: rawCategory,
+    tags,
+    eventDate: acf.event_date || undefined,
+    eventLocation: acf.event_location || undefined,
+    externalUrl: acf.external_url || undefined,
+  };
+}
+
+// ── Fallback data ─────────────────────────────────────────────────────────────
+
+export const FALLBACK_NEWS_VI: NewsEvent[] = [
+  {
+    id: 1001,
+    slug: 'agrihub-tham-gia-vietnam-foodexpo-2025',
+    lang: 'vi',
+    title: 'Agrihub Vietnam tham gia Vietnam Foodexpo 2025 tại SECC',
+    excerpt:
+      'Agrihub Vietnam sẽ có mặt tại Vietnam Foodexpo 2025 (19–22/11/2025) tại SECC TP. HCM với gian hàng trưng bày bột trái cây, trái cây sấy thăng hoa và nước cốt xuất khẩu.',
+    content:
+      '<p>Agrihub Vietnam xác nhận tham gia <strong>Vietnam Foodexpo 2025</strong> – triển lãm thực phẩm và đồ uống hàng đầu Đông Nam Á, diễn ra từ ngày 19 đến 22 tháng 11 năm 2025 tại <strong>Trung tâm Hội chợ và Triển lãm Sài Gòn (SECC)</strong>, TP. Hồ Chí Minh.</p><h2>Sản phẩm trưng bày</h2><p>Gian hàng Agrihub sẽ giới thiệu các nguyên liệu xuất khẩu chủ lực: bột thanh long đỏ, xoài sấy thăng hoa, nước cốt chanh dây vô trùng và nhiều sản phẩm chế biến khác đạt chuẩn quốc tế.</p><p>Đây là cơ hội để các nhà nhập khẩu, nhà máy F&B và đối tác phân phối gặp gỡ trực tiếp đội ngũ kỹ thuật và thương mại của chúng tôi, nhận mẫu thử và thảo luận về điều kiện hợp tác.</p><p>Vui lòng liên hệ trước để đặt lịch hẹn riêng tại gian hàng.</p>',
+    date: '2025-11-01T00:00:00',
+    image: null,
+    category: 'Sự kiện',
+    tags: ['triển lãm', 'foodexpo', 'xuất khẩu'],
+    eventDate: '2025-11-19',
+    eventLocation: 'SECC, TP. Hồ Chí Minh',
+  },
+  {
+    id: 1002,
+    slug: 'agrihub-xuat-khau-bot-trai-cay-sang-trung-dong',
+    lang: 'vi',
+    title: 'Agrihub mở rộng xuất khẩu bột trái cây sang thị trường Trung Đông',
+    excerpt:
+      'Lô hàng bột thanh long và bột xoài đầu tiên từ Agrihub đã được giao thành công đến UAE, mở ra chuỗi cung ứng ổn định cho các nhà sản xuất thực phẩm chức năng tại khu vực Trung Đông.',
+    content:
+      '<p>Agrihub Vietnam vừa hoàn thành lô giao hàng đầu tiên gồm <strong>bột thanh long đỏ sấy phun</strong> và <strong>bột xoài sấy lạnh</strong> đến các đối tác tại UAE, đánh dấu bước tiến quan trọng trong chiến lược mở rộng thị trường Trung Đông.</p><h2>Tiêu chuẩn đặc biệt cho thị trường Halal</h2><p>Toàn bộ lô hàng xuất khẩu đáp ứng tiêu chuẩn Halal, không chất phụ gia, không gluten và đạt chứng nhận vệ sinh an toàn thực phẩm theo quy định nhập khẩu của UAE.</p><p>Mỗi lô đều kèm theo Chứng nhận Phân tích (COA) đầy đủ với kết quả kiểm nghiệm vi sinh, kim loại nặng và dư lượng thuốc bảo vệ thực vật từ phòng lab độc lập.</p><p>Chúng tôi đang tiếp nhận yêu cầu mẫu thử từ các nhà nhập khẩu và nhà máy tại Saudi Arabia, Qatar và Ai Cập. Liên hệ bộ phận xuất khẩu để được hỗ trợ.</p>',
+    date: '2025-10-15T00:00:00',
+    image: null,
+    category: 'Tin tức',
+    tags: ['xuất khẩu', 'trung đông', 'uae', 'halal'],
+  },
+  {
+    id: 1003,
+    slug: 'chung-nhan-halal-mo-rong-thi-truong-xuat-khau',
+    lang: 'vi',
+    title: 'Agrihub đạt chứng nhận Halal – Mở rộng thị trường xuất khẩu Muslim',
+    excerpt:
+      'Agrihub Vietnam vừa nhận chứng nhận Halal cho dòng sản phẩm bột trái cây và nước cốt, mở ra cơ hội thâm nhập sâu vào 57 quốc gia thành viên OIC với tổng dân số hơn 1,8 tỷ người tiêu dùng.',
+    content:
+      '<p>Agrihub Vietnam chính thức thông báo đã hoàn thành quá trình kiểm tra và đạt <strong>Chứng nhận Halal</strong> cho toàn bộ dòng sản phẩm nguyên liệu chế biến, bao gồm bột trái cây sấy phun, bột trái cây sấy lạnh và nước cốt nguyên chất đóng gói vô trùng.</p><h2>Ý nghĩa chiến lược</h2><p>Chứng nhận này không chỉ xác nhận sản phẩm đáp ứng tiêu chuẩn thực phẩm Hồi giáo mà còn là yêu cầu bắt buộc để tiếp cận các thị trường tại Trung Đông, Bắc Phi và Đông Nam Á (Malaysia, Indonesia).</p><p>Kèm theo chứng nhận Halal, toàn bộ quy trình chế biến tại nhà máy đã được kiểm định lại, bảo đảm không có sự lây nhiễm chéo với các thành phần không được phép.</p><p>Liên hệ ngay để nhận bản sao chứng nhận Halal và bộ hồ sơ kỹ thuật đầy đủ phục vụ quy trình nhập khẩu của quý đối tác.</p>',
+    date: '2025-09-20T00:00:00',
+    image: null,
+    category: 'Thông báo',
+    tags: ['halal', 'chứng nhận', 'xuất khẩu', 'trung đông'],
+  },
+];
+
+export const FALLBACK_NEWS_EN: NewsEvent[] = [
+  {
+    id: 1001,
+    slug: 'agrihub-at-vietnam-foodexpo-2025',
+    lang: 'en',
+    title: 'Agrihub Vietnam at Vietnam Foodexpo 2025 – SECC, Ho Chi Minh City',
+    excerpt:
+      'Agrihub Vietnam will exhibit at Vietnam Foodexpo 2025 (Nov 19–22, 2025) at SECC, Ho Chi Minh City, showcasing export-grade fruit powders, freeze-dried fruits, and aseptic purees.',
+    content:
+      '<p>Agrihub Vietnam confirms its participation in <strong>Vietnam Foodexpo 2025</strong> – Southeast Asia\'s premier food and beverage exhibition, running from November 19 to 22, 2025 at the <strong>Saigon Exhibition and Convention Center (SECC)</strong>, Ho Chi Minh City.</p><h2>Products on Display</h2><p>Our booth will feature key export ingredients: Red Dragon Fruit Powder, Freeze-Dried Mango Slices, Seedless Passion Fruit Puree, and other internationally certified processed ingredients.</p><p>This is a prime opportunity for importers, F&B manufacturers, and distribution partners to meet our technical and commercial team, collect samples, and discuss partnership terms in person.</p><p>Please contact us in advance to schedule a private booth meeting.</p>',
+    date: '2025-11-01T00:00:00',
+    image: null,
+    category: 'Events',
+    tags: ['trade show', 'foodexpo', 'export'],
+    eventDate: '2025-11-19',
+    eventLocation: 'SECC, Ho Chi Minh City',
+  },
+  {
+    id: 1002,
+    slug: 'agrihub-exports-fruit-powder-to-middle-east',
+    lang: 'en',
+    title: 'Agrihub Expands Fruit Powder Exports to the Middle East',
+    excerpt:
+      'The first commercial shipments of Agrihub\'s Dragon Fruit Powder and Mango Powder have been successfully delivered to UAE partners, establishing a reliable supply chain for functional food manufacturers in the region.',
+    content:
+      '<p>Agrihub Vietnam has completed its first commercial export shipment of <strong>Spray-Dried Red Dragon Fruit Powder</strong> and <strong>Freeze-Dried Mango Powder</strong> to partners in the UAE, marking a significant milestone in our Middle East market expansion strategy.</p><h2>Halal-Compliant Standards</h2><p>All export batches meet Halal standards, are free from additives and gluten, and comply with UAE food import regulations.</p><p>Each shipment is accompanied by a full Certificate of Analysis (COA) with results for microbiological testing, heavy metals, and pesticide residues from an independent laboratory.</p><p>We are now accepting sample requests from importers and manufacturers in Saudi Arabia, Qatar, and Egypt. Contact our export desk for assistance.</p>',
+    date: '2025-10-15T00:00:00',
+    image: null,
+    category: 'News',
+    tags: ['export', 'middle east', 'uae', 'halal'],
+  },
+  {
+    id: 1003,
+    slug: 'halal-certification-expands-export-markets',
+    lang: 'en',
+    title: 'Agrihub Achieves Halal Certification – Opening Muslim-Market Export Channels',
+    excerpt:
+      'Agrihub Vietnam has received Halal certification for its fruit powder and puree product lines, opening access to 57 OIC member countries with a combined Muslim consumer base of over 1.8 billion people.',
+    content:
+      '<p>Agrihub Vietnam officially announces the successful completion of inspection and the award of <strong>Halal Certification</strong> for its full range of processed ingredient products, including spray-dried fruit powders, freeze-dried fruit powders, and aseptic packaged fruit purees.</p><h2>Strategic Significance</h2><p>This certification not only confirms that our products meet Islamic dietary standards but is also a mandatory requirement for accessing markets in the Middle East, North Africa, and Southeast Asia (Malaysia, Indonesia).</p><p>In conjunction with the Halal certification, our entire factory processing workflow has been re-inspected to ensure zero cross-contamination with prohibited ingredients.</p><p>Contact us now to receive a copy of the Halal certificate and full technical documentation to support your import process.</p>',
+    date: '2025-09-20T00:00:00',
+    image: null,
+    category: 'Announcement',
+    tags: ['halal', 'certification', 'export', 'middle east'],
+  },
+];
+
+export const FALLBACK_NEWS_ZH: NewsEvent[] = [
+  {
+    id: 1001,
+    slug: 'agrihub-canjia-vietnam-foodexpo-2025',
+    lang: 'zh',
+    title: 'Agrihub越南参展Vietnam Foodexpo 2025 – 胡志明市SECC',
+    excerpt:
+      'Agrihub Vietnam将参加2025年越南食品博览会（2025年11月19-22日），在胡志明市SECC展示出口级果粉、冻干果干及无菌果浆等拳头产品。',
+    content:
+      '<p>Agrihub Vietnam正式确认参加<strong>Vietnam Foodexpo 2025</strong> —— 东南亚顶级食品饮料展览会，展期为2025年11月19日至22日，举办地点为<strong>西贡展览和会议中心（SECC）</strong>，胡志明市。</p><h2>展出产品</h2><p>Agrihub展台将重点展示以下核心出口原料：红心火龙果原粉、冻干芒果脆片、无籽百香果原浆及其他通过国际认证的深加工产品。</p><p>这是进口商、食品饮料工厂及渠道分销伙伴与我们技术和商务团队面对面交流、领取样品、洽谈合作条款的绝佳机会。</p><p>请提前联系我们，以便安排展台专属会议时间。</p>',
+    date: '2025-11-01T00:00:00',
+    image: null,
+    category: '活动',
+    tags: ['展会', '食品博览会', '出口'],
+    eventDate: '2025-11-19',
+    eventLocation: '胡志明市SECC',
+  },
+  {
+    id: 1002,
+    slug: 'agrihub-chukou-guofen-dao-zhongdong',
+    lang: 'zh',
+    title: 'Agrihub扩大果粉出口至中东市场',
+    excerpt:
+      'Agrihub的首批红心火龙果粉和芒果粉商业货物已成功交付至阿联酋合作伙伴，为中东地区功能食品制造商建立了稳定的供应链。',
+    content:
+      '<p>Agrihub Vietnam已完成首批<strong>喷雾干燥红心火龙果原粉</strong>和<strong>冻干芒果粉</strong>出口至阿联酋合作伙伴的商业交货，标志着我们在中东市场扩张战略中迈出了重要一步。</p><h2>符合清真标准</h2><p>所有出口批次均符合清真标准，不含添加剂和麸质，并符合阿联酋食品进口法规。</p><p>每批货物均附有完整的分析证书（COA），包含来自独立实验室的微生物检测、重金属和农药残留检测结果。</p><p>我们现正接受来自沙特阿拉伯、卡塔尔和埃及的进口商和制造商的样品请求。请联系我们的出口部门获取协助。</p>',
+    date: '2025-10-15T00:00:00',
+    image: null,
+    category: '新闻',
+    tags: ['出口', '中东', '阿联酋', '清真'],
+  },
+  {
+    id: 1003,
+    slug: 'qingzhen-renzheng-kuozhan-chukou-shichang',
+    lang: 'zh',
+    title: 'Agrihub获得清真认证 – 开拓穆斯林市场出口渠道',
+    excerpt:
+      'Agrihub Vietnam的果粉和果浆产品线已获得清真认证，开放进入57个伊斯兰合作组织成员国市场，覆盖逾18亿穆斯林消费者。',
+    content:
+      '<p>Agrihub Vietnam正式宣布，已成功完成检验审核并获得全线深加工原料产品的<strong>清真认证（Halal Certification）</strong>，涵盖喷雾干燥果粉、冻干果粉及无菌包装果浆原汁。</p><h2>战略意义</h2><p>该认证不仅证实我们的产品符合伊斯兰饮食标准，也是进入中东、北非及东南亚（马来西亚、印度尼西亚）市场的强制性要求。</p><p>配合清真认证的获取，我们工厂的全部生产流程已重新接受审查，确保与禁用成分零交叉污染。</p><p>立即联系我们，获取清真证书副本及完整技术文件，以支持贵方的进口流程。</p>',
+    date: '2025-09-20T00:00:00',
+    image: null,
+    category: '公告',
+    tags: ['清真', '认证', '出口', '中东'],
+  },
+];
+
+function getFallbackNews(lang: string): NewsEvent[] {
+  if (lang === 'en') return FALLBACK_NEWS_EN;
+  if (lang === 'zh') return FALLBACK_NEWS_ZH;
+  return FALLBACK_NEWS_VI;
+}
+
+// Manage news host offline state separately to avoid interfering with products
+let isNewsHostOffline = false;
+let lastNewsHostCheckTime = 0;
+
+async function fetchNewsFromEndpoints(pathSuffix: string): Promise<Response | null> {
+  const now = Date.now();
+  if (isNewsHostOffline && now - lastNewsHostCheckTime < OFFLINE_RETRY_INTERVAL_MS) {
+    return null;
+  }
+
+  const baseUrl = getApiBaseUrl();
+  const endpoints = ['news_events', 'news_event', 'posts'];
+
+  for (const ep of endpoints) {
+    try {
+      const url = `${baseUrl}/${ep}${pathSuffix}`;
+      const res = await fetch(url, getFetchOptions());
+      if (res.ok) {
+        isNewsHostOffline = false;
+        return res;
+      }
+    } catch {
+      // Skip network errors and try next endpoint
+    }
+  }
+
+  isNewsHostOffline = true;
+  lastNewsHostCheckTime = Date.now();
+  return null;
+}
+
+/**
+ * Lấy toàn bộ danh sách bài viết tin tức & sự kiện từ WordPress
+ */
+export async function getNewsEvents(lang: string = 'vi'): Promise<NewsEvent[]> {
+  try {
+    const res = await fetchNewsFromEndpoints('?_embed&per_page=50');
+
+    if (!res) {
+      return getFallbackNews(lang);
+    }
+
+    const data = await res.json();
+    if (!Array.isArray(data) || data.length === 0) {
+      return getFallbackNews(lang);
+    }
+
+    const mapped = data.map((post: WordPressPost) => mapWordPressPostToNewsEvent(post, lang));
+    const valid = mapped.filter((n) => n.slug !== 'hello-world');
+    return valid.length > 0 ? valid : getFallbackNews(lang);
+  } catch {
+    return getFallbackNews(lang);
+  }
+}
+
+/**
+ * Lấy chi tiết bài viết tin tức/sự kiện theo slug
+ */
+export async function getNewsEventBySlug(slug: string, lang: string = 'vi'): Promise<NewsEvent | null> {
+  try {
+    const res = await fetchNewsFromEndpoints(`?_embed&slug=${encodeURIComponent(slug)}`);
+
+    if (res) {
+      const data = await res.json();
+      if (Array.isArray(data) && data.length > 0) {
+        return mapWordPressPostToNewsEvent(data[0], lang);
+      }
+    }
+  } catch {
+    // Fallthrough to local lookup
+  }
+
+  const fallback = getFallbackNews(lang).find((n) => n.slug === slug);
+  return fallback || null;
+}
+
+/**
+ * Lấy toàn bộ slug tin tức/sự kiện để generateStaticParams / Sitemap
+ */
+export async function getAllNewsEventSlugs(): Promise<string[]> {
+  const [vi, en, zh] = await Promise.all([
+    getNewsEvents('vi'),
+    getNewsEvents('en'),
+    getNewsEvents('zh'),
+  ]);
+  const allSlugs = [...vi, ...en, ...zh].map((n) => n.slug);
+  const unique = Array.from(new Set(allSlugs));
+  return unique;
 }

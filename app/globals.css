@@ -8,8 +8,7 @@
   }
 
   body {
-    @apply bg-cream-100 text-primary-850 antialiased selection:bg-primary-leaf selection:text-white;
-    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+    @apply bg-cream-100 text-primary-850 antialiased selection:bg-primary-leaf selection:text-white font-sans;
   }
 }
 

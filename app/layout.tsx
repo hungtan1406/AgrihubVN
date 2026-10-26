@@ -1,7 +1,16 @@
 import type { Metadata, Viewport } from 'next';
+import { Be_Vietnam_Pro } from 'next/font/google';
 import './globals.css';
 import { SITE_URL } from '@/lib/seo';
 import JsonLdOrganization from '@/components/JsonLdOrganization';
+import ScrollProgress from '@/components/animations/ScrollProgress';
+
+const beVietnamPro = Be_Vietnam_Pro({
+  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  subsets: ['latin', 'vietnamese'],
+  display: 'swap',
+  variable: '--font-be-vietnam-pro',
+});
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -25,19 +34,17 @@ export const viewport: Viewport = {
   themeColor: '#124322',
 };
 
-import ScrollProgress from '@/components/animations/ScrollProgress';
-
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className="scroll-smooth">
+    <html lang="vi" className={`scroll-smooth ${beVietnamPro.variable}`}>
       <head>
         <JsonLdOrganization />
       </head>
-      <body className="min-h-screen flex flex-col bg-cream-100 text-primary-850 antialiased">
+      <body className={`${beVietnamPro.className} font-sans min-h-screen flex flex-col bg-cream-100 text-primary-850 antialiased`}>
         <ScrollProgress />
         {children}
       </body>

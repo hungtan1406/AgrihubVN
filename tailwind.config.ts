@@ -43,11 +43,10 @@ const config: Config = {
         },
       },
       fontFamily: {
-        // Primary font for vi + en. For zh-CN, Next.js will use the CJK fallback stack below.
+        // Primary font for vi + en: Be Vietnam Pro via CSS variable. For zh-CN, CJK fallback stack.
         sans: [
-          "Plus Jakarta Sans",
-          "Outfit",
-          "Inter",
+          "var(--font-be-vietnam-pro)",
+          "Be Vietnam Pro",
           "Noto Sans SC",   // CJK Simplified Chinese fallback
           "PingFang SC",
           "Microsoft YaHei",

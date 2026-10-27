@@ -12,6 +12,8 @@ export interface Product {
   slug: string;
   name: string;
   category: string;
+  categoryGroup?: 'powder' | 'puree' | 'dried' | string;
+  processingMethod?: string;
   specs: string;
   application: string;
   moisture?: string;
@@ -25,6 +27,7 @@ export interface Product {
   pdfUrl?: string;
   image?: string;
   content?: string;
+  isFeatured?: boolean;
 }
 
 export interface WordPressACF {
@@ -43,6 +46,12 @@ export interface WordPressACF {
   spec_code?: string;
   pdf_tds?: string | { url?: string; title?: string };
   category?: string;
+  category_group?: string;
+  processing_method?: string;
+  is_featured?: boolean | string | number;
+  featured?: boolean | string | number;
+  image?: string | { url?: string; source_url?: string };
+  product_image?: string | { url?: string; source_url?: string };
   [key: string]: unknown;
 }
 
@@ -258,8 +267,28 @@ function cleanHtmlEntities(text: string): string {
 export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'vi'): Product {
   const acf = post.acf || {};
 
-  // Lấy ảnh đại diện
+  // Lấy ảnh đại diện: ưu tiên trường ACF image/product_image, sau đó đến featured media của WordPress
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
+  let imageUrl: string | undefined = featuredMedia;
+
+  if (typeof acf.image === 'string' && acf.image.trim()) {
+    imageUrl = acf.image;
+  } else if (acf.image && typeof acf.image === 'object' && 'url' in acf.image && typeof acf.image.url === 'string') {
+    imageUrl = acf.image.url;
+  } else if (typeof acf.product_image === 'string' && acf.product_image.trim()) {
+    imageUrl = acf.product_image;
+  } else if (acf.product_image && typeof acf.product_image === 'object' && 'url' in acf.product_image && typeof acf.product_image.url === 'string') {
+    imageUrl = acf.product_image.url;
+  }
+
+  // Lấy trạng thái sản phẩm nổi bật
+  const isFeatured =
+    acf.is_featured === true ||
+    acf.is_featured === '1' ||
+    acf.is_featured === 1 ||
+    acf.featured === true ||
+    acf.featured === '1' ||
+    acf.featured === 1;
 
   // Lấy danh mục từ taxonomy hoặc trường ACF
   let defaultCategory = 'Nguyên liệu nông sản';
@@ -317,11 +346,41 @@ export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'v
   const rawApplication = acf.application || acf.applications || '';
   const application = cleanHtmlEntities(rawApplication);
 
+  // Lấy nhóm sản phẩm (Filter Trang chủ): powder | puree | dried
+  let categoryGroup = (acf.category_group as string) || '';
+  if (!categoryGroup) {
+    const combined = `${name} ${categoryName}`.toLowerCase();
+    if (combined.includes('bột') || combined.includes('powder') || combined.includes('phun') || combined.includes('nghiền') || combined.includes('spray') || combined.includes('milled') || combined.includes('粉')) {
+      categoryGroup = 'powder';
+    } else if (combined.includes('cốt') || combined.includes('pure') || combined.includes('juice') || combined.includes('nước') || combined.includes('原浆') || combined.includes('原汁')) {
+      categoryGroup = 'puree';
+    } else {
+      categoryGroup = 'dried';
+    }
+  }
+
+  // Lấy công nghệ chế biến / nhãn hiển thị trên Card (ví dụ: Bột sấy phun, Bột sấy nghiền, Trái cây sấy...)
+  let processingMethod = (acf.processing_method as string) || '';
+  if (!processingMethod) {
+    if (categoryName && categoryName !== defaultCategory) {
+      processingMethod = categoryName;
+    } else if (categoryGroup === 'powder') {
+      const lower = name.toLowerCase();
+      processingMethod = lower.includes('nghiền') || lower.includes('milled') ? 'Bột sấy nghiền' : 'Bột sấy phun';
+    } else if (categoryGroup === 'puree') {
+      processingMethod = 'Nước cốt & Pure';
+    } else {
+      processingMethod = 'Trái cây sấy';
+    }
+  }
+
   return {
     id: post.id,
     slug: post.slug,
     name,
     category: categoryName,
+    categoryGroup,
+    processingMethod,
     specs: specs || defaultSpecs,
     application: application || defaultApp,
     moisture: acf.moisture,
@@ -333,7 +392,8 @@ export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'v
     grade: acf.grade || 'INDUSTRIAL F&B',
     specCode: acf.spec_code || `SPEC-AGRI-${post.slug.toUpperCase()}`,
     pdfUrl,
-    image: featuredMedia,
+    image: imageUrl,
+    isFeatured,
     content: post.content?.rendered,
   };
 }
@@ -414,6 +474,17 @@ export async function getProducts(lang: Locale = 'vi'): Promise<Product[]> {
   } catch {
     return getFallbackProducts(lang);
   }
+}
+
+/**
+ * Lấy danh sách sản phẩm nổi bật để hiển thị trên trang chủ
+ */
+export async function getFeaturedProducts(lang: Locale = 'vi'): Promise<Product[]> {
+  const all = await getProducts(lang);
+  const featured = all.filter((p) => p.isFeatured);
+  // Nếu chưa có sản phẩm nào được đánh dấu nổi bật trên WordPress,
+  // mặc định lấy 6 sản phẩm đầu tiên để trang chủ luôn có dữ liệu đầy đủ
+  return featured.length > 0 ? featured : all.slice(0, 6);
 }
 
 /**

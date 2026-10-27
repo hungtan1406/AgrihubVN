@@ -13,6 +13,7 @@ export interface ProductIngredient {
   shelfLife: string;
   packaging: string;
   applications: string;
+  image?: string;
 }
 
 export function getIngredients(lang: Locale): ProductIngredient[] {

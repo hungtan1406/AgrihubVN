@@ -13,12 +13,13 @@ import FadeIn from '@/components/animations/FadeIn';
 import StaggerContainer, {
   StaggerItem,
 } from '@/components/animations/StaggerContainer';
-import { NewsEvent } from '@/lib/wordpress';
+import { NewsEvent, Product } from '@/lib/wordpress';
 
 interface HomePageContentProps {
   currentLang: Locale;
   dict: Dictionary;
   featuredNews?: NewsEvent[];
+  featuredProducts?: Product[];
 }
 
 function getCategoryBadgeClass(category: string): string {
@@ -70,6 +71,7 @@ export default function HomePageContent({
   currentLang,
   dict,
   featuredNews = [],
+  featuredProducts = [],
 }: HomePageContentProps) {
   // Client-side category tab filter
   const [activeCategory, setActiveCategory] = useState<
@@ -82,12 +84,81 @@ export default function HomePageContent({
   const ingredients = getIngredients(currentLang);
   const ui = getHomePageUi(currentLang);
 
+  function getProductCategoryKey(categoryName: string): 'powder' | 'puree' | 'dried' {
+    const lower = (categoryName || '').toLowerCase();
+    if (lower.includes('bột') || lower.includes('powder') || lower.includes('phun') || lower.includes('nghiền') || lower.includes('粉')) return 'powder';
+    if (lower.includes('pure') || lower.includes('cốt') || lower.includes('浆') || lower.includes('汁')) return 'puree';
+    return 'dried';
+  }
+
+  function getProductBadgeColor(processingMethod: string, categoryKey: string): string {
+    const lower = (processingMethod || '').toLowerCase();
+    if (lower.includes('nghiền') || lower.includes('milled')) {
+      return 'bg-rose-100 text-rose-800 border-rose-200';
+    }
+    if (lower.includes('phun') || lower.includes('spray')) {
+      return 'bg-amber-100 text-amber-800 border-amber-200';
+    }
+    if (lower.includes('mít') || lower.includes('jackfruit') || lower.includes('lime')) {
+      return 'bg-lime-100 text-lime-800 border-lime-200';
+    }
+    if (lower.includes('thăng hoa') || lower.includes('freeze') || lower.includes('sấy') || lower.includes('dried')) {
+      return 'bg-orange-100 text-orange-800 border-orange-200';
+    }
+    if (lower.includes('đông lạnh') || lower.includes('iqf') || lower.includes('cấp đông')) {
+      return 'bg-emerald-100 text-emerald-800 border-emerald-200';
+    }
+    if (lower.includes('pure') || lower.includes('cốt') || categoryKey === 'puree') {
+      return 'bg-purple-100 text-purple-800 border-purple-200';
+    }
+    return 'bg-amber-100 text-amber-800 border-amber-200';
+  }
+
+  // Kết hợp sản phẩm từ WordPress API với dữ liệu hiển thị đa ngôn ngữ
+  const displayItems =
+    featuredProducts && featuredProducts.length > 0
+      ? featuredProducts.map((p) => {
+          const match = ingredients.find(
+            (ing) => ing.id === p.slug || ing.id === String(p.id)
+          );
+          // Ưu tiên categoryGroup từ ACF WordPress (powder, puree, dried)
+          const catKey =
+            (p.categoryGroup as 'powder' | 'puree' | 'dried') ||
+            match?.category ||
+            getProductCategoryKey(p.category);
+
+          // Ưu tiên processingMethod từ ACF WordPress (Bột sấy phun, Bột sấy nghiền, Trái cây sấy...)
+          const processingBadge =
+            p.processingMethod || match?.categoryName || p.category;
+
+          return {
+            id: String(p.slug || p.id),
+            name: p.name || match?.name || 'Sản phẩm Agrihub',
+            category: catKey,
+            categoryName: processingBadge,
+            badgeColor: getProductBadgeColor(processingBadge, catKey),
+            specs: p.specs || match?.specs,
+            applications: p.application || match?.applications,
+            moisture:
+              p.moisture || match?.moisture || 'Theo tiêu chuẩn kiểm nghiệm',
+            mesh: p.mesh || match?.mesh || 'Chuẩn hóa công nghiệp',
+            brix: p.brix || match?.brix || 'Tự nhiên từ quả',
+            shelfLife: p.shelfLife || match?.shelfLife || '12-24 tháng',
+            packaging:
+              p.packaging ||
+              match?.packaging ||
+              'Thùng carton / phuy vô trùng hoặc theo yêu cầu',
+            image: p.image,
+          };
+        })
+      : ingredients;
+
   const filteredIngredients =
     activeCategory === 'all'
-      ? ingredients
-      : ingredients.filter((item) => item.category === activeCategory);
+      ? displayItems
+      : displayItems.filter((item) => item.category === activeCategory);
 
-  const selectedProductData = ingredients.find(
+  const selectedProductData = displayItems.find(
     (item) => item.id === selectedTds,
   );
 
@@ -225,14 +296,14 @@ export default function HomePageContent({
                       duration: 4.5,
                       ease: 'easeInOut',
                     }}
-                    className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full border-4 border-primary-leaf/25 bg-white shadow-soft overflow-hidden"
+                    className="relative w-full max-w-[440px] aspect-[2000/1315] rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-primary-leaf/25 bg-white shadow-soft overflow-hidden flex items-center justify-center"
                   >
                     <Image
                       src="/images/Image1.png"
                       alt="Agrihub Vietnam"
                       fill
-                      sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
-                      className="object-cover hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 420px"
+                      className="object-contain hover:scale-105 transition-transform duration-500"
                       priority
                     />
                   </motion.div>
@@ -402,9 +473,38 @@ export default function HomePageContent({
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.25 }}
                 whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className="bg-white border border-cream-200/90 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors hover:shadow-md"
+                className="bg-white border border-cream-200/90 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors hover:shadow-md group"
               >
                 <div>
+                  {/* Product image — aspect-square per brand rules (1:1) */}
+                  <div className="mb-4 overflow-hidden rounded-xl bg-cream-100 aspect-square relative border border-cream-200/60">
+                    {item.image ? (
+                      <Image
+                        src={item.image}
+                        alt={item.name}
+                        fill
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-cream-50 via-white to-cream-100/80 text-slate-400 p-4 text-center">
+                        <span className="text-4xl sm:text-5xl mb-2 select-none opacity-85 transition-transform group-hover:scale-110 duration-300">
+                          {item.category === 'puree'
+                            ? '🧃'
+                            : item.category === 'dried'
+                              ? '🥭'
+                              : '🥣'}
+                        </span>
+                        <span className="text-xs font-bold text-primary-850/80 line-clamp-1">
+                          {item.name}
+                        </span>
+                        <span className="text-[10px] uppercase font-bold tracking-wider text-primary-leaf/70 mt-1">
+                          {item.categoryName}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
                   <div className="flex items-center justify-between mb-3">
                     <span
                       className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${item.badgeColor}`}

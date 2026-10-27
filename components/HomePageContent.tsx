@@ -31,10 +31,18 @@ function getCategoryBadgeClass(category: string): string {
   ) {
     return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
   }
-  if (lower.includes('kiện') || lower.includes('event') || lower.includes('活动')) {
+  if (
+    lower.includes('kiện') ||
+    lower.includes('event') ||
+    lower.includes('活动')
+  ) {
     return 'bg-accent-mango/20 text-accent-gold border border-accent-gold/30';
   }
-  if (lower.includes('báo') || lower.includes('announcement') || lower.includes('公告')) {
+  if (
+    lower.includes('báo') ||
+    lower.includes('announcement') ||
+    lower.includes('公告')
+  ) {
     return 'bg-cream-200 text-cream-600 border border-cream-300';
   }
   return 'bg-primary-100 text-primary-700 border border-primary-200';
@@ -43,7 +51,11 @@ function getCategoryBadgeClass(category: string): string {
 function formatDate(dateStr: string, lang: string): string {
   if (!dateStr) return '';
   try {
-    const localeMap: Record<string, string> = { vi: 'vi-VN', en: 'en-US', zh: 'zh-CN' };
+    const localeMap: Record<string, string> = {
+      vi: 'vi-VN',
+      en: 'en-US',
+      zh: 'zh-CN',
+    };
     return new Date(dateStr).toLocaleDateString(localeMap[lang] ?? 'vi-VN', {
       year: 'numeric',
       month: 'long',
@@ -93,12 +105,9 @@ export default function HomePageContent({
             className="object-cover object-center"
             sizes="100vw"
           />
-          {/* Multi-layered gradient overlay to ensure WCAG AA 4.5:1 text contrast while preserving photo clarity */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-950/90 via-primary-900/75 to-primary-950/40" />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary-950/80 via-transparent to-primary-950/20" />
-          {/* Subtle natural sunlit glow accents */}
-          <div className="absolute right-0 top-0 w-96 h-96 bg-primary-leaf/20 rounded-full blur-3xl" />
-          <div className="absolute -left-10 bottom-0 w-80 h-80 bg-accent-gold/15 rounded-full blur-3xl" />
+          {/* Clean, directional gradient on the left side to keep the photo bright and vibrant while ensuring high text readability */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
         </div>
 
         <Container className="relative z-10 w-full">
@@ -123,7 +132,7 @@ export default function HomePageContent({
                 delay: 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-normal text-balance leading-[1.3] sm:leading-[1.28] text-white"
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-normal text-balance leading-[1.3] sm:leading-[1.28] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
             >
               {ui.heroTagline}
             </motion.h1>
@@ -137,7 +146,7 @@ export default function HomePageContent({
                 delay: 0.2,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-sm sm:text-base md:text-lg text-cream-100/95 leading-relaxed max-w-2xl font-normal"
+              className="text-sm sm:text-base md:text-lg text-cream-100/95 leading-relaxed max-w-2xl font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
             >
               {dict.pages.home.heroSubtitle}
             </motion.p>
@@ -437,19 +446,22 @@ export default function HomePageContent({
                       <strong className="text-primary-850">
                         {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
                       </strong>{' '}
-                      {ui.tds.packagingValue ?? '10g - 5000g/bịch hoặc theo yêu cầu khách hàng'}
+                      {ui.tds.packagingValue ??
+                        '10g - 5000g/bịch hoặc theo yêu cầu khách hàng'}
                     </p>
                     <p>
                       <strong className="text-primary-850">
                         {ui.tds.shelfLifeLabel ?? 'Hạn sử dụng:'}
                       </strong>{' '}
-                      {ui.tds.shelfLifeValue ?? '12 tháng tính từ ngày sản xuất'}
+                      {ui.tds.shelfLifeValue ??
+                        '12 tháng tính từ ngày sản xuất'}
                     </p>
                     <p>
                       <strong className="text-primary-850">
                         {ui.tds.storageLabel ?? 'Bảo quản:'}
                       </strong>{' '}
-                      {ui.tds.storageValue ?? 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp'}
+                      {ui.tds.storageValue ??
+                        'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp'}
                     </p>
                   </div>
                 </div>
@@ -834,7 +846,9 @@ export default function HomePageContent({
           <FadeIn direction="up">
             <SectionTitle
               badge={dict.pages.home.featuredNewsBadge ?? 'Tin Tức & Hoạt Động'}
-              title={dict.pages.home.featuredNewsTitle ?? 'Tin Tức & Sự Kiện Nổi Bật'}
+              title={
+                dict.pages.home.featuredNewsTitle ?? 'Tin Tức & Sự Kiện Nổi Bật'
+              }
               subtitle={
                 dict.pages.home.featuredNewsSubtitle ??
                 'Cập nhật hoạt động thương mại, triển lãm quốc tế và thông tin mới nhất từ Agrihub.'
@@ -845,7 +859,10 @@ export default function HomePageContent({
           {/* Grid 3 bài viết nổi bật */}
           <div className="my-8">
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {(featuredNews && featuredNews.length > 0 ? featuredNews : []).map((post) => {
+              {(featuredNews && featuredNews.length > 0
+                ? featuredNews
+                : []
+              ).map((post) => {
                 const badgeClass = getCategoryBadgeClass(post.category);
                 const formattedDate = formatDate(post.date, currentLang);
 
@@ -879,7 +896,9 @@ export default function HomePageContent({
                       <div className="p-6 flex flex-col flex-1">
                         {/* Category + Date */}
                         <div className="flex items-center justify-between gap-2 mb-3">
-                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${badgeClass}`}>
+                          <span
+                            className={`text-xs font-bold px-2.5 py-1 rounded-full ${badgeClass}`}
+                          >
                             {post.category}
                           </span>
                           <span className="text-xs text-slate-400 shrink-0 font-medium">
@@ -915,7 +934,9 @@ export default function HomePageContent({
                         {/* CTA link */}
                         <div className="pt-2 border-t border-cream-200/60 flex items-center justify-between text-xs font-bold text-primary-leaf group-hover:text-primary-850 transition-colors mt-auto">
                           <span>{dict.news?.readMore ?? 'Đọc tiếp'}</span>
-                          <span className="group-hover:translate-x-1 transition-transform">→</span>
+                          <span className="group-hover:translate-x-1 transition-transform">
+                            →
+                          </span>
                         </div>
                       </div>
                     </Link>

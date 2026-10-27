@@ -89,6 +89,11 @@ export const vi: Dictionary = {
       globalTitle: 'Dấu chân xuất khẩu & Triển lãm quốc tế',
       globalSubtitle:
         'Hơn 10 năm kinh nghiệm đưa nông sản chế biến Việt Nam chinh phục các thị trường khắt khe.',
+      featuredNewsBadge: 'Tin Tức & Hoạt Động',
+      featuredNewsTitle: 'Tin Tức & Sự Kiện Nổi Bật',
+      featuredNewsSubtitle:
+        'Cập nhật hoạt động xúc tiến thương mại, hội chợ quốc tế và thông tin mới nhất từ Agrihub.',
+      viewAllNews: 'Xem tất cả tin tức →',
       contactBadge: 'Tiếp Nhận Yêu Cầu',
       contactTitle: 'Yêu cầu báo giá kỹ thuật & Mẫu thử phòng Lab',
       contactSubtitle:
@@ -152,7 +157,7 @@ export const vi: Dictionary = {
     aboutUs: {
       title: 'Về Agrihub Việt Nam',
       subtitle:
-        'Hành trình hơn 10 năm kết nối nông sản Việt Nam với chuỗi cung ứng toàn cầu, gia tăng giá trị cho hạt giống và trái cây bản địa.',
+        'Agrihub trực thuộc Công ty Cổ phần Đầu tư và Phát triển Queens. Với hơn một thập kỷ kinh nghiệm trên thị trường xuất nhập khẩu, chúng tôi tự hào là đơn vị uy tín hàng đầu chuyên cung cấp các giải pháp nguyên liệu nông sản chất lượng cao, bao gồm: Trái cây sấy, Nông sản cấp đông nhanh (IQF) và Nước cốt trái cây nguyên chất.',
       targetAudience:
         'Tất cả đối tác B2B muốn tìm hiểu độ uy tín và tầm nhìn của Agrihub',
       primaryCta: 'Liên hệ hợp tác bền vững',
@@ -171,8 +176,10 @@ export const vi: Dictionary = {
     metaDescription:
       'Cập nhật tin tức mới nhất, sự kiện triển lãm và thông báo từ Agrihub – nhà xuất khẩu nguyên liệu nông sản chế biến hàng đầu Việt Nam.',
     pageTitle: 'Tin Tức & Sự Kiện',
-    pageSubtitle: 'Cập nhật hoạt động, triển lãm quốc tế và thông tin mới nhất từ Agrihub',
+    pageSubtitle:
+      'Cập nhật hoạt động, triển lãm quốc tế và thông tin mới nhất từ Agrihub',
     filterAll: 'Tất cả',
+    filterFeatured: 'Nổi bật',
     filterNews: 'Tin tức',
     filterEvents: 'Sự kiện',
     filterAnnouncements: 'Thông báo',

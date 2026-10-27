@@ -44,7 +44,15 @@ export async function generateMetadata({ params }: { params: { lang: string } })
 // ── Helper: determine category badge color ─────────────────────────────────
 
 function getCategoryBadgeClass(category: string): string {
-  const lower = category.toLowerCase();
+  const lower = (category || '').toLowerCase();
+  if (
+    lower.includes('nổi bật') ||
+    lower.includes('noi-bat') ||
+    lower.includes('featured') ||
+    lower.includes('精选')
+  ) {
+    return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+  }
   if (
     lower.includes('kiện') ||
     lower.includes('event') ||
@@ -82,8 +90,26 @@ function formatDate(dateStr: string, lang: string): string {
 
 function matchesFilter(post: NewsEvent, categoryParam?: string): boolean {
   if (!categoryParam) return true;
-  const lower = post.category.toLowerCase();
+  const lower = (post.category || '').toLowerCase();
+  const tags = (post.tags || []).map((t) => (t || '').toLowerCase());
+
   switch (categoryParam.toLowerCase()) {
+    case 'featured':
+      return (
+        lower.includes('nổi bật') ||
+        lower.includes('noi-bat') ||
+        lower.includes('noi bat') ||
+        lower.includes('featured') ||
+        lower.includes('精选') ||
+        lower.includes('推荐') ||
+        tags.some(
+          (t) =>
+            t.includes('nổi bật') ||
+            t.includes('noi-bat') ||
+            t.includes('featured') ||
+            t.includes('精选')
+        )
+      );
     case 'news':
       return (
         lower.includes('tin') ||
@@ -189,6 +215,7 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
 
   const filterPills = [
     { label: dict.news.filterAll, value: undefined },
+    { label: dict.news.filterFeatured, value: 'featured' },
     { label: dict.news.filterNews, value: 'news' },
     { label: dict.news.filterEvents, value: 'events' },
     { label: dict.news.filterAnnouncements, value: 'announcements' },

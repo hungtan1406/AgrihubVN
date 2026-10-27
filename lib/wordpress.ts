@@ -508,7 +508,7 @@ export const FALLBACK_NEWS_VI: NewsEvent[] = [
     date: '2025-11-01T00:00:00',
     image: null,
     category: 'Sự kiện',
-    tags: ['triển lãm', 'foodexpo', 'xuất khẩu'],
+    tags: ['triển lãm', 'foodexpo', 'xuất khẩu', 'nổi bật'],
     eventDate: '2025-11-19',
     eventLocation: 'SECC, TP. Hồ Chí Minh',
   },
@@ -555,7 +555,7 @@ export const FALLBACK_NEWS_EN: NewsEvent[] = [
     date: '2025-11-01T00:00:00',
     image: null,
     category: 'Events',
-    tags: ['trade show', 'foodexpo', 'export'],
+    tags: ['trade show', 'foodexpo', 'export', 'featured'],
     eventDate: '2025-11-19',
     eventLocation: 'SECC, Ho Chi Minh City',
   },
@@ -602,7 +602,7 @@ export const FALLBACK_NEWS_ZH: NewsEvent[] = [
     date: '2025-11-01T00:00:00',
     image: null,
     category: '活动',
-    tags: ['展会', '食品博览会', '出口'],
+    tags: ['展会', '食品博览会', '出口', '精选'],
     eventDate: '2025-11-19',
     eventLocation: '胡志明市SECC',
   },
@@ -731,3 +731,48 @@ export async function getAllNewsEventSlugs(): Promise<string[]> {
   const unique = Array.from(new Set(allSlugs));
   return unique;
 }
+
+/**
+ * Lấy danh sách tin tức nổi bật từ WordPress (category/tag: noi-bat / featured)
+ * Fallback an toàn: Tự động lấy các bài viết mới nhất nếu không có category nổi bật hoặc offline
+ */
+export async function getFeaturedNews(lang: string = 'vi', limit: number = 3): Promise<NewsEvent[]> {
+  try {
+    const allNews = await getNewsEvents(lang);
+    if (!allNews || allNews.length === 0) {
+      return getFallbackNews(lang).slice(0, limit);
+    }
+
+    // Lọc bài viết có category hoặc tag chứa từ khóa nổi bật / featured
+    const featured = allNews.filter((item) => {
+      const catLower = (item.category || '').toLowerCase();
+      const hasFeaturedCat =
+        catLower.includes('nổi bật') ||
+        catLower.includes('noi-bat') ||
+        catLower.includes('noi bat') ||
+        catLower.includes('featured') ||
+        catLower.includes('精选') ||
+        catLower.includes('推荐');
+      const hasFeaturedTag = (item.tags || []).some((tag) => {
+        const tLower = tag.toLowerCase();
+        return (
+          tLower.includes('nổi bật') ||
+          tLower.includes('noi-bat') ||
+          tLower.includes('featured') ||
+          tLower.includes('精选')
+        );
+      });
+      return hasFeaturedCat || hasFeaturedTag;
+    });
+
+    if (featured.length > 0) {
+      return featured.slice(0, limit);
+    }
+
+    // Nếu chưa có bài gắn category nổi bật, fallback lấy top bài viết mới nhất
+    return allNews.slice(0, limit);
+  } catch {
+    return getFallbackNews(lang).slice(0, limit);
+  }
+}
+

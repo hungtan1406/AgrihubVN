@@ -133,7 +133,7 @@ export default function Footer({ lang, dict }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}#xuat-khau`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
+                <Link href={`/${lang}/global-presence`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
                   &bull; {dict.nav.globalPresence}
                 </Link>
               </li>

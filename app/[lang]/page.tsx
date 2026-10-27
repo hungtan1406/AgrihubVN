@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { Locale, getDictionary, isValidLocale, defaultLocale } from '@/lib/i18n';
 import { buildPageMetadata } from '@/lib/seo';
 import HomePageContent from '@/components/HomePageContent';
+import { getFeaturedNews } from '@/lib/wordpress';
 
 interface PageProps {
   params: { lang: string };
@@ -19,9 +20,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
-export default function HomePage({ params }: PageProps) {
+export default async function HomePage({ params }: PageProps) {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
+  const featuredNews = await getFeaturedNews(currentLang, 3);
 
-  return <HomePageContent currentLang={currentLang} dict={dict} />;
+  return <HomePageContent currentLang={currentLang} dict={dict} featuredNews={featuredNews} />;
 }
+

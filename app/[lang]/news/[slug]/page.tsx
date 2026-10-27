@@ -75,6 +75,14 @@ function formatDate(dateStr: string, lang: string): string {
 
 function getCategoryBadgeClass(category: string): string {
   const lower = category.toLowerCase();
+  if (
+    lower.includes('nổi bật') ||
+    lower.includes('noi-bat') ||
+    lower.includes('featured') ||
+    lower.includes('精选')
+  ) {
+    return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+  }
   if (lower.includes('kiện') || lower.includes('event') || lower.includes('活动')) {
     return 'bg-accent-mango/20 text-accent-gold border border-accent-gold/30';
   }

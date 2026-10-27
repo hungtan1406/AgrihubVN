@@ -30,7 +30,8 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         brix: 'Natural fruit sugar',
         shelfLife: '24 months',
         packaging: 'Sterile aluminum bags 5kg x 4 / 20kg export carton',
-        applications: 'Confectionery, nutrition beverages, yogurt, clean-label natural coloring.',
+        applications:
+          'Confectionery, nutrition beverages, yogurt, clean-label natural coloring.',
       },
       {
         id: 'passion-fruit-powder',
@@ -38,13 +39,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         categoryName: 'Spray-Dried Powder',
         badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
         name: 'Instant Passion Fruit Powder (Spray-Dried)',
-        specs: 'Solubility > 95% | Natural refreshing tartness | Rich in Vitamin C',
+        specs:
+          'Solubility > 95% | Natural refreshing tartness | Rich in Vitamin C',
         moisture: '≤ 4.5%',
         mesh: '100 mesh',
         brix: 'Standardized upon request',
         shelfLife: '18 months',
         packaging: 'Vacuum aluminum bags 10kg x 2',
-        applications: 'Fruit teas, beverage syrups, bakery fillings, gourmet ice cream.',
+        applications:
+          'Fruit teas, beverage syrups, bakery fillings, gourmet ice cream.',
       },
       {
         id: 'banana-powder',
@@ -52,13 +55,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         categoryName: 'Spray-Dried Powder',
         badgeColor: 'bg-yellow-100 text-yellow-800 border-yellow-200',
         name: 'Spray-Dried Banana Powder',
-        specs: 'Creamy yellow | Rich natural aroma | High dietary fiber & Potassium',
+        specs:
+          'Creamy yellow | Rich natural aroma | High dietary fiber & Potassium',
         moisture: '≤ 5.0%',
         mesh: '80 mesh',
         brix: 'Natural',
         shelfLife: '24 months',
         packaging: '20kg carton with double moisture-barrier PE lining',
-        applications: 'Breakfast cereals, baby food, protein smoothies, biscuits.',
+        applications:
+          'Breakfast cereals, baby food, protein smoothies, biscuits.',
       },
       {
         id: 'freeze-dried-mango',
@@ -66,13 +71,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         categoryName: 'Freeze-Dried',
         badgeColor: 'bg-orange-100 text-orange-800 border-orange-200',
         name: 'Freeze-Dried Mango Slices',
-        specs: 'Moisture ≤ 3% | 5-7mm cut slices | Crisp texture, 98% nutrient retention',
+        specs:
+          'Moisture ≤ 3% | 5-7mm cut slices | Crisp texture, 98% nutrient retention',
         moisture: '≤ 3.0%',
         mesh: 'Slices / Diced / Granules',
         brix: 'Rich natural',
         shelfLife: '18 months',
         packaging: 'Sterile aluminum bags 5kg x 2 / carton',
-        applications: 'Granola mixes, chocolate-enrobed fruit, gourmet dried fruit snacks.',
+        applications:
+          'Granola mixes, chocolate-enrobed fruit, gourmet dried fruit snacks.',
       },
       {
         id: 'freeze-dried-jackfruit',
@@ -80,13 +87,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         categoryName: 'Freeze-Dried',
         badgeColor: 'bg-lime-100 text-lime-800 border-lime-200',
         name: 'Freeze-Dried Jackfruit',
-        specs: 'Golden amber | Authentic tropical aroma | Zero oil frying, zero added sugar',
+        specs:
+          'Golden amber | Authentic tropical aroma | Zero oil frying, zero added sugar',
         moisture: '≤ 4.0%',
         mesh: 'Whole / Half pods',
         brix: 'Natural',
         shelfLife: '18 months',
         packaging: '10kg industrial moisture-proof carton',
-        applications: 'Healthy office snacks, fruit tea blends, gourmet bakery toppings.',
+        applications:
+          'Healthy office snacks, fruit tea blends, gourmet bakery toppings.',
       },
       {
         id: 'passion-fruit-puree',
@@ -94,13 +103,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         categoryName: 'Puree & Juice',
         badgeColor: 'bg-purple-100 text-purple-800 border-purple-200',
         name: 'Seedless Passion Fruit Puree (Concentrate)',
-        specs: 'Brix 14-16% | Aseptic sterile processing | 100% pure concentrate',
+        specs:
+          'Brix 14-16% | Aseptic sterile processing | 100% pure concentrate',
         moisture: 'Smooth liquid puree',
         mesh: 'Filtered through 0.5mm mesh',
         brix: '14 - 16° Brix',
         shelfLife: '24 months (-18°C) or 12 months (Aseptic ambient)',
         packaging: '200kg Aseptic Steel Drum',
-        applications: 'Beverage manufacturing, drinking yogurt, ice cream popsicles, F&B jams.',
+        applications:
+          'Beverage manufacturing, drinking yogurt, ice cream popsicles, F&B jams.',
       },
     ];
   }
@@ -208,7 +219,8 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       brix: 'Tự nhiên từ quả',
       shelfLife: '24 tháng',
       packaging: 'Túi nhôm tiệt trùng 5kg x 4 / thùng carton 20kg',
-      applications: 'Bánh kẹo, đồ uống dinh dưỡng, sữa chua, tạo màu tự nhiên Clean-label.',
+      applications:
+        'Bánh kẹo, đồ uống dinh dưỡng, sữa chua, tạo màu tự nhiên Clean-label.',
     },
     {
       id: 'passion-fruit-powder',
@@ -216,7 +228,8 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       categoryName: 'Bột sấy phun',
       badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
       name: 'Bột Chanh Dây Hòa Tan (Passion Fruit Powder)',
-      specs: 'Độ tan > 95% | Vị chua thanh tự nhiên | Giàu Vitamin C & khoáng chất',
+      specs:
+        'Độ tan > 95% | Vị chua thanh tự nhiên | Giàu Vitamin C & khoáng chất',
       moisture: '≤ 4.5%',
       mesh: '100 mesh',
       brix: 'Chuẩn hóa theo yêu cầu',
@@ -236,7 +249,8 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       brix: 'Tự nhiên',
       shelfLife: '24 tháng',
       packaging: 'Thùng carton 20kg lót túi PE kép chống ẩm',
-      applications: 'Ngũ cốc ăn sáng, thức ăn dặm trẻ em, sinh tố protein, bánh quy.',
+      applications:
+        'Ngũ cốc ăn sáng, thức ăn dặm trẻ em, sinh tố protein, bánh quy.',
     },
     {
       id: 'freeze-dried-mango',
@@ -244,13 +258,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       categoryName: 'Trái cây sấy',
       badgeColor: 'bg-orange-100 text-orange-800 border-orange-200',
       name: 'Xoài Sấy Thăng Hoa (Freeze-Dried Mango Slices)',
-      specs: 'Độ ẩm ≤ 3% | Cắt lát 5-7mm | Giòn xốp, giữ nguyên 98% vi chất & màu vàng tươi',
+      specs:
+        'Độ ẩm ≤ 3% | Cắt lát 5-7mm | Giòn xốp, giữ nguyên 98% vi chất & màu vàng tươi',
       moisture: '≤ 3.0%',
       mesh: 'Lát cắt / Hạt lựu / Dạng mảnh vụn',
       brix: 'Đậm đà tự nhiên',
       shelfLife: '18 tháng',
       packaging: 'Túi nhôm tiệt trùng 5kg x 2 / thùng carton',
-      applications: 'Ngũ cốc Granola, socola bọc trái cây, snack trái cây sấy thượng hạng.',
+      applications:
+        'Ngũ cốc Granola, socola bọc trái cây, snack trái cây sấy thượng hạng.',
     },
     {
       id: 'freeze-dried-jackfruit',
@@ -258,13 +274,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       categoryName: 'Trái cây sấy',
       badgeColor: 'bg-lime-100 text-lime-800 border-lime-200',
       name: 'Mít Sấy Thăng Hoa (Freeze-Dried Jackfruit)',
-      specs: 'Màu vàng nghệ óng ả | Hương thơm nguyên bản | Không dầu chiên, không đường',
+      specs:
+        'Màu vàng nghệ óng ả | Hương thơm nguyên bản | Không dầu chiên, không đường',
       moisture: '≤ 4.0%',
       mesh: 'Múi nguyên / Nửa múi',
       brix: 'Tự nhiên',
       shelfLife: '18 tháng',
       packaging: 'Thùng carton 10kg chống ẩm công nghiệp',
-      applications: 'Snack dinh dưỡng văn phòng, trà hoa quả sấy, nguyên liệu làm bánh cao cấp.',
+      applications:
+        'Snack dinh dưỡng văn phòng, trà hoa quả sấy, nguyên liệu làm bánh cao cấp.',
     },
     {
       id: 'passion-fruit-puree',
@@ -272,13 +290,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       categoryName: 'Nước cốt & Pure',
       badgeColor: 'bg-purple-100 text-purple-800 border-purple-200',
       name: 'Nước Cốt Chanh Dây Không Hạt (Passion Fruit Puree)',
-      specs: 'Brix 14-16% | Công nghệ tiệt trùng Aseptic | 100% nguyên chất đậm đặc',
+      specs:
+        'Brix 14-16% | Công nghệ tiệt trùng Aseptic | 100% nguyên chất đậm đặc',
       moisture: 'Dạng lỏng sánh mịn',
       mesh: 'Lọc qua lưới 0.5mm',
       brix: '14 - 16° Brix',
       shelfLife: '24 tháng (ở -18°C) hoặc 12 tháng (Aseptic)',
       packaging: 'Phuy sắt vô trùng 200kg (Aseptic Steel Drum)',
-      applications: 'Sản xuất nước giải khát, sữa chua uống, kem que, mứt sốt F&B.',
+      applications:
+        'Sản xuất nước giải khát, sữa chua uống, kem que, mứt sốt F&B.',
     },
   ];
 }
@@ -305,11 +325,14 @@ export function getFormTranslations(lang: Locale) {
       catDried: 'Freeze-Dried & Dehydrated Fruits',
       catPuree: 'Purees & Concentrates',
       catMultiple: 'Multiple Product Categories',
-      detailsLabel: 'Technical Specifications, Estimated Volume, or Delivery Port',
-      detailsPlaceholder: 'e.g. Inquiring for 500kg Red Dragon Fruit Powder 100-mesh delivered to Jebel Ali port, or requesting 200g Passion Fruit powder sample...',
+      detailsLabel:
+        'Technical Specifications, Estimated Volume, or Delivery Port',
+      detailsPlaceholder:
+        'e.g. Inquiring for 500kg Red Dragon Fruit Powder 100-mesh delivered to Jebel Ali port, or requesting 200g Passion Fruit powder sample...',
       submitBtn: 'Submit B2B Inquiry → Response within 24 Hours',
       successTitle: '✓ Inquiry Received Successfully',
-      successDesc: 'Thank you for contacting Agrihub. Our B2B commercial export desk will reach out via Email / WhatsApp within 24 business hours.',
+      successDesc:
+        'Thank you for contacting Agrihub. Our B2B commercial export desk will reach out via Email / WhatsApp within 24 business hours.',
       anotherBtn: 'Submit Another Inquiry',
     };
   }
@@ -336,10 +359,12 @@ export function getFormTranslations(lang: Locale) {
       catPuree: '果浆与浓缩原汁 (Purees & Juices)',
       catMultiple: '多种综合原料需求',
       detailsLabel: '具体技术规格要求、预估采购量或交货港口',
-      detailsPlaceholder: '例如：咨询500kg红心火龙果粉（100目）CIF指定港口到岸价，或需要200g速溶百香果粉样品供实验室检测...',
+      detailsPlaceholder:
+        '例如：咨询500kg红心火龙果粉（100目）CIF指定港口到岸价，或需要200g速溶百香果粉样品供实验室检测...',
       submitBtn: '提交商务咨询 → 24小时内专人答复',
       successTitle: '✓ 已成功接收您的商务咨询',
-      successDesc: '感谢您的垂询！Agrihub 出口与商务团队将在24个工作小时内通过邮件或微信与您取得联系。',
+      successDesc:
+        '感谢您的垂询！Agrihub 出口与商务团队将在24个工作小时内通过邮件或微信与您取得联系。',
       anotherBtn: '提交其他咨询',
     };
   }
@@ -364,11 +389,14 @@ export function getFormTranslations(lang: Locale) {
     catDried: 'Trái cây sấy (Freeze-Dried Fruits)',
     catPuree: 'Nước cốt & Puree (Fruit Concentrates)',
     catMultiple: 'Nhiều nhóm nguyên liệu',
-    detailsLabel: 'Chi tiết yêu cầu kỹ thuật, sản lượng dự kiến hoặc địa điểm giao hàng',
-    detailsPlaceholder: 'Ví dụ: Cần 500kg bột thanh long đỏ mesh 100 giao cảng Cát Lái hoặc cần mẫu thử 200g bột chanh dây test phòng Lab...',
+    detailsLabel:
+      'Chi tiết yêu cầu kỹ thuật, sản lượng dự kiến hoặc địa điểm giao hàng',
+    detailsPlaceholder:
+      'Ví dụ: Cần 500kg bột thanh long đỏ mesh 100 giao cảng Cát Lái hoặc cần mẫu thử 200g bột chanh dây test phòng Lab...',
     submitBtn: 'Gửi yêu cầu B2B → Cam kết phản hồi trong 24 giờ',
     successTitle: '✓ Đã tiếp nhận yêu cầu',
-    successDesc: 'Cảm ơn quý đối tác. Chuyên viên thương mại B2B của Agrihub sẽ liên hệ qua Email / WhatsApp trong vòng 24 giờ làm việc.',
+    successDesc:
+      'Cảm ơn quý đối tác. Chuyên viên thương mại B2B của Agrihub sẽ liên hệ qua Email / WhatsApp trong vòng 24 giờ làm việc.',
     anotherBtn: 'Gửi yêu cầu khác',
   };
 }
@@ -385,7 +413,8 @@ export function getHomePageUi(lang: Locale) {
       about: {
         tag: 'Vietnamese Tropical Fruits',
         natural: '100% Natural',
-        fruitList: 'Mango, Red Dragon Fruit, Passion Fruit, Banana, Jackfruit...',
+        fruitList:
+          'Mango, Red Dragon Fruit, Passion Fruit, Banana, Jackfruit...',
         qualityStat: 'Lab Verified Quality',
         originStat: 'Traceable Origin',
         title: 'ABOUT US',
@@ -431,7 +460,8 @@ export function getHomePageUi(lang: Locale) {
         shelfLife: 'Shelf Life:',
         packaging: 'Packaging Standards:',
         applications: 'Commercial Applications:',
-        notice: '[Note: All technical specifications can be customized according to client formulations and plant machinery]',
+        notice:
+          '[Note: All technical specifications can be customized according to client formulations and plant machinery]',
         close: 'Close',
         quote: 'Request Quote & Sample Kit',
       },
@@ -463,8 +493,10 @@ export function getHomePageUi(lang: Locale) {
             desc: 'Apply custom client branding, batch lot labeling, and complete export customs dossier handover.',
           },
         ],
-        ctaTitle: 'Have a proprietary formula or specialized ingredient specifications?',
-        ctaDesc: 'Agrihub supports partners from initial lab validation through multi-container export shipments.',
+        ctaTitle:
+          'Have a proprietary formula or specialized ingredient specifications?',
+        ctaDesc:
+          'Agrihub supports partners from initial lab validation through multi-container export shipments.',
         ctaBtn: 'Schedule R&D Session',
       },
       supply: {
@@ -473,11 +505,15 @@ export function getHomePageUi(lang: Locale) {
         stat3: 'Metric Tons / Year',
         stat4: 'Partner Orchard Cooperatives',
         card1Title: 'Sustainably Sourced Vietnamese Orchards',
-        card1Desc: 'Direct partnerships with agricultural cooperatives across prime tropical fruit regions in Vietnam (Mekong Delta, Central Highlands, Binh Thuan). Fresh harvests with strict soil, water, and residue controls.',
-        card1Notice: '[Verified GAP-certified cooperatives and seasonal harvest records available upon request]',
+        card1Desc:
+          'Direct partnerships with agricultural cooperatives across prime tropical fruit regions in Vietnam (Mekong Delta, Central Highlands, Binh Thuan). Fresh harvests with strict soil, water, and residue controls.',
+        card1Notice:
+          '[Verified GAP-certified cooperatives and seasonal harvest records available upon request]',
         card2Title: 'Industrial Dehydration & Infrastructure',
-        card2Desc: 'Industrial freeze-drying chambers, convective heat dehydration, and ultra-fine milling lines. Humidity- and climate-controlled storage maintaining year-round consistent ingredient quality.',
-        card2Notice: '[Automated processing lines and cold storage facility photos available in Company Profile]',
+        card2Desc:
+          'Industrial freeze-drying chambers, convective heat dehydration, and ultra-fine milling lines. Humidity- and climate-controlled storage maintaining year-round consistent ingredient quality.',
+        card2Notice:
+          '[Automated processing lines and cold storage facility photos available in Company Profile]',
       },
       quality: {
         cards: [
@@ -503,13 +539,16 @@ export function getHomePageUi(lang: Locale) {
             logo: '/images/certifications/iso-22000.svg',
           },
         ],
-        coaTitle: 'Mandatory Certificate of Analysis (COA) dispatched with every shipment:',
+        coaTitle:
+          'Mandatory Certificate of Analysis (COA) dispatched with every shipment:',
         coaPhysical: 'Physical & Chemical:',
-        coaPhysicalDesc: 'Moisture, total ash, brix, heavy metals (Pb, As, Cd).',
+        coaPhysicalDesc:
+          'Moisture, total ash, brix, heavy metals (Pb, As, Cd).',
         coaMicro: 'Microbiological:',
         coaMicroDesc: 'E.coli, Coliforms, Salmonella, Yeasts and Molds.',
         coaResidue: 'Residue Safety:',
-        coaResidueDesc: 'Guaranteed pesticide residues well below international maximum residue limits (MRLs).',
+        coaResidueDesc:
+          'Guaranteed pesticide residues well below international maximum residue limits (MRLs).',
       },
       global: {
         marketsTitle: 'Proven Global Export Destinations',
@@ -620,7 +659,8 @@ export function getHomePageUi(lang: Locale) {
           },
         ],
         ctaTitle: '拥有独家配方或需要定制特殊规格农产原料？',
-        ctaDesc: 'Agrihub 提供从初期实验室小试到整柜大宗出口的全周期技术与产能支持。',
+        ctaDesc:
+          'Agrihub 提供从初期实验室小试到整柜大宗出口的全周期技术与产能支持。',
         ctaBtn: '预约技术研发交流',
       },
       supply: {
@@ -629,10 +669,12 @@ export function getHomePageUi(lang: Locale) {
         stat3: '年综合产能',
         stat4: '示范合作种植园',
         card1Title: '源自越南核心热带水果示范基地',
-        card1Desc: '与湄公河三角洲、西原高原及平顺等核心产区优质农业合作社深度绑定，严把采收时令，严格管控土壤、水质与农药残留。',
+        card1Desc:
+          '与湄公河三角洲、西原高原及平顺等核心产区优质农业合作社深度绑定，严把采收时令，严格管控土壤、水质与农药残留。',
         card1Notice: '[GAP 认证合作基地及采收档案随时备索]',
         card2Title: '先进深加工工艺与完备仓储基建',
-        card2Desc: '配备工业级冷冻干燥机组（FD）、对流烘干设备及超细气流粉碎生产线，配备恒温恒湿大型仓储库，确保全年品质均一如一。',
+        card2Desc:
+          '配备工业级冷冻干燥机组（FD）、对流烘干设备及超细气流粉碎生产线，配备恒温恒湿大型仓储库，确保全年品质均一如一。',
         card2Notice: '[全套现代化加工车间与冷库图纸见企业资质册]',
       },
       quality: {
@@ -743,7 +785,8 @@ export function getHomePageUi(lang: Locale) {
       shelfLife: 'Hạn sử dụng:',
       packaging: 'Quy cách đóng gói:',
       applications: 'Ứng dụng sản xuất:',
-      notice: '[Lưu ý: Mọi thông số kỹ thuật có thể tùy chỉnh theo công thức và dây chuyền của khách hàng]',
+      notice:
+        '[Lưu ý: Mọi thông số kỹ thuật có thể tùy chỉnh theo công thức và dây chuyền của khách hàng]',
       close: 'Đóng',
       quote: 'Yêu cầu Báo giá & Mẫu thử',
     },
@@ -775,8 +818,10 @@ export function getHomePageUi(lang: Locale) {
           desc: 'Đóng gói bao bì thương hiệu riêng, dán nhãn thông tin kỹ thuật và bàn giao đầy đủ chứng từ xuất xưởng.',
         },
       ],
-      ctaTitle: 'Bạn có công thức riêng hoặc muốn tùy chỉnh quy cách nguyên liệu?',
-      ctaDesc: 'Agrihub hỗ trợ từ giai đoạn mẫu thử nghiệm nhỏ đến sản xuất quy mô container.',
+      ctaTitle:
+        'Bạn có công thức riêng hoặc muốn tùy chỉnh quy cách nguyên liệu?',
+      ctaDesc:
+        'Agrihub hỗ trợ từ giai đoạn mẫu thử nghiệm nhỏ đến sản xuất quy mô container.',
       ctaBtn: 'Đặt lịch trao đổi R&D',
     },
     supply: {
@@ -785,11 +830,15 @@ export function getHomePageUi(lang: Locale) {
       stat3: 'Sản lượng tấn/năm',
       stat4: 'Vùng trồng liên kết',
       card1Title: 'Vùng nguyên liệu nông sản Việt Nam',
-      card1Desc: 'Agrihub liên kết chặt chẽ với các vùng chuyên canh nông sản trù phú (ĐBSCL, Tây Nguyên, Bình Thuận...). Trái cây tươi được thu hoạch đúng vụ, kiểm soát chặt chẽ dư lượng thuốc BVTV từ nguồn đất và nguồn nước.',
-      card1Notice: '[CẦN BỔ SUNG: Bản đồ vùng trồng liên kết cụ thể & ảnh chụp mùa vụ]',
+      card1Desc:
+        'Agrihub liên kết chặt chẽ với các vùng chuyên canh nông sản trù phú (ĐBSCL, Tây Nguyên, Bình Thuận...). Trái cây tươi được thu hoạch đúng vụ, kiểm soát chặt chẽ dư lượng thuốc BVTV từ nguồn đất và nguồn nước.',
+      card1Notice:
+        '[CẦN BỔ SUNG: Bản đồ vùng trồng liên kết cụ thể & ảnh chụp mùa vụ]',
       card2Title: 'Công nghệ sấy & Cơ sở hạ tầng',
-      card2Desc: 'Hệ thống máy sấy thăng hoa (Freeze-drying), sấy nhiệt đối lưu và máy nghiền bột công nghiệp khép kín. Kho bảo quản kiểm soát độ ẩm và nhiệt độ nghiêm ngặt giúp bảo đảm chất lượng nguyên liệu quanh năm.',
-      card2Notice: '[CẦN BỔ SUNG: Ảnh chụp dây chuyền máy móc & hệ thống kho bảo quản]',
+      card2Desc:
+        'Hệ thống máy sấy thăng hoa (Freeze-drying), sấy nhiệt đối lưu và máy nghiền bột công nghiệp khép kín. Kho bảo quản kiểm soát độ ẩm và nhiệt độ nghiêm ngặt giúp bảo đảm chất lượng nguyên liệu quanh năm.',
+      card2Notice:
+        '[CẦN BỔ SUNG: Ảnh chụp dây chuyền máy móc & hệ thống kho bảo quản]',
     },
     quality: {
       cards: [
@@ -815,13 +864,15 @@ export function getHomePageUi(lang: Locale) {
           logo: '/images/certifications/iso-22000.svg',
         },
       ],
-      coaTitle: 'Cam kết cung cấp COA (Certificate of Analysis) đi kèm từng lô hàng:',
+      coaTitle:
+        'Cam kết cung cấp COA (Certificate of Analysis) đi kèm từng lô hàng:',
       coaPhysical: 'Vật lý & Hóa học:',
       coaPhysicalDesc: 'Độ ẩm, tro tổng số, brix, kim loại nặng (Pb, As, Cd).',
       coaMicro: 'Vi sinh vật:',
       coaMicroDesc: 'E.coli, Coliforms, Salmonella, Nấm men và nấm mốc.',
       coaResidue: 'Dư lượng:',
-      coaResidueDesc: 'Đảm bảo không dư lượng hóa chất BVTV ngoài ngưỡng cho phép.',
+      coaResidueDesc:
+        'Đảm bảo không dư lượng hóa chất BVTV ngoài ngưỡng cho phép.',
     },
     global: {
       marketsTitle: 'Thị trường xuất khẩu đã giao thương thành công',
@@ -949,21 +1000,25 @@ export function getAboutUsContent(lang: Locale) {
 
   return {
     badge: 'Về Chúng Tôi',
-    visionTitle: 'Tầm nhìn: "Từ nông trại Việt Nam đến thị trường thế giới"',
+    visionTitle: 'Tầm nhìn từ nông trại Việt Nam đến thị trường thế giới',
     visionDesc:
       'Việt Nam sở hữu thổ nhưỡng nhiệt đới trù phú với các loại trái cây có hương vị và màu sắc đặc trưng hiếm nơi nào có được. Với hơn 10 năm kinh nghiệm trong ngành chế biến nông sản, Agrihub ra đời với sứ mệnh nâng tầm giá trị nông sản bản địa bằng công nghệ sấy và chiết xuất hiện đại, đưa nguyên liệu chất lượng cao của Việt Nam vào chuỗi cung ứng của các tập đoàn sản xuất thực phẩm và đồ uống quốc tế.',
     pillars: [
       {
-        title: 'Chất lượng thực chất',
-        desc: 'Nói bằng số liệu kỹ thuật rõ ràng, không hứa hẹn chung chung. Mọi cam kết về độ ẩm, độ mịn và an toàn vi sinh đều được chứng minh qua kiểm nghiệm độc lập.',
+        title: 'Chất lượng chuẩn BRC',
+        desc: 'Hệ thống quản lý chất lượng được vận hành, duy trì và cải tiến liên tục theo tiêu chuẩn quốc tế BRC.',
       },
       {
-        title: 'Cùng phát triển bền vững',
-        desc: 'Đúng với thông điệp "Growing Value Together", chúng tôi đồng hành lâu dài cùng bà con nông dân vùng nguyên liệu và là đối tác cung ứng ổn định của các nhà máy.',
+        title: '100% Tự nhiên & Khép kín',
+        desc: 'Quy trình chế biến từ nguyên liệu thô đến thành phẩm đảm bảo khép kín hoàn toàn. Chúng tôi cam kết không sử dụng hóa chất hay phụ gia thực phẩm, giữ trọn hương vị tươi mới và giá trị dinh dưỡng của sản phẩm.',
       },
       {
-        title: 'Chuẩn hóa quốc tế',
-        desc: 'Tuân thủ nghiêm ngặt các quy tắc thương mại Incoterms 2020, hoàn thiện đầy đủ hồ sơ pháp lý hải quan giúp quá trình thông quan của đối tác diễn ra thông suốt.',
+        title: 'Minh bạch & An toàn',
+        desc: 'Toàn bộ nguồn nguyên liệu đầu vào đều có chứng nhận xuất xứ rõ ràng và đáp ứng đầy đủ các tiêu chuẩn an toàn thực phẩm nghiêm ngặt.',
+      },
+      {
+        title: 'Đội ngũ chuyên môn cao',
+        desc: 'Sở hữu nhân sự giàu kinh nghiệm, am hiểu sâu sắc về tiêu chuẩn kỹ thuật, an toàn vệ sinh thực phẩm và xu hướng thị trường quốc tế.',
       },
     ],
     notes: [
@@ -1219,8 +1274,7 @@ export function getSupplyChainContent(lang: Locale) {
     block2Title: '2. Công nghệ chế biến & Hệ thống kho bãi',
     block2Desc:
       'Trang bị hệ thống máy sấy thăng hoa (Freeze Dryer), sấy nhiệt đối lưu và thiết bị nghiền bột siêu mịn đạt chuẩn vệ sinh an toàn công nghiệp. Kho bảo quản duy trì nhiệt độ và độ ẩm tiêu chuẩn giúp ổn định chất lượng bột và quả sấy quanh năm.',
-    block2Notice:
-      '[Hình ảnh máy móc dây chuyền sản xuất và hệ thống kho lạnh]',
+    block2Notice: '[Hình ảnh máy móc dây chuyền sản xuất và hệ thống kho lạnh]',
   };
 }
 
@@ -1298,10 +1352,8 @@ export function getQualityContent(lang: Locale) {
       commitmentTitle: '批次技术单证与权威检测承诺：',
       bullet1:
         '• 微生物检测：大肠杆菌、沙门氏菌、霉菌与酵母菌严格符合进口国安全限量。',
-      bullet2:
-        '• 重金属筛查：严苛管控铅 (Pb)、砷 (As)、镉 (Cd) 残留含量。',
-      bullet3:
-        '• 农残管控：全面符合国际食品农药最高残留限量（MRLs）规定。',
+      bullet2: '• 重金属筛查：严苛管控铅 (Pb)、砷 (As)、镉 (Cd) 残留含量。',
+      bullet3: '• 农残管控：全面符合国际食品农药最高残留限量（MRLs）规定。',
     };
   }
 
@@ -1495,8 +1547,7 @@ export function getGlobalPresenceContent(lang: Locale) {
         desc: 'Mở rộng thị trường xuất khẩu nguyên liệu chế biến sang khu vực Bắc Phi và Trung Đông.',
       },
     ],
-    ctaTitle:
-      'Bạn là nhà nhập khẩu tìm kiếm nguồn cung nông sản Việt Nam?',
+    ctaTitle: 'Bạn là nhà nhập khẩu tìm kiếm nguồn cung nông sản Việt Nam?',
     ctaDesc:
       'Đội ngũ xuất khẩu Agrihub hỗ trợ đầy đủ thủ tục hải quan, CO, CQ và điều kiện Incoterms (FOB, CIF, CFR).',
     showNote: '[Hình ảnh gian hàng & Thời gian tham gia cụ thể]',
@@ -1650,8 +1701,7 @@ export function getProductDetailPageTranslations(lang: Locale) {
     defaultShelfLife: '18 - 24 tháng kể từ ngày sản xuất',
     defaultPackaging:
       'Túi nhôm hút chân không 5kg/10kg x thùng carton, phuy 20kg',
-    defaultApplication:
-      'Bánh kẹo, đồ uống, sữa chua, thực phẩm dinh dưỡng',
+    defaultApplication: 'Bánh kẹo, đồ uống, sữa chua, thực phẩm dinh dưỡng',
     defaultMoq: '100 kg đối với đơn thử nghiệm, 500 kg đối với đơn sản xuất',
     btnQuoteSample: 'Yêu cầu Báo giá & Nhận mẫu thử (Lab Sample)',
     btnDownloadPdf: '📄 Tải Spec & TDS (PDF)',
@@ -1695,4 +1745,3 @@ export function getProductsPageTranslations(lang: Locale) {
       'Danh mục sản phẩm được đồng bộ tự động từ WordPress API. Mọi cập nhật trong WordPress Admin sẽ hiển thị trực tiếp tại đây.',
   };
 }
-

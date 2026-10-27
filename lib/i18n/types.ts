@@ -78,6 +78,10 @@ export interface Dictionary {
       globalBadge: string;
       globalTitle: string;
       globalSubtitle: string;
+      featuredNewsBadge?: string;
+      featuredNewsTitle?: string;
+      featuredNewsSubtitle?: string;
+      viewAllNews?: string;
       contactBadge: string;
       contactTitle: string;
       contactSubtitle: string;
@@ -143,6 +147,7 @@ export interface Dictionary {
     pageTitle: string;
     pageSubtitle: string;
     filterAll: string;
+    filterFeatured: string;
     filterNews: string;
     filterEvents: string;
     filterAnnouncements: string;

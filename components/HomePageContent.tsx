@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import Link from 'next/link';
 import Image from 'next/image';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Locale, Dictionary, getIngredients, getHomePageUi } from '@/lib/i18n';
@@ -12,15 +13,51 @@ import FadeIn from '@/components/animations/FadeIn';
 import StaggerContainer, {
   StaggerItem,
 } from '@/components/animations/StaggerContainer';
+import { NewsEvent } from '@/lib/wordpress';
 
 interface HomePageContentProps {
   currentLang: Locale;
   dict: Dictionary;
+  featuredNews?: NewsEvent[];
+}
+
+function getCategoryBadgeClass(category: string): string {
+  const lower = (category || '').toLowerCase();
+  if (
+    lower.includes('nổi bật') ||
+    lower.includes('noi-bat') ||
+    lower.includes('featured') ||
+    lower.includes('精选')
+  ) {
+    return 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+  }
+  if (lower.includes('kiện') || lower.includes('event') || lower.includes('活动')) {
+    return 'bg-accent-mango/20 text-accent-gold border border-accent-gold/30';
+  }
+  if (lower.includes('báo') || lower.includes('announcement') || lower.includes('公告')) {
+    return 'bg-cream-200 text-cream-600 border border-cream-300';
+  }
+  return 'bg-primary-100 text-primary-700 border border-primary-200';
+}
+
+function formatDate(dateStr: string, lang: string): string {
+  if (!dateStr) return '';
+  try {
+    const localeMap: Record<string, string> = { vi: 'vi-VN', en: 'en-US', zh: 'zh-CN' };
+    return new Date(dateStr).toLocaleDateString(localeMap[lang] ?? 'vi-VN', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+    });
+  } catch {
+    return dateStr;
+  }
 }
 
 export default function HomePageContent({
   currentLang,
   dict,
+  featuredNews = [],
 }: HomePageContentProps) {
   // Client-side category tab filter
   const [activeCategory, setActiveCategory] = useState<
@@ -49,16 +86,16 @@ export default function HomePageContent({
         {/* Full-width Background Image & Gradient Overlays for WCAG AA Contrast */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
-            src="/images/banners/hero-banner.svg"
+            src="/images/banners/Banner.png"
             alt="Agrihub Vietnam - Nông sản xuất khẩu"
             fill
             priority
             className="object-cover object-center"
             sizes="100vw"
           />
-          {/* Multi-layered gradient overlay to ensure WCAG AA 4.5:1 text contrast */}
-          <div className="absolute inset-0 bg-gradient-to-r from-primary-950/95 via-primary-900/85 to-primary-950/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-primary-950/90 via-transparent to-primary-950/30" />
+          {/* Multi-layered gradient overlay to ensure WCAG AA 4.5:1 text contrast while preserving photo clarity */}
+          <div className="absolute inset-0 bg-gradient-to-r from-primary-950/90 via-primary-900/75 to-primary-950/40" />
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-950/80 via-transparent to-primary-950/20" />
           {/* Subtle natural sunlit glow accents */}
           <div className="absolute right-0 top-0 w-96 h-96 bg-primary-leaf/20 rounded-full blur-3xl" />
           <div className="absolute -left-10 bottom-0 w-80 h-80 bg-accent-gold/15 rounded-full blur-3xl" />
@@ -245,7 +282,7 @@ export default function HomePageContent({
       </section>
 
       {/* SECTION 3: 4 NHÓM KHÁCH HÀNG B2B TRỌNG TÂM */}
-      <section>
+      {/* <section>
         <Container>
           <FadeIn direction="up">
             <SectionTitle
@@ -261,7 +298,7 @@ export default function HomePageContent({
                 index === 0
                   ? '#nguyen-lieu'
                   : index === 1
-                    ? '#xuat-khau'
+                    ? '#tin-tuc'
                     : index === 2
                       ? '#oem-odm'
                       : `/${currentLang}/distribution-partners`;
@@ -294,7 +331,7 @@ export default function HomePageContent({
             })}
           </StaggerContainer>
         </Container>
-      </section>
+      </section> */}
 
       {/* SECTION 4: GỘP - DANH MỤC NGUYÊN LIỆU CHỦ LỰC & TDS SPEC */}
       <section id="nguyen-lieu" className="scroll-mt-24">
@@ -585,7 +622,7 @@ export default function HomePageContent({
             ))}
           </StaggerContainer>
 
-          <FadeIn direction="up" delay={0.2}>
+          {/* <FadeIn direction="up" delay={0.2}>
             <div className="bg-cream-100 p-6 rounded-3xl border border-cream-300 flex flex-col md:flex-row items-center justify-between gap-6">
               <div className="space-y-1">
                 <h3 className="font-bold text-base text-primary-850">
@@ -603,7 +640,7 @@ export default function HomePageContent({
                 <span>&rarr;</span>
               </Button>
             </div>
-          </FadeIn>
+          </FadeIn> */}
         </Container>
       </section>
 
@@ -783,124 +820,118 @@ export default function HomePageContent({
         </Container>
       </section>
 
-      {/* SECTION 8: GỘP - THỊ TRƯỜNG QUỐC TẾ & SỰ KIỆN TRIỂN LÃM */}
-      <section id="xuat-khau" className="scroll-mt-24">
+      {/* SECTION 8: TIN TỨC & HOẠT ĐỘNG NỔI BẬT (Từ WordPress Category Nổi Bật) */}
+      <section id="tin-tuc" className="scroll-mt-24 py-12 sm:py-16">
+        {/* Hỗ trợ anchor cũ nếu có người dùng bookmark */}
+        <div id="xuat-khau" className="relative -top-24" />
         <Container>
           <FadeIn direction="up">
             <SectionTitle
-              badge={dict.pages.home.globalBadge}
-              title={dict.pages.home.globalTitle}
-              subtitle={dict.pages.home.globalSubtitle}
+              badge={dict.pages.home.featuredNewsBadge ?? 'Tin Tức & Hoạt Động'}
+              title={dict.pages.home.featuredNewsTitle ?? 'Tin Tức & Sự Kiện Nổi Bật'}
+              subtitle={
+                dict.pages.home.featuredNewsSubtitle ??
+                'Cập nhật hoạt động thương mại, triển lãm quốc tế và thông tin mới nhất từ Agrihub.'
+              }
             />
           </FadeIn>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 my-8">
-            {/* Export Markets */}
-            <FadeIn direction="up">
-              <motion.div
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft h-full"
-              >
-                <h3 className="text-base font-bold text-primary-850 mb-4">
-                  {ui.global.marketsTitle}
-                </h3>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                  <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 hover:border-primary-leaf/50 transition-colors">
-                    <span className="font-bold text-primary-850 text-sm block">
-                      UAE
-                    </span>
-                    <span className="text-slate-500">{ui.global.uaeNote}</span>
-                  </div>
-                  <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 hover:border-primary-leaf/50 transition-colors">
-                    <span className="font-bold text-primary-850 text-sm block">
-                      {ui.global.bulgaria}
-                    </span>
-                    <span className="text-slate-500">
-                      {ui.global.bulgariaNote}
-                    </span>
-                  </div>
-                  <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 hover:border-primary-leaf/50 transition-colors">
-                    <span className="font-bold text-primary-850 text-sm block">
-                      {ui.global.china}
-                    </span>
-                    <span className="text-slate-500">
-                      {ui.global.chinaNote}
-                    </span>
-                  </div>
-                  <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 hover:border-primary-leaf/50 transition-colors">
-                    <span className="font-bold text-primary-850 text-sm block">
-                      {ui.global.cambodia}
-                    </span>
-                    <span className="text-slate-500">
-                      {ui.global.cambodiaNote}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            </FadeIn>
+          {/* Grid 3 bài viết nổi bật */}
+          <div className="my-8">
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {(featuredNews && featuredNews.length > 0 ? featuredNews : []).map((post) => {
+                const badgeClass = getCategoryBadgeClass(post.category);
+                const formattedDate = formatDate(post.date, currentLang);
 
-            {/* Trade Shows */}
-            <FadeIn direction="up" delay={0.15}>
-              <motion.div
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft h-full"
-              >
-                <h3 className="text-base font-bold text-primary-850 mb-4">
-                  {ui.global.showsTitle}
-                </h3>
-                <div className="space-y-3 text-xs">
-                  <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 flex justify-between items-center gap-2 hover:border-primary-leaf/50 transition-colors">
-                    <div>
-                      <strong className="text-primary-850 block">
-                        Saudi Food Show
-                      </strong>
-                      <span className="text-slate-500">
-                        Riyadh, Saudi Arabia
-                      </span>
-                    </div>
-                    <span className="text-primary-leaf font-bold bg-white px-3 py-1 rounded-full border border-cream-300 text-[11px] shrink-0">
-                      {ui.global.tagMiddleEast}
-                    </span>
-                  </div>
-                  <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 flex justify-between items-center gap-2 hover:border-primary-leaf/50 transition-colors">
-                    <div>
-                      <strong className="text-primary-850 block">
-                        WorldFood Moscow
-                      </strong>
-                      <span className="text-slate-500">Moscow, Russia</span>
-                    </div>
-                    <span className="text-primary-leaf font-bold bg-white px-3 py-1 rounded-full border border-cream-300 text-[11px] shrink-0">
-                      {ui.global.tagEastEurope}
-                    </span>
-                  </div>
-                  <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 flex justify-between items-center gap-2 hover:border-primary-leaf/50 transition-colors">
-                    <div>
-                      <strong className="text-primary-850 block">
-                        Vietnam Foodexpo
-                      </strong>
-                      <span className="text-slate-500">
-                        Ho Chi Minh City, Vietnam
-                      </span>
-                    </div>
-                    <span className="text-primary-leaf font-bold bg-white px-3 py-1 rounded-full border border-cream-300 text-[11px] shrink-0">
-                      {ui.global.tagIntl}
-                    </span>
-                  </div>
-                  <div className="p-3.5 bg-cream-50 rounded-2xl border border-cream-200 flex justify-between items-center gap-2 hover:border-primary-leaf/50 transition-colors">
-                    <div>
-                      <strong className="text-primary-850 block">
-                        Food Africa 2025
-                      </strong>
-                      <span className="text-slate-500">Cairo, Egypt</span>
-                    </div>
-                    <span className="text-primary-leaf font-bold bg-white px-3 py-1 rounded-full border border-cream-300 text-[11px] shrink-0">
-                      {ui.global.tagAfrica}
-                    </span>
-                  </div>
-                </div>
-              </motion.div>
-            </FadeIn>
+                return (
+                  <StaggerItem key={post.slug} className="h-full">
+                    <Link
+                      href={`/${currentLang}/news/${post.slug}`}
+                      className="group block bg-white border border-cream-200 rounded-3xl overflow-hidden shadow-soft hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full hover:border-primary-leaf/40 hover:shadow-md"
+                    >
+                      {/* Thumbnail 16:9 */}
+                      <div className="aspect-video relative overflow-hidden bg-primary-100 flex items-center justify-center shrink-0">
+                        {post.image ? (
+                          <Image
+                            src={post.image}
+                            alt={post.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-primary-900/10 via-cream-200 to-primary-100 flex flex-col items-center justify-center gap-1 select-none text-primary-800">
+                            <span className="text-3xl">📰</span>
+                            <span className="text-[11px] font-bold tracking-wider uppercase text-primary-700/80">
+                              Agrihub News
+                            </span>
+                          </div>
+                        )}
+                      </div>
+
+                      {/* Content */}
+                      <div className="p-6 flex flex-col flex-1">
+                        {/* Category + Date */}
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span className={`text-xs font-bold px-2.5 py-1 rounded-full ${badgeClass}`}>
+                            {post.category}
+                          </span>
+                          <span className="text-xs text-slate-400 shrink-0 font-medium">
+                            {formattedDate}
+                          </span>
+                        </div>
+
+                        {/* Event date / location nếu có */}
+                        {post.eventDate && (
+                          <div className="text-xs text-primary-700 mb-2.5 flex items-center gap-1.5 font-medium bg-primary-50/80 px-2.5 py-1 rounded-lg border border-primary-100/60 w-fit">
+                            <span>📅 {post.eventDate}</span>
+                            {post.eventLocation && (
+                              <>
+                                <span className="text-slate-300">•</span>
+                                <span>📍 {post.eventLocation}</span>
+                              </>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Title */}
+                        <h3 className="font-bold text-primary-850 text-base sm:text-lg leading-snug line-clamp-2 mb-2 group-hover:text-primary-leaf transition-colors">
+                          {post.title}
+                        </h3>
+
+                        {/* Excerpt */}
+                        {post.excerpt && (
+                          <p className="text-sm text-slate-600 line-clamp-2 sm:line-clamp-3 mb-4 flex-1 leading-relaxed">
+                            {post.excerpt}
+                          </p>
+                        )}
+
+                        {/* CTA link */}
+                        <div className="pt-2 border-t border-cream-200/60 flex items-center justify-between text-xs font-bold text-primary-leaf group-hover:text-primary-850 transition-colors mt-auto">
+                          <span>{dict.news?.readMore ?? 'Đọc tiếp'}</span>
+                          <span className="group-hover:translate-x-1 transition-transform">→</span>
+                        </div>
+                      </div>
+                    </Link>
+                  </StaggerItem>
+                );
+              })}
+            </StaggerContainer>
           </div>
+
+          {/* Action Button: Xem tất cả tin tức */}
+          <FadeIn direction="up" delay={0.2}>
+            <div className="text-center mt-8">
+              <Button
+                href={`/${currentLang}/news`}
+                variant="pill"
+                size="md"
+                className="shadow-xs hover:shadow-soft"
+              >
+                {dict.pages.home.viewAllNews ?? 'Xem tất cả tin tức →'}
+              </Button>
+            </div>
+          </FadeIn>
         </Container>
       </section>
 

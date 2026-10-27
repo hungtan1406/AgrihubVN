@@ -978,6 +978,14 @@ export function getFooterTranslations(lang: Locale) {
   };
 }
 
+export const PARTNER_LOGOS = [
+  { name: 'Cata', logo: '/images/partners/partner1.jpg' },
+  { name: 'COMET', logo: '/images/partners/partner2.jpg' },
+  { name: 'ecoco', logo: '/images/partners/partner3.jpg' },
+  { name: 'WACACO', logo: '/images/partners/partner4.jpg' },
+  { name: 'ZOJIRUSHI', logo: '/images/partners/partner5.jpg' },
+];
+
 export function getAboutUsContent(lang: Locale) {
   if (lang === 'en') {
     return {
@@ -1004,6 +1012,45 @@ export function getAboutUsContent(lang: Locale) {
         'Executive leadership and dedicated food science R&D engineers',
         'On-site facility photography and processing infrastructure',
       ],
+      // Section: Global Network
+      networkBadge: 'Strategic Partners',
+      networkTitle: 'Global Strategic Network',
+      networkSubtitle:
+        'Backed by robust processing capacity and time-tested credibility, AGRIHUB is proud to serve as a strategic supplier to leading enterprises across key markets including the US, Australia, France, South Korea, and various nations across Europe and Asia.',
+      partners: PARTNER_LOGOS,
+      // Section: Why Choose Us
+      whyChooseBadge: 'Value Proposition',
+      whyChooseTitle: 'Why Choose AGRIHUB?',
+      whyChooseSubtitle:
+        'Partnering with AGRIHUB, clients secure optimal agricultural ingredient solutions across quality, cost efficiency, and on-time delivery, reinforced by dedicated technical advisory from our seasoned industry specialists.',
+      whyChoosePillars: [
+        {
+          icon: '🥇',
+          title: 'Uncompromised Quality',
+          desc: 'Strict QA/QC protocols compliant with BRC, HACCP, and ISO standards. 100% natural, backed by transparent COAs and batch-by-batch microbiological testing.',
+        },
+        {
+          icon: '💰',
+          title: 'Competitive Value',
+          desc: 'Direct-from-source pricing leveraging partner GAP cooperatives and modern processing facilities, eliminating redundant commercial intermediaries.',
+        },
+        {
+          icon: '⏱️',
+          title: 'On-Time Reliability',
+          desc: 'Substantial strategic warehouse buffers ensuring steady container-scale supply year-round, backed by streamlined international export customs clearance.',
+        },
+        {
+          icon: '🧑‍🔬',
+          title: 'Dedicated Technical Advisory',
+          desc: 'Experienced food scientists and export engineers working closely with your team to customize technical parameters (moisture, mesh, brix) to fit your manufacturing line.',
+        },
+      ],
+      // Closing Motto Banner
+      closingBadge: 'VISION & COMMITMENT',
+      closingMotto:
+        'AGRIHUB – Elevating Vietnamese Agriculture, Growing Sustainable Value Together',
+      closingCtaPrimary: 'Submit Commercial Inquiry',
+      closingCtaSecondary: 'Explore Products',
     };
   }
 
@@ -1032,6 +1079,45 @@ export function getAboutUsContent(lang: Locale) {
         '核心管理团队与资深食品科学 R&D 研发工程师',
         '生产加工车间与企业实景概览',
       ],
+      // Section: Global Network
+      networkBadge: '全球合作',
+      networkTitle: '全球战略合作网络',
+      networkSubtitle:
+        '凭借雄厚的供应实力与历经考验的商业信誉，AGRIHUB 荣幸成为美国、澳大利亚、法国、韩国以及欧亚多个重点市场众多知名企业的战略合作伙伴。',
+      partners: PARTNER_LOGOS,
+      // Section: Why Choose Us
+      whyChooseBadge: '核心优势',
+      whyChooseTitle: '为什么选择 AGRIHUB？',
+      whyChooseSubtitle:
+        '携手 AGRIHUB，贵方不仅能获得在品质、价格与交付周期上最具优势的深加工原料解决方案，更能得到我们资深专家团队全方位的技术咨询与研发支持。',
+      whyChoosePillars: [
+        {
+          icon: '🥇',
+          title: '严苛卓越品质',
+          desc: '遵循 BRC、HACCP 及 ISO 国际权威标准。100% 天然无添加，每批次出运货物均附带第三方权威检测报告（COA）。',
+        },
+        {
+          icon: '💰',
+          title: '最具竞争力的源头价格',
+          desc: '直连 GAP 合作果园与现代化精深加工工厂，杜绝多层商业中间环节，为大宗采购客户提供第一手出厂阶梯报价。',
+        },
+        {
+          icon: '⏱️',
+          title: '交付周期稳定可靠',
+          desc: '中心仓常年安全现货储备，保障旺季集装箱规模大单持续稳定供应，全套国际海关与植检手续高效通关。',
+        },
+        {
+          icon: '🧑‍🔬',
+          title: '专家团队深度伴随',
+          desc: '资深食品科学工程师与外贸专家一对一深度支持，依据客户工厂产线设备与配方需求，灵活定制专属水分、细度及糖度指标。',
+        },
+      ],
+      // Closing Motto Banner
+      closingBadge: '愿景与承诺',
+      closingMotto:
+        'AGRIHUB —— 提升越南农产价值，携手共筑可持续发展',
+      closingCtaPrimary: '立即提交商务合作',
+      closingCtaSecondary: '浏览产品系列',
     };
   }
 
@@ -1063,6 +1149,45 @@ export function getAboutUsContent(lang: Locale) {
       'Cơ cấu ban lãnh đạo và đội ngũ kỹ thuật R&D',
       'Hình ảnh thực tế văn phòng làm việc và nhà máy',
     ],
+    // Section: Global Network
+    networkBadge: 'Đối Tác Chiến Lược',
+    networkTitle: 'Mạng Lưới Toàn Cầu',
+    networkSubtitle:
+      'Nhờ năng lực cung ứng vững chắc và uy tín đã được khẳng định qua thời gian, AGRIHUB tự hào là đối tác chiến lược của nhiều doanh nghiệp lớn tại các thị trường trọng điểm như Mỹ, Úc, Pháp, Hàn Quốc, cùng nhiều quốc gia thuộc khu vực Châu Âu và Châu Á.',
+    partners: PARTNER_LOGOS,
+    // Section: Why Choose Us
+    whyChooseBadge: 'Giá Trị Khác Biệt',
+    whyChooseTitle: 'Tại Sao Chọn AGRIHUB?',
+    whyChooseSubtitle:
+      'Đến với AGRIHUB, Quý đối tác không chỉ tìm thấy giải pháp nguyên liệu tối ưu về chất lượng - giá thành - tiến độ, mà còn nhận được sự đồng hành tư vấn chuyên sâu từ đội ngũ chuyên gia của chúng tôi.',
+    whyChoosePillars: [
+      {
+        icon: '🥇',
+        title: 'Chất Lượng Tối Ưu',
+        desc: 'Quy trình kiểm soát nghiêm ngặt theo chuẩn BRC, HACCP, ISO. 100% tự nhiên, minh bạch COA và kiểm nghiệm vi sinh trên từng lô hàng xuất khẩu.',
+      },
+      {
+        icon: '💰',
+        title: 'Giá Thành Cạnh Tranh',
+        desc: 'Lợi thế cung ứng trực tiếp từ nông trại liên kết và nhà máy chế biến quy mô lớn, cắt giảm tối đa các khâu trung gian thương mại.',
+      },
+      {
+        icon: '⏱️',
+        title: 'Tiến Độ Đảm Bảo',
+        desc: 'Hệ thống kho đệm sẵn sàng đáp ứng đơn hàng quy mô container, năng lực cung ứng ổn định quanh năm và thủ tục hải quan xuất khẩu nhanh chóng.',
+      },
+      {
+        icon: '🧑‍🔬',
+        title: 'Tư Vấn Chuyên Sâu',
+        desc: 'Đội ngũ chuyên gia kỹ thuật và R&D đồng hành tư vấn, hỗ trợ nghiên cứu tùy chỉnh thông số kỹ thuật (độ ẩm, độ mịn, độ ngọt) theo đúng dây chuyền của đối tác.',
+      },
+    ],
+    // Closing Motto Banner
+    closingBadge: 'ĐỒNG HÀNH PHÁT TRIỂN BỀN VỮNG',
+    closingMotto:
+      'AGRIHUB – Nâng Tầm Nông Sản Việt, Đồng Hành Cùng Phát Triển Bền Vững',
+    closingCtaPrimary: 'Gửi yêu cầu B2B ngay',
+    closingCtaSecondary: 'Xem danh mục sản phẩm',
   };
 }
 

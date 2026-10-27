@@ -157,7 +157,7 @@ export const vi: Dictionary = {
     aboutUs: {
       title: 'Về Agrihub Việt Nam',
       subtitle:
-        'Agrihub trực thuộc Công ty Cổ phần Đầu tư và Phát triển Queens. Với hơn một thập kỷ kinh nghiệm trên thị trường xuất nhập khẩu, chúng tôi tự hào là đơn vị uy tín hàng đầu chuyên cung cấp các giải pháp nguyên liệu nông sản chất lượng cao, bao gồm: Trái cây sấy, Nông sản cấp đông nhanh (IQF) và Nước cốt trái cây nguyên chất.',
+        'Agrihub trực thuộc Công ty Cổ phần Đầu tư và Phát triển Queens. Với hơn một thập kỷ kinh nghiệm trên thị trường xuất nhập khẩu, chúng tôi tự hào là đơn vị uy tín hàng đầu chuyên cung cấp các giải pháp nguyên liệu nông sản chất lượng cao, bao gồm: Trái cây sấy, Nông sản cấp đông nhanh (IQF) và Nước cốt trái cây nguyên chất. Nằm tại điểm giao thoa của vùng nguyên liệu dồi dào được thiên nhiên ưu đãi về thổ nhưỡng và khí hậu, AGRIHUB kết nối tinh hoa nông sản Việt Nam với tiêu chuẩn chế biến hiện đại của thế giới.',
       targetAudience:
         'Tất cả đối tác B2B muốn tìm hiểu độ uy tín và tầm nhìn của Agrihub',
       primaryCta: 'Liên hệ hợp tác bền vững',

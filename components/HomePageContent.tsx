@@ -432,18 +432,24 @@ export default function HomePageContent({
                     {item.name}
                   </h3>
 
-                  <div className="space-y-1.5 text-xs text-slate-600 mb-4 bg-cream-50 p-3.5 rounded-xl border border-cream-200/50">
+                  <div className="space-y-1.5 text-xs text-slate-600 mb-4 bg-cream-50 p-3.5 rounded-xl border border-cream-200/50 leading-relaxed">
                     <p>
                       <strong className="text-primary-850">
-                        {ui.tds.specLabel}
+                        {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
                       </strong>{' '}
-                      {item.specs}
+                      {ui.tds.packagingValue ?? '10g - 5000g/bịch hoặc theo yêu cầu khách hàng'}
                     </p>
                     <p>
                       <strong className="text-primary-850">
-                        {ui.tds.appLabel}
+                        {ui.tds.shelfLifeLabel ?? 'Hạn sử dụng:'}
                       </strong>{' '}
-                      {item.applications}
+                      {ui.tds.shelfLifeValue ?? '12 tháng tính từ ngày sản xuất'}
+                    </p>
+                    <p>
+                      <strong className="text-primary-850">
+                        {ui.tds.storageLabel ?? 'Bảo quản:'}
+                      </strong>{' '}
+                      {ui.tds.storageValue ?? 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp'}
                     </p>
                   </div>
                 </div>

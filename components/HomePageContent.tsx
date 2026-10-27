@@ -216,8 +216,8 @@ export default function HomePageContent({
               </div>
 
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
-                {/* Left Column: Friendly Showcase & Visual representation */}
-                <div className="lg:col-span-5 flex flex-col items-center justify-center space-y-4">
+                {/* Left Column: Visual representation */}
+                <div className="lg:col-span-5 flex flex-col items-center justify-center">
                   <motion.div
                     animate={{ y: [0, -8, 0] }}
                     transition={{
@@ -225,38 +225,17 @@ export default function HomePageContent({
                       duration: 4.5,
                       ease: 'easeInOut',
                     }}
-                    className="relative w-56 h-56 sm:w-68 sm:h-68 rounded-full border-4 border-primary-leaf/20 bg-cream-100 flex flex-col items-center justify-center p-6 text-center shadow-inner"
+                    className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80 rounded-full border-4 border-primary-leaf/25 bg-white shadow-soft overflow-hidden"
                   >
-                    <span className="text-4xl sm:text-5xl mb-2">🥭</span>
-                    <span className="text-xs font-bold uppercase tracking-wider text-primary-leaf">
-                      {ui.about.tag}
-                    </span>
-                    <span className="text-primary-850 font-black text-base sm:text-lg mt-1">
-                      {ui.about.natural}
-                    </span>
-                    <p className="text-[11px] text-slate-500 mt-1 max-w-[180px]">
-                      {ui.about.fruitList}
-                    </p>
+                    <Image
+                      src="/images/Image1.png"
+                      alt="Agrihub Vietnam"
+                      fill
+                      sizes="(max-width: 640px) 256px, (max-width: 1024px) 288px, 320px"
+                      className="object-cover hover:scale-105 transition-transform duration-500"
+                      priority
+                    />
                   </motion.div>
-
-                  <div className="flex gap-2.5 sm:gap-3 text-center w-full max-w-xs justify-center">
-                    <div className="bg-cream-100 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl border border-cream-200 flex-1">
-                      <span className="block text-primary-leaf font-black text-base sm:text-lg">
-                        100%
-                      </span>
-                      <span className="text-[10px] sm:text-[11px] text-slate-600 font-bold">
-                        {ui.about.qualityStat}
-                      </span>
-                    </div>
-                    <div className="bg-cream-100 px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-2xl border border-cream-200 flex-1">
-                      <span className="block text-primary-leaf font-black text-base sm:text-lg">
-                        100%
-                      </span>
-                      <span className="text-[10px] sm:text-[11px] text-slate-600 font-bold">
-                        {ui.about.originStat}
-                      </span>
-                    </div>
-                  </div>
                 </div>
 
                 {/* Right Column: Content matching Image 2 with Checklist */}

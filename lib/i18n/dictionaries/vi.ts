@@ -3,7 +3,7 @@ import { Dictionary } from '../types';
 export const vi: Dictionary = {
   common: {
     brandName: 'Agrihub Việt Nam',
-    tagline: 'Từ nông trại Việt Nam đến thị trường thế giới',
+    tagline: 'Nhà Cung Cấp & Xuất khẩu Nguyên Liệu Nông Sản',
     requestQuote: 'Xin báo giá B2B',
     requestSample: 'Yêu cầu mẫu thử',
     downloadProfile: 'Tải Hồ sơ năng lực',

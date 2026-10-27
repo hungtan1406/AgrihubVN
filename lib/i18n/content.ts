@@ -454,9 +454,16 @@ export function getHomePageUi(lang: Locale) {
         packagingLabel: 'Packaging:',
         shelfLifeLabel: 'Shelf Life:',
         storageLabel: 'Storage:',
+        storageTempLabel: 'Storage Temperature:',
         packagingValue: '10g - 5000g/bag or custom requested',
         shelfLifeValue: '12 months from manufacturing date',
         storageValue: 'Store in cool, dry place, avoid direct sunlight',
+        driedPackagingValue: '400g',
+        driedStorageValue:
+          'Store in a cool, dry place and seal tightly after use',
+        pureePackagingValue:
+          '1kg/bag, 5kg/bag, 10kg/bag, bottled or PET or custom requested',
+        pureeStorageValue: '18°C',
         viewBtn: 'View TDS Spec',
         sampleBtn: 'Request Sample',
         modalTitle: 'Technical Data Sheet (TDS)',
@@ -626,9 +633,15 @@ export function getHomePageUi(lang: Locale) {
         packagingLabel: '包装规格:',
         shelfLifeLabel: '保质期:',
         storageLabel: '储存条件:',
+        storageTempLabel: '储存温度:',
         packagingValue: '10g - 5000g/袋或按客户要求定制',
         shelfLifeValue: '自生产之日起12个月',
         storageValue: '阴凉干燥处存放，避免阳光直射',
+        driedPackagingValue: '400g',
+        driedStorageValue: '置于阴凉干燥处，使用后密封保存',
+        pureePackagingValue:
+          '1kg/袋、5kg/袋、10kg/袋，瓶装或PET装或按客户要求定制',
+        pureeStorageValue: '18°C',
         viewBtn: '查看 TDS 参数',
         sampleBtn: '索取样品',
         modalTitle: '产品技术参数表 (TDS)',
@@ -742,7 +755,7 @@ export function getHomePageUi(lang: Locale) {
 
   // Default: Vietnamese
   return {
-    heroTagline: 'Từ nông trại Việt Nam đến thị trường thế giới',
+    heroTagline: 'Từ Nông Trại Việt Nam đến thị trường thế giới',
     heroTrust: {
       exp: '10+ năm kinh nghiệm xuất khẩu',
       certs: 'HACCP • FSSC 22000 • ISO',
@@ -791,9 +804,15 @@ export function getHomePageUi(lang: Locale) {
       packagingLabel: 'Quy cách đóng gói:',
       shelfLifeLabel: 'Hạn sử dụng:',
       storageLabel: 'Bảo quản:',
+      storageTempLabel: 'Nhiệt độ bảo quản:',
       packagingValue: '10g - 5000g/bịch hoặc theo yêu cầu khách hàng',
       shelfLifeValue: '12 tháng tính từ ngày sản xuất',
       storageValue: 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp',
+      driedPackagingValue: '400g',
+      driedStorageValue: 'Nơi khô ráo, thoáng mát và đóng kín sau khi dùng',
+      pureePackagingValue:
+        '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng',
+      pureeStorageValue: '18°C',
       viewBtn: 'Xem bảng TDS',
       sampleBtn: 'Xin mẫu test',
       modalTitle: 'Technical Data Sheet (TDS)',

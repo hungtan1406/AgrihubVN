@@ -442,27 +442,63 @@ export default function HomePageContent({
                   </h3>
 
                   <div className="space-y-1.5 text-xs text-slate-600 mb-4 bg-cream-50 p-3.5 rounded-xl border border-cream-200/50 leading-relaxed">
-                    <p>
-                      <strong className="text-primary-850">
-                        {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
-                      </strong>{' '}
-                      {ui.tds.packagingValue ??
-                        '10g - 5000g/bịch hoặc theo yêu cầu khách hàng'}
-                    </p>
-                    <p>
-                      <strong className="text-primary-850">
-                        {ui.tds.shelfLifeLabel ?? 'Hạn sử dụng:'}
-                      </strong>{' '}
-                      {ui.tds.shelfLifeValue ??
-                        '12 tháng tính từ ngày sản xuất'}
-                    </p>
-                    <p>
-                      <strong className="text-primary-850">
-                        {ui.tds.storageLabel ?? 'Bảo quản:'}
-                      </strong>{' '}
-                      {ui.tds.storageValue ??
-                        'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp'}
-                    </p>
+                    {item.category === 'dried' ? (
+                      <>
+                        <p>
+                          <strong className="text-primary-850">
+                            {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
+                          </strong>{' '}
+                          {ui.tds.driedPackagingValue ?? '400g'}
+                        </p>
+                        <p>
+                          <strong className="text-primary-850">
+                            {ui.tds.storageLabel ?? 'Bảo quản:'}
+                          </strong>{' '}
+                          {ui.tds.driedStorageValue ??
+                            'Nơi khô ráo, thoáng mát và đóng kín sau khi dùng'}
+                        </p>
+                      </>
+                    ) : item.category === 'puree' ? (
+                      <>
+                        <p>
+                          <strong className="text-primary-850">
+                            {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
+                          </strong>{' '}
+                          {ui.tds.pureePackagingValue ??
+                            '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng'}
+                        </p>
+                        <p>
+                          <strong className="text-primary-850">
+                            {ui.tds.storageTempLabel ?? 'Nhiệt độ bảo quản:'}
+                          </strong>{' '}
+                          {ui.tds.pureeStorageValue ?? '18°C'}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p>
+                          <strong className="text-primary-850">
+                            {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
+                          </strong>{' '}
+                          {ui.tds.packagingValue ??
+                            '10g - 5000g/bịch hoặc theo yêu cầu khách hàng'}
+                        </p>
+                        <p>
+                          <strong className="text-primary-850">
+                            {ui.tds.shelfLifeLabel ?? 'Hạn sử dụng:'}
+                          </strong>{' '}
+                          {ui.tds.shelfLifeValue ??
+                            '12 tháng tính từ ngày sản xuất'}
+                        </p>
+                        <p>
+                          <strong className="text-primary-850">
+                            {ui.tds.storageLabel ?? 'Bảo quản:'}
+                          </strong>{' '}
+                          {ui.tds.storageValue ??
+                            'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp'}
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
 

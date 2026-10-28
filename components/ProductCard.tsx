@@ -245,17 +245,16 @@ export default function ProductCard({
           )}
         </Link>
 
-        {/* Processing Method & Quality Grade Badges */}
-        <div className="flex items-center justify-between gap-2 mb-2">
-          <span
-            className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${getBadgeStyle()}`}
-          >
-            {product.categoryName}
-          </span>
-          <span className="text-[10px] font-semibold tracking-wider text-slate-400 bg-slate-50 px-2 py-0.5 rounded-md border border-slate-200/50">
-            {labels.grade || 'GRADE: F&B'}
-          </span>
-        </div>
+        {/* Processing Method Badge */}
+        {product.categoryName && (
+          <div className="mb-2">
+            <span
+              className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${getBadgeStyle()}`}
+            >
+              {product.categoryName}
+            </span>
+          </div>
+        )}
 
         {/* Product Title */}
         <h3 className="text-base font-bold text-primary-850 leading-snug group-hover:text-primary-leaf transition-colors mb-1.5">

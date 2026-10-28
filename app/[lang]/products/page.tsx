@@ -98,7 +98,6 @@ export default async function ProductsPage({ params }: PageProps) {
                   mesh: t.meshLabel,
                   shelfLife: t.shelfLifeLabel,
                   applications: t.appLabel,
-                  grade: 'GRADE: F&B EXPORT',
                 }}
                 sampleHref={`/${currentLang}/contact`}
               />

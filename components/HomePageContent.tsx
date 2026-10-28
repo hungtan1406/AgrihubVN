@@ -480,7 +480,6 @@ export default function HomePageContent({
                     mesh: ui.tds.mesh?.replace(':', ''),
                     shelfLife: ui.tds.shelfLife?.replace(':', ''),
                     applications: ui.tds.applications?.replace(':', ''),
-                    grade: 'GRADE: F&B EXPORT',
                   }}
                   sampleHref="#bao-gia"
                 />

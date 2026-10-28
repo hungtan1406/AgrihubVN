@@ -23,7 +23,7 @@ export default function SectionTitle({
 
   return (
     <div
-      className={`mb-8 sm:mb-12 ${isCenter ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl'} ${className}`}
+      className={`mb-6 sm:mb-8 ${isCenter ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl'} ${className}`}
     >
       {badge && (
         <div

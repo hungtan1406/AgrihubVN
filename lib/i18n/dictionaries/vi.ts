@@ -71,8 +71,9 @@ export const vi: Dictionary = {
         'Cung ứng công nghiệp số lượng lớn, quy chuẩn kỹ thuật đồng nhất theo mùa vụ.',
       tabAll: 'Tất cả nguyên liệu',
       tabPowder: 'Bột trái cây',
-      tabPuree: 'Nước cốt & Pure',
-      tabDried: 'Trái cây sấy & Trái cây đông lạnh',
+      tabPuree: 'Nước cốt',
+      tabDried: 'Trái cây sấy',
+      tabFrozen: 'Trái cây đông lạnh',
       oemBadge: 'Dịch Vụ Gia Công',
       oemTitle: 'Gia công OEM/ODM & R&D theo tiêu chuẩn nhà máy',
       oemSubtitle:

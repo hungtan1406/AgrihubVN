@@ -42,7 +42,7 @@ export default function AboutUsPage({ params }: PageProps) {
   const content = getAboutUsContent(currentLang);
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-8 sm:py-12">
       <Container>
         {/* Main Title Section */}
         <FadeIn direction="up" delay={0.1}>
@@ -55,9 +55,9 @@ export default function AboutUsPage({ params }: PageProps) {
         </FadeIn>
 
         {/* Narrative & History */}
-        <div className="space-y-8 my-10">
+        <div className="space-y-6 my-6 sm:my-8">
           <FadeIn direction="up">
-            <div className="bg-white p-8 rounded-3xl border border-cream-200 shadow-soft">
+            <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft">
               <h2 className="text-xl font-extrabold text-primary-850 mb-3">
                 {content.visionTitle}
               </h2>
@@ -93,7 +93,7 @@ export default function AboutUsPage({ params }: PageProps) {
         </div>
 
         {/* ── SECTION: MẠNG LƯỚI TOÀN CẦU ─────────────────────────────── */}
-        <section className="mt-16 sm:mt-24 pt-12 sm:pt-16 border-t border-cream-200/90">
+        <section className="mt-10 sm:mt-14 pt-8 sm:pt-10 border-t border-cream-200/90">
           <FadeIn direction="up">
             <SectionTitle
               badge={content.networkBadge}
@@ -104,14 +104,14 @@ export default function AboutUsPage({ params }: PageProps) {
 
           {/* Infinite Partner Logo Carousel */}
           <FadeIn direction="up" delay={0.15}>
-            <div className="mt-8 py-2">
+            <div className="mt-4 sm:mt-6 py-1">
               <PartnerCarousel partners={content.partners} />
             </div>
           </FadeIn>
         </section>
 
         {/* ── SECTION: TẠI SAO CHỌN AGRIHUB? ─────────────────────────── */}
-        <section className="mt-16 sm:mt-24 pt-12 sm:pt-16 border-t border-cream-200/90">
+        <section className="mt-10 sm:mt-14 pt-8 sm:pt-10 border-t border-cream-200/90">
           <FadeIn direction="up">
             <SectionTitle
               badge={content.whyChooseBadge}
@@ -122,7 +122,7 @@ export default function AboutUsPage({ params }: PageProps) {
 
           {/* 4 Value Pillars Grid */}
           <FadeIn direction="up" delay={0.15}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 my-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mt-2 mb-8 sm:mb-10">
               {content.whyChoosePillars.map((p) => (
                 <div
                   key={p.title}
@@ -146,7 +146,7 @@ export default function AboutUsPage({ params }: PageProps) {
 
           {/* Grand Brand Motto & Closing CTA Banner */}
           <FadeIn direction="up" delay={0.25}>
-            <div className="relative overflow-hidden bg-gradient-to-br from-primary-950 via-primary-900 to-primary-950 text-white rounded-3xl sm:rounded-4xl p-8 sm:p-12 border border-primary-700/50 shadow-soft text-center mt-10">
+            <div className="relative overflow-hidden bg-gradient-to-br from-primary-950 via-primary-900 to-primary-950 text-white rounded-3xl sm:rounded-4xl p-6 sm:p-10 border border-primary-700/50 shadow-soft text-center mt-8 sm:mt-10">
               {/* Subtle background glow */}
               <div className="absolute -right-10 -top-10 w-60 h-60 bg-primary-leaf/20 rounded-full blur-3xl pointer-events-none" />
               <div className="absolute -left-10 -bottom-10 w-60 h-60 bg-accent-gold/15 rounded-full blur-3xl pointer-events-none" />

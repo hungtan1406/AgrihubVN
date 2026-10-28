@@ -33,10 +33,10 @@ export default function GlobalPresencePage({ params }: PageProps) {
   const content = getGlobalPresenceContent(currentLang);
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-8 sm:py-12">
       <Container>
         {/* Header Section with direct CTA */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-cream-200/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-cream-200/80">
           <SectionTitle
             as="h1"
             badge={content.badge}
@@ -55,7 +55,7 @@ export default function GlobalPresencePage({ params }: PageProps) {
         </div>
 
         {/* Export Markets List */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 my-8 shadow-soft">
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 my-6 sm:my-8 shadow-soft">
           <h2 className="text-base sm:text-lg font-bold text-primary-850 mb-4">
             {content.marketsTitle}
           </h2>
@@ -70,7 +70,7 @@ export default function GlobalPresencePage({ params }: PageProps) {
         </div>
 
         {/* International Exhibitions */}
-        <div className="my-10">
+        <div className="mt-2 mb-8 sm:mb-10">
           <h2 className="text-base sm:text-lg font-bold text-primary-850 mb-6">
             {content.showsTitle}
           </h2>
@@ -98,7 +98,7 @@ export default function GlobalPresencePage({ params }: PageProps) {
         </div>
 
         {/* Global Export CTA */}
-        <div className="mt-12 p-6 sm:p-10 bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white rounded-3xl sm:rounded-4xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-soft border border-primary-700/30">
+        <div className="mt-8 sm:mt-10 p-6 sm:p-8 bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white rounded-3xl sm:rounded-4xl flex flex-col md:flex-row items-center justify-between gap-6 shadow-soft border border-primary-700/30">
           <div>
             <h3 className="text-xl sm:text-2xl font-bold">{content.ctaTitle}</h3>
             <p className="text-cream-200/80 text-xs sm:text-sm mt-1">

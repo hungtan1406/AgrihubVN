@@ -35,10 +35,10 @@ export default function ContactPage({ params }: PageProps) {
   const content = getContactPageContent(currentLang);
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-8 sm:py-12">
       <Container>
         {/* Header Section with SLA Response Badge */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 pb-8 border-b border-cream-200/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-cream-200/80">
           <SectionTitle
             as="h1"
             badge="B2B Inquiry"
@@ -52,7 +52,7 @@ export default function ContactPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mt-2 mb-8 sm:mb-10">
           {/* Contact Details Column */}
           <FadeIn direction="up" delay={0.15}>
             <div className="space-y-6">

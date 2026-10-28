@@ -33,10 +33,10 @@ export default function QualityCertificationsPage({ params }: PageProps) {
   const content = getQualityContent(currentLang);
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-8 sm:py-12">
       <Container>
         {/* Header Section with direct CTA */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-cream-200/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-cream-200/80">
           <SectionTitle
             as="h1"
             badge={content.badge}
@@ -55,7 +55,7 @@ export default function QualityCertificationsPage({ params }: PageProps) {
         </div>
 
         {/* Certifications Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 mb-8 sm:mb-10">
           {content.items.map((c) => (
             <div
               key={c.code}
@@ -81,7 +81,7 @@ export default function QualityCertificationsPage({ params }: PageProps) {
         </div>
 
         {/* Laboratory Testing Protocol */}
-        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft my-8">
+        <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft my-6 sm:my-8">
           <h2 className="text-base sm:text-lg font-bold text-primary-850 mb-4">
             {content.commitmentTitle}
           </h2>

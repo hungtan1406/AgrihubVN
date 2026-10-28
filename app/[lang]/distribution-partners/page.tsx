@@ -33,10 +33,10 @@ export default function DistributionPartnersPage({ params }: PageProps) {
   const content = getDistributionPartnersContent(currentLang);
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-8 sm:py-12">
       <Container>
         {/* Header Section with direct CTA */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-cream-200/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-cream-200/80">
           <SectionTitle
             as="h1"
             badge={content.badge}
@@ -55,7 +55,7 @@ export default function DistributionPartnersPage({ params }: PageProps) {
         </div>
 
         {/* Distributor Benefits */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 my-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 mb-8 sm:mb-10">
           {content.benefits.map((b, idx) => (
             <FadeIn key={b.title} direction="up" delay={idx * 0.08}>
               <div className="bg-white p-6 rounded-3xl border border-cream-200 shadow-soft h-full hover:border-primary-leaf transition-colors">
@@ -69,7 +69,7 @@ export default function DistributionPartnersPage({ params }: PageProps) {
 
         {/* Distributor Policy Placeholders */}
         <FadeIn direction="up" delay={0.2}>
-          <div className="bg-white p-8 rounded-3xl border border-cream-200 shadow-soft my-8">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft my-6 sm:my-8">
             <h3 className="text-lg font-bold text-primary-850 mb-3">
               {content.policyTitle}
             </h3>

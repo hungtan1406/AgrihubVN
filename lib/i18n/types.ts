@@ -66,6 +66,7 @@ export interface Dictionary {
       tabPowder?: string;
       tabPuree?: string;
       tabDried?: string;
+      tabFrozen?: string;
       oemBadge: string;
       oemTitle: string;
       oemSubtitle: string;

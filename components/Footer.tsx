@@ -14,10 +14,10 @@ export default function Footer({ lang, dict }: FooterProps) {
   const f = getFooterTranslations(lang);
 
   return (
-    <footer className="bg-gradient-to-b from-primary-900 to-primary-950 text-cream-100 pt-16 pb-8 border-t border-primary-800/80">
+    <footer className="bg-gradient-to-b from-primary-900 to-primary-950 text-cream-100 pt-12 sm:pt-14 pb-8 border-t border-primary-800/80">
       <Container>
         {/* Main 4-column Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 lg:gap-8 pb-12 border-b border-primary-800/60">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-8 pb-8 sm:pb-10 border-b border-primary-800/60">
           {/* Column 1: Brand & Positioning */}
           <div className="space-y-4">
             <Link

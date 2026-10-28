@@ -40,10 +40,10 @@ export default async function ProductsPage({ params }: PageProps) {
   const localizedIngredients = getIngredients(currentLang);
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-8 sm:py-12">
       <Container>
         {/* Header Section with natural CTA */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-cream-200/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-cream-200/80">
           <SectionTitle
             as="h1"
             badge="B2B Ingredients"
@@ -62,7 +62,7 @@ export default async function ProductsPage({ params }: PageProps) {
         </div>
 
         {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-6">
           {products.map((p) => {
             const match = localizedIngredients.find((ing) => ing.id === p.slug);
             const displayName = match?.name || p.name;
@@ -85,6 +85,7 @@ export default async function ProductsPage({ params }: PageProps) {
                   brix: p.brix || match?.brix,
                   shelfLife: p.shelfLife || match?.shelfLife,
                   packaging: p.packaging || match?.packaging,
+                  storage: p.storage || match?.storage,
                   applications: displayApp,
                   image: p.image || match?.image,
                 }}

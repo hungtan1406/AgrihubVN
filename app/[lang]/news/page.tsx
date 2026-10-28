@@ -195,8 +195,8 @@ function NewsCard({ post, lang, dict }: { post: NewsEvent; lang: string; dict: R
         )}
 
         {/* Read more */}
-        <span className="inline-flex items-center gap-1 text-primary-600 font-medium text-sm mt-3 group-hover:gap-2 transition-all">
-          {dict.news.readMore} <span>→</span>
+        <span className="inline-flex items-center gap-1 text-primary-600 font-medium text-sm mt-3 transition-colors">
+          {dict.news.readMore}
         </span>
       </div>
     </Link>
@@ -222,7 +222,7 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
   ];
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-8 sm:py-12">
       <Container>
         <SectionTitle
           as="h1"
@@ -232,7 +232,7 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
         />
 
         {/* Category Filter Pills */}
-        <div className="flex flex-wrap gap-2 mt-8 mb-8">
+        <div className="flex flex-wrap gap-2 mt-4 sm:mt-6 mb-6 sm:mb-8">
           {filterPills.map((pill) => {
             const isActive =
               pill.value === undefined
@@ -271,7 +271,7 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
       </Container>
 
       {/* CTA Strip */}
-      <div className="mt-16 bg-primary-800 py-12">
+      <div className="mt-10 sm:mt-14 bg-primary-800 py-10 sm:py-12">
         <Container>
           <div className="text-center">
             <h2 className="text-2xl font-bold text-white mb-2">{dict.news.ctaTitle}</h2>

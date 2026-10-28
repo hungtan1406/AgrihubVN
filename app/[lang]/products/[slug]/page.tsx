@@ -65,10 +65,10 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const productName = matchedIngredient?.name || product?.name || fallbackName;
 
   return (
-    <div className="py-12 sm:py-16">
+    <div className="py-8 sm:py-12">
       <Container>
         {/* Breadcrumb */}
-        <div className="text-xs text-slate-500 mb-6 flex items-center gap-2 flex-wrap">
+        <div className="text-xs text-slate-500 mb-4 flex items-center gap-2 flex-wrap">
           <Link href={`/${currentLang}`} className="hover:text-primary-leaf">
             {dict.nav.home}
           </Link>
@@ -83,7 +83,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         </div>
 
         {/* Product Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-cream-200/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 pb-4 sm:pb-5 border-b border-cream-200/80">
           <SectionTitle
             as="h1"
             badge={
@@ -120,7 +120,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
         )}
 
         {/* Technical Data Sheet (TDS) Certificate Container */}
-        <div className="bg-white rounded-3xl border border-cream-200/90 overflow-hidden shadow-soft my-8">
+        <div className="bg-white rounded-3xl border border-cream-200/90 overflow-hidden shadow-soft my-6 sm:my-8">
           {/* Certificate Header */}
           <div className="bg-primary-950 text-white px-6 sm:px-8 py-5 flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-primary-900">
             <div>
@@ -208,6 +208,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     {matchedIngredient?.packaging || product?.packaging || t.defaultPackaging}
                   </span>
                 </div>
+                {(matchedIngredient?.storage || product?.storage) && (
+                  <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
+                    <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colStorage || 'Bảo quản'}</span>
+                    <span className="text-slate-800 font-medium">
+                      {matchedIngredient?.storage || product?.storage}
+                    </span>
+                  </div>
+                )}
                 <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
                   <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMoq}</span>
                   <span className="text-slate-800 font-medium">

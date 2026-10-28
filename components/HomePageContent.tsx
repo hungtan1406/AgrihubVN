@@ -76,7 +76,7 @@ export default function HomePageContent({
 }: HomePageContentProps) {
   // Client-side category tab filter
   const [activeCategory, setActiveCategory] = useState<
-    'all' | 'powder' | 'puree' | 'dried'
+    'all' | 'powder' | 'puree' | 'dried' | 'frozen'
   >('all');
   // Selected product for technical TDS drawer/modal
   const [selectedTds, setSelectedTds] = useState<string | null>(null);
@@ -85,14 +85,39 @@ export default function HomePageContent({
   const ingredients = getIngredients(currentLang);
   const ui = getHomePageUi(currentLang);
 
-  function getProductCategoryKey(categoryName: string): 'powder' | 'puree' | 'dried' {
+  function getProductCategoryKey(
+    categoryName: string,
+  ): 'powder' | 'puree' | 'dried' | 'frozen' {
     const lower = (categoryName || '').toLowerCase();
-    if (lower.includes('bột') || lower.includes('powder') || lower.includes('phun') || lower.includes('nghiền') || lower.includes('粉')) return 'powder';
-    if (lower.includes('pure') || lower.includes('cốt') || lower.includes('浆') || lower.includes('汁')) return 'puree';
+    if (
+      lower.includes('đông lạnh') ||
+      lower.includes('frozen') ||
+      lower.includes('iqf') ||
+      lower.includes('冷冻')
+    )
+      return 'frozen';
+    if (
+      lower.includes('bột') ||
+      lower.includes('powder') ||
+      lower.includes('phun') ||
+      lower.includes('nghiền') ||
+      lower.includes('粉')
+    )
+      return 'powder';
+    if (
+      lower.includes('pure') ||
+      lower.includes('cốt') ||
+      lower.includes('浆') ||
+      lower.includes('汁')
+    )
+      return 'puree';
     return 'dried';
   }
 
-  function getProductBadgeColor(processingMethod: string, categoryKey: string): string {
+  function getProductBadgeColor(
+    processingMethod: string,
+    categoryKey: string,
+  ): string {
     const lower = (processingMethod || '').toLowerCase();
     if (lower.includes('nghiền') || lower.includes('milled')) {
       return 'bg-rose-100 text-rose-800 border-rose-200';
@@ -100,16 +125,33 @@ export default function HomePageContent({
     if (lower.includes('phun') || lower.includes('spray')) {
       return 'bg-amber-100 text-amber-800 border-amber-200';
     }
-    if (lower.includes('mít') || lower.includes('jackfruit') || lower.includes('lime')) {
+    if (
+      lower.includes('mít') ||
+      lower.includes('jackfruit') ||
+      lower.includes('lime')
+    ) {
       return 'bg-lime-100 text-lime-800 border-lime-200';
     }
-    if (lower.includes('thăng hoa') || lower.includes('freeze') || lower.includes('sấy') || lower.includes('dried')) {
+    if (
+      lower.includes('thăng hoa') ||
+      lower.includes('freeze') ||
+      lower.includes('sấy') ||
+      lower.includes('dried')
+    ) {
       return 'bg-orange-100 text-orange-800 border-orange-200';
     }
-    if (lower.includes('đông lạnh') || lower.includes('iqf') || lower.includes('cấp đông')) {
+    if (
+      lower.includes('đông lạnh') ||
+      lower.includes('iqf') ||
+      lower.includes('cấp đông')
+    ) {
       return 'bg-emerald-100 text-emerald-800 border-emerald-200';
     }
-    if (lower.includes('pure') || lower.includes('cốt') || categoryKey === 'puree') {
+    if (
+      lower.includes('pure') ||
+      lower.includes('cốt') ||
+      categoryKey === 'puree'
+    ) {
       return 'bg-purple-100 text-purple-800 border-purple-200';
     }
     return 'bg-amber-100 text-amber-800 border-amber-200';
@@ -120,11 +162,11 @@ export default function HomePageContent({
     featuredProducts && featuredProducts.length > 0
       ? featuredProducts.map((p) => {
           const match = ingredients.find(
-            (ing) => ing.id === p.slug || ing.id === String(p.id)
+            (ing) => ing.id === p.slug || ing.id === String(p.id),
           );
           // Ưu tiên categoryGroup từ ACF WordPress (powder, puree, dried)
           const catKey =
-            (p.categoryGroup as 'powder' | 'puree' | 'dried') ||
+            (p.categoryGroup as 'powder' | 'puree' | 'dried' | 'frozen') ||
             match?.category ||
             getProductCategoryKey(p.category);
 
@@ -149,6 +191,7 @@ export default function HomePageContent({
               p.packaging ||
               match?.packaging ||
               'Thùng carton / phuy vô trùng hoặc theo yêu cầu',
+            storage: p.storage || match?.storage,
             image: p.image,
           };
         })
@@ -164,9 +207,9 @@ export default function HomePageContent({
   );
 
   return (
-    <div className="flex flex-col gap-12 sm:gap-20 lg:gap-24">
+    <div className="flex flex-col">
       {/* SECTION 1: HERO BANNER (FULL-WIDTH BACKGROUND WITH HIGH-CONTRAST OVERLAY) */}
-      <section className="relative min-h-[520px] sm:min-h-[580px] lg:min-h-[640px] xl:min-h-[700px] flex items-center overflow-hidden py-14 sm:py-20 lg:py-24 text-white shadow-soft">
+      <section className="relative min-h-[480px] sm:min-h-[540px] lg:min-h-[600px] flex items-center overflow-hidden py-12 sm:py-16 lg:py-20 text-white shadow-soft">
         {/* Full-width Background Image & Gradient Overlays for WCAG AA Contrast */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
@@ -191,7 +234,10 @@ export default function HomePageContent({
               transition={{ duration: 0.5, ease: 'easeOut' }}
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cream-100 text-xs font-semibold shadow-2xs"
             >
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" aria-hidden="true" />
+              <span
+                className="w-1.5 h-1.5 rounded-full bg-accent-gold"
+                aria-hidden="true"
+              />
               <span>{dict.common.tagline}</span>
             </motion.div>
 
@@ -278,10 +324,10 @@ export default function HomePageContent({
       </section>
 
       {/* SECTION 2: ABOUT AGRIHUB & PREMIUM INGREDIENTS (RECREATING IMAGE 2!) */}
-      <section id="ve-agrihub" className="scroll-mt-24">
+      <section id="ve-agrihub" className="scroll-mt-24 py-8 sm:py-12 lg:py-14">
         <Container>
           <FadeIn direction="up">
-            <div className="bg-white rounded-3xl sm:rounded-4xl p-6 sm:p-10 lg:p-14 border border-cream-200/80 shadow-soft relative overflow-hidden">
+            <div className="bg-white rounded-3xl sm:rounded-4xl p-6 sm:p-8 lg:p-10 border border-cream-200/80 shadow-soft relative overflow-hidden">
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
                 {/* Left Column: Visual representation */}
                 <div className="lg:col-span-5 flex flex-col items-center justify-center">
@@ -336,63 +382,11 @@ export default function HomePageContent({
         </Container>
       </section>
 
-      {/* SECTION 3: 4 NHÓM KHÁCH HÀNG B2B TRỌNG TÂM */}
-      {/* <section>
-        <Container>
-          <FadeIn direction="up">
-            <SectionTitle
-              badge={dict.pages.home.audienceBadge}
-              title={dict.pages.home.audienceTitle}
-              subtitle={dict.pages.home.audienceSubtitle}
-            />
-          </FadeIn>
-
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-            {ui.audience.map((aud, index) => {
-              const href =
-                index === 0
-                  ? '#nguyen-lieu'
-                  : index === 1
-                    ? '#tin-tuc'
-                    : index === 2
-                      ? '#oem-odm'
-                      : `/${currentLang}/distribution-partners`;
-              return (
-                <StaggerItem key={aud.code} className="h-full">
-                  <motion.div
-                    whileHover={{ y: -6, transition: { duration: 0.2 } }}
-                    className="h-full bg-white p-6 rounded-2xl border border-cream-200/80 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors hover:shadow-md"
-                  >
-                    <div className="space-y-3">
-                      <div className="w-10 h-10 rounded-full bg-cream-300 text-primary-850 flex items-center justify-center font-black text-xs">
-                        {aud.code}
-                      </div>
-                      <h3 className="text-base font-bold text-primary-850">
-                        {aud.title}
-                      </h3>
-                      <p className="text-xs text-slate-600 leading-relaxed">
-                        {aud.desc}
-                      </p>
-                    </div>
-                    <div className="pt-6">
-                      <Button href={href} variant="primary" size="sm" fullWidth>
-                        <span>{aud.btn}</span>
-                        <span>&rarr;</span>
-                      </Button>
-                    </div>
-                  </motion.div>
-                </StaggerItem>
-              );
-            })}
-          </StaggerContainer>
-        </Container>
-      </section> */}
-
       {/* SECTION 4: GỘP - DANH MỤC NGUYÊN LIỆU CHỦ LỰC & TDS SPEC */}
-      <section id="nguyen-lieu" className="scroll-mt-24">
+      <section id="nguyen-lieu" className="scroll-mt-24 py-8 sm:py-12 lg:py-14">
         <Container>
           <FadeIn direction="up">
-            <div className="flex flex-col justify-between mb-8">
+            <div className="flex flex-col justify-between mb-6 sm:mb-8">
               <SectionTitle
                 badge={dict.pages.home.ingredientsBadge}
                 title={dict.pages.home.ingredientsTitle}
@@ -419,6 +413,10 @@ export default function HomePageContent({
                     {
                       id: 'dried',
                       label: dict.pages.home.tabDried,
+                    },
+                    {
+                      id: 'frozen',
+                      label: dict.pages.home.tabFrozen || 'Trái cây đông lạnh',
                     },
                   ].map((tab) => {
                     const isActive = activeCategory === tab.id;
@@ -505,10 +503,10 @@ export default function HomePageContent({
                   exit={{ opacity: 0, scale: 0.95, y: 15 }}
                   transition={{ type: 'spring', stiffness: 350, damping: 28 }}
                   onClick={(e) => e.stopPropagation()}
-                  className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-cream-200"
+                  className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-cream-200 overflow-hidden"
                 >
                   {/* Technical Header */}
-                  <div className="bg-primary-900 text-white px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between rounded-t-3xl sticky top-0 z-10 border-b border-primary-800">
+                  <div className="bg-primary-900 text-white px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between shrink-0 border-b border-primary-800">
                     <div>
                       <div className="flex items-center gap-2">
                         <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" />
@@ -520,7 +518,8 @@ export default function HomePageContent({
                         {selectedProductData.name}
                       </h3>
                       <p className="text-[11px] text-cream-200/70 font-mono mt-0.5">
-                        SPEC-AGRI-{selectedProductData.id.toUpperCase()} • ISO 22000 | HACCP | FDA COMPLIANT
+                        SPEC-AGRI-{selectedProductData.id.toUpperCase()} • ISO
+                        22000 | HACCP | FDA COMPLIANT
                       </p>
                     </div>
                     <button
@@ -533,7 +532,7 @@ export default function HomePageContent({
                     </button>
                   </div>
 
-                  <div className="p-5 sm:p-7 space-y-5 text-xs sm:text-sm text-slate-700">
+                  <div className="flex-1 overflow-y-auto no-scrollbar p-5 sm:p-7 space-y-5 text-xs sm:text-sm text-slate-700">
                     {/* Section 1: Physical & Chemical Parameters */}
                     <div>
                       <h4 className="text-xs font-bold text-primary-850 uppercase tracking-wider mb-2.5 flex items-center gap-2">
@@ -580,7 +579,7 @@ export default function HomePageContent({
                     <div>
                       <h4 className="text-xs font-bold text-primary-850 uppercase tracking-wider mb-2.5 flex items-center gap-2">
                         <span className="w-2 h-2 rounded-xs bg-accent-gold" />
-                        <span>Đóng gói & Ứng dụng F&B</span>
+                        <span>Đóng gói, Bảo quản & Ứng dụng F&B</span>
                       </h4>
                       <div className="space-y-2">
                         <div className="p-3 bg-white rounded-xl border border-cream-200 shadow-2xs">
@@ -591,6 +590,16 @@ export default function HomePageContent({
                             {selectedProductData.packaging}
                           </span>
                         </div>
+                        {selectedProductData.storage && (
+                          <div className="p-3 bg-white rounded-xl border border-cream-200 shadow-2xs">
+                            <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
+                              {ui.tds.storageLabel || 'Bảo quản / Nhiệt độ:'}
+                            </span>
+                            <span className="text-xs sm:text-sm text-slate-800 font-medium">
+                              {selectedProductData.storage}
+                            </span>
+                          </div>
+                        )}
                         <div className="p-3 bg-white rounded-xl border border-cream-200 shadow-2xs">
                           <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
                             {ui.tds.applications}
@@ -604,37 +613,37 @@ export default function HomePageContent({
 
                     {/* Notice Callout */}
                     <div className="text-xs text-slate-600 bg-primary-50/60 p-3.5 rounded-xl border border-primary-100 flex items-start gap-2.5">
-                      <span className="text-primary-leaf text-base shrink-0 leading-none mt-0.5">ℹ</span>
-                      <p className="leading-relaxed">
-                        {ui.tds.notice}
-                      </p>
+                      <span className="text-primary-leaf text-base shrink-0 leading-none mt-0.5">
+                        ℹ
+                      </span>
+                      <p className="leading-relaxed">{ui.tds.notice}</p>
                     </div>
+                  </div>
 
-                    {/* Action Bar */}
-                    <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-3 pt-3 border-t border-cream-200">
-                      <Link
-                        href={`/${currentLang}/products/${selectedProductData.id}`}
-                        className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover underline"
+                  {/* Pinned Bottom Action Bar */}
+                  <div className="bg-cream-50/90 backdrop-blur-xs px-5 sm:px-7 py-3.5 sm:py-4 border-t border-cream-200/90 flex flex-col-reverse sm:flex-row justify-between items-center gap-3 shrink-0">
+                    <Link
+                      href={`/${currentLang}/products/${selectedProductData.id}`}
+                      className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover underline"
+                    >
+                      {dict.common.viewDetails}
+                    </Link>
+                    <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                      <Button
+                        onClick={() => setSelectedTds(null)}
+                        variant="ghost"
+                        size="sm"
                       >
-                        {dict.common.viewDetails}
-                      </Link>
-                      <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-                        <Button
-                          onClick={() => setSelectedTds(null)}
-                          variant="ghost"
-                          size="sm"
-                        >
-                          {ui.tds.close}
-                        </Button>
-                        <Button
-                          href="#bao-gia"
-                          variant="primary"
-                          size="sm"
-                          onClick={() => setSelectedTds(null)}
-                        >
-                          <span>{ui.tds.quote}</span>
-                        </Button>
-                      </div>
+                        {ui.tds.close}
+                      </Button>
+                      <Button
+                        href="#bao-gia"
+                        variant="primary"
+                        size="sm"
+                        onClick={() => setSelectedTds(null)}
+                      >
+                        <span>{ui.tds.quote}</span>
+                      </Button>
                     </div>
                   </div>
                 </motion.div>
@@ -647,7 +656,7 @@ export default function HomePageContent({
       {/* SECTION 5: GỘP - GIA CÔNG OEM / ODM THEO TIÊU CHUẨN NHÀ MÁY */}
       <section
         id="oem-odm"
-        className="bg-white py-12 sm:py-16 border-y border-cream-200/80 scroll-mt-24"
+        className="bg-white py-10 sm:py-14 border-y border-cream-200/80 scroll-mt-24"
       >
         <Container>
           <FadeIn direction="up">
@@ -659,7 +668,7 @@ export default function HomePageContent({
           </FadeIn>
 
           {/* 5-Step OEM Process Flow in soft rounded cards with stagger cascade */}
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 my-8">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-2 mb-6 sm:mb-8">
             {ui.oem.steps.map((s) => (
               <StaggerItem key={s.step} className="h-full">
                 <motion.div
@@ -705,7 +714,7 @@ export default function HomePageContent({
       </section>
 
       {/* SECTION 6: GỘP - NĂNG LỰC CUNG ỨNG & VÙNG TRỒNG */}
-      <section id="nang-luc" className="scroll-mt-24">
+      <section id="nang-luc" className="scroll-mt-24 py-8 sm:py-12 lg:py-14">
         <Container>
           <FadeIn direction="up">
             <SectionTitle
@@ -715,7 +724,7 @@ export default function HomePageContent({
             />
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-8">
+          <StaggerContainer className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
             <StaggerItem>
               <div className="bg-white p-4 sm:p-5 rounded-2xl border border-cream-200 text-center shadow-soft">
                 <span className="text-2xl sm:text-3xl font-black text-primary-850 block">
@@ -801,7 +810,7 @@ export default function HomePageContent({
       {/* SECTION 7: GỘP - TIÊU CHUẨN CHẤT LƯỢNG & CHỨNG NHẬN */}
       <section
         id="chat-luong"
-        className="bg-white py-12 sm:py-16 border-y border-cream-200/80 scroll-mt-24"
+        className="bg-white py-10 sm:py-14 border-y border-cream-200/80 scroll-mt-24"
       >
         <Container>
           <FadeIn direction="up">
@@ -812,7 +821,7 @@ export default function HomePageContent({
             />
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 my-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-2 mb-6 sm:mb-8">
             {ui.quality.cards.map((c) => (
               <StaggerItem key={c.code} className="h-full">
                 <motion.div
@@ -881,7 +890,7 @@ export default function HomePageContent({
       </section>
 
       {/* SECTION 8: TIN TỨC & HOẠT ĐỘNG NỔI BẬT (Từ WordPress Category Nổi Bật) */}
-      <section id="tin-tuc" className="scroll-mt-24 py-12 sm:py-16">
+      <section id="tin-tuc" className="scroll-mt-24 py-8 sm:py-12 lg:py-14">
         {/* Hỗ trợ anchor cũ nếu có người dùng bookmark */}
         <div id="xuat-khau" className="relative -top-24" />
         <Container>
@@ -899,7 +908,7 @@ export default function HomePageContent({
           </FadeIn>
 
           {/* Grid 3 bài viết nổi bật */}
-          <div className="my-8">
+          <div className="mt-2 mb-6 sm:mb-8">
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {(featuredNews && featuredNews.length > 0
                 ? featuredNews
@@ -990,7 +999,7 @@ export default function HomePageContent({
 
           {/* Action Button: Xem tất cả tin tức */}
           <FadeIn direction="up" delay={0.2}>
-            <div className="text-center mt-8">
+            <div className="text-center mt-6">
               <Button
                 href={`/${currentLang}/news`}
                 variant="pill"
@@ -1007,12 +1016,12 @@ export default function HomePageContent({
       {/* SECTION 9: FORM B2B TOÀN DIỆN NGAY TẠI CHÂN TRANG CHỦ */}
       <section
         id="bao-gia"
-        className="bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white py-12 sm:py-16 rounded-t-3xl sm:rounded-t-4xl border-t border-primary-700/40 scroll-mt-24 shadow-soft"
+        className="bg-gradient-to-br from-primary-900 via-primary-850 to-primary-900 text-white py-10 sm:py-14 rounded-t-3xl sm:rounded-t-4xl border-t border-primary-700/40 scroll-mt-24 shadow-soft"
       >
         <Container>
           <div className="max-w-4xl mx-auto">
             <FadeIn direction="up">
-              <div className="text-center mb-8 sm:mb-10">
+              <div className="text-center mb-6 sm:mb-8">
                 <span className="inline-block text-xs font-bold uppercase tracking-wider text-accent-gold bg-white/10 px-4 py-1.5 rounded-full border border-white/20 mb-3">
                   {dict.pages.home.contactBadge}
                 </span>
@@ -1026,7 +1035,7 @@ export default function HomePageContent({
             </FadeIn>
 
             <FadeIn direction="up" delay={0.15}>
-              <div className="bg-white text-primary-850 rounded-3xl p-5 sm:p-8 lg:p-10 shadow-2xl">
+              <div className="bg-white text-primary-850 rounded-3xl p-5 sm:p-7 lg:p-8 shadow-2xl">
                 <ContactForm dict={dict} lang={currentLang} />
               </div>
             </FadeIn>

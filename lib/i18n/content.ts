@@ -2,7 +2,7 @@ import { Locale } from './types';
 
 export interface ProductIngredient {
   id: string;
-  category: 'powder' | 'puree' | 'dried';
+  category: 'powder' | 'puree' | 'dried' | 'frozen';
   categoryName: string;
   badgeColor: string;
   name: string;
@@ -12,6 +12,7 @@ export interface ProductIngredient {
   brix: string;
   shelfLife: string;
   packaging: string;
+  storage?: string;
   applications: string;
   image?: string;
 }
@@ -29,8 +30,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 5.0%',
         mesh: '80 - 100 mesh',
         brix: 'Natural fruit sugar',
-        shelfLife: '24 months',
-        packaging: 'Sterile aluminum bags 5kg x 4 / 20kg export carton',
+        shelfLife: '12 months from manufacturing date',
+        packaging: '10g - 5000g/bag or custom requested',
+        storage: 'Store in a cool, dry place, avoid direct sunlight',
         applications:
           'Confectionery, nutrition beverages, yogurt, clean-label natural coloring.',
       },
@@ -45,8 +47,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 4.5%',
         mesh: '100 mesh',
         brix: 'Standardized upon request',
-        shelfLife: '18 months',
-        packaging: 'Vacuum aluminum bags 10kg x 2',
+        shelfLife: '12 months from manufacturing date',
+        packaging: '10g - 5000g/bag or custom requested',
+        storage: 'Store in a cool, dry place, avoid direct sunlight',
         applications:
           'Fruit teas, beverage syrups, bakery fillings, gourmet ice cream.',
       },
@@ -61,8 +64,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 5.0%',
         mesh: '80 mesh',
         brix: 'Natural',
-        shelfLife: '24 months',
-        packaging: '20kg carton with double moisture-barrier PE lining',
+        shelfLife: '12 months from manufacturing date',
+        packaging: '10g - 5000g/bag or custom requested',
+        storage: 'Store in a cool, dry place, avoid direct sunlight',
         applications:
           'Breakfast cereals, baby food, protein smoothies, biscuits.',
       },
@@ -77,8 +81,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 3.0%',
         mesh: 'Slices / Diced / Granules',
         brix: 'Rich natural',
-        shelfLife: '18 months',
-        packaging: 'Sterile aluminum bags 5kg x 2 / carton',
+        shelfLife: '12 months from manufacturing date',
+        packaging: '400g',
+        storage: 'Store in a cool, dry place and seal tightly after use',
         applications:
           'Granola mixes, chocolate-enrobed fruit, gourmet dried fruit snacks.',
       },
@@ -93,10 +98,45 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 4.0%',
         mesh: 'Whole / Half pods',
         brix: 'Natural',
-        shelfLife: '18 months',
-        packaging: '10kg industrial moisture-proof carton',
+        shelfLife: '12 months from manufacturing date',
+        packaging: '400g',
+        storage: 'Store in a cool, dry place and seal tightly after use',
         applications:
           'Healthy office snacks, fruit tea blends, gourmet bakery toppings.',
+      },
+      {
+        id: 'frozen-mango',
+        category: 'frozen',
+        categoryName: 'Frozen Fruit (IQF)',
+        badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+        name: 'IQF Frozen Mango Chunks',
+        specs:
+          'Individually Quick Frozen (-35°C) | 100% natural tropical aroma | 15x15mm diced / chunks',
+        moisture: 'Frozen fruit chunks',
+        mesh: '10-15mm diced / whole cheeks',
+        brix: '13 - 15° Brix',
+        shelfLife: '24 months from manufacturing date',
+        packaging: '1kg/bag, 5kg/bag, 10kg/bag or custom requested',
+        storage: '18 °C',
+        applications:
+          'Smoothie purees, beverage toppings, fruit bowls, industrial confectionery jams.',
+      },
+      {
+        id: 'frozen-dragon-fruit',
+        category: 'frozen',
+        categoryName: 'Frozen Fruit (IQF)',
+        badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+        name: 'IQF Frozen Red Dragon Fruit Dices',
+        specs:
+          'Individually Quick Frozen | 100% natural red flesh | 10x10mm uniform dices',
+        moisture: 'Frozen fruit dices',
+        mesh: '10x10mm uniform diced',
+        brix: '10 - 12° Brix',
+        shelfLife: '24 months from manufacturing date',
+        packaging: '1kg/bag, 5kg/bag, 10kg/bag or custom requested',
+        storage: '18 °C',
+        applications:
+          'Commercial fruit tea, smoothie packs, sorbet, dairy yogurt base.',
       },
       {
         id: 'passion-fruit-puree',
@@ -109,8 +149,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: 'Smooth liquid puree',
         mesh: 'Filtered through 0.5mm mesh',
         brix: '14 - 16° Brix',
-        shelfLife: '24 months (-18°C) or 12 months (Aseptic ambient)',
-        packaging: '200kg Aseptic Steel Drum',
+        shelfLife: '12 - 24 months',
+        packaging: '1kg/bag, 5kg/bag, 10kg/bag, bottled or PET or custom requested',
+        storage: '18°C',
         applications:
           'Beverage manufacturing, drinking yogurt, ice cream popsicles, F&B jams.',
       },
@@ -129,8 +170,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 5.0%',
         mesh: '80 - 100 目',
         brix: '天然原果糖度',
-        shelfLife: '24 个月',
-        packaging: '无菌铝箔袋 5kg x 4 / 20kg 纸箱',
+        shelfLife: '自生产之日起12个月',
+        packaging: '10g - 5000g/袋或按客户要求定制',
+        storage: '阴凉干燥处存放，避免阳光直射',
         applications: '糖果烘焙、营养冲饮、酸奶乳品、清洁标签天然着色。',
       },
       {
@@ -143,8 +185,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 4.5%',
         mesh: '100 目',
         brix: '可按需标准化调配',
-        shelfLife: '18 个月',
-        packaging: '真空铝箔袋 10kg x 2',
+        shelfLife: '自生产之日起12个月',
+        packaging: '10g - 5000g/袋或按客户要求定制',
+        storage: '阴凉干燥处存放，避免阳光直射',
         applications: '调饮果茶、风味糖浆、西点烘焙夹心、高端冰淇淋。',
       },
       {
@@ -157,8 +200,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 5.0%',
         mesh: '80 目',
         brix: '天然',
-        shelfLife: '24 个月',
-        packaging: '20kg 纸箱内置双层防潮 PE 袋',
+        shelfLife: '自生产之日起12个月',
+        packaging: '10g - 5000g/袋或按客户要求定制',
+        storage: '阴凉干燥处存放，避免阳光直射',
         applications: '早餐饮食麦片、婴幼儿辅食、蛋白营养粉、饼干点心。',
       },
       {
@@ -171,8 +215,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 3.0%',
         mesh: '切片 / 丁块 / 颗粒碎',
         brix: '浓郁天然甜香',
-        shelfLife: '18 个月',
-        packaging: '无菌铝箔袋 5kg x 2 / 纸箱',
+        shelfLife: '自生产之日起12个月',
+        packaging: '400g',
+        storage: '置于阴凉干燥处，使用后密封保存',
         applications: '低卡格兰诺拉麦片、巧克力裹果干、高档休闲零食。',
       },
       {
@@ -185,9 +230,40 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '≤ 4.0%',
         mesh: '整瓣 / 半瓣',
         brix: '自然原味',
-        shelfLife: '18 个月',
-        packaging: '10kg 工业级防潮纸箱',
+        shelfLife: '自生产之日起12个月',
+        packaging: '400g',
+        storage: '置于阴凉干燥处，使用后密封保存',
         applications: '健康轻食零食、花果茶原料、高端西点装饰。',
+      },
+      {
+        id: 'frozen-mango',
+        category: 'frozen',
+        categoryName: '冷冻水果 (IQF)',
+        badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+        name: 'IQF 单体速冻芒果丁',
+        specs: 'IQF 单体速冻 (-35°C) | 保留热带原果纯甜风味 | 15x15mm 规则丁块',
+        moisture: '冷冻原果丁',
+        mesh: '10-15mm 丁块 / 半果瓣',
+        brix: '13 - 15° Brix',
+        shelfLife: '自生产之日起24个月',
+        packaging: '1kg/袋、5kg/袋、10kg/袋或按客户要求定制',
+        storage: '18 °C',
+        applications: '现制茶饮鲜果顶料、冰沙泥原浆、水果酸奶捞、烘焙果酱。',
+      },
+      {
+        id: 'frozen-dragon-fruit',
+        category: 'frozen',
+        categoryName: '冷冻水果 (IQF)',
+        badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+        name: 'IQF 单体速冻红心火龙果丁',
+        specs: '单体速冻锁鲜 | 100% 天然艳丽红心果肉 | 10x10mm 均一立方丁',
+        moisture: '冷冻原果粒',
+        mesh: '10x10mm 规则立方体',
+        brix: '10 - 12° Brix',
+        shelfLife: '自生产之日起24个月',
+        packaging: '1kg/袋、5kg/袋、10kg/袋或按客户要求定制',
+        storage: '18 °C',
+        applications: '特调果茶调色调味、鲜榨果昔、冰淇淋雪葩原料。',
       },
       {
         id: 'passion-fruit-puree',
@@ -199,8 +275,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         moisture: '细腻浓郁流体',
         mesh: '过 0.5mm 滤网去籽',
         brix: '14 - 16° Brix',
-        shelfLife: '24 个月（-18°C冷冻）或 12 个月（无菌常温）',
-        packaging: '200kg 无菌钢桶（Aseptic Steel Drum）',
+        shelfLife: '12 - 24 个月',
+        packaging: '1kg/袋、5kg/袋、10kg/袋，瓶装或PET装或按客户要求定制',
+        storage: '18°C',
         applications: '果汁饮料加工、风味酸奶、雪糕冰品、餐饮调味果酱。',
       },
     ];
@@ -218,8 +295,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       moisture: '≤ 5.0%',
       mesh: '80 - 100 mesh',
       brix: 'Tự nhiên từ quả',
-      shelfLife: '24 tháng',
-      packaging: 'Túi nhôm tiệt trùng 5kg x 4 / thùng carton 20kg',
+      shelfLife: '12 tháng tính từ ngày sản xuất',
+      packaging: '10g - 5000g/bịch hoặc theo yêu cầu khách hàng',
+      storage: 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp',
       applications:
         'Bánh kẹo, đồ uống dinh dưỡng, sữa chua, tạo màu tự nhiên Clean-label.',
     },
@@ -234,8 +312,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       moisture: '≤ 4.5%',
       mesh: '100 mesh',
       brix: 'Chuẩn hóa theo yêu cầu',
-      shelfLife: '18 tháng',
-      packaging: 'Túi nhôm hút chân không 10kg x 2',
+      shelfLife: '12 tháng tính từ ngày sản xuất',
+      packaging: '10g - 5000g/bịch hoặc theo yêu cầu khách hàng',
+      storage: 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp',
       applications: 'Trà trái cây, si-rô pha chế, nhân bánh ngọt, kem cao cấp.',
     },
     {
@@ -248,8 +327,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       moisture: '≤ 5.0%',
       mesh: '80 mesh',
       brix: 'Tự nhiên',
-      shelfLife: '24 tháng',
-      packaging: 'Thùng carton 20kg lót túi PE kép chống ẩm',
+      shelfLife: '12 tháng tính từ ngày sản xuất',
+      packaging: '10g - 5000g/bịch hoặc theo yêu cầu khách hàng',
+      storage: 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp',
       applications:
         'Ngũ cốc ăn sáng, thức ăn dặm trẻ em, sinh tố protein, bánh quy.',
     },
@@ -264,8 +344,9 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       moisture: '≤ 3.0%',
       mesh: 'Lát cắt / Hạt lựu / Dạng mảnh vụn',
       brix: 'Đậm đà tự nhiên',
-      shelfLife: '18 tháng',
-      packaging: 'Túi nhôm tiệt trùng 5kg x 2 / thùng carton',
+      shelfLife: '12 tháng tính từ ngày sản xuất',
+      packaging: '400g',
+      storage: 'Nơi khô ráo, thoáng mát và đóng kín sau khi dùng',
       applications:
         'Ngũ cốc Granola, socola bọc trái cây, snack trái cây sấy thượng hạng.',
     },
@@ -280,15 +361,50 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       moisture: '≤ 4.0%',
       mesh: 'Múi nguyên / Nửa múi',
       brix: 'Tự nhiên',
-      shelfLife: '18 tháng',
-      packaging: 'Thùng carton 10kg chống ẩm công nghiệp',
+      shelfLife: '12 tháng tính từ ngày sản xuất',
+      packaging: '400g',
+      storage: 'Nơi khô ráo, thoáng mát và đóng kín sau khi dùng',
       applications:
         'Snack dinh dưỡng văn phòng, trà hoa quả sấy, nguyên liệu làm bánh cao cấp.',
     },
     {
+      id: 'frozen-mango',
+      category: 'frozen',
+      categoryName: 'Trái cây đông lạnh',
+      badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+      name: 'Xoài Cấp Đông IQF (Frozen Mango Chunks)',
+      specs:
+        'Cấp đông nhanh IQF (-35°C) | 100% xoài ngọt tự nhiên | Cắt hạt lựu 15x15mm hoặc nửa quả',
+      moisture: 'Dạng quả đông rời IQF',
+      mesh: 'Cắt hạt lựu 10-15mm / Má xoài',
+      brix: '13 - 15° Brix',
+      shelfLife: '24 tháng kể từ ngày sản xuất',
+      packaging: '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
+      storage: '18 °C',
+      applications:
+        'Làm sinh tố, topping trà trái cây, nguyên liệu kem bơ xoài, mứt F&B.',
+    },
+    {
+      id: 'frozen-dragon-fruit',
+      category: 'frozen',
+      categoryName: 'Trái cây đông lạnh',
+      badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
+      name: 'Thanh Long Đỏ Cấp Đông IQF (Frozen Red Dragon Fruit)',
+      specs:
+        'Cấp đông IQF giữ màu đỏ thẫm tự nhiên | Cắt khối hạt lựu 10x10mm đều đặn',
+      moisture: 'Dạng hạt đông rời IQF',
+      mesh: 'Cắt hạt lựu 10x10mm',
+      brix: '10 - 12° Brix',
+      shelfLife: '24 tháng kể từ ngày sản xuất',
+      packaging: '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
+      storage: '18 °C',
+      applications:
+        'Pha chế thức uống, sinh tố detox, sữa chua trái cây, làm thạch cao cấp.',
+    },
+    {
       id: 'passion-fruit-puree',
       category: 'puree',
-      categoryName: 'Nước cốt & Pure',
+      categoryName: 'Nước cốt',
       badgeColor: 'bg-purple-100 text-purple-800 border-purple-200',
       name: 'Nước Cốt Chanh Dây Không Hạt (Passion Fruit Puree)',
       specs:
@@ -296,8 +412,10 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       moisture: 'Dạng lỏng sánh mịn',
       mesh: 'Lọc qua lưới 0.5mm',
       brix: '14 - 16° Brix',
-      shelfLife: '24 tháng (ở -18°C) hoặc 12 tháng (Aseptic)',
-      packaging: 'Phuy sắt vô trùng 200kg (Aseptic Steel Drum)',
+      shelfLife: '12 - 24 tháng',
+      packaging:
+        '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng',
+      storage: '18°C',
       applications:
         'Sản xuất nước giải khát, sữa chua uống, kem que, mứt sốt F&B.',
     },
@@ -465,6 +583,9 @@ export function getHomePageUi(lang: Locale) {
         pureePackagingValue:
           '1kg/bag, 5kg/bag, 10kg/bag, bottled or PET or custom requested',
         pureeStorageValue: '18°C',
+        frozenPackagingValue: '1kg/bag, 5kg/bag, 10kg/bag or custom requested',
+        frozenShelfLifeValue: '24 months from manufacturing date',
+        frozenStorageValue: '18 °C',
         viewBtn: 'View TDS Spec',
         sampleBtn: 'Request Sample',
         modalTitle: 'Technical Data Sheet (TDS)',
@@ -643,6 +764,9 @@ export function getHomePageUi(lang: Locale) {
         pureePackagingValue:
           '1kg/袋、5kg/袋、10kg/袋，瓶装或PET装或按客户要求定制',
         pureeStorageValue: '18°C',
+        frozenPackagingValue: '1kg/袋、5kg/袋、10kg/袋或按客户要求定制',
+        frozenShelfLifeValue: '自生产之日起24个月',
+        frozenStorageValue: '18 °C',
         viewBtn: '查看 TDS 参数',
         sampleBtn: '索取样品',
         modalTitle: '产品技术参数表 (TDS)',
@@ -814,6 +938,9 @@ export function getHomePageUi(lang: Locale) {
       pureePackagingValue:
         '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng',
       pureeStorageValue: '18°C',
+      frozenPackagingValue: '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
+      frozenShelfLifeValue: '24 tháng kể từ ngày sản xuất',
+      frozenStorageValue: '18 °C',
       viewBtn: 'Xem bảng TDS',
       sampleBtn: 'Xin mẫu test',
       modalTitle: 'Technical Data Sheet (TDS)',
@@ -1801,6 +1928,7 @@ export function getProductDetailPageTranslations(lang: Locale) {
       colBrix: 'Total Soluble Solids (Brix)',
       colShelfLife: 'Shelf Life',
       colPackaging: 'Export Packaging Standard',
+      colStorage: 'Storage Conditions (Storage Temp)',
       colApplication: 'Industrial Applications',
       colMoq: 'Minimum Order Quantity (MOQ)',
       defaultCategory: 'Processed Agricultural Ingredients',
@@ -1830,6 +1958,7 @@ export function getProductDetailPageTranslations(lang: Locale) {
       colBrix: '糖度 (Brix)',
       colShelfLife: '保质期 (Shelf Life)',
       colPackaging: '出口包装规格',
+      colStorage: '储存条件与温度 (Storage)',
       colApplication: '核心工业应用',
       colMoq: '最低起订量 (MOQ)',
       defaultCategory: '深加工特色热带农产原料',
@@ -1856,6 +1985,7 @@ export function getProductDetailPageTranslations(lang: Locale) {
     colBrix: 'Độ ngọt / Chỉ số Brix',
     colShelfLife: 'Hạn sử dụng (Shelf Life)',
     colPackaging: 'Quy cách đóng gói xuất khẩu',
+    colStorage: 'Nhiệt độ / Điều kiện bảo quản',
     colApplication: 'Ứng dụng chính trong sản xuất',
     colMoq: 'Số lượng đặt hàng tối thiểu (MOQ)',
     defaultCategory: 'Nguyên liệu nông sản chế biến',

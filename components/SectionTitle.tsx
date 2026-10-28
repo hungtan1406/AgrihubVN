@@ -26,9 +26,20 @@ export default function SectionTitle({
       className={`mb-8 sm:mb-12 ${isCenter ? 'text-center mx-auto max-w-3xl' : 'max-w-2xl'} ${className}`}
     >
       {badge && (
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full mb-3 bg-cream-200/80 border border-cream-300 text-primary-leaf text-xs font-bold uppercase tracking-wider">
-          <span>🌿</span>
-          <span className={light ? 'text-cream-200' : 'text-primary-850'}>{badge}</span>
+        <div
+          className={`inline-flex items-center gap-2 px-3 py-1 rounded-full mb-3.5 text-xs font-semibold ${
+            light
+              ? 'bg-white/10 text-cream-100 border border-white/20'
+              : 'bg-primary-50 text-primary-850 border border-primary-100'
+          }`}
+        >
+          <span
+            className={`w-1.5 h-1.5 rounded-full ${
+              light ? 'bg-accent-gold' : 'bg-primary-leaf'
+            }`}
+            aria-hidden="true"
+          />
+          <span>{badge}</span>
         </div>
       )}
       <HeadingTag

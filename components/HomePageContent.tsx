@@ -9,6 +9,7 @@ import Container from '@/components/Container';
 import Button from '@/components/Button';
 import SectionTitle from '@/components/SectionTitle';
 import ContactForm from '@/components/ContactForm';
+import ProductCard from '@/components/ProductCard';
 import FadeIn from '@/components/animations/FadeIn';
 import StaggerContainer, {
   StaggerItem,
@@ -188,9 +189,9 @@ export default function HomePageContent({
               initial={{ opacity: 0, y: -12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: 'easeOut' }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cream-300/20 backdrop-blur-md border border-cream-200/30 text-cream-200 text-xs font-bold uppercase tracking-wider shadow-2xs"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cream-100 text-xs font-semibold shadow-2xs"
             >
-              <span>🌿</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" aria-hidden="true" />
               <span>{dict.common.tagline}</span>
             </motion.div>
 
@@ -281,11 +282,6 @@ export default function HomePageContent({
         <Container>
           <FadeIn direction="up">
             <div className="bg-white rounded-3xl sm:rounded-4xl p-6 sm:p-10 lg:p-14 border border-cream-200/80 shadow-soft relative overflow-hidden">
-              {/* Soft decorative botanical leaf watermark in top right */}
-              <div className="absolute top-4 right-4 text-cream-300/40 select-none pointer-events-none text-6xl sm:text-8xl font-serif">
-                🌿
-              </div>
-
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
                 {/* Left Column: Visual representation */}
                 <div className="lg:col-span-5 flex flex-col items-center justify-center">
@@ -472,127 +468,22 @@ export default function HomePageContent({
                 animate={{ opacity: 1, scale: 1 }}
                 exit={{ opacity: 0, scale: 0.96 }}
                 transition={{ duration: 0.25 }}
-                whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                className="bg-white border border-cream-200/90 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors hover:shadow-md group"
               >
-                <div>
-                  {/* Product image — aspect-square per brand rules (1:1) */}
-                  <div className="mb-4 overflow-hidden rounded-xl bg-cream-100 aspect-square relative border border-cream-200/60">
-                    {item.image ? (
-                      <Image
-                        src={item.image}
-                        alt={item.name}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
-                        className="object-cover group-hover:scale-105 transition-transform duration-500"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-br from-cream-50 via-white to-cream-100/80 text-slate-400 p-4 text-center">
-                        <span className="text-4xl sm:text-5xl mb-2 select-none opacity-85 transition-transform group-hover:scale-110 duration-300">
-                          {item.category === 'puree'
-                            ? '🧃'
-                            : item.category === 'dried'
-                              ? '🥭'
-                              : '🥣'}
-                        </span>
-                        <span className="text-xs font-bold text-primary-850/80 line-clamp-1">
-                          {item.name}
-                        </span>
-                        <span className="text-[10px] uppercase font-bold tracking-wider text-primary-leaf/70 mt-1">
-                          {item.categoryName}
-                        </span>
-                      </div>
-                    )}
-                  </div>
-
-                  <div className="flex items-center justify-between mb-3">
-                    <span
-                      className={`text-[11px] font-bold uppercase tracking-wider px-3 py-1 rounded-full border ${item.badgeColor}`}
-                    >
-                      {item.categoryName}
-                    </span>
-                    <span className="text-[11px] text-slate-400 font-bold">
-                      GRADE: F&B
-                    </span>
-                  </div>
-
-                  <h3 className="text-base font-bold text-primary-850 mb-2 leading-snug">
-                    {item.name}
-                  </h3>
-
-                  <div className="space-y-1.5 text-xs text-slate-600 mb-4 bg-cream-50 p-3.5 rounded-xl border border-cream-200/50 leading-relaxed">
-                    {item.category === 'dried' ? (
-                      <>
-                        <p>
-                          <strong className="text-primary-850">
-                            {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
-                          </strong>{' '}
-                          {ui.tds.driedPackagingValue ?? '400g'}
-                        </p>
-                        <p>
-                          <strong className="text-primary-850">
-                            {ui.tds.storageLabel ?? 'Bảo quản:'}
-                          </strong>{' '}
-                          {ui.tds.driedStorageValue ??
-                            'Nơi khô ráo, thoáng mát và đóng kín sau khi dùng'}
-                        </p>
-                      </>
-                    ) : item.category === 'puree' ? (
-                      <>
-                        <p>
-                          <strong className="text-primary-850">
-                            {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
-                          </strong>{' '}
-                          {ui.tds.pureePackagingValue ??
-                            '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng'}
-                        </p>
-                        <p>
-                          <strong className="text-primary-850">
-                            {ui.tds.storageTempLabel ?? 'Nhiệt độ bảo quản:'}
-                          </strong>{' '}
-                          {ui.tds.pureeStorageValue ?? '18°C'}
-                        </p>
-                      </>
-                    ) : (
-                      <>
-                        <p>
-                          <strong className="text-primary-850">
-                            {ui.tds.packagingLabel ?? 'Quy cách đóng gói:'}
-                          </strong>{' '}
-                          {ui.tds.packagingValue ??
-                            '10g - 5000g/bịch hoặc theo yêu cầu khách hàng'}
-                        </p>
-                        <p>
-                          <strong className="text-primary-850">
-                            {ui.tds.shelfLifeLabel ?? 'Hạn sử dụng:'}
-                          </strong>{' '}
-                          {ui.tds.shelfLifeValue ??
-                            '12 tháng tính từ ngày sản xuất'}
-                        </p>
-                        <p>
-                          <strong className="text-primary-850">
-                            {ui.tds.storageLabel ?? 'Bảo quản:'}
-                          </strong>{' '}
-                          {ui.tds.storageValue ??
-                            'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp'}
-                        </p>
-                      </>
-                    )}
-                  </div>
-                </div>
-
-                <div className="pt-4 border-t border-cream-100 flex items-center justify-between gap-2">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedTds(item.id)}
-                    className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover transition-colors flex items-center gap-1 min-h-[36px]"
-                  >
-                    <span>{ui.tds.viewBtn}</span> &rarr;
-                  </button>
-                  <Button href="#bao-gia" variant="pill" size="sm">
-                    {ui.tds.sampleBtn}
-                  </Button>
-                </div>
+                <ProductCard
+                  product={item}
+                  currentLang={currentLang}
+                  onViewTds={(id) => setSelectedTds(id)}
+                  labels={{
+                    viewTds: ui.tds.viewBtn,
+                    sampleBtn: ui.tds.sampleBtn,
+                    moisture: ui.tds.moisture?.replace(':', ''),
+                    mesh: ui.tds.mesh?.replace(':', ''),
+                    shelfLife: ui.tds.shelfLife?.replace(':', ''),
+                    applications: ui.tds.applications?.replace(':', ''),
+                    grade: 'GRADE: F&B EXPORT',
+                  }}
+                  sampleHref="#bao-gia"
+                />
               </motion.div>
             ))}
           </motion.div>
@@ -616,98 +507,134 @@ export default function HomePageContent({
                   onClick={(e) => e.stopPropagation()}
                   className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] overflow-y-auto shadow-2xl border border-cream-200"
                 >
-                  <div className="bg-primary-900 text-white px-5 sm:px-6 py-4 sm:py-5 flex items-center justify-between rounded-t-3xl sticky top-0 z-10">
+                  {/* Technical Header */}
+                  <div className="bg-primary-900 text-white px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between rounded-t-3xl sticky top-0 z-10 border-b border-primary-800">
                     <div>
-                      <span className="text-xs text-accent-gold font-bold uppercase tracking-wider">
-                        {ui.tds.modalTitle}
-                      </span>
-                      <h3 className="text-base sm:text-lg font-bold mt-0.5">
+                      <div className="flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" />
+                        <span className="text-[11px] text-accent-gold font-semibold uppercase tracking-wider">
+                          {ui.tds.modalTitle}
+                        </span>
+                      </div>
+                      <h3 className="text-base sm:text-lg font-bold mt-1 text-white">
                         {selectedProductData.name}
                       </h3>
+                      <p className="text-[11px] text-cream-200/70 font-mono mt-0.5">
+                        SPEC-AGRI-{selectedProductData.id.toUpperCase()} • ISO 22000 | HACCP | FDA COMPLIANT
+                      </p>
                     </div>
                     <button
                       type="button"
                       onClick={() => setSelectedTds(null)}
-                      className="text-slate-300 hover:text-white p-2 text-2xl font-bold min-h-[44px] min-w-[44px] flex items-center justify-center"
+                      className="text-slate-300 hover:text-white p-2 text-2xl font-bold min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl hover:bg-white/10 transition-colors"
                       aria-label="Close TDS Modal"
                     >
                       &times;
                     </button>
                   </div>
 
-                  <div className="p-4 sm:p-6 space-y-4 text-xs sm:text-sm text-slate-700">
-                    <div className="divide-y divide-cream-200 border border-cream-200 rounded-2xl overflow-hidden">
-                      <div className="grid grid-cols-1 sm:grid-cols-3 p-3 sm:p-3.5 bg-cream-50 gap-1 sm:gap-0">
-                        <span className="font-bold text-primary-850">
-                          {ui.tds.moisture}
-                        </span>
-                        <span className="sm:col-span-2">
-                          {selectedProductData.moisture}
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 p-3 sm:p-3.5 gap-1 sm:gap-0">
-                        <span className="font-bold text-primary-850">
-                          {ui.tds.mesh}
-                        </span>
-                        <span className="sm:col-span-2">
-                          {selectedProductData.mesh}
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 p-3 sm:p-3.5 bg-cream-50 gap-1 sm:gap-0">
-                        <span className="font-bold text-primary-850">
-                          {ui.tds.brix}
-                        </span>
-                        <span className="sm:col-span-2">
-                          {selectedProductData.brix}
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 p-3 sm:p-3.5 gap-1 sm:gap-0">
-                        <span className="font-bold text-primary-850">
-                          {ui.tds.shelfLife}
-                        </span>
-                        <span className="sm:col-span-2">
-                          {selectedProductData.shelfLife}
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 p-3 sm:p-3.5 bg-cream-50 gap-1 sm:gap-0">
-                        <span className="font-bold text-primary-850">
-                          {ui.tds.packaging}
-                        </span>
-                        <span className="sm:col-span-2">
-                          {selectedProductData.packaging}
-                        </span>
-                      </div>
-                      <div className="grid grid-cols-1 sm:grid-cols-3 p-3 sm:p-3.5 gap-1 sm:gap-0">
-                        <span className="font-bold text-primary-850">
-                          {ui.tds.applications}
-                        </span>
-                        <span className="sm:col-span-2">
-                          {selectedProductData.applications}
-                        </span>
+                  <div className="p-5 sm:p-7 space-y-5 text-xs sm:text-sm text-slate-700">
+                    {/* Section 1: Physical & Chemical Parameters */}
+                    <div>
+                      <h4 className="text-xs font-bold text-primary-850 uppercase tracking-wider mb-2.5 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-xs bg-primary-leaf" />
+                        <span>Chỉ tiêu Kỹ thuật & Cảm quan</span>
+                      </h4>
+                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                        <div className="p-3 bg-cream-50 rounded-xl border border-cream-200/70">
+                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
+                            {ui.tds.moisture}
+                          </span>
+                          <span className="text-xs sm:text-sm font-bold text-primary-900">
+                            {selectedProductData.moisture}
+                          </span>
+                        </div>
+                        <div className="p-3 bg-cream-50 rounded-xl border border-cream-200/70">
+                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
+                            {ui.tds.mesh}
+                          </span>
+                          <span className="text-xs sm:text-sm font-bold text-primary-900">
+                            {selectedProductData.mesh}
+                          </span>
+                        </div>
+                        <div className="p-3 bg-cream-50 rounded-xl border border-cream-200/70">
+                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
+                            {ui.tds.brix}
+                          </span>
+                          <span className="text-xs sm:text-sm font-bold text-primary-900">
+                            {selectedProductData.brix}
+                          </span>
+                        </div>
+                        <div className="p-3 bg-cream-50 rounded-xl border border-cream-200/70">
+                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
+                            {ui.tds.shelfLife}
+                          </span>
+                          <span className="text-xs sm:text-sm font-bold text-primary-900">
+                            {selectedProductData.shelfLife}
+                          </span>
+                        </div>
                       </div>
                     </div>
 
-                    <div className="text-xs text-slate-600 bg-cream-100 p-3.5 rounded-xl border border-cream-300">
-                      {ui.tds.notice}
+                    {/* Section 2: Industrial Handling & Applications */}
+                    <div>
+                      <h4 className="text-xs font-bold text-primary-850 uppercase tracking-wider mb-2.5 flex items-center gap-2">
+                        <span className="w-2 h-2 rounded-xs bg-accent-gold" />
+                        <span>Đóng gói & Ứng dụng F&B</span>
+                      </h4>
+                      <div className="space-y-2">
+                        <div className="p-3 bg-white rounded-xl border border-cream-200 shadow-2xs">
+                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
+                            {ui.tds.packaging}
+                          </span>
+                          <span className="text-xs sm:text-sm text-slate-800 font-medium">
+                            {selectedProductData.packaging}
+                          </span>
+                        </div>
+                        <div className="p-3 bg-white rounded-xl border border-cream-200 shadow-2xs">
+                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
+                            {ui.tds.applications}
+                          </span>
+                          <span className="text-xs sm:text-sm text-slate-800 font-medium">
+                            {selectedProductData.applications}
+                          </span>
+                        </div>
+                      </div>
                     </div>
 
-                    <div className="flex flex-col-reverse sm:flex-row justify-end gap-2 sm:gap-3 pt-2">
-                      <Button
-                        onClick={() => setSelectedTds(null)}
-                        variant="ghost"
-                        size="sm"
+                    {/* Notice Callout */}
+                    <div className="text-xs text-slate-600 bg-primary-50/60 p-3.5 rounded-xl border border-primary-100 flex items-start gap-2.5">
+                      <span className="text-primary-leaf text-base shrink-0 leading-none mt-0.5">ℹ</span>
+                      <p className="leading-relaxed">
+                        {ui.tds.notice}
+                      </p>
+                    </div>
+
+                    {/* Action Bar */}
+                    <div className="flex flex-col-reverse sm:flex-row justify-between items-center gap-3 pt-3 border-t border-cream-200">
+                      <Link
+                        href={`/${currentLang}/products/${selectedProductData.id}`}
+                        className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover underline"
                       >
-                        {ui.tds.close}
-                      </Button>
-                      <Button
-                        href="#bao-gia"
-                        variant="primary"
-                        size="sm"
-                        onClick={() => setSelectedTds(null)}
-                      >
-                        <span>{ui.tds.quote}</span>
-                        <span>&rarr;</span>
-                      </Button>
+                        {dict.common.viewDetails}
+                      </Link>
+                      <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
+                        <Button
+                          onClick={() => setSelectedTds(null)}
+                          variant="ghost"
+                          size="sm"
+                        >
+                          {ui.tds.close}
+                        </Button>
+                        <Button
+                          href="#bao-gia"
+                          variant="primary"
+                          size="sm"
+                          onClick={() => setSelectedTds(null)}
+                        >
+                          <span>{ui.tds.quote}</span>
+                        </Button>
+                      </div>
                     </div>
                   </div>
                 </motion.div>
@@ -1070,7 +997,7 @@ export default function HomePageContent({
                 size="md"
                 className="shadow-xs hover:shadow-soft"
               >
-                {dict.pages.home.viewAllNews ?? 'Xem tất cả tin tức →'}
+                {dict.pages.home.viewAllNews ?? 'Xem tất cả tin tức'}
               </Button>
             </div>
           </FadeIn>

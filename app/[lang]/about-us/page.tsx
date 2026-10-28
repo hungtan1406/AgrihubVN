@@ -77,7 +77,7 @@ export default function AboutUsPage({ params }: PageProps) {
                     className="bg-white p-6 rounded-2xl border border-cream-200 shadow-soft hover:border-primary-leaf/50 transition-colors"
                   >
                     <span className="text-2xl mb-2 block">
-                      {icons[idx] || '🌿'}
+                      {icons[idx] || '✨'}
                     </span>
                     <h3 className="font-bold text-primary-850 text-base mb-2">
                       {pillar.title}
@@ -168,7 +168,6 @@ export default function AboutUsPage({ params }: PageProps) {
                     className="w-full sm:w-auto shadow-md hover:shadow-lg font-bold"
                   >
                     <span>{content.closingCtaPrimary}</span>
-                    <span className="ml-1">&rarr;</span>
                   </Button>
                   <Button
                     href={`/${currentLang}/products`}

@@ -35,8 +35,8 @@ export default function Footer({ lang, dict }: FooterProps) {
             <p className="text-sm text-cream-200/80 leading-relaxed">
               {dict.footer.companyDescription}
             </p>
-            <div className="pt-2 text-xs text-accent-gold font-bold uppercase tracking-wider flex items-center gap-1.5">
-              <span>🌿</span>
+            <div className="pt-1 text-xs text-accent-gold font-semibold flex items-center gap-2">
+              <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" aria-hidden="true" />
               <span>{dict.common.tagline}</span>
             </div>
             <div className="text-xs text-cream-200/70 space-y-1">
@@ -164,7 +164,6 @@ export default function Footer({ lang, dict }: FooterProps) {
                   className="inline-flex items-center gap-1.5 px-4 py-2 bg-primary-leaf hover:bg-primary-leafHover text-white font-bold rounded-full text-xs transition-colors shadow-sm"
                 >
                   <span>{f.quoteCta}</span>
-                  <span>&rarr;</span>
                 </Link>
               </div>
             </div>

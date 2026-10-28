@@ -277,7 +277,7 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
             <h2 className="text-2xl font-bold text-white mb-2">{dict.news.ctaTitle}</h2>
             <p className="text-cream-200 mb-6">{dict.news.ctaSubtitle}</p>
             <Button href={`/${currentLang}/contact`} variant="amber" size="md">
-              {dict.news.ctaButton} →
+              {dict.news.ctaButton}
             </Button>
           </div>
         </Container>

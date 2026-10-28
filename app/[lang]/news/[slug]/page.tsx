@@ -223,7 +223,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
             <span>{dict.news.backToNews}</span>
           </Link>
           <Button href={`/${currentLang}/contact`} variant="amber" size="sm">
-            {dict.news.ctaButton} →
+            {dict.news.ctaButton}
           </Button>
         </div>
       </Container>

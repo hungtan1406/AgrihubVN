@@ -37,31 +37,20 @@ export default function ContactPage({ params }: PageProps) {
   return (
     <div className="py-12 sm:py-16">
       <Container>
-        {/* Target Audience Bar */}
-        <FadeIn direction="up">
-          <div className="bg-white border border-cream-200 rounded-2xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
-            <div>
-              <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider block">
-                🌿 {dict.common.targetCustomer}:
-              </span>
-              <span className="text-sm text-primary-850 font-bold">
-                {dict.pages.contact.targetAudience}
-              </span>
-            </div>
-            <span className="text-xs text-primary-leaf font-extrabold bg-cream-200/80 px-3 py-1.5 rounded-full border border-cream-300">
-              {content.responseBadge}
-            </span>
-          </div>
-        </FadeIn>
-
-        <FadeIn direction="up" delay={0.1}>
+        {/* Header Section with SLA Response Badge */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10 pb-8 border-b border-cream-200/80">
           <SectionTitle
             as="h1"
             badge="B2B Inquiry"
             title={dict.pages.contact.title}
             subtitle={dict.pages.contact.subtitle}
+            className="mb-0"
           />
-        </FadeIn>
+          <div className="inline-flex items-center gap-2 text-xs text-primary-850 font-semibold bg-primary-50 px-3.5 py-2 rounded-full border border-primary-200 shrink-0 self-start md:self-auto">
+            <span className="w-2 h-2 rounded-full bg-primary-leaf animate-pulse" aria-hidden="true" />
+            <span>{content.responseBadge}</span>
+          </div>
+        </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 my-10">
           {/* Contact Details Column */}
@@ -104,8 +93,8 @@ export default function ContactPage({ params }: PageProps) {
               </div>
 
               <div className="bg-gradient-to-br from-primary-900 to-primary-850 text-cream-100 p-6 rounded-3xl shadow-soft border border-primary-700/40">
-                <h3 className="font-bold text-sm text-accent-gold mb-2 flex items-center gap-1.5">
-                  <span>🌿</span>
+                <h3 className="font-bold text-sm text-accent-gold mb-2 flex items-center gap-2">
+                  <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" aria-hidden="true" />
                   <span>{content.commitmentTitle}</span>
                 </h3>
                 <p className="text-xs text-cream-200/80 leading-relaxed mb-3">

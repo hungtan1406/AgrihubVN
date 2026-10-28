@@ -130,7 +130,6 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
       <div className="pt-2">
         <Button type="submit" variant="amber" size="lg" fullWidth className="font-extrabold tracking-wide min-h-[48px]">
           <span>{t.submitBtn}</span>
-          <span className="ml-1">&rarr;</span>
         </Button>
       </div>
     </form>

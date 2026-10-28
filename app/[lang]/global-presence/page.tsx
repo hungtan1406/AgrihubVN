@@ -35,27 +35,24 @@ export default function GlobalPresencePage({ params }: PageProps) {
   return (
     <div className="py-12 sm:py-16">
       <Container>
-        {/* Target Audience Bar */}
-        <div className="bg-white border border-cream-200 rounded-2xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
-          <div>
-            <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider block">
-              🌿 {dict.common.targetCustomer}:
-            </span>
-            <span className="text-sm text-primary-850 font-bold">
-              {dict.pages.globalPresence.targetAudience}
-            </span>
-          </div>
-          <Button href={`/${currentLang}/contact`} variant="primary" size="sm" className="shrink-0">
-            {dict.pages.globalPresence.primaryCta} &rarr;
+        {/* Header Section with direct CTA */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-cream-200/80">
+          <SectionTitle
+            as="h1"
+            badge={content.badge}
+            title={dict.pages.globalPresence.title}
+            subtitle={dict.pages.globalPresence.subtitle}
+            className="mb-0"
+          />
+          <Button
+            href={`/${currentLang}/contact`}
+            variant="primary"
+            size="md"
+            className="shrink-0 self-start md:self-auto shadow-sm"
+          >
+            {dict.pages.globalPresence.primaryCta}
           </Button>
         </div>
-
-        <SectionTitle
-          as="h1"
-          badge={content.badge}
-          title={dict.pages.globalPresence.title}
-          subtitle={dict.pages.globalPresence.subtitle}
-        />
 
         {/* Export Markets List */}
         <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 my-8 shadow-soft">
@@ -110,7 +107,6 @@ export default function GlobalPresencePage({ params }: PageProps) {
           </div>
           <Button href={`/${currentLang}/contact`} variant="primary" size="lg" className="shrink-0 w-full sm:w-auto">
             <span>{dict.pages.globalPresence.primaryCta}</span>
-            <span className="ml-1">&rarr;</span>
           </Button>
         </div>
       </Container>

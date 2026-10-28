@@ -1878,7 +1878,10 @@ export function getProductsPageTranslations(lang: Locale) {
     return {
       specLabel: 'Specifications:',
       appLabel: 'Applications:',
-      viewTds: 'View Spec & TDS →',
+      moistureLabel: 'Moisture',
+      meshLabel: 'Mesh Size',
+      shelfLifeLabel: 'Shelf Life',
+      viewTds: 'View Spec & TDS',
       sampleBtn: 'Request Sample',
       cmsTitle: '⚡ Content Management System (WordPress CMS)',
       cmsDesc:
@@ -1890,7 +1893,10 @@ export function getProductsPageTranslations(lang: Locale) {
     return {
       specLabel: '技术规格：',
       appLabel: '核心应用：',
-      viewTds: '查看规格书 & TDS →',
+      moistureLabel: '水分含量',
+      meshLabel: '细度目数',
+      shelfLifeLabel: '保质期限',
+      viewTds: '查看规格书 & TDS',
       sampleBtn: '索取样品',
       cmsTitle: '⚡ 内容管理系统 (WordPress CMS)',
       cmsDesc:
@@ -1901,7 +1907,10 @@ export function getProductsPageTranslations(lang: Locale) {
   return {
     specLabel: 'Thông số kỹ thuật:',
     appLabel: 'Ứng dụng chính:',
-    viewTds: 'Xem Spec & TDS →',
+    moistureLabel: 'Độ ẩm',
+    meshLabel: 'Độ mịn',
+    shelfLifeLabel: 'Hạn dùng',
+    viewTds: 'Xem Spec & TDS',
     sampleBtn: 'Xin mẫu thử',
     cmsTitle: '⚡ Hệ thống Quản trị Nội dung (WordPress CMS)',
     cmsDesc:

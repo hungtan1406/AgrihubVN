@@ -169,7 +169,6 @@ export default function Header({ lang, dict }: HeaderProps) {
                   onClick={() => setMobileMenuOpen(false)}
                 >
                   <span>{dict.nav.requestQuoteBtn}</span>
-                  <span className="ml-1 text-base">&rarr;</span>
                 </Button>
               </div>
             </div>

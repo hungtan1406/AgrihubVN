@@ -82,31 +82,28 @@ export default async function ProductDetailPage({ params }: PageProps) {
           </span>
         </div>
 
-        {/* Target Audience Notice */}
-        <div className="bg-white border border-cream-200 rounded-2xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
-          <div>
-            <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider block">
-              🌿 {dict.common.targetCustomer}:
-            </span>
-            <span className="text-sm text-primary-850 font-bold">
-              {dict.pages.productDetail.targetAudience}
-            </span>
-          </div>
-          <Button href={`/${currentLang}/contact`} variant="primary" size="sm" className="shrink-0">
-            {dict.pages.productDetail.primaryCta} &rarr;
+        {/* Product Page Header */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8 pb-6 border-b border-cream-200/80">
+          <SectionTitle
+            as="h1"
+            badge={
+              (matchedIngredient?.categoryName || product?.category)
+                ? `B2B Ingredient • ${matchedIngredient?.categoryName || product?.category}`
+                : 'B2B Technical Data Sheet'
+            }
+            title={`${t.specDetailTitle} ${productName}`}
+            subtitle={matchedIngredient?.specs || product?.specs || dict.pages.productDetail.subtitle}
+            className="mb-0"
+          />
+          <Button
+            href={`/${currentLang}/contact`}
+            variant="primary"
+            size="md"
+            className="shrink-0 self-start md:self-auto shadow-sm"
+          >
+            {dict.pages.productDetail.primaryCta}
           </Button>
         </div>
-
-        <SectionTitle
-          as="h1"
-          badge={
-            (matchedIngredient?.categoryName || product?.category)
-              ? `B2B Ingredient • ${matchedIngredient?.categoryName || product?.category}`
-              : 'B2B Technical Data Sheet'
-          }
-          title={`${t.specDetailTitle} ${productName}`}
-          subtitle={matchedIngredient?.specs || product?.specs || dict.pages.productDetail.subtitle}
-        />
 
         {/* Product Featured Image — aspect-square (1:1) + next/image per brand rules */}
         {product?.image && (
@@ -122,86 +119,126 @@ export default async function ProductDetailPage({ params }: PageProps) {
           </div>
         )}
 
-        {/* Technical Data Sheet (TDS) Table */}
-        <div className="bg-white rounded-3xl border border-cream-200 overflow-hidden shadow-soft my-8">
-          <div className="bg-primary-900 text-white px-5 sm:px-6 py-4 flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+        {/* Technical Data Sheet (TDS) Certificate Container */}
+        <div className="bg-white rounded-3xl border border-cream-200/90 overflow-hidden shadow-soft my-8">
+          {/* Certificate Header */}
+          <div className="bg-primary-950 text-white px-6 sm:px-8 py-5 flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-primary-900">
             <div>
-              <h2 className="font-bold text-sm sm:text-base tracking-wide">
-                {t.tableTitle}
-              </h2>
-              <p className="text-xs text-cream-200/80">
-                {t.refCode} {product?.specCode || `SPEC-AGRI-${params.slug.toUpperCase()}`}
-              </p>
-            </div>
-            <span className="text-xs font-bold text-accent-gold bg-primary-800 px-3 py-1 rounded-full border border-primary-700 self-start sm:self-auto">
-              GRADE: {product?.grade || 'INDUSTRIAL F&B'}
-            </span>
-          </div>
-
-          <div className="divide-y divide-cream-200 text-xs sm:text-sm">
-            <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">{t.colTradeName}</span>
-              <span className="sm:col-span-2 text-slate-800 font-medium">
-                {productName}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 p-4 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">{t.colCategory}</span>
-              <span className="sm:col-span-2 text-slate-800">
-                {matchedIngredient?.categoryName || product?.category || t.defaultCategory}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">{t.colMoisture}</span>
-              <span className="sm:col-span-2 text-slate-800">
-                {matchedIngredient?.moisture || product?.moisture || t.defaultMoisture}
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 p-4 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">{t.colMesh}</span>
-              <span className="sm:col-span-2 text-slate-800">
-                {matchedIngredient?.mesh || product?.mesh || t.defaultMesh}
-              </span>
-            </div>
-
-            {(matchedIngredient?.brix || product?.brix) && (
-              <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-                <span className="font-bold text-primary-850">{t.colBrix}</span>
-                <span className="sm:col-span-2 text-slate-800">
-                  {matchedIngredient?.brix || product?.brix}
+              <div className="flex items-center gap-2 mb-1">
+                <span className="w-2 h-2 rounded-full bg-accent-gold" />
+                <span className="text-xs text-accent-gold font-bold uppercase tracking-wider">
+                  Technical Data Sheet (TDS)
                 </span>
               </div>
-            )}
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 p-4 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">{t.colShelfLife}</span>
-              <span className="sm:col-span-2 text-slate-800">
-                {matchedIngredient?.shelfLife || product?.shelfLife || t.defaultShelfLife}
+              <h2 className="font-extrabold text-lg sm:text-xl text-white tracking-tight">
+                {t.tableTitle}
+              </h2>
+              <p className="text-xs text-cream-200/70 font-mono mt-0.5">
+                {t.refCode} {product?.specCode || `SPEC-AGRI-${params.slug.toUpperCase()}`} • ISO 22000 | HACCP | FDA COMPLIANT
+              </p>
+            </div>
+            <div className="flex items-center gap-2 self-start md:self-auto">
+              <span className="text-xs font-bold text-accent-gold bg-primary-900/90 px-3.5 py-1.5 rounded-full border border-primary-800 shadow-2xs">
+                GRADE: {product?.grade || 'INDUSTRIAL F&B'}
               </span>
             </div>
+          </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">{t.colPackaging}</span>
-              <span className="sm:col-span-2 text-slate-800">
-                {matchedIngredient?.packaging || product?.packaging || t.defaultPackaging}
-              </span>
+          <div className="p-6 sm:p-8 space-y-6">
+            {/* Section 1: Chỉ tiêu Lý hóa & Cảm quan */}
+            <div>
+              <div className="flex items-center gap-2 pb-2 mb-3 border-b border-cream-200">
+                <span className="w-2.5 h-2.5 rounded-xs bg-primary-leaf" />
+                <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
+                  1. Chỉ tiêu Lý hóa & Cảm quan (Physical & Chemical Standards)
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
+                  <span className="font-semibold text-slate-500 text-xs">{t.colTradeName}</span>
+                  <span className="font-bold text-primary-950 mt-1">{productName}</span>
+                </div>
+                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
+                  <span className="font-semibold text-slate-500 text-xs">{t.colCategory}</span>
+                  <span className="font-bold text-primary-950 mt-1">
+                    {matchedIngredient?.categoryName || product?.category || t.defaultCategory}
+                  </span>
+                </div>
+                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
+                  <span className="font-semibold text-slate-500 text-xs">{t.colMoisture}</span>
+                  <span className="font-bold text-primary-leaf mt-1">
+                    {matchedIngredient?.moisture || product?.moisture || t.defaultMoisture}
+                  </span>
+                </div>
+                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
+                  <span className="font-semibold text-slate-500 text-xs">{t.colMesh}</span>
+                  <span className="font-bold text-primary-leaf mt-1">
+                    {matchedIngredient?.mesh || product?.mesh || t.defaultMesh}
+                  </span>
+                </div>
+                {(matchedIngredient?.brix || product?.brix) && (
+                  <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
+                    <span className="font-semibold text-slate-500 text-xs">{t.colBrix}</span>
+                    <span className="font-bold text-primary-950 mt-1">
+                      {matchedIngredient?.brix || product?.brix}
+                    </span>
+                  </div>
+                )}
+                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
+                  <span className="font-semibold text-slate-500 text-xs">{t.colShelfLife}</span>
+                  <span className="font-bold text-primary-950 mt-1">
+                    {matchedIngredient?.shelfLife || product?.shelfLife || t.defaultShelfLife}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 p-4 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">{t.colApplication}</span>
-              <span className="sm:col-span-2 text-slate-800">
-                {matchedIngredient?.applications || product?.application || t.defaultApplication}
-              </span>
+            {/* Section 2: Bao bì, Lưu kho & Hậu cần Công nghiệp */}
+            <div>
+              <div className="flex items-center gap-2 pb-2 mb-3 border-b border-cream-200">
+                <span className="w-2.5 h-2.5 rounded-xs bg-accent-gold" />
+                <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
+                  2. Bao bì & Hậu cần Công nghiệp (Packaging & Logistics)
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+                <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
+                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colPackaging}</span>
+                  <span className="text-slate-800 font-medium">
+                    {matchedIngredient?.packaging || product?.packaging || t.defaultPackaging}
+                  </span>
+                </div>
+                <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
+                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMoq}</span>
+                  <span className="text-slate-800 font-medium">
+                    {product?.moq || t.defaultMoq}
+                  </span>
+                </div>
+              </div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 p-4 bg-cream-50 gap-1 sm:gap-0">
-              <span className="font-bold text-primary-850">{t.colMoq}</span>
-              <span className="sm:col-span-2 text-slate-800">
-                {product?.moq || t.defaultMoq}
-              </span>
+            {/* Section 3: Ứng dụng F&B */}
+            <div>
+              <div className="flex items-center gap-2 pb-2 mb-3 border-b border-cream-200">
+                <span className="w-2.5 h-2.5 rounded-xs bg-emerald-600" />
+                <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
+                  3. Ứng dụng & Formulations (Applications & Clean Label)
+                </h3>
+              </div>
+              <div className="p-4 bg-cream-50/60 rounded-xl border border-cream-200 text-xs sm:text-sm">
+                <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colApplication}</span>
+                <p className="text-slate-800 leading-relaxed">
+                  {matchedIngredient?.applications || product?.application || t.defaultApplication}
+                </p>
+              </div>
+            </div>
+
+            {/* R&D Customization Notice */}
+            <div className="p-4 bg-primary-50 rounded-2xl border border-primary-200/80 flex items-start gap-3 text-xs sm:text-sm text-primary-950">
+              <span className="text-primary-leaf text-lg leading-none mt-0.5">ℹ</span>
+              <p className="leading-relaxed">
+                <strong>Cam kết tùy biến theo R&D:</strong> Agrihub có thể điều chỉnh chuẩn hóa các chỉ số kỹ thuật (độ ẩm, độ mịn, tỷ lệ phối trộn) và quy cách đóng gói vô trùng theo yêu cầu chuyên biệt cho từng dây chuyền sản xuất của đối tác.
+              </p>
             </div>
           </div>
         </div>
@@ -211,7 +248,6 @@ export default async function ProductDetailPage({ params }: PageProps) {
           {/* CTA chính: amber (chữ tối trên nền vàng) per brand rules */}
           <Button href={`/${currentLang}/contact`} variant="amber" size="md">
             <span>{t.btnQuoteSample}</span>
-            <span className="ml-1">&rarr;</span>
           </Button>
 
           {product?.pdfUrl && (

@@ -14,6 +14,7 @@ import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import SectionTitle from '@/components/SectionTitle';
+import ProductCard from '@/components/ProductCard';
 import { getProducts } from '@/lib/wordpress';
 
 interface PageProps {
@@ -41,30 +42,27 @@ export default async function ProductsPage({ params }: PageProps) {
   return (
     <div className="py-12 sm:py-16">
       <Container>
-        {/* Target Audience Bar */}
-        <div className="bg-white border border-cream-200 rounded-2xl p-4 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-2xs">
-          <div>
-            <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider block">
-              🌿 {dict.common.targetCustomer}:
-            </span>
-            <span className="text-sm text-primary-850 font-bold">
-              {dict.pages.products.targetAudience}
-            </span>
-          </div>
-          <Button href={`/${currentLang}/contact`} variant="primary" size="sm" className="shrink-0">
-            {dict.pages.products.primaryCta} &rarr;
+        {/* Header Section with natural CTA */}
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10 pb-8 border-b border-cream-200/80">
+          <SectionTitle
+            as="h1"
+            badge="B2B Ingredients"
+            title={dict.pages.products.title}
+            subtitle={dict.pages.products.subtitle}
+            className="mb-0"
+          />
+          <Button
+            href={`/${currentLang}/contact`}
+            variant="primary"
+            size="md"
+            className="shrink-0 self-start md:self-auto shadow-sm"
+          >
+            {dict.pages.products.primaryCta}
           </Button>
         </div>
 
-        <SectionTitle
-          as="h1"
-          badge="B2B Ingredients"
-          title={dict.pages.products.title}
-          subtitle={dict.pages.products.subtitle}
-        />
-
         {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
           {products.map((p) => {
             const match = localizedIngredients.find((ing) => ing.id === p.slug);
             const displayName = match?.name || p.name;
@@ -73,52 +71,36 @@ export default async function ProductsPage({ params }: PageProps) {
             const displayApp = match?.applications || p.application;
 
             return (
-              <div
+              <ProductCard
                 key={p.slug}
-                className="bg-white border border-cream-200 rounded-2xl p-6 shadow-soft flex flex-col justify-between hover:border-primary-leaf transition-colors group"
-              >
-                <div>
-                  {/* Product image — aspect-square per brand rules (1:1) */}
-                  <div className="mb-4 overflow-hidden rounded-xl bg-cream-100 aspect-square relative">
-                    {p.image ? (
-                      <Image
-                        src={p.image}
-                        alt={displayName}
-                        fill
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
-                        className="object-cover group-hover:scale-105 transition-transform duration-300"
-                      />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-slate-400 text-xs font-bold p-4 text-center">
-                        [ẢNH THẬT CẦN BỔ SUNG]
-                      </div>
-                    )}
-                  </div>
-                  <span className="text-xs font-bold text-primary-leaf uppercase tracking-wider bg-primary-leaf/10 px-3 py-1 rounded-full border border-primary-leaf/20 inline-block">
-                    {displayCategory}
-                  </span>
-                  <h2 className="text-lg font-bold text-primary-850 mt-4 mb-2">{displayName}</h2>
-                  <div className="space-y-1.5 text-xs text-slate-600 mb-4 bg-cream-50 p-3.5 rounded-xl border border-cream-200/60">
-                    <p>
-                      <strong className="text-primary-850">{t.specLabel}</strong> {displaySpecs}
-                    </p>
-                    <p>
-                      <strong className="text-primary-850">{t.appLabel}</strong> {displayApp}
-                    </p>
-                  </div>
-                </div>
-                <div className="pt-4 border-t border-cream-200 flex items-center justify-between">
-                  <Link
-                    href={`/${currentLang}/products/${p.slug}`}
-                    className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover"
-                  >
-                    {t.viewTds}
-                  </Link>
-                  <Button href={`/${currentLang}/contact`} variant="pill" size="sm">
-                    {t.sampleBtn}
-                  </Button>
-                </div>
-              </div>
+                product={{
+                  id: String(p.slug || p.id),
+                  slug: p.slug,
+                  name: displayName,
+                  category: p.categoryGroup || match?.category || 'powder',
+                  categoryName: displayCategory,
+                  specs: displaySpecs,
+                  moisture: p.moisture || match?.moisture,
+                  mesh: p.mesh || match?.mesh,
+                  brix: p.brix || match?.brix,
+                  shelfLife: p.shelfLife || match?.shelfLife,
+                  packaging: p.packaging || match?.packaging,
+                  applications: displayApp,
+                  image: p.image || match?.image,
+                }}
+                currentLang={currentLang}
+                tdsHref={`/${currentLang}/products/${p.slug}`}
+                labels={{
+                  viewTds: t.viewTds,
+                  sampleBtn: t.sampleBtn,
+                  moisture: t.moistureLabel,
+                  mesh: t.meshLabel,
+                  shelfLife: t.shelfLifeLabel,
+                  applications: t.appLabel,
+                  grade: 'GRADE: F&B EXPORT',
+                }}
+                sampleHref={`/${currentLang}/contact`}
+              />
             );
           })}
         </div>

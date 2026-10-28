@@ -70,7 +70,7 @@ export default function GlobalPresencePage({ params }: PageProps) {
         </div>
 
         {/* International Exhibitions */}
-        <div className="mt-2 mb-8 sm:mb-10">
+        <div className="mt-2">
           <h2 className="text-base sm:text-lg font-bold text-primary-850 mb-6">
             {content.showsTitle}
           </h2>

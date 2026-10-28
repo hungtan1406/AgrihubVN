@@ -442,6 +442,7 @@ export function getFormTranslations(lang: Locale) {
       categoryLabel: 'Interested Ingredient Category',
       catPowder: 'Fruit Powders',
       catDried: 'Freeze-Dried & Dehydrated Fruits',
+      catFrozen: 'IQF Frozen Fruits',
       catPuree: 'Purees & Concentrates',
       catMultiple: 'Multiple Product Categories',
       detailsLabel:
@@ -475,6 +476,7 @@ export function getFormTranslations(lang: Locale) {
       categoryLabel: '意向采购原料品类',
       catPowder: '果粉系列 (Fruit Powders)',
       catDried: '冻干及烘干果品 (Dried Fruits)',
+      catFrozen: '冷冻水果 (IQF Frozen)',
       catPuree: '果浆与浓缩原汁 (Purees & Juices)',
       catMultiple: '多种综合原料需求',
       detailsLabel: '具体技术规格要求、预估采购量或交货港口',
@@ -506,6 +508,7 @@ export function getFormTranslations(lang: Locale) {
     categoryLabel: 'Nhóm nguyên liệu quan tâm',
     catPowder: 'Bột trái cây (Fruit Powders)',
     catDried: 'Trái cây sấy (Freeze-Dried Fruits)',
+    catFrozen: 'Trái cây đông lạnh (Frozen IQF)',
     catPuree: 'Nước cốt & Puree (Fruit Concentrates)',
     catMultiple: 'Nhiều nhóm nguyên liệu',
     detailsLabel:

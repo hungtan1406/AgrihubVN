@@ -110,6 +110,7 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
           >
             <option value="fruit-powder">{t.catPowder}</option>
             <option value="dried-fruits">{t.catDried}</option>
+            <option value="frozen-fruits">{t.catFrozen}</option>
             <option value="puree">{t.catPuree}</option>
             <option value="multiple">{t.catMultiple}</option>
           </select>

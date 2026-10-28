@@ -107,7 +107,7 @@ export default async function NewsDetailPage({ params }: PageProps) {
   const badgeClass = getCategoryBadgeClass(post.category);
 
   return (
-    <div className="py-0">
+    <div className="pt-0 pb-8 sm:pb-12">
       {/* Hero Image or Gradient Banner */}
       {post.image ? (
         <div className="relative w-full max-h-96 aspect-video overflow-hidden">

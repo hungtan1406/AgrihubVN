@@ -58,7 +58,7 @@ export default function OemOdmPage({ params }: PageProps) {
         </div>
 
         {/* 5-Step Process */}
-        <div className="mt-2 mb-8 sm:mb-10">
+        <div className="mt-2">
           <h2 className="text-xl sm:text-2xl font-bold text-primary-850 mb-6">
             {content.processTitle}
           </h2>

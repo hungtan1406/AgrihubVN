@@ -222,7 +222,7 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
   ];
 
   return (
-    <div className="py-8 sm:py-12">
+    <div className="pt-8 sm:pt-12">
       <Container>
         <SectionTitle
           as="h1"

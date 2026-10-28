@@ -122,7 +122,7 @@ export default function AboutUsPage({ params }: PageProps) {
 
           {/* 4 Value Pillars Grid */}
           <FadeIn direction="up" delay={0.15}>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mt-2 mb-8 sm:mb-10">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6 mt-2">
               {content.whyChoosePillars.map((p) => (
                 <div
                   key={p.title}

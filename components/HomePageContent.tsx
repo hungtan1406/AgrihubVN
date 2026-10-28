@@ -386,17 +386,18 @@ export default function HomePageContent({
       <section id="nguyen-lieu" className="scroll-mt-24 py-8 sm:py-12 lg:py-14">
         <Container>
           <FadeIn direction="up">
-            <div className="flex flex-col justify-between mb-6 sm:mb-8">
+            <div className="mb-6 sm:mb-8">
               <SectionTitle
                 badge={dict.pages.home.ingredientsBadge}
                 title={dict.pages.home.ingredientsTitle}
                 subtitle={dict.pages.home.ingredientsSubtitle}
-                className="mb-0 max-w-xl"
+                className="mb-5 sm:mb-6"
               />
 
-              {/* Category Filter Tabs with dynamic sliding pill */}
-              <div className="w-full xl:w-auto overflow-x-auto no-scrollbar py-1">
-                <div className="inline-flex items-center bg-cream-300/80 p-1 sm:p-1.5 rounded-full border border-cream-400/40 text-xs font-bold shadow-2xs gap-0.5 sm:gap-1 whitespace-nowrap shrink-0">
+              {/* Category Filter Tabs centered with full breathing room */}
+              <div className="w-full overflow-x-auto no-scrollbar py-1.5 px-1">
+                <div className="flex sm:justify-center min-w-max mx-auto">
+                  <div className="inline-flex items-center bg-cream-300/80 p-1 sm:p-1.5 rounded-full border border-cream-400/40 text-xs font-bold shadow-2xs gap-0.5 sm:gap-1 whitespace-nowrap shrink-0">
                   {[
                     {
                       id: 'all',
@@ -448,6 +449,7 @@ export default function HomePageContent({
                       </button>
                     );
                   })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -668,7 +670,7 @@ export default function HomePageContent({
           </FadeIn>
 
           {/* 5-Step OEM Process Flow in soft rounded cards with stagger cascade */}
-          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-2 mb-6 sm:mb-8">
+          <StaggerContainer className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-2">
             {ui.oem.steps.map((s) => (
               <StaggerItem key={s.step} className="h-full">
                 <motion.div
@@ -821,7 +823,7 @@ export default function HomePageContent({
             />
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-2 mb-6 sm:mb-8">
+          <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-2">
             {ui.quality.cards.map((c) => (
               <StaggerItem key={c.code} className="h-full">
                 <motion.div

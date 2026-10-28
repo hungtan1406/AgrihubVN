@@ -52,7 +52,7 @@ export default function ContactPage({ params }: PageProps) {
           </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mt-2 mb-8 sm:mb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mt-2">
           {/* Contact Details Column */}
           <FadeIn direction="up" delay={0.15}>
             <div className="space-y-6">

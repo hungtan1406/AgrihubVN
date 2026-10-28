@@ -91,7 +91,7 @@ export default function SupplyChainPage({ params }: PageProps) {
         </div>
 
         {/* Content Blocks */}
-        <div className="space-y-5 sm:space-y-6 mt-2 mb-8 sm:mb-10">
+        <div className="space-y-5 sm:space-y-6 mt-2">
           <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft">
             <h2 className="text-lg font-bold text-primary-850 mb-3">
               {content.block1Title}

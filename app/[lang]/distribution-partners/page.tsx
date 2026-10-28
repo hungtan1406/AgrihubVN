@@ -55,7 +55,7 @@ export default function DistributionPartnersPage({ params }: PageProps) {
         </div>
 
         {/* Distributor Benefits */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2 mb-8 sm:mb-10">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mt-2">
           {content.benefits.map((b, idx) => (
             <FadeIn key={b.title} direction="up" delay={idx * 0.08}>
               <div className="bg-white p-6 rounded-3xl border border-cream-200 shadow-soft h-full hover:border-primary-leaf transition-colors">

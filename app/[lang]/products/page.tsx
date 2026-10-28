@@ -107,7 +107,7 @@ export default async function ProductsPage({ params }: PageProps) {
         </div>
 
         {/* CMS Synchronization Notice */}
-        <div className="mt-12 p-6 bg-cream-100 rounded-2xl border border-cream-300 text-center">
+        <div className="mt-8 sm:mt-10 p-6 bg-cream-100 rounded-2xl border border-cream-300 text-center">
           <p className="text-sm text-primary-850 font-bold">
             {t.cmsTitle}
           </p>

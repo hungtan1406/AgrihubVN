@@ -472,7 +472,7 @@ export default function HomePageContent({
                 <ProductCard
                   product={item}
                   currentLang={currentLang}
-                  onViewTds={(id) => setSelectedTds(id)}
+                  hideTds={true}
                   labels={{
                     viewTds: ui.tds.viewBtn,
                     sampleBtn: ui.tds.sampleBtn,

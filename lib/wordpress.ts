@@ -5,8 +5,6 @@
 
 import { Locale } from './i18n/types';
 
-
-
 export interface Product {
   id: string | number;
   slug: string;
@@ -78,9 +76,10 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     slug: 'dragon-fruit-powder',
     category: 'Bột sấy nghiền',
     categoryGroup: 'powder',
-    name: 'Bột Thanh Long Đỏ (Red Dragon Fruit Powder)',
+    name: 'Bột Thanh Long Đỏ',
     specs: 'Độ ẩm ≤ 5% | 80-100 mesh | 100% tự nhiên không chất bảo quản',
-    application: 'Bánh kẹo, Đồ uống dinh dưỡng, Sữa chua, Tạo màu tự nhiên Clean-label',
+    application:
+      'Bánh kẹo, Đồ uống dinh dưỡng, Sữa chua, Tạo màu tự nhiên Clean-label',
     moisture: '≤ 5.0%',
     mesh: '80 - 100 mesh',
     brix: 'Tự nhiên từ quả',
@@ -96,8 +95,9 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     slug: 'freeze-dried-mango',
     category: 'Trái cây sấy',
     categoryGroup: 'dried',
-    name: 'Xoài Sấy Thăng Hoa (Freeze-Dried Mango)',
-    specs: 'Độ ẩm ≤ 3% | Cắt lát 5-7mm | Giữ nguyên 98% vi chất & màu vàng tươi',
+    name: 'Xoài Sấy Thăng Hoa',
+    specs:
+      'Độ ẩm ≤ 3% | Cắt lát 5-7mm | Giữ nguyên 98% vi chất & màu vàng tươi',
     application: 'Ngũ cốc ăn sáng, Socola bọc trái cây, Snack cao cấp',
     moisture: '≤ 3.0%',
     mesh: 'Cắt lát 5-7mm hoặc dạng hạt 3-5mm',
@@ -114,8 +114,9 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     slug: 'frozen-mango',
     category: 'Trái cây đông lạnh',
     categoryGroup: 'frozen',
-    name: 'Xoài Cấp Đông IQF (Frozen Mango Chunks)',
-    specs: 'Cấp đông nhanh IQF (-35°C) | 100% tự nhiên | Cắt hạt lựu 15x15mm hoặc nửa quả',
+    name: 'Xoài Cấp Đông IQF',
+    specs:
+      'Cấp đông nhanh IQF (-35°C) | 100% tự nhiên | Cắt hạt lựu 15x15mm hoặc nửa quả',
     application: 'Sinh tố, Topping trà trái cây, Kem xoài, Mứt F&B',
     moisture: 'Dạng đông rời IQF',
     mesh: 'Cắt hạt lựu 10-15mm / Má xoài',
@@ -132,14 +133,15 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     slug: 'passion-fruit-puree',
     category: 'Nước cốt',
     categoryGroup: 'puree',
-    name: 'Nước Cốt Chanh Dây Không Hạt (Passion Fruit Puree)',
+    name: 'Nước Cốt Chanh Dây Không Hạt',
     specs: 'Brix 14-16% | Tiệt trùng Aseptic | 100% nguyên chất đậm đặc',
     application: 'Sản xuất nước giải khát, Sữa chua uống, Kem que, Mứt sốt F&B',
     moisture: 'Dạng lỏng sánh mịn (Puree)',
     mesh: 'Lọc qua lưới 0.5mm không còn hạt',
     brix: '14 - 16%',
     shelfLife: '12 - 24 tháng',
-    packaging: '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng',
+    packaging:
+      '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng',
     storage: '18°C',
     moq: '1 phuy (200kg) hoặc 1 pallet',
     grade: 'ASEPTIC INDUSTRIAL',
@@ -155,7 +157,8 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     categoryGroup: 'powder',
     name: 'Red Dragon Fruit Powder (Milled)',
     specs: 'Moisture ≤ 5% | 80-100 mesh | 100% natural, clean-label',
-    application: 'Confectionery, nutrition beverages, yogurt, clean-label natural coloring',
+    application:
+      'Confectionery, nutrition beverages, yogurt, clean-label natural coloring',
     moisture: '≤ 5.0%',
     mesh: '80 - 100 mesh',
     brix: 'Natural fruit sugar',
@@ -190,8 +193,10 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     category: 'Frozen Fruit (IQF)',
     categoryGroup: 'frozen',
     name: 'IQF Frozen Mango Chunks',
-    specs: 'Individually Quick Frozen (-35°C) | Natural sweet aroma | 15x15mm diced',
-    application: 'Smoothie purees, beverage toppings, fruit bowls, industrial confectionery',
+    specs:
+      'Individually Quick Frozen (-35°C) | Natural sweet aroma | 15x15mm diced',
+    application:
+      'Smoothie purees, beverage toppings, fruit bowls, industrial confectionery',
     moisture: 'Frozen fruit chunks',
     mesh: '10-15mm diced / whole cheeks',
     brix: '13 - 15° Brix',
@@ -209,7 +214,8 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     categoryGroup: 'puree',
     name: 'Seedless Passion Fruit Puree (Concentrate)',
     specs: 'Brix 14-16% | Pasteurised aseptic | 100% pure concentrate',
-    application: 'Juice manufacturing, beverage syrups, drinking yogurt, ice cream',
+    application:
+      'Juice manufacturing, beverage syrups, drinking yogurt, ice cream',
     moisture: 'Smooth liquid puree',
     mesh: 'Filtered through 0.5mm mesh seedless',
     brix: '14 - 16%',
@@ -314,7 +320,8 @@ const OFFLINE_RETRY_INTERVAL_MS = 8000;
  * Xử lý URL API WordPress
  */
 function getApiBaseUrl(): string {
-  const envUrl = process.env.WORDPRESS_API_URL || 'http://agrihub-cms.local/wp-json/wp/v2';
+  const envUrl =
+    process.env.WORDPRESS_API_URL || 'http://agrihub-cms.local/wp-json/wp/v2';
   return envUrl.replace(/\/+$/, '');
 }
 
@@ -339,7 +346,10 @@ function cleanHtmlEntities(text: string): string {
 /**
  * Chuyển đổi dữ liệu WordPress Post sang cấu trúc Product của Agrihub
  */
-export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'vi'): Product {
+export function mapWordPressPostToProduct(
+  post: WordPressPost,
+  lang: Locale = 'vi',
+): Product {
   const acf = post.acf || {};
 
   // Lấy ảnh đại diện: ưu tiên trường ACF image/product_image, sau đó đến featured media của WordPress
@@ -348,11 +358,24 @@ export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'v
 
   if (typeof acf.image === 'string' && acf.image.trim()) {
     imageUrl = acf.image;
-  } else if (acf.image && typeof acf.image === 'object' && 'url' in acf.image && typeof acf.image.url === 'string') {
+  } else if (
+    acf.image &&
+    typeof acf.image === 'object' &&
+    'url' in acf.image &&
+    typeof acf.image.url === 'string'
+  ) {
     imageUrl = acf.image.url;
-  } else if (typeof acf.product_image === 'string' && acf.product_image.trim()) {
+  } else if (
+    typeof acf.product_image === 'string' &&
+    acf.product_image.trim()
+  ) {
     imageUrl = acf.product_image;
-  } else if (acf.product_image && typeof acf.product_image === 'object' && 'url' in acf.product_image && typeof acf.product_image.url === 'string') {
+  } else if (
+    acf.product_image &&
+    typeof acf.product_image === 'object' &&
+    'url' in acf.product_image &&
+    typeof acf.product_image.url === 'string'
+  ) {
     imageUrl = acf.product_image.url;
   }
 
@@ -391,7 +414,11 @@ export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'v
   let pdfUrl: string | undefined;
   if (typeof acf.pdf_tds === 'string') {
     pdfUrl = acf.pdf_tds;
-  } else if (acf.pdf_tds && typeof acf.pdf_tds === 'object' && 'url' in acf.pdf_tds) {
+  } else if (
+    acf.pdf_tds &&
+    typeof acf.pdf_tds === 'object' &&
+    'url' in acf.pdf_tds
+  ) {
     pdfUrl = acf.pdf_tds.url;
   }
 
@@ -425,11 +452,31 @@ export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'v
   let categoryGroup = (acf.category_group as string) || '';
   if (!categoryGroup) {
     const combined = `${name} ${categoryName}`.toLowerCase();
-    if (combined.includes('đông lạnh') || combined.includes('frozen') || combined.includes('iqf') || combined.includes('冷冻')) {
+    if (
+      combined.includes('đông lạnh') ||
+      combined.includes('frozen') ||
+      combined.includes('iqf') ||
+      combined.includes('冷冻')
+    ) {
       categoryGroup = 'frozen';
-    } else if (combined.includes('bột') || combined.includes('powder') || combined.includes('phun') || combined.includes('nghiền') || combined.includes('spray') || combined.includes('milled') || combined.includes('粉')) {
+    } else if (
+      combined.includes('bột') ||
+      combined.includes('powder') ||
+      combined.includes('phun') ||
+      combined.includes('nghiền') ||
+      combined.includes('spray') ||
+      combined.includes('milled') ||
+      combined.includes('粉')
+    ) {
       categoryGroup = 'powder';
-    } else if (combined.includes('cốt') || combined.includes('pure') || combined.includes('juice') || combined.includes('nước') || combined.includes('原浆') || combined.includes('原汁')) {
+    } else if (
+      combined.includes('cốt') ||
+      combined.includes('pure') ||
+      combined.includes('juice') ||
+      combined.includes('nước') ||
+      combined.includes('原浆') ||
+      combined.includes('原汁')
+    ) {
       categoryGroup = 'puree';
     } else {
       categoryGroup = 'dried';
@@ -443,7 +490,10 @@ export function mapWordPressPostToProduct(post: WordPressPost, lang: Locale = 'v
       processingMethod = categoryName;
     } else if (categoryGroup === 'powder') {
       const lower = name.toLowerCase();
-      processingMethod = lower.includes('nghiền') || lower.includes('milled') ? 'Bột sấy nghiền' : 'Bột sấy phun';
+      processingMethod =
+        lower.includes('nghiền') || lower.includes('milled')
+          ? 'Bột sấy nghiền'
+          : 'Bột sấy phun';
     } else if (categoryGroup === 'puree') {
       processingMethod = 'Nước cốt';
     } else if (categoryGroup === 'frozen') {
@@ -499,7 +549,9 @@ function getFetchOptions(): RequestInit {
 /**
  * Gọi API WordPress với cơ chế tự động thử nhiều endpoint (products, product, posts)
  */
-async function fetchFromEndpoints(pathSuffix: string): Promise<Response | null> {
+async function fetchFromEndpoints(
+  pathSuffix: string,
+): Promise<Response | null> {
   const now = Date.now();
   if (isHostOffline && now - lastHostCheckTime < OFFLINE_RETRY_INTERVAL_MS) {
     return null;
@@ -541,14 +593,16 @@ export async function getProducts(lang: Locale = 'vi'): Promise<Product[]> {
     const data = await res.json();
     if (process.env.NODE_ENV === 'development') {
       console.log(
-        `\x1b[32m✔ [WordPress API]\x1b[0m Kết nối thành công tới: ${getApiBaseUrl()} (Phản hồi: ${Array.isArray(data) ? data.length : 0} bài)`
+        `\x1b[32m✔ [WordPress API]\x1b[0m Kết nối thành công tới: ${getApiBaseUrl()} (Phản hồi: ${Array.isArray(data) ? data.length : 0} bài)`,
       );
     }
     if (!Array.isArray(data) || data.length === 0) {
       return getFallbackProducts(lang);
     }
 
-    const mapped = data.map((post: WordPressPost) => mapWordPressPostToProduct(post, lang));
+    const mapped = data.map((post: WordPressPost) =>
+      mapWordPressPostToProduct(post, lang),
+    );
     const validProducts = mapped.filter((p) => p.slug !== 'hello-world');
     return validProducts.length > 0 ? validProducts : getFallbackProducts(lang);
   } catch {
@@ -559,7 +613,9 @@ export async function getProducts(lang: Locale = 'vi'): Promise<Product[]> {
 /**
  * Lấy danh sách sản phẩm nổi bật để hiển thị trên trang chủ
  */
-export async function getFeaturedProducts(lang: Locale = 'vi'): Promise<Product[]> {
+export async function getFeaturedProducts(
+  lang: Locale = 'vi',
+): Promise<Product[]> {
   const all = await getProducts(lang);
   const featured = all.filter((p) => p.isFeatured);
   // Nếu chưa có sản phẩm nào được đánh dấu nổi bật trên WordPress,
@@ -570,9 +626,14 @@ export async function getFeaturedProducts(lang: Locale = 'vi'): Promise<Product[
 /**
  * Lấy chi tiết một sản phẩm theo slug
  */
-export async function getProductBySlug(slug: string, lang: Locale = 'vi'): Promise<Product | null> {
+export async function getProductBySlug(
+  slug: string,
+  lang: Locale = 'vi',
+): Promise<Product | null> {
   try {
-    const res = await fetchFromEndpoints(`?_embed&slug=${encodeURIComponent(slug)}`);
+    const res = await fetchFromEndpoints(
+      `?_embed&slug=${encodeURIComponent(slug)}`,
+    );
 
     if (res) {
       const data = await res.json();
@@ -608,24 +669,26 @@ export interface NewsEvent {
   title: string;
   excerpt: string;
   content: string;
-  date: string;          // ISO 8601
+  date: string; // ISO 8601
   image: string | null;
-  category: string;      // "Tin tức" | "Sự kiện" | "Thông báo" | "News" | "Events" | "新闻" etc.
+  category: string; // "Tin tức" | "Sự kiện" | "Thông báo" | "News" | "Events" | "新闻" etc.
   tags: string[];
   // ACF fields
-  eventDate?: string;       // acf.event_date
-  eventLocation?: string;   // acf.event_location
-  externalUrl?: string;     // acf.external_url
+  eventDate?: string; // acf.event_date
+  eventLocation?: string; // acf.event_location
+  externalUrl?: string; // acf.external_url
 }
 
-function mapWordPressPostToNewsEvent(post: WordPressPost, lang: string): NewsEvent {
+function mapWordPressPostToNewsEvent(
+  post: WordPressPost,
+  lang: string,
+): NewsEvent {
   const acf = (post.acf || {}) as Record<string, string | undefined>;
-  const image =
-    post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null;
-  const rawCategory =
-    post._embedded?.['wp:term']?.[0]?.[0]?.name ?? '';
-  const tags =
-    (post._embedded?.['wp:term']?.[1] ?? []).map((t: { name: string }) => t.name);
+  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null;
+  const rawCategory = post._embedded?.['wp:term']?.[0]?.[0]?.name ?? '';
+  const tags = (post._embedded?.['wp:term']?.[1] ?? []).map(
+    (t: { name: string }) => t.name,
+  );
 
   return {
     id: post.id,
@@ -702,7 +765,7 @@ export const FALLBACK_NEWS_EN: NewsEvent[] = [
     excerpt:
       'Agrihub Vietnam will exhibit at Vietnam Foodexpo 2025 (Nov 19–22, 2025) at SECC, Ho Chi Minh City, showcasing export-grade fruit powders, freeze-dried fruits, and aseptic purees.',
     content:
-      '<p>Agrihub Vietnam confirms its participation in <strong>Vietnam Foodexpo 2025</strong> – Southeast Asia\'s premier food and beverage exhibition, running from November 19 to 22, 2025 at the <strong>Saigon Exhibition and Convention Center (SECC)</strong>, Ho Chi Minh City.</p><h2>Products on Display</h2><p>Our booth will feature key export ingredients: Red Dragon Fruit Powder, Freeze-Dried Mango Slices, Seedless Passion Fruit Puree, and other internationally certified processed ingredients.</p><p>This is a prime opportunity for importers, F&B manufacturers, and distribution partners to meet our technical and commercial team, collect samples, and discuss partnership terms in person.</p><p>Please contact us in advance to schedule a private booth meeting.</p>',
+      "<p>Agrihub Vietnam confirms its participation in <strong>Vietnam Foodexpo 2025</strong> – Southeast Asia's premier food and beverage exhibition, running from November 19 to 22, 2025 at the <strong>Saigon Exhibition and Convention Center (SECC)</strong>, Ho Chi Minh City.</p><h2>Products on Display</h2><p>Our booth will feature key export ingredients: Red Dragon Fruit Powder, Freeze-Dried Mango Slices, Seedless Passion Fruit Puree, and other internationally certified processed ingredients.</p><p>This is a prime opportunity for importers, F&B manufacturers, and distribution partners to meet our technical and commercial team, collect samples, and discuss partnership terms in person.</p><p>Please contact us in advance to schedule a private booth meeting.</p>",
     date: '2025-11-01T00:00:00',
     image: null,
     category: 'Events',
@@ -716,7 +779,7 @@ export const FALLBACK_NEWS_EN: NewsEvent[] = [
     lang: 'en',
     title: 'Agrihub Expands Fruit Powder Exports to the Middle East',
     excerpt:
-      'The first commercial shipments of Agrihub\'s Dragon Fruit Powder and Mango Powder have been successfully delivered to UAE partners, establishing a reliable supply chain for functional food manufacturers in the region.',
+      "The first commercial shipments of Agrihub's Dragon Fruit Powder and Mango Powder have been successfully delivered to UAE partners, establishing a reliable supply chain for functional food manufacturers in the region.",
     content:
       '<p>Agrihub Vietnam has completed its first commercial export shipment of <strong>Spray-Dried Red Dragon Fruit Powder</strong> and <strong>Freeze-Dried Mango Powder</strong> to partners in the UAE, marking a significant milestone in our Middle East market expansion strategy.</p><h2>Halal-Compliant Standards</h2><p>All export batches meet Halal standards, are free from additives and gluten, and comply with UAE food import regulations.</p><p>Each shipment is accompanied by a full Certificate of Analysis (COA) with results for microbiological testing, heavy metals, and pesticide residues from an independent laboratory.</p><p>We are now accepting sample requests from importers and manufacturers in Saudi Arabia, Qatar, and Egypt. Contact our export desk for assistance.</p>',
     date: '2025-10-15T00:00:00',
@@ -728,7 +791,8 @@ export const FALLBACK_NEWS_EN: NewsEvent[] = [
     id: 1003,
     slug: 'halal-certification-expands-export-markets',
     lang: 'en',
-    title: 'Agrihub Achieves Halal Certification – Opening Muslim-Market Export Channels',
+    title:
+      'Agrihub Achieves Halal Certification – Opening Muslim-Market Export Channels',
     excerpt:
       'Agrihub Vietnam has received Halal certification for its fruit powder and puree product lines, opening access to 57 OIC member countries with a combined Muslim consumer base of over 1.8 billion people.',
     content:
@@ -797,9 +861,14 @@ function getFallbackNews(lang: string): NewsEvent[] {
 let isNewsHostOffline = false;
 let lastNewsHostCheckTime = 0;
 
-async function fetchNewsFromEndpoints(pathSuffix: string): Promise<Response | null> {
+async function fetchNewsFromEndpoints(
+  pathSuffix: string,
+): Promise<Response | null> {
   const now = Date.now();
-  if (isNewsHostOffline && now - lastNewsHostCheckTime < OFFLINE_RETRY_INTERVAL_MS) {
+  if (
+    isNewsHostOffline &&
+    now - lastNewsHostCheckTime < OFFLINE_RETRY_INTERVAL_MS
+  ) {
     return null;
   }
 
@@ -840,7 +909,9 @@ export async function getNewsEvents(lang: string = 'vi'): Promise<NewsEvent[]> {
       return getFallbackNews(lang);
     }
 
-    const mapped = data.map((post: WordPressPost) => mapWordPressPostToNewsEvent(post, lang));
+    const mapped = data.map((post: WordPressPost) =>
+      mapWordPressPostToNewsEvent(post, lang),
+    );
     const valid = mapped.filter((n) => n.slug !== 'hello-world');
     return valid.length > 0 ? valid : getFallbackNews(lang);
   } catch {
@@ -851,9 +922,14 @@ export async function getNewsEvents(lang: string = 'vi'): Promise<NewsEvent[]> {
 /**
  * Lấy chi tiết bài viết tin tức/sự kiện theo slug
  */
-export async function getNewsEventBySlug(slug: string, lang: string = 'vi'): Promise<NewsEvent | null> {
+export async function getNewsEventBySlug(
+  slug: string,
+  lang: string = 'vi',
+): Promise<NewsEvent | null> {
   try {
-    const res = await fetchNewsFromEndpoints(`?_embed&slug=${encodeURIComponent(slug)}`);
+    const res = await fetchNewsFromEndpoints(
+      `?_embed&slug=${encodeURIComponent(slug)}`,
+    );
 
     if (res) {
       const data = await res.json();
@@ -887,7 +963,10 @@ export async function getAllNewsEventSlugs(): Promise<string[]> {
  * Lấy danh sách tin tức nổi bật từ WordPress (category/tag: noi-bat / featured)
  * Fallback an toàn: Tự động lấy các bài viết mới nhất nếu không có category nổi bật hoặc offline
  */
-export async function getFeaturedNews(lang: string = 'vi', limit: number = 3): Promise<NewsEvent[]> {
+export async function getFeaturedNews(
+  lang: string = 'vi',
+  limit: number = 3,
+): Promise<NewsEvent[]> {
   try {
     const allNews = await getNewsEvents(lang);
     if (!allNews || allNews.length === 0) {
@@ -926,4 +1005,3 @@ export async function getFeaturedNews(lang: string = 'vi', limit: number = 3): P
     return getFallbackNews(lang).slice(0, limit);
   }
 }
-

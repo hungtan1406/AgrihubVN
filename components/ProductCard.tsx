@@ -27,6 +27,7 @@ export interface ProductCardProps {
   currentLang: string;
   onViewTds?: (id: string) => void;
   tdsHref?: string;
+  hideTds?: boolean;
   labels?: {
     viewTds?: string;
     sampleBtn?: string;
@@ -44,6 +45,7 @@ export default function ProductCard({
   currentLang,
   onViewTds,
   tdsHref,
+  hideTds = false,
   labels = {
     viewTds: 'Xem TDS Spec',
     sampleBtn: 'Mẫu thử',
@@ -199,12 +201,12 @@ export default function ProductCard({
   };
 
   return (
-    <div className="bg-white border border-cream-200/90 rounded-2xl p-5 shadow-soft hover:shadow-md hover:border-primary-leaf/60 transition-all duration-300 flex flex-col justify-between group h-full">
+    <div className="bg-white border border-cream-200/90 rounded-2xl p-4 sm:p-5 shadow-soft hover:shadow-md hover:border-primary-leaf/60 transition-all duration-300 flex flex-col justify-between group h-full">
       <div className="flex-1 flex flex-col">
-        {/* Product Image: 1:1 Aspect Ratio with Industrial Fallback Blueprint */}
+        {/* Product Image: Sleek 16:10 Aspect Ratio (significantly reduced height) */}
         <Link
           href={detailLink}
-          className="mb-4 overflow-hidden rounded-xl bg-cream-50 aspect-square relative border border-cream-200/60 block group/img"
+          className="mb-3 overflow-hidden rounded-xl bg-cream-50 aspect-[16/10] relative border border-cream-200/60 block group/img"
         >
           {product.image ? (
             <Image
@@ -215,11 +217,11 @@ export default function ProductCard({
               className="object-cover group-hover/img:scale-105 transition-transform duration-500"
             />
           ) : (
-            <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center bg-gradient-to-br from-cream-50 via-white to-cream-100/70 select-none">
+            <div className="w-full h-full flex flex-col items-center justify-center p-3 text-center bg-gradient-to-br from-cream-50 via-white to-cream-100/70 select-none">
               {/* Technical Industrial Silhouette SVG */}
-              <div className="w-16 h-16 rounded-2xl bg-primary-50 border border-primary-100 flex items-center justify-center text-primary-850 mb-3 group-hover/img:scale-110 transition-transform duration-300">
+              <div className="w-10 h-10 sm:w-11 sm:h-11 rounded-xl bg-primary-50 border border-primary-100 flex items-center justify-center text-primary-850 mb-1.5 group-hover/img:scale-110 transition-transform duration-300">
                 <svg
-                  className="w-8 h-8 text-primary-leaf"
+                  className="w-5 h-5 sm:w-6 sm:h-6 text-primary-leaf"
                   viewBox="0 0 24 24"
                   fill="none"
                   stroke="currentColor"
@@ -236,7 +238,7 @@ export default function ProductCard({
               <span className="text-xs font-bold text-primary-850 line-clamp-1">
                 {product.name}
               </span>
-              <span className="text-[10px] text-slate-500 font-mono tracking-wider mt-1">
+              <span className="text-[10px] text-slate-500 font-mono tracking-wider mt-0.5">
                 AGRIHUB-SPEC-B2B
               </span>
             </div>
@@ -244,7 +246,7 @@ export default function ProductCard({
         </Link>
 
         {/* Processing Method & Quality Grade Badges */}
-        <div className="flex items-center justify-between gap-2 mb-2.5">
+        <div className="flex items-center justify-between gap-2 mb-2">
           <span
             className={`text-[11px] font-semibold px-2.5 py-0.5 rounded-full border ${getBadgeStyle()}`}
           >
@@ -260,8 +262,8 @@ export default function ProductCard({
           <Link href={detailLink}>{product.name}</Link>
         </h3>
 
-        {/* Category Specifications List (Replaces old metrics grid & application snippet) */}
-        <div className="my-3.5 p-3.5 bg-cream-50/75 rounded-xl border border-cream-200/80 space-y-2 text-xs flex-1 flex flex-col justify-center">
+        {/* Category Specifications List */}
+        <div className="my-2.5 p-3 bg-cream-50/75 rounded-xl border border-cream-200/80 space-y-1.5 text-xs flex-1 flex flex-col justify-center">
           {specsList.map((item, idx) => (
             <div key={idx} className="flex items-start gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-primary-leaf shrink-0 mt-1.5" />
@@ -275,62 +277,75 @@ export default function ProductCard({
       </div>
 
       {/* Card Actions: TDS Specs & Sample Request */}
-      <div className="pt-3.5 border-t border-cream-200/80 flex items-center justify-between gap-2 mt-auto">
-        {onViewTds ? (
-          <button
-            type="button"
-            onClick={() => onViewTds(product.id)}
-            className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover transition-colors flex items-center gap-1.5 py-1 px-1.5 -ml-1 rounded-lg hover:bg-primary-50 min-h-[36px]"
-          >
-            <svg
-              className="w-3.5 h-3.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="16" y1="13" x2="8" y2="13" />
-              <line x1="16" y1="17" x2="8" y2="17" />
-              <polyline points="10 9 9 9 8 9" />
-            </svg>
-            <span>{labels.viewTds || 'Xem TDS Spec'}</span>
-          </button>
-        ) : (
-          <Link
-            href={detailLink}
-            className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover transition-colors flex items-center gap-1.5 py-1 px-1.5 -ml-1 rounded-lg hover:bg-primary-50 min-h-[36px]"
-          >
-            <svg
-              className="w-3.5 h-3.5"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="16" y1="13" x2="8" y2="13" />
-              <line x1="16" y1="17" x2="8" y2="17" />
-              <polyline points="10 9 9 9 8 9" />
-            </svg>
-            <span>{labels.viewTds || 'Xem TDS Spec'}</span>
-          </Link>
-        )}
+      <div className={`pt-3 border-t border-cream-200/80 flex items-center ${hideTds ? 'justify-end' : 'justify-between'} gap-2 mt-auto`}>
+        {!hideTds ? (
+          <>
+            {onViewTds ? (
+              <button
+                type="button"
+                onClick={() => onViewTds(product.id)}
+                className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover transition-colors flex items-center gap-1.5 py-1 px-1.5 -ml-1 rounded-lg hover:bg-primary-50 min-h-[34px]"
+              >
+                <svg
+                  className="w-3.5 h-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+                <span>{labels.viewTds || 'Xem TDS Spec'}</span>
+              </button>
+            ) : (
+              <Link
+                href={detailLink}
+                className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover transition-colors flex items-center gap-1.5 py-1 px-1.5 -ml-1 rounded-lg hover:bg-primary-50 min-h-[34px]"
+              >
+                <svg
+                  className="w-3.5 h-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                  <polyline points="14 2 14 8 20 8" />
+                  <line x1="16" y1="13" x2="8" y2="13" />
+                  <line x1="16" y1="17" x2="8" y2="17" />
+                  <polyline points="10 9 9 9 8 9" />
+                </svg>
+                <span>{labels.viewTds || 'Xem TDS Spec'}</span>
+              </Link>
+            )}
 
-        <Button
-          href={sampleHref}
-          variant="pill"
-          size="sm"
-          className="text-xs font-semibold py-1.5 px-3.5 shrink-0"
-        >
-          {labels.sampleBtn || 'Mẫu thử'}
-        </Button>
+            <Button
+              href={sampleHref}
+              variant="pill"
+              size="sm"
+              className="text-xs font-semibold py-1.5 px-3.5 shrink-0"
+            >
+              {labels.sampleBtn || 'Xin mẫu test'}
+            </Button>
+          </>
+        ) : (
+          <Button
+            href={sampleHref}
+            variant="pill"
+            size="sm"
+            className="w-full text-center justify-center text-xs font-bold py-2.5 px-4 shadow-2xs hover:shadow-xs transition-all"
+          >
+            {labels.sampleBtn || 'Xin mẫu test'}
+          </Button>
+        )}
       </div>
     </div>
   );

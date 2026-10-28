@@ -150,7 +150,8 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         mesh: 'Filtered through 0.5mm mesh',
         brix: '14 - 16° Brix',
         shelfLife: '12 - 24 months',
-        packaging: '1kg/bag, 5kg/bag, 10kg/bag, bottled or PET or custom requested',
+        packaging:
+          '1kg/bag, 5kg/bag, 10kg/bag, bottled or PET or custom requested',
         storage: '18°C',
         applications:
           'Beverage manufacturing, drinking yogurt, ice cream popsicles, F&B jams.',
@@ -290,7 +291,7 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       category: 'powder',
       categoryName: 'Bột sấy nghiền',
       badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
-      name: 'Bột Thanh Long Đỏ (Red Dragon Fruit Powder)',
+      name: 'Bột Thanh Long Đỏ',
       specs: 'Độ ẩm ≤ 5% | 80-100 mesh | 100% tự nhiên không chất bảo quản',
       moisture: '≤ 5.0%',
       mesh: '80 - 100 mesh',
@@ -306,7 +307,7 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       category: 'powder',
       categoryName: 'Bột sấy phun',
       badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
-      name: 'Bột Chanh Dây Hòa Tan (Passion Fruit Powder)',
+      name: 'Bột Chanh Dây Hòa Tan',
       specs:
         'Độ tan > 95% | Vị chua thanh tự nhiên | Giàu Vitamin C & khoáng chất',
       moisture: '≤ 4.5%',
@@ -322,7 +323,7 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       category: 'powder',
       categoryName: 'Bột sấy phun',
       badgeColor: 'bg-yellow-100 text-yellow-800 border-yellow-200',
-      name: 'Bột Chuối Sấy Phun (Spray-Dried Banana Powder)',
+      name: 'Bột Chuối Sấy Phun',
       specs: 'Màu vàng kem | Hương thơm đậm đà | Dồi dào chất xơ & Kali',
       moisture: '≤ 5.0%',
       mesh: '80 mesh',
@@ -338,7 +339,7 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       category: 'dried',
       categoryName: 'Trái cây sấy',
       badgeColor: 'bg-orange-100 text-orange-800 border-orange-200',
-      name: 'Xoài Sấy Thăng Hoa (Freeze-Dried Mango Slices)',
+      name: 'Xoài Sấy Thăng Hoa',
       specs:
         'Độ ẩm ≤ 3% | Cắt lát 5-7mm | Giòn xốp, giữ nguyên 98% vi chất & màu vàng tươi',
       moisture: '≤ 3.0%',
@@ -355,7 +356,7 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       category: 'dried',
       categoryName: 'Trái cây sấy',
       badgeColor: 'bg-lime-100 text-lime-800 border-lime-200',
-      name: 'Mít Sấy Thăng Hoa (Freeze-Dried Jackfruit)',
+      name: 'Mít Sấy Thăng Hoa',
       specs:
         'Màu vàng nghệ óng ả | Hương thơm nguyên bản | Không dầu chiên, không đường',
       moisture: '≤ 4.0%',
@@ -372,14 +373,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       category: 'frozen',
       categoryName: 'Trái cây đông lạnh',
       badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
-      name: 'Xoài Cấp Đông IQF (Frozen Mango Chunks)',
+      name: 'Xoài Cấp Đông IQF',
       specs:
         'Cấp đông nhanh IQF (-35°C) | 100% xoài ngọt tự nhiên | Cắt hạt lựu 15x15mm hoặc nửa quả',
       moisture: 'Dạng quả đông rời IQF',
       mesh: 'Cắt hạt lựu 10-15mm / Má xoài',
       brix: '13 - 15° Brix',
       shelfLife: '24 tháng kể từ ngày sản xuất',
-      packaging: '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
+      packaging:
+        '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
       storage: '18 °C',
       applications:
         'Làm sinh tố, topping trà trái cây, nguyên liệu kem bơ xoài, mứt F&B.',
@@ -389,14 +391,15 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       category: 'frozen',
       categoryName: 'Trái cây đông lạnh',
       badgeColor: 'bg-cyan-100 text-cyan-800 border-cyan-200',
-      name: 'Thanh Long Đỏ Cấp Đông IQF (Frozen Red Dragon Fruit)',
+      name: 'Thanh Long Đỏ Cấp Đông IQF',
       specs:
         'Cấp đông IQF giữ màu đỏ thẫm tự nhiên | Cắt khối hạt lựu 10x10mm đều đặn',
       moisture: 'Dạng hạt đông rời IQF',
       mesh: 'Cắt hạt lựu 10x10mm',
       brix: '10 - 12° Brix',
       shelfLife: '24 tháng kể từ ngày sản xuất',
-      packaging: '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
+      packaging:
+        '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
       storage: '18 °C',
       applications:
         'Pha chế thức uống, sinh tố detox, sữa chua trái cây, làm thạch cao cấp.',
@@ -406,7 +409,7 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       category: 'puree',
       categoryName: 'Nước cốt',
       badgeColor: 'bg-purple-100 text-purple-800 border-purple-200',
-      name: 'Nước Cốt Chanh Dây Không Hạt (Passion Fruit Puree)',
+      name: 'Nước Cốt Chanh Dây Không Hạt',
       specs:
         'Brix 14-16% | Công nghệ tiệt trùng Aseptic | 100% nguyên chất đậm đặc',
       moisture: 'Dạng lỏng sánh mịn',
@@ -975,7 +978,8 @@ export function getHomePageUi(lang: Locale) {
       pureePackagingValue:
         '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng',
       pureeStorageValue: '18°C',
-      frozenPackagingValue: '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
+      frozenPackagingValue:
+        '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng',
       frozenShelfLifeValue: '24 tháng kể từ ngày sản xuất',
       frozenStorageValue: '18 °C',
       viewBtn: 'Xem bảng TDS',
@@ -1296,8 +1300,7 @@ export function getAboutUsContent(lang: Locale) {
       ],
       // Closing Motto Banner
       closingBadge: '愿景与承诺',
-      closingMotto:
-        'AGRIHUB —— 提升越南农产价值，携手共筑可持续发展',
+      closingMotto: 'AGRIHUB —— 提升越南农产价值，携手共筑可持续发展',
       closingCtaPrimary: '立即提交商务合作',
       closingCtaSecondary: '浏览产品系列',
     };

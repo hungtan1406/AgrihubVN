@@ -21,6 +21,7 @@ interface HomePageContentProps {
   dict: Dictionary;
   featuredNews?: NewsEvent[];
   featuredProducts?: Product[];
+  totalProducts?: number;
 }
 
 function getCategoryBadgeClass(category: string): string {
@@ -73,6 +74,7 @@ export default function HomePageContent({
   dict,
   featuredNews = [],
   featuredProducts = [],
+  totalProducts = 0,
 }: HomePageContentProps) {
   // Client-side category tab filter
   const [activeCategory, setActiveCategory] = useState<
@@ -398,57 +400,58 @@ export default function HomePageContent({
               <div className="w-full overflow-x-auto no-scrollbar py-1.5 px-1">
                 <div className="flex sm:justify-center min-w-max mx-auto">
                   <div className="inline-flex items-center bg-cream-300/80 p-1 sm:p-1.5 rounded-full border border-cream-400/40 text-xs font-bold shadow-2xs gap-0.5 sm:gap-1 whitespace-nowrap shrink-0">
-                  {[
-                    {
-                      id: 'all',
-                      label: dict.pages.home.tabAll,
-                    },
-                    {
-                      id: 'powder',
-                      label: dict.pages.home.tabPowder,
-                    },
-                    {
-                      id: 'puree',
-                      label: dict.pages.home.tabPuree,
-                    },
-                    {
-                      id: 'dried',
-                      label: dict.pages.home.tabDried,
-                    },
-                    {
-                      id: 'frozen',
-                      label: dict.pages.home.tabFrozen || 'Trái cây đông lạnh',
-                    },
-                  ].map((tab) => {
-                    const isActive = activeCategory === tab.id;
-                    return (
-                      <button
-                        key={tab.id}
-                        type="button"
-                        onClick={() =>
-                          setActiveCategory(tab.id as typeof activeCategory)
-                        }
-                        className={`relative px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition-colors text-xs font-bold whitespace-nowrap shrink-0 ${
-                          isActive
-                            ? 'text-white'
-                            : 'text-primary-850 hover:text-primary-leaf'
-                        }`}
-                      >
-                        {isActive && (
-                          <motion.div
-                            layoutId="activeCategoryPill"
-                            className="absolute inset-0 bg-primary-leaf rounded-full shadow-xs"
-                            transition={{
-                              type: 'spring',
-                              stiffness: 400,
-                              damping: 30,
-                            }}
-                          />
-                        )}
-                        <span className="relative z-10">{tab.label}</span>
-                      </button>
-                    );
-                  })}
+                    {[
+                      {
+                        id: 'all',
+                        label: dict.pages.home.tabAll,
+                      },
+                      {
+                        id: 'powder',
+                        label: dict.pages.home.tabPowder,
+                      },
+                      {
+                        id: 'puree',
+                        label: dict.pages.home.tabPuree,
+                      },
+                      {
+                        id: 'dried',
+                        label: dict.pages.home.tabDried,
+                      },
+                      {
+                        id: 'frozen',
+                        label:
+                          dict.pages.home.tabFrozen || 'Trái cây đông lạnh',
+                      },
+                    ].map((tab) => {
+                      const isActive = activeCategory === tab.id;
+                      return (
+                        <button
+                          key={tab.id}
+                          type="button"
+                          onClick={() =>
+                            setActiveCategory(tab.id as typeof activeCategory)
+                          }
+                          className={`relative px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition-colors text-xs font-bold whitespace-nowrap shrink-0 ${
+                            isActive
+                              ? 'text-white'
+                              : 'text-primary-850 hover:text-primary-leaf'
+                          }`}
+                        >
+                          {isActive && (
+                            <motion.div
+                              layoutId="activeCategoryPill"
+                              className="absolute inset-0 bg-primary-leaf rounded-full shadow-xs"
+                              transition={{
+                                type: 'spring',
+                                stiffness: 400,
+                                damping: 30,
+                              }}
+                            />
+                          )}
+                          <span className="relative z-10">{tab.label}</span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
               </div>
@@ -486,6 +489,24 @@ export default function HomePageContent({
               </motion.div>
             ))}
           </motion.div>
+
+          {/* Nút điều hướng sang toàn bộ danh mục sản phẩm */}
+          <div className="mt-10 sm:mt-12 text-center">
+            <Button
+              href={`/${currentLang}/products`}
+              variant="secondary"
+              size="lg"
+              className="shadow-sm hover:shadow-md transition-all group"
+            >
+              <span>
+                {currentLang === 'en'
+                  ? 'View All Products & Catalogue'
+                  : currentLang === 'zh'
+                    ? '查看全部产品目录'
+                    : 'Xem toàn bộ danh mục sản phẩm'}
+              </span>
+            </Button>
+          </div>
 
           {/* Quick TDS Viewer Modal/Drawer with AnimatePresence */}
           <AnimatePresence>

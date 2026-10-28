@@ -76,6 +76,7 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     slug: 'dragon-fruit-powder',
     category: 'Bột sấy nghiền',
     categoryGroup: 'powder',
+    processingMethod: 'Bột sấy nghiền',
     name: 'Bột Thanh Long Đỏ',
     specs: 'Độ ẩm ≤ 5% | 80-100 mesh | 100% tự nhiên không chất bảo quản',
     application:
@@ -89,12 +90,54 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     moq: '100 kg (thử nghiệm) / 500 kg (sản xuất)',
     grade: 'INDUSTRIAL F&B',
     specCode: 'SPEC-AGRI-DFP-01',
+    isFeatured: true,
+  },
+  {
+    id: 'passion-fruit-powder',
+    slug: 'passion-fruit-powder',
+    category: 'Bột sấy phun',
+    categoryGroup: 'powder',
+    processingMethod: 'Bột sấy phun',
+    name: 'Bột Chanh Dây Hòa Tan',
+    specs: 'Độ tan > 95% | Vị chua thanh tự nhiên | Giàu Vitamin C',
+    application: 'Trà trái cây, si-rô pha chế, nhân bánh ngọt, kem cao cấp',
+    moisture: '≤ 4.5%',
+    mesh: '100 mesh',
+    brix: 'Chuẩn hóa theo yêu cầu',
+    shelfLife: '12 tháng tính từ ngày sản xuất',
+    packaging: '10g - 5000g/bịch hoặc theo yêu cầu khách hàng',
+    storage: 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp',
+    moq: '100 kg',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-PFP-02',
+    isFeatured: true,
+  },
+  {
+    id: 'banana-powder',
+    slug: 'banana-powder',
+    category: 'Bột sấy phun',
+    categoryGroup: 'powder',
+    processingMethod: 'Bột sấy phun',
+    name: 'Bột Chuối Sấy Phun',
+    specs: 'Màu vàng kem | Hương thơm đậm đà | Dồi dào chất xơ & Kali',
+    application: 'Ngũ cốc ăn sáng, thức ăn dặm trẻ em, sinh tố protein, bánh quy',
+    moisture: '≤ 5.0%',
+    mesh: '80 mesh',
+    brix: 'Tự nhiên',
+    shelfLife: '12 tháng tính từ ngày sản xuất',
+    packaging: '10g - 5000g/bịch hoặc theo yêu cầu khách hàng',
+    storage: 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp',
+    moq: '200 kg',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-BNP-01',
+    isFeatured: false,
   },
   {
     id: 'freeze-dried-mango',
     slug: 'freeze-dried-mango',
     category: 'Trái cây sấy',
     categoryGroup: 'dried',
+    processingMethod: 'Sấy thăng hoa',
     name: 'Xoài Sấy Thăng Hoa',
     specs:
       'Độ ẩm ≤ 3% | Cắt lát 5-7mm | Giữ nguyên 98% vi chất & màu vàng tươi',
@@ -108,12 +151,34 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     moq: '200 kg',
     grade: 'PREMIUM EXPORT',
     specCode: 'SPEC-AGRI-FDM-02',
+    isFeatured: true,
+  },
+  {
+    id: 'freeze-dried-jackfruit',
+    slug: 'freeze-dried-jackfruit',
+    category: 'Trái cây sấy',
+    categoryGroup: 'dried',
+    processingMethod: 'Sấy thăng hoa',
+    name: 'Mít Sấy Thăng Hoa',
+    specs: 'Vàng óng tự nhiên | Giòn xốp thơm lừng | Không chiên dầu, không đường',
+    application: 'Snack văn phòng lành mạnh, granola, topping kem & trà hoa quả',
+    moisture: '≤ 4.0%',
+    mesh: 'Nguyên múi hoặc nửa múi',
+    brix: 'Tự nhiên từ quả',
+    shelfLife: '12 tháng tính từ ngày sản xuất',
+    packaging: '400g',
+    storage: 'Nơi khô ráo thoáng mát, đóng kín miệng túi sau khi dùng',
+    moq: '200 kg',
+    grade: 'PREMIUM EXPORT',
+    specCode: 'SPEC-AGRI-FDJ-01',
+    isFeatured: true,
   },
   {
     id: 'frozen-mango',
     slug: 'frozen-mango',
     category: 'Trái cây đông lạnh',
     categoryGroup: 'frozen',
+    processingMethod: 'Cấp đông IQF',
     name: 'Xoài Cấp Đông IQF',
     specs:
       'Cấp đông nhanh IQF (-35°C) | 100% tự nhiên | Cắt hạt lựu 15x15mm hoặc nửa quả',
@@ -127,12 +192,34 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     moq: '500 kg',
     grade: 'IQF EXPORT GRADE',
     specCode: 'SPEC-AGRI-FROZEN-01',
+    isFeatured: true,
+  },
+  {
+    id: 'frozen-dragon-fruit',
+    slug: 'frozen-dragon-fruit',
+    category: 'Trái cây đông lạnh',
+    categoryGroup: 'frozen',
+    processingMethod: 'Cấp đông IQF',
+    name: 'Thanh Long Đỏ Cấp Đông IQF',
+    specs: 'Đông rời từng hạt IQF | Ruột đỏ thắm 100% tự nhiên | Cắt hạt 10x10mm',
+    application: 'Trà hoa quả thương mại, smoothie bowl, sữa chua công nghiệp',
+    moisture: 'Dạng đông rời IQF',
+    mesh: 'Hạt lựu đều đặn 10x10mm',
+    brix: '10 - 12 Brix',
+    shelfLife: '24 tháng kể từ ngày sản xuất',
+    packaging: '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu khách hàng',
+    storage: '18 °C',
+    moq: '500 kg',
+    grade: 'IQF EXPORT GRADE',
+    specCode: 'SPEC-AGRI-FROZEN-02',
+    isFeatured: false,
   },
   {
     id: 'passion-fruit-puree',
     slug: 'passion-fruit-puree',
     category: 'Nước cốt',
     categoryGroup: 'puree',
+    processingMethod: 'Nước cốt nguyên chất',
     name: 'Nước Cốt Chanh Dây Không Hạt',
     specs: 'Brix 14-16% | Tiệt trùng Aseptic | 100% nguyên chất đậm đặc',
     application: 'Sản xuất nước giải khát, Sữa chua uống, Kem que, Mứt sốt F&B',
@@ -146,6 +233,7 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     moq: '1 phuy (200kg) hoặc 1 pallet',
     grade: 'ASEPTIC INDUSTRIAL',
     specCode: 'SPEC-AGRI-PFP-03',
+    isFeatured: true,
   },
 ];
 
@@ -155,6 +243,7 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     slug: 'dragon-fruit-powder',
     category: 'Milled Fruit Powder',
     categoryGroup: 'powder',
+    processingMethod: 'Milled Powder',
     name: 'Red Dragon Fruit Powder (Milled)',
     specs: 'Moisture ≤ 5% | 80-100 mesh | 100% natural, clean-label',
     application:
@@ -168,12 +257,54 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     moq: '100 kg (trial) / 500 kg (commercial)',
     grade: 'INDUSTRIAL F&B',
     specCode: 'SPEC-AGRI-DFP-01',
+    isFeatured: true,
+  },
+  {
+    id: 'passion-fruit-powder',
+    slug: 'passion-fruit-powder',
+    category: 'Spray-Dried Powder',
+    categoryGroup: 'powder',
+    processingMethod: 'Spray-Dried Powder',
+    name: 'Instant Passion Fruit Powder',
+    specs: 'Solubility > 95% | Natural refreshing tartness | Rich in Vitamin C',
+    application: 'Fruit teas, beverage syrups, bakery fillings, gourmet ice cream',
+    moisture: '≤ 4.5%',
+    mesh: '100 mesh',
+    brix: 'Standardized upon request',
+    shelfLife: '12 months from manufacturing date',
+    packaging: '10g - 5000g/bag or custom requested',
+    storage: 'Store in cool, dry place, avoid direct sunlight',
+    moq: '100 kg',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-PFP-02',
+    isFeatured: true,
+  },
+  {
+    id: 'banana-powder',
+    slug: 'banana-powder',
+    category: 'Spray-Dried Powder',
+    categoryGroup: 'powder',
+    processingMethod: 'Spray-Dried Powder',
+    name: 'Spray-Dried Banana Powder',
+    specs: 'Creamy yellow | Rich natural aroma | High dietary fiber & Potassium',
+    application: 'Breakfast cereals, baby food, protein smoothies, biscuits',
+    moisture: '≤ 5.0%',
+    mesh: '80 mesh',
+    brix: 'Natural',
+    shelfLife: '12 months from manufacturing date',
+    packaging: '10g - 5000g/bag or custom requested',
+    storage: 'Store in cool, dry place, avoid direct sunlight',
+    moq: '200 kg',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-BNP-01',
+    isFeatured: false,
   },
   {
     id: 'freeze-dried-mango',
     slug: 'freeze-dried-mango',
     category: 'Freeze-Dried Fruit',
     categoryGroup: 'dried',
+    processingMethod: 'Freeze-Dried',
     name: 'Freeze-Dried Mango Slices',
     specs: 'Moisture ≤ 3% | 5-7mm cut slices | Crisp texture & authentic taste',
     application: 'Granola cereal, chocolate enrobing, gourmet fruit snacks',
@@ -186,12 +317,34 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     moq: '200 kg',
     grade: 'PREMIUM EXPORT',
     specCode: 'SPEC-AGRI-FDM-02',
+    isFeatured: true,
+  },
+  {
+    id: 'freeze-dried-jackfruit',
+    slug: 'freeze-dried-jackfruit',
+    category: 'Freeze-Dried Fruit',
+    categoryGroup: 'dried',
+    processingMethod: 'Freeze-Dried',
+    name: 'Freeze-Dried Jackfruit Pieces',
+    specs: 'Natural golden aroma | Crisp texture | Zero added oil, zero sugar',
+    application: 'Office healthy snacking, premium tea blends, artisanal bakery',
+    moisture: '≤ 4.0%',
+    mesh: 'Whole / Half pods',
+    brix: 'Natural fruit sugar',
+    shelfLife: '12 months from manufacturing date',
+    packaging: '400g',
+    storage: 'Store in cool dry place, seal tightly',
+    moq: '200 kg',
+    grade: 'PREMIUM EXPORT',
+    specCode: 'SPEC-AGRI-FDJ-01',
+    isFeatured: true,
   },
   {
     id: 'frozen-mango',
     slug: 'frozen-mango',
     category: 'Frozen Fruit (IQF)',
     categoryGroup: 'frozen',
+    processingMethod: 'IQF Frozen Fruit',
     name: 'IQF Frozen Mango Chunks',
     specs:
       'Individually Quick Frozen (-35°C) | Natural sweet aroma | 15x15mm diced',
@@ -206,12 +359,34 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     moq: '500 kg',
     grade: 'IQF EXPORT GRADE',
     specCode: 'SPEC-AGRI-FROZEN-01',
+    isFeatured: true,
+  },
+  {
+    id: 'frozen-dragon-fruit',
+    slug: 'frozen-dragon-fruit',
+    category: 'Frozen Fruit (IQF)',
+    categoryGroup: 'frozen',
+    processingMethod: 'IQF Frozen Fruit',
+    name: 'IQF Frozen Red Dragon Fruit Dices',
+    specs: 'Individually Quick Frozen | 100% natural red flesh | 10x10mm uniform dices',
+    application: 'Commercial fruit tea, smoothie packs, sorbet, dairy yogurt base',
+    moisture: 'Frozen fruit dices',
+    mesh: '10x10mm uniform diced',
+    brix: '10 - 12° Brix',
+    shelfLife: '24 months from manufacturing date',
+    packaging: '1kg/bag, 5kg/bag, 10kg/bag or custom requested',
+    storage: '18 °C',
+    moq: '500 kg',
+    grade: 'IQF EXPORT GRADE',
+    specCode: 'SPEC-AGRI-FROZEN-02',
+    isFeatured: false,
   },
   {
     id: 'passion-fruit-puree',
     slug: 'passion-fruit-puree',
     category: 'Puree & Juice',
     categoryGroup: 'puree',
+    processingMethod: 'Puree & Juice',
     name: 'Seedless Passion Fruit Puree (Concentrate)',
     specs: 'Brix 14-16% | Pasteurised aseptic | 100% pure concentrate',
     application:
@@ -225,6 +400,7 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     moq: '1 drum (200kg) or 1 pallet',
     grade: 'ASEPTIC INDUSTRIAL',
     specCode: 'SPEC-AGRI-PFP-03',
+    isFeatured: true,
   },
 ];
 
@@ -234,6 +410,7 @@ export const FALLBACK_PRODUCTS_ZH: Product[] = [
     slug: 'dragon-fruit-powder',
     category: '低温研磨果粉',
     categoryGroup: 'powder',
+    processingMethod: '低温研磨果粉',
     name: '红心火龙果原粉 (低温研磨)',
     specs: '含水率 ≤ 5% | 80-100目 | 100%纯天然清洁标签',
     application: '烘焙糖果、功能饮料、风味酸奶、天然健康护色',
@@ -246,12 +423,54 @@ export const FALLBACK_PRODUCTS_ZH: Product[] = [
     moq: '100 kg (中试打样) / 500 kg (商业量产)',
     grade: 'INDUSTRIAL F&B',
     specCode: 'SPEC-AGRI-DFP-01',
+    isFeatured: true,
+  },
+  {
+    id: 'passion-fruit-powder',
+    slug: 'passion-fruit-powder',
+    category: '喷雾干燥果粉',
+    categoryGroup: 'powder',
+    processingMethod: '喷雾干燥果粉',
+    name: '速溶百香果粉 (喷雾干燥)',
+    specs: '溶解度 > 95% | 天然纯正清爽酸甜 | 富含维C与矿物质',
+    application: '调饮果茶、风味糖浆、西点烘焙夹心、高端冰淇淋',
+    moisture: '≤ 4.5%',
+    mesh: '100 目',
+    brix: '可按需标准化调配',
+    shelfLife: '自生产之日起12个月',
+    packaging: '10g - 5000g/袋或按客户要求定制',
+    storage: '阴凉干燥处存放，避免阳光直射',
+    moq: '100 kg',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-PFP-02',
+    isFeatured: true,
+  },
+  {
+    id: 'banana-powder',
+    slug: 'banana-powder',
+    category: '喷雾干燥果粉',
+    categoryGroup: 'powder',
+    processingMethod: '喷雾干燥果粉',
+    name: '喷雾干燥香蕉粉',
+    specs: '奶黄原色 | 浓郁香蕉天然风味 | 富含膳食纤维与钾元素',
+    application: '早餐饮食麦片、婴幼儿辅食、蛋白营养粉、饼干点心',
+    moisture: '≤ 5.0%',
+    mesh: '80 目',
+    brix: '天然',
+    shelfLife: '自生产之日起12个月',
+    packaging: '10g - 5000g/袋或按客户要求定制',
+    storage: '阴凉干燥处存放，避免阳光直射',
+    moq: '200 kg',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-BNP-01',
+    isFeatured: false,
   },
   {
     id: 'freeze-dried-mango',
     slug: 'freeze-dried-mango',
     category: '冻干精品果干',
     categoryGroup: 'dried',
+    processingMethod: '冻干果品',
     name: '冻干芒果脆片 (Freeze-Dried Mango)',
     specs: '含水率 ≤ 3% | 5-7mm原切片 | 98%锁鲜保形保风味',
     application: '早餐谷物燕麦、巧克力果脆涂层、高档轻食果干',
@@ -264,12 +483,34 @@ export const FALLBACK_PRODUCTS_ZH: Product[] = [
     moq: '200 kg',
     grade: 'PREMIUM EXPORT',
     specCode: 'SPEC-AGRI-FDM-02',
+    isFeatured: true,
+  },
+  {
+    id: 'freeze-dried-jackfruit',
+    slug: 'freeze-dried-jackfruit',
+    category: '冻干精品果干',
+    categoryGroup: 'dried',
+    processingMethod: '冻干果品',
+    name: '冻干菠萝蜜脆片 (FD Jackfruit)',
+    specs: '自然金黄亮泽 | 浓郁原果香气 | 非油炸、零添加糖',
+    application: '低卡健康零食、轻食燕麦杯、高端花果茶拼配',
+    moisture: '≤ 4.0%',
+    mesh: '整瓣 / 半瓣',
+    brix: '纯天然原糖',
+    shelfLife: '自生产之日起12个月',
+    packaging: '400g',
+    storage: '置于阴凉干燥处，使用后密封保存',
+    moq: '200 kg',
+    grade: 'PREMIUM EXPORT',
+    specCode: 'SPEC-AGRI-FDJ-01',
+    isFeatured: true,
   },
   {
     id: 'frozen-mango',
     slug: 'frozen-mango',
     category: '冷冻水果 (IQF)',
     categoryGroup: 'frozen',
+    processingMethod: '冷冻水果 (IQF)',
     name: 'IQF 单体速冻芒果丁',
     specs: '单体速冻 (-35°C) | 保留热带原果纯甜风味 | 15x15mm 规则丁块',
     application: '现制茶饮鲜果顶料、冰沙泥原浆、水果酸奶捞、烘焙果酱',
@@ -282,12 +523,34 @@ export const FALLBACK_PRODUCTS_ZH: Product[] = [
     moq: '500 kg',
     grade: 'IQF EXPORT GRADE',
     specCode: 'SPEC-AGRI-FROZEN-01',
+    isFeatured: true,
+  },
+  {
+    id: 'frozen-dragon-fruit',
+    slug: 'frozen-dragon-fruit',
+    category: '冷冻水果 (IQF)',
+    categoryGroup: 'frozen',
+    processingMethod: '冷冻水果 (IQF)',
+    name: 'IQF 单体速冻红心火龙果丁',
+    specs: '单体速冻锁鲜 | 100% 天然艳丽红心果肉 | 10x10mm 均一立方丁',
+    application: '特调果茶调色调味、鲜榨果昔、冰淇淋雪葩原料',
+    moisture: '冷冻原果粒',
+    mesh: '10x10mm 规则立方体',
+    brix: '10 - 12° Brix',
+    shelfLife: '自生产之日起24个月',
+    packaging: '1kg/袋、5kg/袋、10kg/袋或按客户要求定制',
+    storage: '18 °C',
+    moq: '500 kg',
+    grade: 'IQF EXPORT GRADE',
+    specCode: 'SPEC-AGRI-FROZEN-02',
+    isFeatured: false,
   },
   {
     id: 'passion-fruit-puree',
     slug: 'passion-fruit-puree',
     category: '果浆与原汁',
     categoryGroup: 'puree',
+    processingMethod: '果浆与原汁',
     name: '无籽浓缩百香果原浆 (Puree)',
     specs: '糖度 14-16 Brix | 高温瞬时巴氏杀菌 | 无菌灌装',
     application: '果汁原浆、调配饮品、特调风味糖浆、高端冰淇淋',
@@ -300,6 +563,7 @@ export const FALLBACK_PRODUCTS_ZH: Product[] = [
     moq: '1 桶 (200kg) 或 1 托盘',
     grade: 'ASEPTIC INDUSTRIAL',
     specCode: 'SPEC-AGRI-PFP-03',
+    isFeatured: true,
   },
 ];
 
@@ -449,7 +713,17 @@ export function mapWordPressPostToProduct(
   const application = cleanHtmlEntities(rawApplication);
 
   // Lấy nhóm sản phẩm (Filter Trang chủ): powder | puree | dried | frozen
-  let categoryGroup = (acf.category_group as string) || '';
+  let categoryGroup = '';
+  if (typeof acf.category_group === 'string') {
+    categoryGroup = acf.category_group.trim().toLowerCase();
+  } else if (
+    acf.category_group &&
+    typeof acf.category_group === 'object' &&
+    'value' in acf.category_group
+  ) {
+    categoryGroup = String((acf.category_group as { value: string }).value).trim().toLowerCase();
+  }
+
   if (!categoryGroup) {
     const combined = `${name} ${categoryName}`.toLowerCase();
     if (
@@ -484,7 +758,23 @@ export function mapWordPressPostToProduct(
   }
 
   // Lấy công nghệ chế biến / nhãn hiển thị trên Card (ví dụ: Bột sấy phun, Bột sấy nghiền, Trái cây sấy...)
-  let processingMethod = (acf.processing_method as string) || '';
+  let processingMethod = '';
+  if (typeof acf.processing_method === 'string') {
+    processingMethod = acf.processing_method.trim();
+  } else if (
+    acf.processing_method &&
+    typeof acf.processing_method === 'object' &&
+    'label' in acf.processing_method
+  ) {
+    processingMethod = String((acf.processing_method as { label: string }).label).trim();
+  } else if (
+    acf.processing_method &&
+    typeof acf.processing_method === 'object' &&
+    'value' in acf.processing_method
+  ) {
+    processingMethod = String((acf.processing_method as { value: string }).value).trim();
+  }
+
   if (!processingMethod) {
     if (categoryName && categoryName !== defaultCategory) {
       processingMethod = categoryName;
@@ -612,15 +902,22 @@ export async function getProducts(lang: Locale = 'vi'): Promise<Product[]> {
 
 /**
  * Lấy danh sách sản phẩm nổi bật để hiển thị trên trang chủ
+ * @param lang Ngôn ngữ hiển thị
+ * @param limit Giới hạn số lượng (mặc định từ 6 đến 8 sản phẩm)
  */
 export async function getFeaturedProducts(
   lang: Locale = 'vi',
+  limit: number = 8,
 ): Promise<Product[]> {
   const all = await getProducts(lang);
   const featured = all.filter((p) => p.isFeatured);
+  // Nếu có sản phẩm được tích chọn nổi bật (is_featured = true), lấy từ 6 đến tối đa limit (8 sản phẩm)
+  if (featured.length > 0) {
+    return featured.slice(0, limit);
+  }
   // Nếu chưa có sản phẩm nào được đánh dấu nổi bật trên WordPress,
   // mặc định lấy 6 sản phẩm đầu tiên để trang chủ luôn có dữ liệu đầy đủ
-  return featured.length > 0 ? featured : all.slice(0, 6);
+  return all.slice(0, Math.min(all.length, 6));
 }
 
 /**

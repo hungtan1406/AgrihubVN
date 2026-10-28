@@ -14,7 +14,7 @@ import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import SectionTitle from '@/components/SectionTitle';
-import ProductCard from '@/components/ProductCard';
+import ProductsFilterGrid from '@/components/ProductsFilterGrid';
 import { getProducts } from '@/lib/wordpress';
 
 interface PageProps {
@@ -61,48 +61,15 @@ export default async function ProductsPage({ params }: PageProps) {
           </Button>
         </div>
 
-        {/* Product Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 mt-6">
-          {products.map((p) => {
-            const match = localizedIngredients.find((ing) => ing.id === p.slug);
-            const displayName = match?.name || p.name;
-            const displayCategory = match?.categoryName || p.category;
-            const displaySpecs = match?.specs || p.specs;
-            const displayApp = match?.applications || p.application;
-
-            return (
-              <ProductCard
-                key={p.slug}
-                product={{
-                  id: String(p.slug || p.id),
-                  slug: p.slug,
-                  name: displayName,
-                  category: p.categoryGroup || match?.category || 'powder',
-                  categoryName: displayCategory,
-                  specs: displaySpecs,
-                  moisture: p.moisture || match?.moisture,
-                  mesh: p.mesh || match?.mesh,
-                  brix: p.brix || match?.brix,
-                  shelfLife: p.shelfLife || match?.shelfLife,
-                  packaging: p.packaging || match?.packaging,
-                  storage: p.storage || match?.storage,
-                  applications: displayApp,
-                  image: p.image || match?.image,
-                }}
-                currentLang={currentLang}
-                tdsHref={`/${currentLang}/products/${p.slug}`}
-                labels={{
-                  viewTds: t.viewTds,
-                  sampleBtn: t.sampleBtn,
-                  moisture: t.moistureLabel,
-                  mesh: t.meshLabel,
-                  shelfLife: t.shelfLifeLabel,
-                  applications: t.appLabel,
-                }}
-                sampleHref={`/${currentLang}/contact`}
-              />
-            );
-          })}
+        {/* Filterable Product Grid (Hiển thị 100% tất cả sản phẩm kèm bộ lọc đầy đủ) */}
+        <div className="mt-6">
+          <ProductsFilterGrid
+            products={products}
+            localizedIngredients={localizedIngredients}
+            currentLang={currentLang}
+            labels={t}
+            dict={dict}
+          />
         </div>
 
         {/* CMS Synchronization Notice */}

@@ -20,6 +20,7 @@ interface HomePageContentProps {
   currentLang: Locale;
   dict: Dictionary;
   featuredNews?: NewsEvent[];
+  featuredEvents?: NewsEvent[];
   featuredProducts?: Product[];
   totalProducts?: number;
 }
@@ -73,6 +74,7 @@ export default function HomePageContent({
   currentLang,
   dict,
   featuredNews = [],
+  featuredEvents = [],
   featuredProducts = [],
   totalProducts = 0,
 }: HomePageContentProps) {
@@ -208,6 +210,230 @@ export default function HomePageContent({
     (item) => item.id === selectedTds,
   );
 
+  // Fallback sự kiện đa ngôn ngữ
+  const fallbackEvents: NewsEvent[] = [
+    {
+      id: 1001,
+      slug:
+        currentLang === 'en'
+          ? 'agrihub-at-vietnam-foodexpo-2025'
+          : currentLang === 'zh'
+            ? 'agrihub-canjia-vietnam-foodexpo-2025'
+            : 'agrihub-tham-gia-vietnam-foodexpo-2025',
+      lang: currentLang,
+      title:
+        currentLang === 'en'
+          ? 'Agrihub Vietnam at Vietnam Foodexpo 2025 – SECC, Ho Chi Minh City'
+          : currentLang === 'zh'
+            ? 'Agrihub越南参展Vietnam Foodexpo 2025 – 胡志明市SECC'
+            : 'Agrihub Vietnam tham gia Vietnam Foodexpo 2025 tại SECC',
+      excerpt:
+        currentLang === 'en'
+          ? 'Agrihub Vietnam will exhibit at Vietnam Foodexpo 2025 showcasing export-grade fruit powders, freeze-dried fruits, and aseptic purees.'
+          : currentLang === 'zh'
+            ? 'Agrihub Vietnam将参加2025年越南食品博览会，在胡志明市SECC展示出口级果粉、冻干果干及无菌果浆等拳头产品。'
+            : 'Agrihub Vietnam sẽ có mặt tại Vietnam Foodexpo 2025 (19–22/11/2025) tại SECC TP. HCM với gian hàng trưng bày bột trái cây, trái cây sấy thăng hoa và nước cốt xuất khẩu.',
+      content: '',
+      date: '2025-11-01T00:00:00',
+      image: null,
+      category:
+        currentLang === 'en'
+          ? 'Events'
+          : currentLang === 'zh'
+            ? '活动'
+            : 'Sự kiện',
+      tags: ['triển lãm', 'foodexpo', 'nổi bật'],
+      eventDate:
+        currentLang === 'en'
+          ? 'Nov 19–22, 2025'
+          : currentLang === 'zh'
+            ? '2025年11月19-22日'
+            : '19/11/2025 – 22/11/2025',
+      eventLocation:
+        currentLang === 'en'
+          ? 'SECC, Ho Chi Minh City'
+          : currentLang === 'zh'
+            ? '胡志明市SECC'
+            : 'SECC, TP. Hồ Chí Minh',
+    },
+    {
+      id: 1004,
+      slug:
+        currentLang === 'en'
+          ? 'agrihub-thaifex-anuga-asia-2025'
+          : currentLang === 'zh'
+            ? 'agrihub-thaifex-anuga-asia-2025'
+            : 'agrihub-trien-lam-thaifex-anuga-asia-2025',
+      lang: currentLang,
+      title:
+        currentLang === 'en'
+          ? 'Agrihub Vietnam at THAIFEX - Anuga Asia 2025 Trade Fair'
+          : currentLang === 'zh'
+            ? 'Agrihub参展2025泰国亚洲世界食品博览会（THAIFEX - Anuga Asia）'
+            : 'Agrihub tham gia Triển lãm Quốc tế THAIFEX - Anuga Asia 2025',
+      excerpt:
+        currentLang === 'en'
+          ? 'Showcasing tropical spray-dried fruit powders, freeze-dried fruits, and aseptic purees to international F&B manufacturers and buyers in Bangkok.'
+          : currentLang === 'zh'
+            ? 'Agrihub携出口级热带果粉、冻干水果及无菌原浆亮相，拓展全球食品饮料供应链。'
+            : 'Agrihub xúc tiến thương mại nông sản chế biến sâu, kết nối chuỗi cung ứng bột trái cây và trái cây sấy thăng hoa tới các đối tác F&B toàn cầu tại Bangkok.',
+      content: '',
+      date: '2025-05-10T00:00:00',
+      image: null,
+      category:
+        currentLang === 'en'
+          ? 'Events'
+          : currentLang === 'zh'
+            ? '活动'
+            : 'Sự kiện',
+      tags: ['triển lãm', 'thaifex', 'nổi bật'],
+      eventDate:
+        currentLang === 'en'
+          ? 'May 27–31, 2025'
+          : currentLang === 'zh'
+            ? '2025年5月27日-31日'
+            : '27/05/2025 – 31/05/2025',
+      eventLocation:
+        currentLang === 'en'
+          ? 'IMPACT Muang Thong Thani, Bangkok, Thailand'
+          : currentLang === 'zh'
+            ? '泰国曼谷 IMPACT 展览中心'
+            : 'IMPACT Muang Thong Thani, Bangkok, Thái Lan',
+    },
+    {
+      id: 1005,
+      slug:
+        currentLang === 'en'
+          ? 'agrihub-gulfood-dubai-2026'
+          : currentLang === 'zh'
+            ? 'agrihub-gulfood-dubai-2026'
+            : 'agrihub-ket-noi-giao-thuong-gulfood-dubai-2026',
+      lang: currentLang,
+      title:
+        currentLang === 'en'
+          ? 'Agrihub Connects with Global Buyers at Gulfood Dubai 2026'
+          : currentLang === 'zh'
+            ? 'Agrihub亮相迪拜海湾食品展（Gulfood Dubai 2026）'
+            : 'Agrihub xúc tiến thương mại tại Triển lãm Gulfood Dubai 2026',
+      excerpt:
+        currentLang === 'en'
+          ? 'Expanding halal-certified fruit powders and freeze-dried ingredients across Middle Eastern and North African food industry networks.'
+          : currentLang === 'zh'
+            ? '展示全线符合清真（Halal）标准的深加工果粉与原浆原料，深耕中东及北非高品质市场。'
+            : 'Giới thiệu các dòng sản phẩm đạt chuẩn quốc tế Halal và ISO 22000, mở rộng hợp tác xuất khẩu nông sản chế biến sang thị trường Trung Đông và Bắc Phi.',
+      content: '',
+      date: '2026-01-15T00:00:00',
+      image: null,
+      category:
+        currentLang === 'en'
+          ? 'Events'
+          : currentLang === 'zh'
+            ? '活动'
+            : 'Sự kiện',
+      tags: ['triển lãm', 'gulfood', 'nổi bật'],
+      eventDate:
+        currentLang === 'en'
+          ? 'Feb 17–21, 2026'
+          : currentLang === 'zh'
+            ? '2026年2月17日-21日'
+            : '17/02/2026 – 21/02/2026',
+      eventLocation:
+        currentLang === 'en'
+          ? 'Dubai World Trade Centre (DWTC), UAE'
+          : currentLang === 'zh'
+            ? '阿联酋迪拜世界贸易中心（DWTC）'
+            : 'Dubai World Trade Centre (DWTC), UAE',
+    },
+  ];
+
+  const displayEvents =
+    featuredEvents && featuredEvents.length > 0
+      ? featuredEvents.length >= 3
+        ? featuredEvents
+        : [
+            ...featuredEvents,
+            ...fallbackEvents.filter(
+              (f) => !featuredEvents.some((e) => e.slug === f.slug),
+            ),
+          ].slice(0, 3)
+      : fallbackEvents;
+
+  // Fallback tin tức (không bao gồm sự kiện)
+  const fallbackNews: NewsEvent[] = [
+    {
+      id: 1002,
+      slug:
+        currentLang === 'en'
+          ? 'agrihub-exports-fruit-powder-to-middle-east'
+          : currentLang === 'zh'
+            ? 'agrihub-chukou-guofen-dao-zhongdong'
+            : 'agrihub-xuat-khau-bot-trai-cay-sang-trung-dong',
+      lang: currentLang,
+      title:
+        currentLang === 'en'
+          ? 'Agrihub Expands Fruit Powder Exports to the Middle East'
+          : currentLang === 'zh'
+            ? 'Agrihub扩大果粉出口至中东市场'
+            : 'Agrihub mở rộng xuất khẩu bột trái cây sang thị trường Trung Đông',
+      excerpt:
+        currentLang === 'en'
+          ? "The first commercial shipments of Agrihub's Dragon Fruit Powder and Mango Powder have been successfully delivered to UAE partners."
+          : currentLang === 'zh'
+            ? 'Agrihub的首批红心火龙果粉和芒果粉商业货物已成功交付至阿联酋合作伙伴。'
+            : 'Lô hàng bột thanh long và bột xoài đầu tiên từ Agrihub đã được giao thành công đến UAE, mở ra chuỗi cung ứng ổn định cho các nhà sản xuất tại Trung Đông.',
+      content: '',
+      date: '2025-10-15T00:00:00',
+      image: null,
+      category:
+        currentLang === 'en' ? 'News' : currentLang === 'zh' ? '新闻' : 'Tin tức',
+      tags: ['xuất khẩu', 'trung đông', 'halal'],
+    },
+    {
+      id: 1003,
+      slug:
+        currentLang === 'en'
+          ? 'halal-certification-expands-export-markets'
+          : currentLang === 'zh'
+            ? 'qingzhen-renzheng-kuozhan-chukou-shichang'
+            : 'chung-nhan-halal-mo-rong-thi-truong-xuat-khau',
+      lang: currentLang,
+      title:
+        currentLang === 'en'
+          ? 'Agrihub Achieves Halal Certification – Opening Muslim-Market Export Channels'
+          : currentLang === 'zh'
+            ? 'Agrihub获得清真认证 – 开拓穆斯林市场出口渠道'
+            : 'Agrihub đạt chứng nhận Halal – Mở rộng thị trường xuất khẩu Muslim',
+      excerpt:
+        currentLang === 'en'
+          ? 'Agrihub Vietnam has received Halal certification for its fruit powder and puree product lines, opening access to 57 OIC member countries.'
+          : currentLang === 'zh'
+            ? 'Agrihub Vietnam的果粉和果浆产品线已获得清真认证，开放进入57个伊斯兰合作组织成员国市场。'
+            : 'Agrihub Vietnam vừa nhận chứng nhận Halal cho dòng sản phẩm bột trái cây và nước cốt, mở ra cơ hội thâm nhập sâu vào 57 quốc gia thành viên OIC.',
+      content: '',
+      date: '2025-09-20T00:00:00',
+      image: null,
+      category:
+        currentLang === 'en'
+          ? 'Announcement'
+          : currentLang === 'zh'
+            ? '公告'
+            : 'Thông báo',
+      tags: ['halal', 'chứng nhận', 'xuất khẩu'],
+    },
+  ];
+
+  const displayNews =
+    featuredNews && featuredNews.length > 0
+      ? featuredNews.length >= 3
+        ? featuredNews
+        : [
+            ...featuredNews,
+            ...fallbackNews.filter(
+              (f) => !featuredNews.some((n) => n.slug === f.slug),
+            ),
+          ].slice(0, 3)
+      : fallbackNews;
+
   return (
     <div className="flex flex-col">
       {/* SECTION 1: HERO BANNER (FULL-WIDTH BACKGROUND WITH HIGH-CONTRAST OVERLAY) */}
@@ -252,9 +478,27 @@ export default function HomePageContent({
                 delay: 0.1,
                 ease: [0.22, 1, 0.36, 1],
               }}
-              className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-normal text-balance leading-[1.3] sm:leading-[1.28] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
+              className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-[0.035em] sm:tracking-[0.045em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
             >
-              {ui.heroTagline}
+              <span className="flex flex-col gap-2.5 sm:gap-4 lg:gap-5 leading-[1.25]">
+                {(ui.heroTagline.includes('\n')
+                  ? ui.heroTagline.split('\n')
+                  : ui.heroTagline.includes('ĐẾN')
+                    ? [
+                        ui.heroTagline
+                          .slice(0, ui.heroTagline.indexOf('ĐẾN'))
+                          .trim(),
+                        ui.heroTagline
+                          .slice(ui.heroTagline.indexOf('ĐẾN'))
+                          .trim(),
+                      ]
+                    : [ui.heroTagline]
+                ).map((line, idx) => (
+                  <span key={idx} className="block">
+                    {line}
+                  </span>
+                ))}
+              </span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -749,97 +993,122 @@ export default function HomePageContent({
         </Container>
       </section>
 
-      {/* SECTION 6: GỘP - NĂNG LỰC CUNG ỨNG & VÙNG TRỒNG */}
-      <section id="nang-luc" className="scroll-mt-24 py-8 sm:py-12 lg:py-14">
+      {/* SECTION 6: SỰ KIỆN NỔI BẬT (Layout dạng danh thiếp sự kiện tương tự section tin tức) */}
+      <section id="su-kien" className="scroll-mt-24 py-8 sm:py-12 lg:py-14">
+        {/* Hỗ trợ anchor cũ nếu có người dùng bookmark #nang-luc */}
+        <div id="nang-luc" className="relative -top-24" />
         <Container>
           <FadeIn direction="up">
             <SectionTitle
-              badge={dict.pages.home.supplyBadge}
-              title={dict.pages.home.supplyTitle}
-              subtitle={dict.pages.home.supplySubtitle}
+              badge={dict.pages.home.featuredEventsBadge ?? 'Sự Kiện & Triển Lãm'}
+              title={dict.pages.home.featuredEventsTitle ?? 'Sự Kiện Nổi Bật'}
+              subtitle={
+                dict.pages.home.featuredEventsSubtitle ??
+                'Tham gia cùng Agrihub tại các hội chợ thương mại quốc tế, triển lãm thực phẩm và sự kiện xúc tiến nông sản hàng đầu.'
+              }
             />
           </FadeIn>
 
-          <StaggerContainer className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
-            <StaggerItem>
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-cream-200 text-center shadow-soft">
-                <span className="text-2xl sm:text-3xl font-black text-primary-850 block">
-                  10+
-                </span>
-                <span className="text-xs text-slate-600 font-bold mt-1 block">
-                  {ui.supply.stat1}
-                </span>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-cream-200 text-center shadow-soft">
-                <span className="text-2xl sm:text-3xl font-black text-primary-leaf block">
-                  15,000 m²
-                </span>
-                <span className="text-xs text-slate-600 font-bold mt-1 block">
-                  {ui.supply.stat2}
-                </span>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-cream-200 text-center shadow-soft">
-                <span className="text-2xl sm:text-3xl font-black text-primary-850 block">
-                  20,000+
-                </span>
-                <span className="text-xs text-slate-600 font-bold mt-1 block">
-                  {ui.supply.stat3}
-                </span>
-              </div>
-            </StaggerItem>
-            <StaggerItem>
-              <div className="bg-white p-4 sm:p-5 rounded-2xl border border-cream-200 text-center shadow-soft">
-                <span className="text-2xl sm:text-3xl font-black text-primary-leaf block">
-                  1,200 ha
-                </span>
-                <span className="text-xs text-slate-600 font-bold mt-1 block">
-                  {ui.supply.stat4}
-                </span>
-              </div>
-            </StaggerItem>
-          </StaggerContainer>
+          {/* Grid 3 sự kiện nổi bật */}
+          <div className="mt-2 mb-6 sm:mb-8">
+            <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+              {displayEvents.map((post) => {
+                const badgeClass = getCategoryBadgeClass(post.category);
+                const formattedDate = formatDate(post.date, currentLang);
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-            <FadeIn direction="up">
-              <motion.div
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft h-full"
-              >
-                <h3 className="text-base font-bold text-primary-850 mb-3 flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-primary-leaf"></span>
-                  {ui.supply.card1Title}
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed mb-3">
-                  {ui.supply.card1Desc}
-                </p>
-                <div className="text-xs text-slate-500 bg-cream-50 p-3 rounded-xl border border-cream-200">
-                  {ui.supply.card1Notice}
-                </div>
-              </motion.div>
-            </FadeIn>
+                return (
+                  <StaggerItem key={post.slug} className="h-full">
+                    <Link
+                      href={`/${currentLang}/news/${post.slug}`}
+                      className="group block bg-white border border-cream-200 rounded-3xl overflow-hidden shadow-soft hover:-translate-y-1.5 transition-all duration-300 flex flex-col h-full hover:border-primary-leaf/40 hover:shadow-md"
+                    >
+                      {/* Thumbnail 16:9 */}
+                      <div className="aspect-video relative overflow-hidden bg-primary-100 flex items-center justify-center shrink-0">
+                        {post.image ? (
+                          <Image
+                            src={post.image}
+                            alt={post.title}
+                            fill
+                            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                            className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
+                          />
+                        ) : (
+                          <div className="w-full h-full bg-gradient-to-br from-primary-900/10 via-cream-200 to-primary-100 flex flex-col items-center justify-center gap-1 select-none text-primary-800">
+                            <span className="text-3xl">🎪</span>
+                            <span className="text-[11px] font-bold tracking-wider uppercase text-primary-700/80">
+                              Agrihub Event
+                            </span>
+                          </div>
+                        )}
+                      </div>
 
-            <FadeIn direction="up" delay={0.15}>
-              <motion.div
-                whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft h-full"
-              >
-                <h3 className="text-base font-bold text-primary-850 mb-3 flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-accent-gold"></span>
-                  {ui.supply.card2Title}
-                </h3>
-                <p className="text-sm text-slate-600 leading-relaxed mb-3">
-                  {ui.supply.card2Desc}
-                </p>
-                <div className="text-xs text-slate-500 bg-cream-50 p-3 rounded-xl border border-cream-200">
-                  {ui.supply.card2Notice}
-                </div>
-              </motion.div>
-            </FadeIn>
+                      {/* Content */}
+                      <div className="p-6 flex flex-col flex-1">
+                        {/* Category + Date */}
+                        <div className="flex items-center justify-between gap-2 mb-3">
+                          <span
+                            className={`text-xs font-bold px-2.5 py-1 rounded-full ${badgeClass}`}
+                          >
+                            {post.category}
+                          </span>
+                          <span className="text-xs text-slate-400 shrink-0 font-medium">
+                            {formattedDate}
+                          </span>
+                        </div>
+
+                        {/* Event date / location */}
+                        {post.eventDate && (
+                          <div className="text-xs text-primary-800 mb-2.5 flex flex-wrap items-center gap-1.5 font-medium bg-accent-gold/15 px-2.5 py-1 rounded-lg border border-accent-gold/30 w-fit">
+                            <span>📅 {post.eventDate}</span>
+                            {post.eventLocation && (
+                              <>
+                                <span className="text-slate-400">•</span>
+                                <span>📍 {post.eventLocation}</span>
+                              </>
+                            )}
+                          </div>
+                        )}
+
+                        {/* Title */}
+                        <h3 className="font-bold text-primary-850 text-base sm:text-lg leading-snug line-clamp-2 mb-2 group-hover:text-primary-leaf transition-colors">
+                          {post.title}
+                        </h3>
+
+                        {/* Excerpt */}
+                        {post.excerpt && (
+                          <p className="text-sm text-slate-600 line-clamp-2 sm:line-clamp-3 mb-4 flex-1 leading-relaxed">
+                            {post.excerpt}
+                          </p>
+                        )}
+
+                        {/* CTA link */}
+                        <div className="pt-2 border-t border-cream-200/60 flex items-center justify-between text-xs font-bold text-primary-leaf group-hover:text-primary-850 transition-colors mt-auto">
+                          <span>{dict.news?.readMore ?? 'Xem chi tiết'}</span>
+                          <span className="group-hover:translate-x-1 transition-transform">
+                            →
+                          </span>
+                        </div>
+                      </div>
+                    </Link>
+                  </StaggerItem>
+                );
+              })}
+            </StaggerContainer>
           </div>
+
+          {/* Action Button: Điều hướng qua trang tin tức (lọc Sự kiện) */}
+          <FadeIn direction="up" delay={0.2}>
+            <div className="text-center mt-6">
+              <Button
+                href={`/${currentLang}/news?category=events`}
+                variant="pill"
+                size="md"
+                className="shadow-xs hover:shadow-soft font-bold"
+              >
+                {dict.pages.home.viewAllEvents ?? 'Xem tất cả sự kiện →'}
+              </Button>
+            </div>
+          </FadeIn>
         </Container>
       </section>
 
@@ -934,11 +1203,11 @@ export default function HomePageContent({
             <SectionTitle
               badge={dict.pages.home.featuredNewsBadge ?? 'Tin Tức & Hoạt Động'}
               title={
-                dict.pages.home.featuredNewsTitle ?? 'Tin Tức & Sự Kiện Nổi Bật'
+                dict.pages.home.featuredNewsTitle ?? 'Tin Tức Nổi Bật'
               }
               subtitle={
                 dict.pages.home.featuredNewsSubtitle ??
-                'Cập nhật hoạt động thương mại, triển lãm quốc tế và thông tin mới nhất từ Agrihub.'
+                'Cập nhật tin tức doanh nghiệp, xu hướng thị trường và thông tin mới nhất từ Agrihub.'
               }
             />
           </FadeIn>
@@ -946,10 +1215,7 @@ export default function HomePageContent({
           {/* Grid 3 bài viết nổi bật */}
           <div className="mt-2 mb-6 sm:mb-8">
             <StaggerContainer className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {(featuredNews && featuredNews.length > 0
-                ? featuredNews
-                : []
-              ).map((post) => {
+              {displayNews.map((post) => {
                 const badgeClass = getCategoryBadgeClass(post.category);
                 const formattedDate = formatDate(post.date, currentLang);
 

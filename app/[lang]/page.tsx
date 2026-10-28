@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { Locale, getDictionary, isValidLocale, defaultLocale } from '@/lib/i18n';
 import { buildPageMetadata } from '@/lib/seo';
 import HomePageContent from '@/components/HomePageContent';
-import { getFeaturedNews, getProducts } from '@/lib/wordpress';
+import { getFeaturedEvents, getFeaturedNews, getProducts } from '@/lib/wordpress';
 
 interface PageProps {
   params: { lang: string };
@@ -23,8 +23,9 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 export default async function HomePage({ params }: PageProps) {
   const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
   const dict = getDictionary(currentLang);
-  const [featuredNews, allProducts] = await Promise.all([
+  const [featuredNews, featuredEvents, allProducts] = await Promise.all([
     getFeaturedNews(currentLang, 3),
+    getFeaturedEvents(currentLang, 3),
     getProducts(currentLang),
   ]);
 
@@ -38,6 +39,7 @@ export default async function HomePage({ params }: PageProps) {
       currentLang={currentLang}
       dict={dict}
       featuredNews={featuredNews}
+      featuredEvents={featuredEvents}
       featuredProducts={featuredProducts}
       totalProducts={totalProducts}
     />

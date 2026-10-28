@@ -123,8 +123,8 @@ export default function Footer({ lang, dict }: FooterProps) {
                 </Link>
               </li>
               <li>
-                <Link href={`/${lang}#nang-luc`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
-                  &bull; {dict.nav.supplyChain}
+                <Link href={`/${lang}#su-kien`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
+                  &bull; {dict.nav.events ?? 'Sự kiện & Triển lãm'}
                 </Link>
               </li>
               <li>

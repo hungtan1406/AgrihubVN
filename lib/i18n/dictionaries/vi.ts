@@ -27,6 +27,7 @@ export const vi: Dictionary = {
     ingredients: 'Danh mục Nguyên liệu',
     oemOdm: 'Gia công OEM/ODM',
     supplyChain: 'Năng lực & Vùng trồng',
+    events: 'Sự kiện & Triển lãm',
     qualityCertifications: 'Chất lượng & Chứng nhận',
     globalPresence: 'Xuất khẩu & Sự kiện',
   },
@@ -90,10 +91,15 @@ export const vi: Dictionary = {
       globalTitle: 'Dấu chân xuất khẩu & Triển lãm quốc tế',
       globalSubtitle:
         'Hơn 10 năm kinh nghiệm đưa nông sản chế biến Việt Nam chinh phục các thị trường khắt khe.',
+      featuredEventsBadge: 'Sự Kiện & Triển Lãm',
+      featuredEventsTitle: 'Sự Kiện Nổi Bật',
+      featuredEventsSubtitle:
+        'Tham gia cùng Agrihub tại các hội chợ thương mại quốc tế, triển lãm thực phẩm và sự kiện xúc tiến nông sản hàng đầu.',
+      viewAllEvents: 'Xem tất cả sự kiện →',
       featuredNewsBadge: 'Tin Tức & Hoạt Động',
-      featuredNewsTitle: 'Tin Tức & Sự Kiện Nổi Bật',
+      featuredNewsTitle: 'Tin Tức Nổi Bật',
       featuredNewsSubtitle:
-        'Cập nhật hoạt động xúc tiến thương mại, hội chợ quốc tế và thông tin mới nhất từ Agrihub.',
+        'Cập nhật tin tức doanh nghiệp, xu hướng thị trường và thông tin mới nhất từ Agrihub.',
       viewAllNews: 'Xem tất cả tin tức →',
       contactBadge: 'Tiếp Nhận Yêu Cầu',
       contactTitle: 'Yêu cầu báo giá kỹ thuật & Mẫu thử phòng Lab',

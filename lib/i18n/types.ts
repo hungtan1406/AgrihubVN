@@ -27,6 +27,7 @@ export interface Dictionary {
     ingredients: string;
     oemOdm: string;
     supplyChain: string;
+    events?: string;
     qualityCertifications: string;
     globalPresence: string;
   };
@@ -79,6 +80,10 @@ export interface Dictionary {
       globalBadge: string;
       globalTitle: string;
       globalSubtitle: string;
+      featuredEventsBadge?: string;
+      featuredEventsTitle?: string;
+      featuredEventsSubtitle?: string;
+      viewAllEvents?: string;
       featuredNewsBadge?: string;
       featuredNewsTitle?: string;
       featuredNewsSubtitle?: string;

@@ -969,6 +969,10 @@ export interface NewsEvent {
   date: string; // ISO 8601
   image: string | null;
   category: string; // "Tin tức" | "Sự kiện" | "Thông báo" | "News" | "Events" | "新闻" etc.
+  categories?: string[];
+  categorySlugs?: string[];
+  isEvent?: boolean;
+  isFeatured?: boolean;
   tags: string[];
   // ACF fields
   eventDate?: string; // acf.event_date
@@ -982,10 +986,124 @@ function mapWordPressPostToNewsEvent(
 ): NewsEvent {
   const acf = (post.acf || {}) as Record<string, string | undefined>;
   const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null;
-  const rawCategory = post._embedded?.['wp:term']?.[0]?.[0]?.name ?? '';
-  const tags = (post._embedded?.['wp:term']?.[1] ?? []).map(
-    (t: { name: string }) => t.name,
-  );
+
+  const rawTerms = post._embedded?.['wp:term']?.[0] || [];
+  const categoryNames = rawTerms.map((t: { name: string }) => t.name || '');
+  const categorySlugs = rawTerms.map((t: { slug: string }) => (t.slug || '').toLowerCase());
+
+  const rawTags = post._embedded?.['wp:term']?.[1] || [];
+  const tags = rawTags.map((t: { name: string }) => t.name || '');
+  const tagSlugs = rawTags.map((t: { slug: string }) => (t.slug || '').toLowerCase());
+
+  const titleLower = (post.title?.rendered || '').toLowerCase();
+  const slugLower = (post.slug || '').toLowerCase();
+
+  // 1. Nhận diện Sự Kiện (Event):
+  // Hỗ trợ cả trường hợp người dùng gán danh mục cha "Sự Kiện" (slug su-kien)
+  // hoặc danh mục con "— Nổi Bật" (slug noi-bat-su-kien), hoặc gắn tag sự kiện, hoặc tiêu đề có chữ sự kiện
+  const isEvent =
+    categorySlugs.some(
+      (s) =>
+        s === 'su-kien' ||
+        s === 'noi-bat-su-kien' ||
+        s.includes('su-kien') ||
+        s.includes('event') ||
+        s.includes('trien-lam'),
+    ) ||
+    categoryNames.some((n) => {
+      const lower = n.toLowerCase();
+      return (
+        lower.includes('sự kiện') ||
+        lower.includes('su kien') ||
+        lower.includes('event') ||
+        lower.includes('triển lãm') ||
+        lower.includes('hội chợ') ||
+        lower.includes('活动')
+      );
+    }) ||
+    tagSlugs.some((s) => s.includes('su-kien') || s.includes('event') || s.includes('trien-lam')) ||
+    tags.some((t) => {
+      const lower = t.toLowerCase();
+      return (
+        lower.includes('sự kiện') ||
+        lower.includes('event') ||
+        lower.includes('triển lãm') ||
+        lower.includes('hội chợ')
+      );
+    }) ||
+    slugLower.includes('su-kien') ||
+    slugLower.includes('trien-lam') ||
+    titleLower.includes('su kien') ||
+    titleLower.includes('sự kiện') ||
+    Boolean(acf.event_date);
+
+  // 2. Nhận diện Nổi Bật (Featured):
+  // Bất kỳ danh mục nào là "Nổi Bật", slug "noi-bat-su-kien", "noi-bat", tag nổi bật, v.v.
+  const isFeatured =
+    categorySlugs.some(
+      (s) =>
+        s === 'noi-bat' ||
+        s === 'noi-bat-su-kien' ||
+        s === 'noi-bat-tin-tuc' ||
+        s.includes('noi-bat') ||
+        s.includes('featured'),
+    ) ||
+    categoryNames.some((n) => {
+      const lower = n.toLowerCase();
+      return (
+        lower.includes('nổi bật') ||
+        lower.includes('noi bat') ||
+        lower.includes('featured') ||
+        lower.includes('精选')
+      );
+    }) ||
+    tagSlugs.some((s) => s.includes('noi-bat') || s.includes('featured')) ||
+    tags.some((t) => {
+      const lower = t.toLowerCase();
+      return lower.includes('nổi bật') || lower.includes('featured');
+    }) ||
+    slugLower.includes('noi-bat') ||
+    titleLower.includes('noi bat') ||
+    titleLower.includes('nổi bật');
+
+  // 3. Chuẩn hóa tên nhãn danh mục (Category Badge):
+  // Nếu là sự kiện, hiển thị badge là "Sự kiện" thay vì nhãn chung chung "Nổi Bật"
+  // Nếu là tin tức, hiển thị badge là "Tin tức"
+  let displayCategory = '';
+  if (isEvent) {
+    const eventTerm = categoryNames.find((n) => {
+      const lower = n.toLowerCase();
+      return (
+        lower.includes('sự kiện') ||
+        lower.includes('event') ||
+        lower.includes('triển lãm') ||
+        lower.includes('活动')
+      );
+    });
+    displayCategory =
+      eventTerm || (lang === 'en' ? 'Events' : lang === 'zh' ? '活动' : 'Sự kiện');
+  } else {
+    const newsTerm = categoryNames.find((n) => {
+      const lower = n.toLowerCase();
+      return (
+        (lower.includes('tin') && !lower.includes('nổi bật')) ||
+        lower.includes('news') ||
+        lower.includes('thông báo') ||
+        lower.includes('announcement') ||
+        lower.includes('新闻') ||
+        lower.includes('公告')
+      );
+    });
+    displayCategory =
+      newsTerm ||
+      (categoryNames.length > 0 && !categoryNames[0].toLowerCase().includes('nổi bật')
+        ? categoryNames[0]
+        : lang === 'en'
+          ? 'News'
+          : lang === 'zh'
+            ? '新闻'
+            : 'Tin tức');
+  }
 
   return {
     id: post.id,
@@ -996,7 +1114,11 @@ function mapWordPressPostToNewsEvent(
     content: post.content?.rendered ?? '',
     date: (post.date as string) ?? '',
     image,
-    category: rawCategory,
+    category: displayCategory,
+    categories: categoryNames,
+    categorySlugs,
+    isEvent,
+    isFeatured,
     tags,
     eventDate: acf.event_date || undefined,
     eventLocation: acf.event_location || undefined,
@@ -1051,6 +1173,38 @@ export const FALLBACK_NEWS_VI: NewsEvent[] = [
     category: 'Thông báo',
     tags: ['halal', 'chứng nhận', 'xuất khẩu', 'trung đông'],
   },
+  {
+    id: 1004,
+    slug: 'agrihub-trien-lam-thaifex-anuga-asia-2025',
+    lang: 'vi',
+    title: 'Agrihub tham gia Triển lãm Quốc tế THAIFEX - Anuga Asia 2025',
+    excerpt:
+      'Agrihub xúc tiến thương mại nông sản chế biến sâu, kết nối chuỗi cung ứng bột trái cây và trái cây sấy thăng hoa tới các đối tác F&B toàn cầu tại Bangkok.',
+    content:
+      '<p>Agrihub Vietnam vinh dự góp mặt tại <strong>THAIFEX - Anuga Asia 2025</strong>, hội chợ thương mại thực phẩm và đồ uống quy mô hàng đầu châu Á tổ chức tại Bangkok, Thái Lan từ ngày 27 đến 31 tháng 5 năm 2025.</p><h2>Kết nối giao thương quốc tế</h2><p>Tại triển lãm lần này, Agrihub giới thiệu các giải pháp nguyên liệu OEM/ODM chuẩn công nghiệp cho các dòng bột hòa tan, sinh tố trái cây cô đặc và trái cây sấy thăng hoa ăn liền không phụ gia.</p><p>Sự kiện là cầu nối giúp Agrihub mở rộng hợp tác với các tập đoàn F&B đa quốc gia từ Nhật Bản, Hàn Quốc, châu Âu và Bắc Mỹ.</p>',
+    date: '2025-05-10T00:00:00',
+    image: null,
+    category: 'Sự kiện',
+    tags: ['triển lãm', 'thaifex', 'hội chợ quốc tế', 'nổi bật'],
+    eventDate: '27/05/2025 – 31/05/2025',
+    eventLocation: 'IMPACT Muang Thong Thani, Bangkok, Thái Lan',
+  },
+  {
+    id: 1005,
+    slug: 'agrihub-ket-noi-giao-thuong-gulfood-dubai-2026',
+    lang: 'vi',
+    title: 'Agrihub xúc tiến thương mại tại Triển lãm Gulfood Dubai 2026',
+    excerpt:
+      'Giới thiệu các dòng sản phẩm đạt chuẩn quốc tế Halal và ISO 22000, mở rộng hợp tác xuất khẩu nông sản chế biến sang thị trường Trung Đông và Bắc Phi.',
+    content:
+      '<p>Agrihub Vietnam tiếp tục hành trình vươn tầm thế giới tại <strong>Gulfood Dubai 2026</strong> – triển lãm thường niên lớn nhất thế giới về thực phẩm và đồ uống diễn ra tại Dubai World Trade Centre (DWTC).</p><h2>Giải pháp nông sản nhiệt đới đạt chuẩn Halal</h2><p>Với lợi thế vùng nguyên liệu nhiệt đới trù phú cùng công nghệ chế biến sấy phun và cấp đông vô trùng đạt chứng nhận Halal, Agrihub mang đến các giải pháp nguyên liệu cốt lõi đáp ứng các tiêu chuẩn khắt khe nhất của thị trường Trung Đông (GCC).</p><p>Kính mời quý đối tác ghé thăm gian hàng hoặc liên hệ đặt lịch tư vấn trực tiếp.</p>',
+    date: '2026-01-15T00:00:00',
+    image: null,
+    category: 'Sự kiện',
+    tags: ['triển lãm', 'gulfood', 'trung đông', 'halal', 'nổi bật'],
+    eventDate: '17/02/2026 – 21/02/2026',
+    eventLocation: 'Dubai World Trade Centre (DWTC), UAE',
+  },
 ];
 
 export const FALLBACK_NEWS_EN: NewsEvent[] = [
@@ -1099,6 +1253,38 @@ export const FALLBACK_NEWS_EN: NewsEvent[] = [
     category: 'Announcement',
     tags: ['halal', 'certification', 'export', 'middle east'],
   },
+  {
+    id: 1004,
+    slug: 'agrihub-thaifex-anuga-asia-2025',
+    lang: 'en',
+    title: 'Agrihub Vietnam at THAIFEX - Anuga Asia 2025 Trade Fair',
+    excerpt:
+      'Showcasing tropical spray-dried fruit powders, freeze-dried fruits, and aseptic purees to international F&B manufacturers and buyers in Bangkok.',
+    content:
+      '<p>Agrihub Vietnam is proud to exhibit at <strong>THAIFEX - Anuga Asia 2025</strong>, Asia’s premier food and beverage trade exhibition held in Bangkok, Thailand from May 27 to 31, 2025.</p><h2>Global Trade Partnerships</h2><p>Agrihub presents industrial OEM/ODM ingredient solutions for instant fruit powders, concentrated purees, and clean-label freeze-dried fruits without artificial additives.</p><p>We warmly invite international importers and processors to meet our export team at our exhibition stand.</p>',
+    date: '2025-05-10T00:00:00',
+    image: null,
+    category: 'Events',
+    tags: ['trade show', 'thaifex', 'export', 'featured'],
+    eventDate: 'May 27–31, 2025',
+    eventLocation: 'IMPACT Muang Thong Thani, Bangkok, Thailand',
+  },
+  {
+    id: 1005,
+    slug: 'agrihub-gulfood-dubai-2026',
+    lang: 'en',
+    title: 'Agrihub Connects with Global Buyers at Gulfood Dubai 2026',
+    excerpt:
+      'Expanding halal-certified fruit powders and freeze-dried ingredients across Middle Eastern and North African food industry networks.',
+    content:
+      '<p>Agrihub Vietnam joins the world’s leading F&B trade gathering at <strong>Gulfood Dubai 2026</strong> at the Dubai World Trade Centre (DWTC).</p><h2>Halal-Certified Tropical Solutions</h2><p>Featuring certified spray-dried passion fruit, freeze-dried mango, and red dragon fruit powder, Agrihub delivers premium raw materials complying with strict Gulf region import standards.</p>',
+    date: '2026-01-15T00:00:00',
+    image: null,
+    category: 'Events',
+    tags: ['trade show', 'gulfood', 'export', 'halal', 'featured'],
+    eventDate: 'Feb 17–21, 2026',
+    eventLocation: 'Dubai World Trade Centre (DWTC), UAE',
+  },
 ];
 
 export const FALLBACK_NEWS_ZH: NewsEvent[] = [
@@ -1145,6 +1331,38 @@ export const FALLBACK_NEWS_ZH: NewsEvent[] = [
     image: null,
     category: '公告',
     tags: ['清真', '认证', '出口', '中东'],
+  },
+  {
+    id: 1004,
+    slug: 'agrihub-thaifex-anuga-asia-2025',
+    lang: 'zh',
+    title: 'Agrihub参展2025泰国亚洲世界食品博览会（THAIFEX - Anuga Asia）',
+    excerpt:
+      'Agrihub携出口级热带果粉、冻干水果及无菌原浆亮相，拓展全球食品饮料供应链。',
+    content:
+      '<p>Agrihub Vietnam参展亚洲知名食品饮料贸易盛会 <strong>THAIFEX - Anuga Asia 2025</strong>（泰国曼谷）。</p><h2>全球贸易对接</h2><p>Agrihub在展会中提供符合工业标准的定制OEM/ODM原料解决方案，欢迎全球采购商与我们深入洽谈合作。</p>',
+    date: '2025-05-10T00:00:00',
+    image: null,
+    category: '活动',
+    tags: ['展会', 'thaifex', '出口', '精选'],
+    eventDate: '2025年5月27日-31日',
+    eventLocation: '泰国曼谷 IMPACT 展览中心',
+  },
+  {
+    id: 1005,
+    slug: 'agrihub-gulfood-dubai-2026',
+    lang: 'zh',
+    title: 'Agrihub亮相迪拜海湾食品展（Gulfood Dubai 2026）',
+    excerpt:
+      '展示全线符合清真（Halal）标准的深加工果粉与原浆原料，深耕中东及北非高品质市场。',
+    content:
+      '<p>Agrihub Vietnam亮相迪拜世界贸易中心举办的 <strong>Gulfood Dubai 2026</strong> 国际食品展，展示优质热带果粉与原浆。</p>',
+    date: '2026-01-15T00:00:00',
+    image: null,
+    category: '活动',
+    tags: ['展会', 'gulfood', '清真', '出口', '精选'],
+    eventDate: '2026年2月17日-21日',
+    eventLocation: '阿联酋迪拜世界贸易中心（DWTC）',
   },
 ];
 
@@ -1257,8 +1475,99 @@ export async function getAllNewsEventSlugs(): Promise<string[]> {
 }
 
 /**
+ * Lấy danh sách sự kiện nổi bật từ WordPress hoặc dữ liệu chuẩn bị sẵn
+ */
+export async function getFeaturedEvents(
+  lang: string = 'vi',
+  limit: number = 3,
+): Promise<NewsEvent[]> {
+  try {
+    const allNews = await getNewsEvents(lang);
+    const fallbackList = getFallbackNews(lang).filter(
+      (item) =>
+        item.isEvent ||
+        (item.category || '').toLowerCase().includes('kiện') ||
+        (item.category || '').toLowerCase().includes('event') ||
+        (item.category || '').toLowerCase().includes('活动') ||
+        Boolean(item.eventDate),
+    );
+
+    if (!allNews || allNews.length === 0) {
+      return fallbackList.slice(0, limit);
+    }
+
+    // Lọc sự kiện từ danh sách bài viết
+    const events = allNews.filter((item) => {
+      if (item.isEvent) return true;
+      const catLower = (item.category || '').toLowerCase();
+      const slugs = item.categorySlugs || [];
+      const names = item.categories || [];
+      const tags = (item.tags || []).map((t) => t.toLowerCase());
+      return (
+        slugs.some((s) => s.includes('su-kien') || s.includes('event') || s.includes('trien-lam')) ||
+        names.some((n) => n.toLowerCase().includes('sự kiện') || n.toLowerCase().includes('event')) ||
+        catLower.includes('kiện') ||
+        catLower.includes('event') ||
+        catLower.includes('活动') ||
+        catLower.includes('triển lãm') ||
+        Boolean(item.eventDate) ||
+        tags.some(
+          (t) =>
+            t.includes('sự kiện') ||
+            t.includes('event') ||
+            t.includes('triển lãm') ||
+            t.includes('hội chợ') ||
+            t.includes('foodexpo') ||
+            t.includes('thaifex') ||
+            t.includes('gulfood') ||
+            t.includes('展会'),
+        )
+      );
+    });
+
+    if (events.length > 0) {
+      // Ưu tiên bài gắn mác nổi bật nếu có
+      const featured = events.filter((item) => {
+        if (item.isFeatured) return true;
+        const catLower = (item.category || '').toLowerCase();
+        const slugs = item.categorySlugs || [];
+        const names = item.categories || [];
+        const tags = (item.tags || []).map((t) => t.toLowerCase());
+        return (
+          slugs.some((s) => s.includes('noi-bat') || s.includes('featured')) ||
+          names.some((n) => n.toLowerCase().includes('nổi bật') || n.toLowerCase().includes('featured')) ||
+          catLower.includes('nổi bật') ||
+          catLower.includes('featured') ||
+          tags.some((t) => t.includes('nổi bật') || t.includes('featured'))
+        );
+      });
+
+      const chosen = featured.length > 0 ? featured : events;
+      if (chosen.length >= limit) {
+        return chosen.slice(0, limit);
+      }
+      const chosenSlugs = new Set(chosen.map((e) => e.slug));
+      const needed = fallbackList.filter((f) => !chosenSlugs.has(f.slug));
+      return [...chosen, ...needed].slice(0, limit);
+    }
+
+    return fallbackList.slice(0, limit);
+  } catch {
+    const fallbackList = getFallbackNews(lang).filter(
+      (item) =>
+        item.isEvent ||
+        (item.category || '').toLowerCase().includes('kiện') ||
+        (item.category || '').toLowerCase().includes('event') ||
+        (item.category || '').toLowerCase().includes('活动') ||
+        Boolean(item.eventDate),
+    );
+    return fallbackList.slice(0, limit);
+  }
+}
+
+/**
  * Lấy danh sách tin tức nổi bật từ WordPress (category/tag: noi-bat / featured)
- * Fallback an toàn: Tự động lấy các bài viết mới nhất nếu không có category nổi bật hoặc offline
+ * Tách biệt với sự kiện để tránh trùng lặp hiển thị trên trang chủ
  */
 export async function getFeaturedNews(
   lang: string = 'vi',
@@ -1266,39 +1575,68 @@ export async function getFeaturedNews(
 ): Promise<NewsEvent[]> {
   try {
     const allNews = await getNewsEvents(lang);
+    const fallbackNewsOnly = getFallbackNews(lang).filter(
+      (item) =>
+        !item.isEvent &&
+        !(item.category || '').toLowerCase().includes('kiện') &&
+        !(item.category || '').toLowerCase().includes('event') &&
+        !(item.category || '').toLowerCase().includes('活动'),
+    );
+
     if (!allNews || allNews.length === 0) {
-      return getFallbackNews(lang).slice(0, limit);
+      return (fallbackNewsOnly.length > 0 ? fallbackNewsOnly : getFallbackNews(lang)).slice(0, limit);
     }
 
-    // Lọc bài viết có category hoặc tag chứa từ khóa nổi bật / featured
-    const featured = allNews.filter((item) => {
+    // Tách riêng tin tức không phải sự kiện (loại trừ tất cả sự kiện)
+    const newsOnly = allNews.filter((item) => {
+      if (item.isEvent) return false;
+      const slugs = item.categorySlugs || [];
+      const names = item.categories || [];
       const catLower = (item.category || '').toLowerCase();
-      const hasFeaturedCat =
-        catLower.includes('nổi bật') ||
-        catLower.includes('noi-bat') ||
-        catLower.includes('noi bat') ||
-        catLower.includes('featured') ||
-        catLower.includes('精选') ||
-        catLower.includes('推荐');
-      const hasFeaturedTag = (item.tags || []).some((tag) => {
-        const tLower = tag.toLowerCase();
-        return (
-          tLower.includes('nổi bật') ||
-          tLower.includes('noi-bat') ||
-          tLower.includes('featured') ||
-          tLower.includes('精选')
-        );
-      });
-      return hasFeaturedCat || hasFeaturedTag;
+      const isAnEvent =
+        slugs.some((s) => s.includes('su-kien') || s.includes('event') || s.includes('trien-lam')) ||
+        names.some((n) => n.toLowerCase().includes('sự kiện') || n.toLowerCase().includes('event')) ||
+        catLower.includes('kiện') ||
+        catLower.includes('event') ||
+        catLower.includes('活动') ||
+        Boolean(item.eventDate);
+
+      return !isAnEvent;
     });
 
-    if (featured.length > 0) {
-      return featured.slice(0, limit);
-    }
+    const targetPool = newsOnly.length > 0 ? newsOnly : allNews;
 
-    // Nếu chưa có bài gắn category nổi bật, fallback lấy top bài viết mới nhất
-    return allNews.slice(0, limit);
+    // Lọc bài viết có category hoặc tag chứa từ khóa nổi bật / featured
+    const featured = targetPool.filter((item) => {
+      if (item.isFeatured) return true;
+      const catLower = (item.category || '').toLowerCase();
+      const slugs = item.categorySlugs || [];
+      const names = item.categories || [];
+      const tags = (item.tags || []).map((t) => t.toLowerCase());
+      return (
+        slugs.some((s) => s.includes('noi-bat') || s.includes('featured')) ||
+        names.some((n) => n.toLowerCase().includes('nổi bật') || n.toLowerCase().includes('featured')) ||
+        catLower.includes('nổi bật') ||
+        catLower.includes('featured') ||
+        tags.some((t) => t.includes('nổi bật') || t.includes('featured'))
+      );
+    });
+
+    const chosen = featured.length > 0 ? featured : targetPool;
+    if (chosen.length >= limit) {
+      return chosen.slice(0, limit);
+    }
+    const chosenSlugs = new Set(chosen.map((e) => e.slug));
+    const needed = fallbackNewsOnly.filter((f) => !chosenSlugs.has(f.slug));
+    return [...chosen, ...needed].slice(0, limit);
   } catch {
-    return getFallbackNews(lang).slice(0, limit);
+    const fallbackNewsOnly = getFallbackNews(lang).filter(
+      (item) =>
+        !item.isEvent &&
+        !(item.category || '').toLowerCase().includes('kiện') &&
+        !(item.category || '').toLowerCase().includes('event') &&
+        !(item.category || '').toLowerCase().includes('活动'),
+    );
+    return (fallbackNewsOnly.length > 0 ? fallbackNewsOnly : getFallbackNews(lang)).slice(0, limit);
   }
 }

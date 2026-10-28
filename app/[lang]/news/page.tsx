@@ -92,41 +92,79 @@ function matchesFilter(post: NewsEvent, categoryParam?: string): boolean {
   if (!categoryParam) return true;
   const lower = (post.category || '').toLowerCase();
   const tags = (post.tags || []).map((t) => (t || '').toLowerCase());
+  const slugs = (post.categorySlugs || []).map((s) => (s || '').toLowerCase());
+  const names = (post.categories || []).map((n) => (n || '').toLowerCase());
 
   switch (categoryParam.toLowerCase()) {
     case 'featured':
       return (
+        post.isFeatured === true ||
         lower.includes('nổi bật') ||
         lower.includes('noi-bat') ||
         lower.includes('noi bat') ||
         lower.includes('featured') ||
         lower.includes('精选') ||
         lower.includes('推荐') ||
+        slugs.some((s) => s.includes('noi-bat') || s.includes('featured')) ||
+        names.some((n) => n.includes('nổi bật') || n.includes('featured')) ||
         tags.some(
           (t) =>
             t.includes('nổi bật') ||
             t.includes('noi-bat') ||
             t.includes('featured') ||
-            t.includes('精选')
+            t.includes('精选'),
         )
       );
     case 'news':
       return (
-        lower.includes('tin') ||
-        lower.includes('news') ||
-        lower.includes('新闻')
+        !post.isEvent &&
+        (lower.includes('tin') ||
+          lower.includes('news') ||
+          lower.includes('新闻') ||
+          slugs.some((s) => s === 'tin-tuc' || s.includes('tin-tuc') || s.includes('news')) ||
+          names.some((n) => n.includes('tin') || n.includes('news')))
       );
     case 'events':
       return (
+        post.isEvent === true ||
         lower.includes('kiện') ||
         lower.includes('event') ||
-        lower.includes('活动')
+        lower.includes('活动') ||
+        Boolean(post.eventDate) ||
+        slugs.some(
+          (s) =>
+            s === 'su-kien' ||
+            s === 'noi-bat-su-kien' ||
+            s.includes('su-kien') ||
+            s.includes('event') ||
+            s.includes('trien-lam'),
+        ) ||
+        names.some(
+          (n) =>
+            n.includes('sự kiện') ||
+            n.includes('su kien') ||
+            n.includes('event') ||
+            n.includes('triển lãm'),
+        ) ||
+        tags.some(
+          (t) =>
+            t.includes('kiện') ||
+            t.includes('event') ||
+            t.includes('triển lãm') ||
+            t.includes('hội chợ') ||
+            t.includes('foodexpo') ||
+            t.includes('thaifex') ||
+            t.includes('gulfood') ||
+            t.includes('展会'),
+        )
       );
     case 'announcements':
       return (
         lower.includes('báo') ||
         lower.includes('announcement') ||
-        lower.includes('公告')
+        lower.includes('公告') ||
+        slugs.some((s) => s.includes('thong-bao') || s.includes('announcement')) ||
+        names.some((n) => n.includes('thông báo') || n.includes('announcement'))
       );
     default:
       return true;

@@ -529,7 +529,7 @@ export function getFormTranslations(lang: Locale) {
 export function getHomePageUi(lang: Locale) {
   if (lang === 'en') {
     return {
-      heroTagline: 'From Vietnamese Farms To Global Markets',
+      heroTagline: 'From Vietnamese Farms\nTo Global Markets',
       heroTrust: {
         exp: '10+ Years Export Experience',
         certs: 'HACCP • FSSC 22000 • ISO',
@@ -729,7 +729,7 @@ export function getHomePageUi(lang: Locale) {
 
   if (lang === 'zh') {
     return {
-      heroTagline: '源自越南农场，服务全球市场',
+      heroTagline: '源自越南农场\n服务全球市场',
       heroTrust: {
         exp: '10+ 年出海履约经验',
         certs: 'HACCP • FSSC 22000 • ISO',
@@ -920,7 +920,7 @@ export function getHomePageUi(lang: Locale) {
 
   // Default: Vietnamese
   return {
-    heroTagline: 'Từ Nông Trại Việt Nam đến thị trường thế giới',
+    heroTagline: 'TỪ NÔNG TRẠI VIỆT NAM\nĐẾN THỊ TRƯỜNG THẾ GIỚI',
     heroTrust: {
       exp: '10+ năm kinh nghiệm xuất khẩu',
       certs: 'HACCP • FSSC 22000 • ISO',

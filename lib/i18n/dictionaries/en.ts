@@ -69,7 +69,7 @@ export const en: Dictionary = {
       tabPuree: 'Purees & Concentrates',
       tabDried: 'Dried Fruits',
       tabFrozen: 'Frozen Fruits (IQF)',
-      oemBadge: 'Custom Processing',
+      oemBadge: 'Services At Agrihub',
       oemTitle: 'OEM/ODM & Technical R&D to Factory Specs',
       oemSubtitle: 'Co-developing proprietary formulas, customized mesh/brix parameters, and private label packaging.',
       supplyBadge: 'Supply Chain & Plant',

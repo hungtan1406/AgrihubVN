@@ -604,6 +604,23 @@ export function getHomePageUi(lang: Locale) {
         quote: 'Request Quote & Sample Kit',
       },
       oem: {
+        pillars: [
+          {
+            title: 'STANDARD GROWING AREAS',
+            image: '/images/services/vung-trong.png',
+            alt: 'Standard Growing Areas',
+          },
+          {
+            title: 'FACTORY RAW MATERIAL PROCESSING',
+            image: '/images/services/nha-may.png',
+            alt: 'Factory Raw Material Processing',
+          },
+          {
+            title: 'FINISHED PRODUCTS BY AGRIHUB',
+            image: '/images/services/thanh-pham.png',
+            alt: 'Finished Products by Agrihub',
+          },
+        ],
         steps: [
           {
             step: '01',
@@ -635,7 +652,7 @@ export function getHomePageUi(lang: Locale) {
           'Have a proprietary formula or specialized ingredient specifications?',
         ctaDesc:
           'Agrihub supports partners from initial lab validation through multi-container export shipments.',
-        ctaBtn: 'Schedule R&D Session',
+        ctaBtn: 'Request OEM Quote & Consultation',
       },
       supply: {
         stat1: 'Years of Export',
@@ -784,6 +801,23 @@ export function getHomePageUi(lang: Locale) {
         quote: '获取报价与样品',
       },
       oem: {
+        pillars: [
+          {
+            title: '标准化种植基地',
+            image: '/images/services/vung-trong.png',
+            alt: '标准化种植基地',
+          },
+          {
+            title: '工厂原料精细加工',
+            image: '/images/services/nha-may.png',
+            alt: '工厂原料精细加工',
+          },
+          {
+            title: 'AGRIHUB 供应终端成品',
+            image: '/images/services/thanh-pham.png',
+            alt: 'AGRIHUB 供应终端成品',
+          },
+        ],
         steps: [
           {
             step: '01',
@@ -814,7 +848,7 @@ export function getHomePageUi(lang: Locale) {
         ctaTitle: '拥有独家配方或需要定制特殊规格农产原料？',
         ctaDesc:
           'Agrihub 提供从初期实验室小试到整柜大宗出口的全周期技术与产能支持。',
-        ctaBtn: '预约技术研发交流',
+        ctaBtn: '获取 OEM 咨询与报价',
       },
       supply: {
         stat1: '年出口经验',
@@ -959,6 +993,23 @@ export function getHomePageUi(lang: Locale) {
       quote: 'Yêu cầu Báo giá & Mẫu thử',
     },
     oem: {
+      pillars: [
+        {
+          title: 'VÙNG TRỒNG ĐẠT CHUẨN',
+          image: '/images/services/vung-trong.png',
+          alt: 'Vùng trồng đạt chuẩn',
+        },
+        {
+          title: 'GIA CÔNG NGUYÊN LIỆU NHÀ MÁY',
+          image: '/images/services/nha-may.png',
+          alt: 'Gia công nguyên liệu nhà máy',
+        },
+        {
+          title: 'THÀNH PHẨM AGRIHUB CUNG CẤP',
+          image: '/images/services/thanh-pham.png',
+          alt: 'Thành phẩm Agrihub cung cấp',
+        },
+      ],
       steps: [
         {
           step: '01',
@@ -990,7 +1041,7 @@ export function getHomePageUi(lang: Locale) {
         'Bạn có công thức riêng hoặc muốn tùy chỉnh quy cách nguyên liệu?',
       ctaDesc:
         'Agrihub hỗ trợ từ giai đoạn mẫu thử nghiệm nhỏ đến sản xuất quy mô container.',
-      ctaBtn: 'Đặt lịch trao đổi R&D',
+      ctaBtn: 'Yêu cầu tư vấn & Báo giá OEM',
     },
     supply: {
       stat1: 'Năm xuất khẩu',

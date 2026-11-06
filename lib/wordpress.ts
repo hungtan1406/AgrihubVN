@@ -614,7 +614,7 @@ export function mapWordPressPostToProduct(
   post: WordPressPost,
   lang: Locale = 'vi',
 ): Product {
-  const acf = post.acf || {};
+  const acf = (post.acf && typeof post.acf === 'object' && !Array.isArray(post.acf)) ? post.acf : {};
 
   // Lấy ảnh đại diện: ưu tiên trường ACF image/product_image, sau đó đến featured media của WordPress
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
@@ -652,7 +652,7 @@ export function mapWordPressPostToProduct(
     acf.featured === '1' ||
     acf.featured === 1;
 
-  // Lấy danh mục từ taxonomy hoặc trường ACF
+  // Lấy danh mục mặc định ban đầu
   let defaultCategory = 'Nguyên liệu nông sản';
   let defaultSpecs = 'Tiêu chuẩn xuất khẩu B2B';
   let defaultApp = 'Ứng dụng trong sản xuất thực phẩm & đồ uống';
@@ -689,39 +689,51 @@ export function mapWordPressPostToProduct(
   const rawTitle = post.title?.rendered || post.slug;
   let name = cleanHtmlEntities(rawTitle);
 
-  // Auto-translate test post titles when switching language
-  if (lang === 'en') {
-    if (post.slug === 'san-pham' || /thanh long/i.test(name)) {
-      name = 'Freeze-Dried Dragon Fruit (Export Grade)';
-      categoryName = 'Freeze-Dried Fruit';
-      defaultSpecs = 'Moisture ≤ 4% | 5-7mm slices | 100% natural, clean-label';
-      defaultApp = 'Bakery, confectionery, breakfast cereals, healthy snacks';
-    }
-  } else if (lang === 'zh') {
-    if (post.slug === 'san-pham' || /thanh long/i.test(name)) {
-      name = '冻干火龙果脆片 (出口级)';
-      categoryName = '精品冻干果品';
-      defaultSpecs = '水分 ≤ 4% | 5-7mm 原切片 | 100% 纯天然清洁标签';
-      defaultApp = '烘焙西点、糖果巧克力、燕麦代餐、健康果脆';
-    }
-  }
-
-  const rawSpecs = acf.specs || post.excerpt?.rendered || '';
-  const specs = cleanHtmlEntities(rawSpecs);
-
-  const rawApplication = acf.application || acf.applications || '';
-  const application = cleanHtmlEntities(rawApplication);
-
   // Lấy nhóm sản phẩm (Filter Trang chủ): powder | puree | dried | frozen
   let categoryGroup = '';
+  let rawCategoryGroup = '';
   if (typeof acf.category_group === 'string') {
-    categoryGroup = acf.category_group.trim().toLowerCase();
+    rawCategoryGroup = acf.category_group.trim().toLowerCase();
   } else if (
     acf.category_group &&
     typeof acf.category_group === 'object' &&
     'value' in acf.category_group
   ) {
-    categoryGroup = String((acf.category_group as { value: string }).value).trim().toLowerCase();
+    rawCategoryGroup = String((acf.category_group as { value: string }).value).trim().toLowerCase();
+  }
+
+  if (
+    rawCategoryGroup === 'puree' ||
+    rawCategoryGroup.includes('cốt') ||
+    rawCategoryGroup.includes('puree') ||
+    rawCategoryGroup.includes('juice') ||
+    rawCategoryGroup.includes('原浆') ||
+    rawCategoryGroup.includes('原汁')
+  ) {
+    categoryGroup = 'puree';
+  } else if (
+    rawCategoryGroup === 'frozen' ||
+    rawCategoryGroup.includes('đông') ||
+    rawCategoryGroup.includes('cold') ||
+    rawCategoryGroup.includes('iqf') ||
+    rawCategoryGroup.includes('冷冻')
+  ) {
+    categoryGroup = 'frozen';
+  } else if (
+    rawCategoryGroup === 'powder' ||
+    rawCategoryGroup.includes('bột') ||
+    rawCategoryGroup.includes('powder') ||
+    rawCategoryGroup.includes('粉')
+  ) {
+    categoryGroup = 'powder';
+  } else if (
+    rawCategoryGroup === 'dried' ||
+    rawCategoryGroup.includes('sấy') ||
+    rawCategoryGroup.includes('freeze') ||
+    rawCategoryGroup.includes('dried') ||
+    rawCategoryGroup.includes('干')
+  ) {
+    categoryGroup = 'dried';
   }
 
   if (!categoryGroup) {
@@ -757,7 +769,7 @@ export function mapWordPressPostToProduct(
     }
   }
 
-  // Lấy công nghệ chế biến / nhãn hiển thị trên Card (ví dụ: Bột sấy phun, Bột sấy nghiền, Trái cây sấy...)
+  // Lấy công nghệ chế biến / nhãn hiển thị trên Card (ví dụ: Nước cốt, Bột sấy phun, Bột sấy nghiền, Trái cây sấy...)
   let processingMethod = '';
   if (typeof acf.processing_method === 'string') {
     processingMethod = acf.processing_method.trim();
@@ -778,20 +790,111 @@ export function mapWordPressPostToProduct(
   if (!processingMethod) {
     if (categoryName && categoryName !== defaultCategory) {
       processingMethod = categoryName;
+    } else if (categoryGroup === 'puree') {
+      processingMethod = 'Nước cốt';
+    } else if (categoryGroup === 'frozen') {
+      processingMethod = 'Trái cây đông lạnh';
     } else if (categoryGroup === 'powder') {
       const lower = name.toLowerCase();
       processingMethod =
         lower.includes('nghiền') || lower.includes('milled')
           ? 'Bột sấy nghiền'
           : 'Bột sấy phun';
-    } else if (categoryGroup === 'puree') {
-      processingMethod = 'Nước cốt';
-    } else if (categoryGroup === 'frozen') {
-      processingMethod = 'Trái cây đông lạnh';
     } else {
       processingMethod = 'Trái cây sấy';
     }
   }
+
+  // Chuẩn hóa ngôn ngữ cho processingMethod và sản phẩm theo từng Locale
+  if (lang === 'en') {
+    const pmLower = processingMethod.toLowerCase();
+    if (pmLower.includes('cốt') || pmLower.includes('puree')) {
+      processingMethod = 'Puree & Juice';
+      defaultCategory = 'Fruit Puree & Concentrates';
+      defaultSpecs = 'Brix 12-16% | Aseptic Sterile Processing | 100% Pure';
+      defaultApp = 'Beverage manufacturing, drinking yogurt, ice cream, bakery fillings, syrups';
+    } else if (pmLower.includes('phun') || pmLower.includes('spray')) {
+      processingMethod = 'Spray-Dried Powder';
+      defaultCategory = 'Spray-Dried Fruit Powder';
+    } else if (pmLower.includes('nghiền') || pmLower.includes('milled')) {
+      processingMethod = 'Milled Powder';
+      defaultCategory = 'Milled Fruit Powder';
+    } else if (pmLower.includes('thăng hoa') || pmLower.includes('freeze')) {
+      processingMethod = 'Freeze-Dried';
+      defaultCategory = 'Freeze-Dried Fruit';
+    } else if (pmLower.includes('sấy dẻo') || pmLower.includes('soft')) {
+      processingMethod = 'Soft-Dried Fruit';
+      defaultCategory = 'Soft-Dried Fruit';
+    } else if (pmLower.includes('đông lạnh') || pmLower.includes('iqf')) {
+      processingMethod = 'IQF Frozen';
+      defaultCategory = 'IQF Frozen Fruit';
+    } else if (pmLower.includes('sấy') || pmLower.includes('dried')) {
+      processingMethod = 'Dried Fruit';
+      defaultCategory = 'Dried Fruit';
+    }
+
+    if (post.slug === 'san-pham') {
+      name = 'Freeze-Dried Dragon Fruit (Export Grade)';
+      categoryName = 'Freeze-Dried Fruit';
+      defaultSpecs = 'Moisture ≤ 4% | 5-7mm slices | 100% natural, clean-label';
+      defaultApp = 'Bakery, confectionery, breakfast cereals, healthy snacks';
+    } else if (post.slug === 'thanh-long-do') {
+      if (categoryGroup === 'puree') {
+        name = 'Red Dragon Fruit Puree (Concentrate)';
+        categoryName = 'Fruit Puree & Juice';
+      } else {
+        name = 'Freeze-Dried Red Dragon Fruit';
+        categoryName = 'Freeze-Dried Fruit';
+      }
+    }
+  } else if (lang === 'zh') {
+    const pmLower = processingMethod.toLowerCase();
+    if (pmLower.includes('cốt') || pmLower.includes('puree')) {
+      processingMethod = '果浆原汁';
+      defaultCategory = '果浆与浓缩原汁';
+      defaultSpecs = '糖度 12-16 Brix | 无菌冷灌装 | 100% 原果萃取';
+      defaultApp = '果汁茶饮、乳品酸奶、烘焙果馅、商用冰品';
+    } else if (pmLower.includes('phun') || pmLower.includes('spray')) {
+      processingMethod = '喷雾干燥粉';
+      defaultCategory = '喷雾干燥果粉';
+    } else if (pmLower.includes('nghiền') || pmLower.includes('milled')) {
+      processingMethod = '超微研磨粉';
+      defaultCategory = '超微低温研磨粉';
+    } else if (pmLower.includes('thăng hoa') || pmLower.includes('freeze')) {
+      processingMethod = '冻干脆片';
+      defaultCategory = '精品冻干果品';
+    } else if (pmLower.includes('sấy dẻo') || pmLower.includes('soft')) {
+      processingMethod = '低温软烤果干';
+      defaultCategory = '特色果干果脯';
+    } else if (pmLower.includes('đông lạnh') || pmLower.includes('iqf')) {
+      processingMethod = 'IQF 冷冻';
+      defaultCategory = '冷冻果品';
+    } else if (pmLower.includes('sấy') || pmLower.includes('dried')) {
+      processingMethod = '果品干制';
+      defaultCategory = '精品脱水果品';
+    }
+
+    if (post.slug === 'san-pham') {
+      name = '冻干火龙果脆片 (出口级)';
+      categoryName = '精品冻干果品';
+      defaultSpecs = '水分 ≤ 4% | 5-7mm 原切片 | 100% 纯天然清洁标签';
+      defaultApp = '烘焙西点、糖果巧克力、燕麦代餐、健康果脆';
+    } else if (post.slug === 'thanh-long-do') {
+      if (categoryGroup === 'puree') {
+        name = '红心火龙果原浆 (无菌包装)';
+        categoryName = '果浆与浓缩原汁';
+      } else {
+        name = '冻干红心火龙果脆片';
+        categoryName = '精品冻干果品';
+      }
+    }
+  }
+
+  const rawSpecs = acf.specs || post.excerpt?.rendered || '';
+  const specs = cleanHtmlEntities(rawSpecs);
+
+  const rawApplication = acf.application || acf.applications || '';
+  const application = cleanHtmlEntities(rawApplication);
 
   return {
     id: post.id,

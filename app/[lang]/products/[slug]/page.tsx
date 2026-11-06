@@ -87,8 +87,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
           <SectionTitle
             as="h1"
             badge={
-              (matchedIngredient?.categoryName || product?.category)
-                ? `B2B Ingredient • ${matchedIngredient?.categoryName || product?.category}`
+              (product?.processingMethod || matchedIngredient?.categoryName || product?.category)
+                ? `B2B Ingredient • ${product?.processingMethod || matchedIngredient?.categoryName || product?.category}`
                 : 'B2B Technical Data Sheet'
             }
             title={`${t.specDetailTitle} ${productName}`}
@@ -161,7 +161,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
                   <span className="font-semibold text-slate-500 text-xs">{t.colCategory}</span>
                   <span className="font-bold text-primary-950 mt-1">
-                    {matchedIngredient?.categoryName || product?.category || t.defaultCategory}
+                    {product?.processingMethod || matchedIngredient?.categoryName || product?.category || t.defaultCategory}
                   </span>
                 </div>
                 <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">

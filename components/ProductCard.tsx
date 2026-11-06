@@ -1,5 +1,3 @@
-'use client';
-
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -25,7 +23,6 @@ export interface ProductCardItem {
 export interface ProductCardProps {
   product: ProductCardItem;
   currentLang: string;
-  onViewTds?: (id: string) => void;
   tdsHref?: string;
   hideTds?: boolean;
   labels?: {
@@ -43,7 +40,6 @@ export interface ProductCardProps {
 export default function ProductCard({
   product,
   currentLang,
-  onViewTds,
   tdsHref,
   hideTds = false,
   labels = {
@@ -279,52 +275,27 @@ export default function ProductCard({
       <div className={`pt-3 border-t border-cream-200/80 flex items-center ${hideTds ? 'justify-end' : 'justify-between'} gap-2 mt-auto`}>
         {!hideTds ? (
           <>
-            {onViewTds ? (
-              <button
-                type="button"
-                onClick={() => onViewTds(product.id)}
-                className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover transition-colors flex items-center gap-1.5 py-1 px-1.5 -ml-1 rounded-lg hover:bg-primary-50 min-h-[34px]"
+            <Link
+              href={detailLink}
+              className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover transition-colors flex items-center gap-1.5 py-1 px-1.5 -ml-1 rounded-lg hover:bg-primary-50 min-h-[34px]"
+            >
+              <svg
+                className="w-3.5 h-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
               >
-                <svg
-                  className="w-3.5 h-3.5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                  <polyline points="10 9 9 9 8 9" />
-                </svg>
-                <span>{labels.viewTds || 'Xem TDS Spec'}</span>
-              </button>
-            ) : (
-              <Link
-                href={detailLink}
-                className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover transition-colors flex items-center gap-1.5 py-1 px-1.5 -ml-1 rounded-lg hover:bg-primary-50 min-h-[34px]"
-              >
-                <svg
-                  className="w-3.5 h-3.5"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                  <polyline points="14 2 14 8 20 8" />
-                  <line x1="16" y1="13" x2="8" y2="13" />
-                  <line x1="16" y1="17" x2="8" y2="17" />
-                  <polyline points="10 9 9 9 8 9" />
-                </svg>
-                <span>{labels.viewTds || 'Xem TDS Spec'}</span>
-              </Link>
-            )}
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+              <span>{labels.viewTds || 'Xem TDS Spec'}</span>
+            </Link>
 
             <Button
               href={sampleHref}

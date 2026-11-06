@@ -590,9 +590,10 @@ function getApiBaseUrl(): string {
 }
 
 /**
- * Hàm giải mã ký tự HTML entities cơ bản từ tiêu đề WordPress
+ * Hàm giải mã ký tự HTML entities cơ bản từ tiêu đề/nội dung WordPress
  */
-function cleanHtmlEntities(text: string): string {
+export function cleanHtmlEntities(text: string): string {
+  if (!text) return '';
   return text
     .replace(/<[^>]*>/g, '')
     .replace(/&#8211;/g, '–')
@@ -601,9 +602,30 @@ function cleanHtmlEntities(text: string): string {
     .replace(/&#8217;/g, "'")
     .replace(/&#8220;/g, '"')
     .replace(/&#8221;/g, '"')
+    .replace(/&#8230;/g, '…')
+    .replace(/&hellip;/g, '…')
     .replace(/&amp;/g, '&')
     .replace(/&quot;/g, '"')
     .replace(/&#039;/g, "'")
+    .replace(/&apos;/g, "'")
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&#(\d+);/g, (_, dec) => {
+      try {
+        return String.fromCharCode(Number(dec));
+      } catch {
+        return _;
+      }
+    })
+    .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => {
+      try {
+        return String.fromCharCode(parseInt(hex, 16));
+      } catch {
+        return _;
+      }
+    })
+    .replace(/&amp;/g, '&')
     .trim();
 }
 
@@ -939,6 +961,9 @@ function getFetchOptions(): RequestInit {
   };
 }
 
+// In-memory cache for discovered working endpoints (prevents 404 waterfall requests)
+let cachedProductEndpoint: string | null = null;
+
 /**
  * Gọi API WordPress với cơ chế tự động thử nhiều endpoint (products, product, posts)
  */
@@ -951,7 +976,11 @@ async function fetchFromEndpoints(
   }
 
   const baseUrl = getApiBaseUrl();
-  const endpoints = ['products', 'product', 'posts'];
+  const allEndpoints = ['products', 'product', 'posts'];
+  // If we already know which endpoint works, prioritize it first
+  const endpoints = cachedProductEndpoint
+    ? [cachedProductEndpoint, ...allEndpoints.filter((ep) => ep !== cachedProductEndpoint)]
+    : allEndpoints;
 
   for (const ep of endpoints) {
     try {
@@ -959,6 +988,7 @@ async function fetchFromEndpoints(
       const res = await fetch(url, getFetchOptions());
       if (res.ok) {
         isHostOffline = false;
+        cachedProductEndpoint = ep; // Cache the successful endpoint
         return res;
       }
     } catch {
@@ -967,6 +997,7 @@ async function fetchFromEndpoints(
   }
 
   // Đánh dấu host đang tạm thời offline để không làm chậm các tiến trình khác
+  cachedProductEndpoint = null;
   isHostOffline = true;
   lastHostCheckTime = Date.now();
   return null;
@@ -1091,11 +1122,11 @@ function mapWordPressPostToNewsEvent(
   const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null;
 
   const rawTerms = post._embedded?.['wp:term']?.[0] || [];
-  const categoryNames = rawTerms.map((t: { name: string }) => t.name || '');
+  const categoryNames = rawTerms.map((t: { name: string }) => cleanHtmlEntities(t.name || ''));
   const categorySlugs = rawTerms.map((t: { slug: string }) => (t.slug || '').toLowerCase());
 
   const rawTags = post._embedded?.['wp:term']?.[1] || [];
-  const tags = rawTags.map((t: { name: string }) => t.name || '');
+  const tags = rawTags.map((t: { name: string }) => cleanHtmlEntities(t.name || ''));
   const tagSlugs = rawTags.map((t: { slug: string }) => (t.slug || '').toLowerCase());
 
   const titleLower = (post.title?.rendered || '').toLowerCase();
@@ -1212,8 +1243,8 @@ function mapWordPressPostToNewsEvent(
     id: post.id,
     slug: post.slug,
     lang,
-    title: post.title?.rendered ?? '',
-    excerpt: post.excerpt?.rendered?.replace(/<[^>]*>/g, '').trim() ?? '',
+    title: cleanHtmlEntities(post.title?.rendered ?? ''),
+    excerpt: cleanHtmlEntities(post.excerpt?.rendered ?? ''),
     content: post.content?.rendered ?? '',
     date: (post.date as string) ?? '',
     image,
@@ -1478,6 +1509,7 @@ function getFallbackNews(lang: string): NewsEvent[] {
 // Manage news host offline state separately to avoid interfering with products
 let isNewsHostOffline = false;
 let lastNewsHostCheckTime = 0;
+let cachedNewsEndpoint: string | null = null;
 
 async function fetchNewsFromEndpoints(
   pathSuffix: string,
@@ -1491,7 +1523,11 @@ async function fetchNewsFromEndpoints(
   }
 
   const baseUrl = getApiBaseUrl();
-  const endpoints = ['news_events', 'news_event', 'posts'];
+  const allEndpoints = ['news_events', 'news_event', 'posts'];
+  // If we already know which endpoint works, prioritize it first
+  const endpoints = cachedNewsEndpoint
+    ? [cachedNewsEndpoint, ...allEndpoints.filter((ep) => ep !== cachedNewsEndpoint)]
+    : allEndpoints;
 
   for (const ep of endpoints) {
     try {
@@ -1499,6 +1535,7 @@ async function fetchNewsFromEndpoints(
       const res = await fetch(url, getFetchOptions());
       if (res.ok) {
         isNewsHostOffline = false;
+        cachedNewsEndpoint = ep; // Cache the successful endpoint
         return res;
       }
     } catch {
@@ -1506,6 +1543,7 @@ async function fetchNewsFromEndpoints(
     }
   }
 
+  cachedNewsEndpoint = null;
   isNewsHostOffline = true;
   lastNewsHostCheckTime = Date.now();
   return null;

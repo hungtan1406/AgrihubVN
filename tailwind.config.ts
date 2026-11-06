@@ -7,6 +7,19 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    'aligncenter',
+    'alignleft',
+    'alignright',
+    'alignnone',
+    'wp-block-image',
+    'wp-caption',
+    'wp-caption-text',
+    'wp-element-caption',
+    'has-text-align-center',
+    'has-text-align-right',
+    'has-text-align-left',
+  ],
   theme: {
     extend: {
       colors: {
@@ -77,7 +90,9 @@ const config: Config = {
       },
     },
   },
-  plugins: [],
+  plugins: [
+    require("@tailwindcss/typography"),
+  ],
 };
 
 export default config;

@@ -67,3 +67,189 @@
     animation-play-state: paused;
   }
 }
+
+/* ── WordPress Classic Editor & Gutenberg Content Styles ────────────────────── */
+/* (Placed outside @layer to prevent Tailwind from purging dynamic CMS classes) */
+
+/* Block & Figure image containers */
+.article-content figure.wp-block-image,
+.prose figure.wp-block-image,
+figure.wp-block-image {
+  margin-top: 1.5rem !important;
+  margin-bottom: 1.5rem !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  text-align: center !important;
+  max-width: 100% !important;
+}
+
+.article-content figure.wp-block-image img,
+.prose figure.wp-block-image img,
+figure.wp-block-image img {
+  display: inline-block !important;
+  vertical-align: middle !important;
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 0.75rem !important;
+}
+
+/* Image alignment: Center */
+.article-content .aligncenter,
+.article-content img.aligncenter,
+.article-content figure.aligncenter,
+.article-content div.aligncenter,
+.prose .aligncenter,
+.prose img.aligncenter,
+.prose figure.aligncenter,
+.prose div.aligncenter,
+.wp-block-image.aligncenter,
+.wp-block-image.aligncenter img,
+.wp-block-image .aligncenter,
+.aligncenter,
+img.aligncenter,
+figure.aligncenter,
+div.aligncenter {
+  display: block !important;
+  float: none !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  clear: both !important;
+  text-align: center !important;
+}
+
+/* If figure contains an aligncenter image */
+figure:has(img.aligncenter),
+.wp-block-image:has(img.aligncenter) {
+  text-align: center !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+figure:has(img.aligncenter) img,
+.wp-block-image:has(img.aligncenter) img {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
+
+/* Image alignment: Left */
+.article-content .alignleft,
+.article-content img.alignleft,
+.article-content figure.alignleft,
+.article-content div.alignleft,
+.prose .alignleft,
+.prose img.alignleft,
+.prose figure.alignleft,
+.prose div.alignleft,
+.wp-block-image.alignleft,
+.alignleft,
+img.alignleft,
+figure.alignleft,
+div.alignleft {
+  float: left !important;
+  margin: 0.5rem 1.5rem 1rem 0 !important;
+  max-width: 50% !important;
+}
+
+/* Image alignment: Right */
+.article-content .alignright,
+.article-content img.alignright,
+.article-content figure.alignright,
+.article-content div.alignright,
+.prose .alignright,
+.prose img.alignright,
+.prose figure.alignright,
+.prose div.alignright,
+.wp-block-image.alignright,
+.alignright,
+img.alignright,
+figure.alignright,
+div.alignright {
+  float: right !important;
+  margin: 0.5rem 0 1rem 1.5rem !important;
+  max-width: 50% !important;
+}
+
+/* Image alignment: None */
+.alignnone,
+img.alignnone,
+figure.alignnone,
+div.alignnone {
+  display: block !important;
+  margin: 1rem 0 !important;
+}
+
+/* Responsive floats on mobile */
+@media (max-width: 640px) {
+  .alignleft,
+  .alignright,
+  .article-content .alignleft,
+  .article-content .alignright,
+  .prose .alignleft,
+  .prose .alignright {
+    float: none !important;
+    margin-left: auto !important;
+    margin-right: auto !important;
+    display: block !important;
+    max-width: 100% !important;
+  }
+}
+
+/* Captions */
+.wp-caption,
+figure.wp-block-image {
+  max-width: 100% !important;
+  margin-bottom: 1.25rem;
+}
+
+.wp-caption img {
+  display: block !important;
+  max-width: 100% !important;
+  height: auto !important;
+  margin: 0 auto !important;
+  border-radius: 0.75rem !important;
+}
+
+.wp-caption-text,
+figcaption,
+.wp-element-caption {
+  font-size: 0.875rem !important;
+  line-height: 1.5 !important;
+  color: #6b7280 !important;
+  text-align: center !important;
+  margin-top: 0.5rem !important;
+  font-style: italic !important;
+}
+
+/* Text alignment */
+.has-text-align-center,
+[style*="text-align: center"],
+[style*="text-align:center"] {
+  text-align: center !important;
+}
+
+.has-text-align-right,
+[style*="text-align: right"],
+[style*="text-align:right"] {
+  text-align: right !important;
+}
+
+.has-text-align-left,
+[style*="text-align: left"],
+[style*="text-align:left"] {
+  text-align: left !important;
+}
+
+.has-text-align-justify,
+[style*="text-align: justify"],
+[style*="text-align:justify"] {
+  text-align: justify !important;
+}
+
+/* Clearfix */
+.article-content::after,
+.prose::after {
+  content: "";
+  display: table;
+  clear: both;
+}

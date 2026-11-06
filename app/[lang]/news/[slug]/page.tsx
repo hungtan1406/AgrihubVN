@@ -108,8 +108,8 @@ export default async function NewsDetailPage({ params }: PageProps) {
 
   return (
     <div className="pt-0 pb-8 sm:pb-12">
-      {/* Hero Image or Gradient Banner */}
-      {post.image ? (
+      {/* Hero Image */}
+      {post.image && (
         <div className="relative w-full max-h-96 aspect-video overflow-hidden">
           <Image
             src={post.image}
@@ -120,14 +120,6 @@ export default async function NewsDetailPage({ params }: PageProps) {
             priority
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
-        </div>
-      ) : (
-        <div className="w-full bg-gradient-to-br from-primary-800 to-primary-600 py-20 px-4 flex items-end">
-          <Container>
-            <h1 className="text-2xl md:text-3xl font-bold text-white max-w-3xl leading-snug">
-              {post.title}
-            </h1>
-          </Container>
         </div>
       )}
 
@@ -155,12 +147,10 @@ export default async function NewsDetailPage({ params }: PageProps) {
             <span className="text-xs text-gray-400">{formattedDate}</span>
           </div>
 
-          {/* Title (only if image is shown — gradient banner already renders it) */}
-          {post.image && (
-            <h1 className="text-2xl md:text-3xl font-bold text-gray-900 leading-snug mb-4">
-              {post.title}
-            </h1>
-          )}
+          {/* Title */}
+          <h1 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-snug mb-4">
+            {post.title}
+          </h1>
 
           {/* Event info bar */}
           {post.eventDate && (
@@ -184,16 +174,30 @@ export default async function NewsDetailPage({ params }: PageProps) {
         {/* Article Body */}
         <div
           className="
-            bg-white rounded-2xl border border-cream-200 shadow-soft p-6 sm:p-8 mb-8
-            [&_h2]:text-xl [&_h2]:font-bold [&_h2]:text-gray-900 [&_h2]:mt-6 [&_h2]:mb-3
-            [&_h3]:text-lg [&_h3]:font-semibold [&_h3]:text-gray-800 [&_h3]:mt-4 [&_h3]:mb-2
-            [&_p]:mb-4 [&_p]:text-gray-700 [&_p]:leading-relaxed
-            [&_ul]:list-disc [&_ul]:pl-6 [&_ul]:mb-4 [&_ul]:text-gray-700
-            [&_ol]:list-decimal [&_ol]:pl-6 [&_ol]:mb-4 [&_ol]:text-gray-700
-            [&_li]:mb-1
-            [&_a]:text-primary-600 [&_a]:underline [&_a]:hover:text-primary-700
-            [&_strong]:font-semibold [&_strong]:text-gray-900
-            [&_blockquote]:border-l-4 [&_blockquote]:border-primary-300 [&_blockquote]:pl-4 [&_blockquote]:italic [&_blockquote]:text-gray-600 [&_blockquote]:my-4
+            article-content bg-white rounded-2xl border border-cream-200 shadow-soft p-6 sm:p-10 mb-8
+            prose prose-lg max-w-none
+            [&_figure.wp-block-image]:my-6 [&_figure.wp-block-image]:text-center
+            [&_figure.wp-block-image_img]:mx-auto [&_figure.wp-block-image_img]:inline-block
+            [&_.aligncenter]:mx-auto [&_.aligncenter]:block [&_.aligncenter]:text-center
+            [&_img.aligncenter]:mx-auto [&_img.aligncenter]:block
+            [&_.alignleft]:float-left [&_.alignleft]:mr-6 [&_.alignleft]:mb-4
+            [&_.alignright]:float-right [&_.alignright]:ml-6 [&_.alignright]:mb-4
+            prose-headings:text-gray-900 prose-headings:font-bold
+            prose-h2:text-xl md:prose-h2:text-2xl prose-h2:mt-8 prose-h2:mb-4
+            prose-h3:text-lg md:prose-h3:text-xl prose-h3:mt-6 prose-h3:mb-3
+            prose-h4:text-base md:prose-h4:text-lg prose-h4:mt-4 prose-h4:mb-2
+            prose-p:text-gray-700 prose-p:leading-relaxed prose-p:mb-4
+            prose-ul:list-disc prose-ul:pl-6 prose-ul:mb-4 prose-ul:text-gray-700
+            prose-ol:list-decimal prose-ol:pl-6 prose-ol:mb-4 prose-ol:text-gray-700
+            prose-li:mb-1.5
+            prose-a:text-primary-600 prose-a:underline hover:prose-a:text-primary-700
+            prose-strong:font-bold prose-strong:text-gray-900
+            prose-blockquote:border-l-4 prose-blockquote:border-primary-400 prose-blockquote:pl-4 prose-blockquote:italic prose-blockquote:text-gray-600 prose-blockquote:my-4
+            prose-img:rounded-xl prose-img:shadow-sm
+            prose-table:border-collapse prose-table:w-full prose-table:my-6
+            prose-th:bg-gray-50 prose-th:p-3 prose-th:border prose-th:border-gray-200 prose-th:font-semibold prose-th:text-gray-900
+            prose-td:p-3 prose-td:border prose-td:border-gray-200 prose-td:text-gray-700
+            prose-hr:border-cream-300 prose-hr:my-8
           "
           dangerouslySetInnerHTML={{ __html: post.content }}
         />

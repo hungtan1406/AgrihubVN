@@ -1,15 +1,12 @@
-'use client';
-
-import React, { useState } from 'react';
+import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { motion, AnimatePresence } from 'framer-motion';
+import HomeProductShowcase from '@/components/HomeProductShowcase';
 import { Locale, Dictionary, getIngredients, getHomePageUi } from '@/lib/i18n';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import SectionTitle from '@/components/SectionTitle';
 import ContactForm from '@/components/ContactForm';
-import ProductCard from '@/components/ProductCard';
 import FadeIn from '@/components/animations/FadeIn';
 import StaggerContainer, {
   StaggerItem,
@@ -78,12 +75,7 @@ export default function HomePageContent({
   featuredProducts = [],
   totalProducts = 0,
 }: HomePageContentProps) {
-  // Client-side category tab filter
-  const [activeCategory, setActiveCategory] = useState<
-    'all' | 'powder' | 'puree' | 'dried' | 'frozen'
-  >('all');
-  // Selected product for technical TDS drawer/modal
-  const [selectedTds, setSelectedTds] = useState<string | null>(null);
+
 
   // Localized datasets
   const ingredients = getIngredients(currentLang);
@@ -201,14 +193,7 @@ export default function HomePageContent({
         })
       : ingredients;
 
-  const filteredIngredients =
-    activeCategory === 'all'
-      ? displayItems
-      : displayItems.filter((item) => item.category === activeCategory);
 
-  const selectedProductData = displayItems.find(
-    (item) => item.id === selectedTds,
-  );
 
   // Fallback sự kiện đa ngôn ngữ
   const fallbackEvents: NewsEvent[] = [
@@ -456,10 +441,7 @@ export default function HomePageContent({
         <Container className="relative z-10 w-full">
           <div className="max-w-3xl space-y-5 sm:space-y-6">
             {/* Pill Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: -12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, ease: 'easeOut' }}
+            <div
               className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cream-100 text-xs font-semibold shadow-2xs"
             >
               <span
@@ -467,17 +449,10 @@ export default function HomePageContent({
                 aria-hidden="true"
               />
               <span>{dict.common.tagline}</span>
-            </motion.div>
+            </div>
 
             {/* Headline - fluid responsive sizing to prevent overflow on laptops with 125%-150% scaling */}
-            <motion.h1
-              initial={{ opacity: 0, y: 18 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.6,
-                delay: 0.1,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+            <h1
               className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-[0.035em] sm:tracking-[0.045em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
             >
               <span className="flex flex-col gap-2.5 sm:gap-4 lg:gap-5 leading-[1.25]">
@@ -499,27 +474,17 @@ export default function HomePageContent({
                   </span>
                 ))}
               </span>
-            </motion.h1>
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 14 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{
-                duration: 0.55,
-                delay: 0.2,
-                ease: [0.22, 1, 0.36, 1],
-              }}
+            <p
               className="text-sm sm:text-base md:text-lg text-cream-100/95 leading-relaxed max-w-2xl font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
             >
               {dict.pages.home.heroSubtitle}
-            </motion.p>
+            </p>
 
             {/* CTA Buttons - Full-width on mobile, auto on sm+ */}
-            <motion.div
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+            <div
               className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2"
             >
               {/* CTA bên trái: Đăng ký mẫu thử */}
@@ -541,11 +506,11 @@ export default function HomePageContent({
               >
                 <span>{dict.pages.home.heroCtaQuote}</span>
               </Button>
-            </motion.div>
+            </div>
 
             {/* Quick Trust Highlights (3 trụ cột uy tín B2B) */}
             {/* {ui.heroTrust && (
-              <motion.div
+              <div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ duration: 0.6, delay: 0.4 }}
@@ -563,7 +528,7 @@ export default function HomePageContent({
                   <span className="w-1.5 h-1.5 rounded-full bg-accent-gold shrink-0" />
                   <span>{ui.heroTrust.markets}</span>
                 </div>
-              </motion.div>
+              </div>
             )} */}
           </div>
         </Container>
@@ -577,13 +542,7 @@ export default function HomePageContent({
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
                 {/* Left Column: Visual representation */}
                 <div className="lg:col-span-5 flex flex-col items-center justify-center">
-                  <motion.div
-                    animate={{ y: [0, -8, 0] }}
-                    transition={{
-                      repeat: Infinity,
-                      duration: 4.5,
-                      ease: 'easeInOut',
-                    }}
+                  <div
                     className="relative w-full max-w-[440px] aspect-[2000/1315] rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-primary-leaf/25 bg-white shadow-soft overflow-hidden flex items-center justify-center"
                   >
                     <Image
@@ -594,7 +553,7 @@ export default function HomePageContent({
                       className="object-contain hover:scale-105 transition-transform duration-500"
                       priority
                     />
-                  </motion.div>
+                  </div>
                 </div>
 
                 {/* Right Column: Content matching Image 2 with Checklist */}
@@ -639,283 +598,15 @@ export default function HomePageContent({
                 subtitle={dict.pages.home.ingredientsSubtitle}
                 className="mb-5 sm:mb-6"
               />
-
-              {/* Category Filter Tabs centered with full breathing room */}
-              <div className="w-full overflow-x-auto no-scrollbar py-1.5 px-1">
-                <div className="flex sm:justify-center min-w-max mx-auto">
-                  <div className="inline-flex items-center bg-cream-300/80 p-1 sm:p-1.5 rounded-full border border-cream-400/40 text-xs font-bold shadow-2xs gap-0.5 sm:gap-1 whitespace-nowrap shrink-0">
-                    {[
-                      {
-                        id: 'all',
-                        label: dict.pages.home.tabAll,
-                      },
-                      {
-                        id: 'powder',
-                        label: dict.pages.home.tabPowder,
-                      },
-                      {
-                        id: 'puree',
-                        label: dict.pages.home.tabPuree,
-                      },
-                      {
-                        id: 'dried',
-                        label: dict.pages.home.tabDried,
-                      },
-                      {
-                        id: 'frozen',
-                        label:
-                          dict.pages.home.tabFrozen || 'Trái cây đông lạnh',
-                      },
-                    ].map((tab) => {
-                      const isActive = activeCategory === tab.id;
-                      return (
-                        <button
-                          key={tab.id}
-                          type="button"
-                          onClick={() =>
-                            setActiveCategory(tab.id as typeof activeCategory)
-                          }
-                          className={`relative px-3 sm:px-3.5 py-1.5 sm:py-2 rounded-full transition-colors text-xs font-bold whitespace-nowrap shrink-0 ${
-                            isActive
-                              ? 'text-white'
-                              : 'text-primary-850 hover:text-primary-leaf'
-                          }`}
-                        >
-                          {isActive && (
-                            <motion.div
-                              layoutId="activeCategoryPill"
-                              className="absolute inset-0 bg-primary-leaf rounded-full shadow-xs"
-                              transition={{
-                                type: 'spring',
-                                stiffness: 400,
-                                damping: 30,
-                              }}
-                            />
-                          )}
-                          <span className="relative z-10">{tab.label}</span>
-                        </button>
-                      );
-                    })}
-                  </div>
-                </div>
-              </div>
             </div>
           </FadeIn>
 
-          {/* Ingredients Grid with layout animation */}
-          <motion.div
-            layout
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"
-          >
-            {filteredIngredients.map((item) => (
-              <motion.div
-                layout
-                key={item.id}
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.96 }}
-                transition={{ duration: 0.25 }}
-              >
-                <ProductCard
-                  product={item}
-                  currentLang={currentLang}
-                  hideTds={true}
-                  labels={{
-                    viewTds: ui.tds.viewBtn,
-                    sampleBtn: ui.tds.sampleBtn,
-                    moisture: ui.tds.moisture?.replace(':', ''),
-                    mesh: ui.tds.mesh?.replace(':', ''),
-                    shelfLife: ui.tds.shelfLife?.replace(':', ''),
-                    applications: ui.tds.applications?.replace(':', ''),
-                  }}
-                  sampleHref="#bao-gia"
-                />
-              </motion.div>
-            ))}
-          </motion.div>
-
-          {/* Nút điều hướng sang toàn bộ danh mục sản phẩm */}
-          <div className="mt-10 sm:mt-12 text-center">
-            <Button
-              href={`/${currentLang}/products`}
-              variant="secondary"
-              size="lg"
-              className="shadow-sm hover:shadow-md transition-all group"
-            >
-              <span>
-                {currentLang === 'en'
-                  ? 'View All Products & Catalogue'
-                  : currentLang === 'zh'
-                    ? '查看全部产品目录'
-                    : 'Xem toàn bộ danh mục sản phẩm'}
-              </span>
-            </Button>
-          </div>
-
-          {/* Quick TDS Viewer Modal/Drawer with AnimatePresence */}
-          <AnimatePresence>
-            {selectedProductData && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-                transition={{ duration: 0.2 }}
-                onClick={() => setSelectedTds(null)}
-                className="fixed inset-0 z-50 bg-black/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4"
-              >
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95, y: 15 }}
-                  animate={{ opacity: 1, scale: 1, y: 0 }}
-                  exit={{ opacity: 0, scale: 0.95, y: 15 }}
-                  transition={{ type: 'spring', stiffness: 350, damping: 28 }}
-                  onClick={(e) => e.stopPropagation()}
-                  className="bg-white rounded-3xl max-w-2xl w-full max-h-[90vh] flex flex-col shadow-2xl border border-cream-200 overflow-hidden"
-                >
-                  {/* Technical Header */}
-                  <div className="bg-primary-900 text-white px-5 sm:px-7 py-4 sm:py-5 flex items-center justify-between shrink-0 border-b border-primary-800">
-                    <div>
-                      <div className="flex items-center gap-2">
-                        <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" />
-                        <span className="text-[11px] text-accent-gold font-semibold uppercase tracking-wider">
-                          {ui.tds.modalTitle}
-                        </span>
-                      </div>
-                      <h3 className="text-base sm:text-lg font-bold mt-1 text-white">
-                        {selectedProductData.name}
-                      </h3>
-                      <p className="text-[11px] text-cream-200/70 font-mono mt-0.5">
-                        SPEC-AGRI-{selectedProductData.id.toUpperCase()} • ISO
-                        22000 | HACCP | FDA COMPLIANT
-                      </p>
-                    </div>
-                    <button
-                      type="button"
-                      onClick={() => setSelectedTds(null)}
-                      className="text-slate-300 hover:text-white p-2 text-2xl font-bold min-h-[44px] min-w-[44px] flex items-center justify-center rounded-xl hover:bg-white/10 transition-colors"
-                      aria-label="Close TDS Modal"
-                    >
-                      &times;
-                    </button>
-                  </div>
-
-                  <div className="flex-1 overflow-y-auto no-scrollbar p-5 sm:p-7 space-y-5 text-xs sm:text-sm text-slate-700">
-                    {/* Section 1: Physical & Chemical Parameters */}
-                    <div>
-                      <h4 className="text-xs font-bold text-primary-850 uppercase tracking-wider mb-2.5 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-xs bg-primary-leaf" />
-                        <span>Chỉ tiêu Kỹ thuật & Cảm quan</span>
-                      </h4>
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                        <div className="p-3 bg-cream-50 rounded-xl border border-cream-200/70">
-                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
-                            {ui.tds.moisture}
-                          </span>
-                          <span className="text-xs sm:text-sm font-bold text-primary-900">
-                            {selectedProductData.moisture}
-                          </span>
-                        </div>
-                        <div className="p-3 bg-cream-50 rounded-xl border border-cream-200/70">
-                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
-                            {ui.tds.mesh}
-                          </span>
-                          <span className="text-xs sm:text-sm font-bold text-primary-900">
-                            {selectedProductData.mesh}
-                          </span>
-                        </div>
-                        <div className="p-3 bg-cream-50 rounded-xl border border-cream-200/70">
-                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
-                            {ui.tds.brix}
-                          </span>
-                          <span className="text-xs sm:text-sm font-bold text-primary-900">
-                            {selectedProductData.brix}
-                          </span>
-                        </div>
-                        <div className="p-3 bg-cream-50 rounded-xl border border-cream-200/70">
-                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
-                            {ui.tds.shelfLife}
-                          </span>
-                          <span className="text-xs sm:text-sm font-bold text-primary-900">
-                            {selectedProductData.shelfLife}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Section 2: Industrial Handling & Applications */}
-                    <div>
-                      <h4 className="text-xs font-bold text-primary-850 uppercase tracking-wider mb-2.5 flex items-center gap-2">
-                        <span className="w-2 h-2 rounded-xs bg-accent-gold" />
-                        <span>Đóng gói, Bảo quản & Ứng dụng F&B</span>
-                      </h4>
-                      <div className="space-y-2">
-                        <div className="p-3 bg-white rounded-xl border border-cream-200 shadow-2xs">
-                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
-                            {ui.tds.packaging}
-                          </span>
-                          <span className="text-xs sm:text-sm text-slate-800 font-medium">
-                            {selectedProductData.packaging}
-                          </span>
-                        </div>
-                        {selectedProductData.storage && (
-                          <div className="p-3 bg-white rounded-xl border border-cream-200 shadow-2xs">
-                            <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
-                              {ui.tds.storageLabel || 'Bảo quản / Nhiệt độ:'}
-                            </span>
-                            <span className="text-xs sm:text-sm text-slate-800 font-medium">
-                              {selectedProductData.storage}
-                            </span>
-                          </div>
-                        )}
-                        <div className="p-3 bg-white rounded-xl border border-cream-200 shadow-2xs">
-                          <span className="text-[11px] font-semibold text-slate-400 block mb-0.5">
-                            {ui.tds.applications}
-                          </span>
-                          <span className="text-xs sm:text-sm text-slate-800 font-medium">
-                            {selectedProductData.applications}
-                          </span>
-                        </div>
-                      </div>
-                    </div>
-
-                    {/* Notice Callout */}
-                    <div className="text-xs text-slate-600 bg-primary-50/60 p-3.5 rounded-xl border border-primary-100 flex items-start gap-2.5">
-                      <span className="text-primary-leaf text-base shrink-0 leading-none mt-0.5">
-                        ℹ
-                      </span>
-                      <p className="leading-relaxed">{ui.tds.notice}</p>
-                    </div>
-                  </div>
-
-                  {/* Pinned Bottom Action Bar */}
-                  <div className="bg-cream-50/90 backdrop-blur-xs px-5 sm:px-7 py-3.5 sm:py-4 border-t border-cream-200/90 flex flex-col-reverse sm:flex-row justify-between items-center gap-3 shrink-0">
-                    <Link
-                      href={`/${currentLang}/products/${selectedProductData.id}`}
-                      className="text-xs font-bold text-primary-leaf hover:text-primary-leafHover underline"
-                    >
-                      {dict.common.viewDetails}
-                    </Link>
-                    <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
-                      <Button
-                        onClick={() => setSelectedTds(null)}
-                        variant="ghost"
-                        size="sm"
-                      >
-                        {ui.tds.close}
-                      </Button>
-                      <Button
-                        href="#bao-gia"
-                        variant="primary"
-                        size="sm"
-                        onClick={() => setSelectedTds(null)}
-                      >
-                        <span>{ui.tds.quote}</span>
-                      </Button>
-                    </div>
-                  </div>
-                </motion.div>
-              </motion.div>
-            )}
-          </AnimatePresence>
+          <HomeProductShowcase
+            items={displayItems}
+            currentLang={currentLang}
+            dict={dict}
+            ui={ui}
+          />
         </Container>
       </section>
 
@@ -1129,9 +820,7 @@ export default function HomePageContent({
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-2">
             {ui.quality.cards.map((c) => (
               <StaggerItem key={c.code} className="h-full">
-                <motion.div
-                  whileHover={{ y: -5, transition: { duration: 0.2 } }}
-                  className="h-full bg-cream-50/70 hover:bg-white p-6 sm:p-7 rounded-2xl border border-cream-200 shadow-2xs hover:border-primary-leaf hover:shadow-soft transition-all flex flex-col justify-between group"
+                <div className="h-full bg-cream-50/70 hover:bg-white p-6 sm:p-7 rounded-2xl border border-cream-200 shadow-2xs hover:border-primary-leaf hover:shadow-soft transition-all flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-200"
                 >
                   <div className="flex flex-col items-center text-center">
                     {/* Header badge & standard code */}
@@ -1165,7 +854,7 @@ export default function HomePageContent({
                       {c.desc}
                     </p>
                   </div>
-                </motion.div>
+                </div>
               </StaggerItem>
             ))}
           </StaggerContainer>

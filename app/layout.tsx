@@ -6,7 +6,7 @@ import JsonLdOrganization from '@/components/JsonLdOrganization';
 import ScrollProgress from '@/components/animations/ScrollProgress';
 
 const beVietnamPro = Be_Vietnam_Pro({
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  weight: ['400', '500', '600', '700'],
   subsets: ['latin', 'vietnamese'],
   display: 'swap',
   variable: '--font-be-vietnam-pro',

@@ -75,8 +75,6 @@ export default function HomePageContent({
   featuredProducts = [],
   totalProducts = 0,
 }: HomePageContentProps) {
-
-
   // Localized datasets
   const ingredients = getIngredients(currentLang);
   const ui = getHomePageUi(currentLang);
@@ -192,8 +190,6 @@ export default function HomePageContent({
           };
         })
       : ingredients;
-
-
 
   // Fallback sự kiện đa ngôn ngữ
   const fallbackEvents: NewsEvent[] = [
@@ -370,7 +366,11 @@ export default function HomePageContent({
       date: '2025-10-15T00:00:00',
       image: null,
       category:
-        currentLang === 'en' ? 'News' : currentLang === 'zh' ? '新闻' : 'Tin tức',
+        currentLang === 'en'
+          ? 'News'
+          : currentLang === 'zh'
+            ? '新闻'
+            : 'Tin tức',
       tags: ['xuất khẩu', 'trung đông', 'halal'],
     },
     {
@@ -426,7 +426,7 @@ export default function HomePageContent({
         {/* Full-width Background Image & Gradient Overlays for WCAG AA Contrast */}
         <div className="absolute inset-0 z-0 pointer-events-none">
           <Image
-            src="/images/banners/Banner.png"
+            src="/images/banners/Banner.jpg"
             alt="Agrihub Vietnam - Nông sản xuất khẩu"
             fill
             priority
@@ -441,9 +441,7 @@ export default function HomePageContent({
         <Container className="relative z-10 w-full">
           <div className="max-w-3xl space-y-5 sm:space-y-6">
             {/* Pill Badge */}
-            <div
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cream-100 text-xs font-semibold shadow-2xs"
-            >
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cream-100 text-xs font-semibold shadow-2xs">
               <span
                 className="w-1.5 h-1.5 rounded-full bg-accent-gold"
                 aria-hidden="true"
@@ -452,9 +450,7 @@ export default function HomePageContent({
             </div>
 
             {/* Headline - fluid responsive sizing to prevent overflow on laptops with 125%-150% scaling */}
-            <h1
-              className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-[0.035em] sm:tracking-[0.045em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
-            >
+            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-[0.035em] sm:tracking-[0.045em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
               <span className="flex flex-col gap-2.5 sm:gap-4 lg:gap-5 leading-[1.25]">
                 {(ui.heroTagline.includes('\n')
                   ? ui.heroTagline.split('\n')
@@ -477,16 +473,12 @@ export default function HomePageContent({
             </h1>
 
             {/* Subtitle */}
-            <p
-              className="text-sm sm:text-base md:text-lg text-cream-100/95 leading-relaxed max-w-2xl font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]"
-            >
+            <p className="text-sm sm:text-base md:text-lg text-cream-100/95 leading-relaxed max-w-2xl font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
               {dict.pages.home.heroSubtitle}
             </p>
 
             {/* CTA Buttons - Full-width on mobile, auto on sm+ */}
-            <div
-              className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2"
-            >
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 sm:gap-4 pt-2">
               {/* CTA bên trái: Đăng ký mẫu thử */}
               <Button
                 href="#bao-gia"
@@ -542,15 +534,13 @@ export default function HomePageContent({
               <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 sm:gap-10 items-center">
                 {/* Left Column: Visual representation */}
                 <div className="lg:col-span-5 flex flex-col items-center justify-center">
-                  <div
-                    className="relative w-full max-w-[440px] aspect-[2000/1315] rounded-2xl sm:rounded-3xl border-2 sm:border-4 border-primary-leaf/25 bg-white shadow-soft overflow-hidden flex items-center justify-center"
-                  >
+                  <div className="relative w-full max-w-lg mx-auto lg:max-w-none aspect-[1376/768] rounded-2xl sm:rounded-3xl shadow-soft overflow-hidden bg-white">
                     <Image
-                      src="/images/Image1.png"
+                      src="/images/Image1.jpg"
                       alt="Agrihub Vietnam"
                       fill
-                      sizes="(max-width: 640px) 320px, (max-width: 1024px) 360px, 420px"
-                      className="object-contain hover:scale-105 transition-transform duration-500"
+                      sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px"
+                      className="object-cover hover:scale-105 transition-transform duration-500"
                       priority
                     />
                   </div>
@@ -691,7 +681,9 @@ export default function HomePageContent({
         <Container>
           <FadeIn direction="up">
             <SectionTitle
-              badge={dict.pages.home.featuredEventsBadge ?? 'Sự Kiện & Triển Lãm'}
+              badge={
+                dict.pages.home.featuredEventsBadge ?? 'Sự Kiện & Triển Lãm'
+              }
               title={dict.pages.home.featuredEventsTitle ?? 'Sự Kiện Nổi Bật'}
               subtitle={
                 dict.pages.home.featuredEventsSubtitle ??
@@ -820,8 +812,7 @@ export default function HomePageContent({
           <StaggerContainer className="grid grid-cols-1 md:grid-cols-3 gap-5 sm:gap-6 mt-2">
             {ui.quality.cards.map((c) => (
               <StaggerItem key={c.code} className="h-full">
-                <div className="h-full bg-cream-50/70 hover:bg-white p-6 sm:p-7 rounded-2xl border border-cream-200 shadow-2xs hover:border-primary-leaf hover:shadow-soft transition-all flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-200"
-                >
+                <div className="h-full bg-cream-50/70 hover:bg-white p-6 sm:p-7 rounded-2xl border border-cream-200 shadow-2xs hover:border-primary-leaf hover:shadow-soft transition-all flex flex-col justify-between group hover:-translate-y-1 transition-transform duration-200">
                   <div className="flex flex-col items-center text-center">
                     {/* Header badge & standard code */}
                     <div className="w-full flex items-center justify-between mb-4">
@@ -891,9 +882,7 @@ export default function HomePageContent({
           <FadeIn direction="up">
             <SectionTitle
               badge={dict.pages.home.featuredNewsBadge ?? 'Tin Tức & Hoạt Động'}
-              title={
-                dict.pages.home.featuredNewsTitle ?? 'Tin Tức Nổi Bật'
-              }
+              title={dict.pages.home.featuredNewsTitle ?? 'Tin Tức Nổi Bật'}
               subtitle={
                 dict.pages.home.featuredNewsSubtitle ??
                 'Cập nhật tin tức doanh nghiệp, xu hướng thị trường và thông tin mới nhất từ Agrihub.'

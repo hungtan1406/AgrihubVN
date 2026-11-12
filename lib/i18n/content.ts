@@ -535,16 +535,16 @@ export function getHomePageUi(lang: Locale) {
         slideLabel: 'Slide',
         slides: [
           {
-            src: '/images/banners/Banner.jpg',
-            alt: 'Agrihub Vietnam - Export-grade processed tropical fruits',
+            src: '/images/banners/Banner1.jpg',
+            alt: 'Agrihub Vietnam - Pineapple Powder and Red Dragon Fruit Powder',
           },
           {
-            src: '/images/services/nha-may.png',
-            alt: 'Agrihub Vietnam - Modern agricultural processing factory',
+            src: '/images/banners/Banner2.png',
+            alt: 'Agrihub Vietnam - Pink Guava Juice Concentrate and Passion Fruit Concentrate',
           },
           {
-            src: '/images/services/vung-trong.png',
-            alt: 'Agrihub Vietnam - Standardized tropical fruit growing areas',
+            src: '/images/banners/Banner3.png',
+            alt: 'Agrihub Vietnam - Green Banana Powder and Garlic Powder',
           },
         ],
       },
@@ -753,16 +753,16 @@ export function getHomePageUi(lang: Locale) {
         slideLabel: '幻灯片',
         slides: [
           {
-            src: '/images/banners/Banner.jpg',
-            alt: 'Agrihub 越南 - 出口级热带农产品深加工原料',
+            src: '/images/banners/Banner1.jpg',
+            alt: 'Agrihub 越南 - 菠萝粉与红心火龙果粉原料',
           },
           {
-            src: '/images/services/nha-may.png',
-            alt: 'Agrihub 越南 - 现代化农产品加工工厂',
+            src: '/images/banners/Banner2.png',
+            alt: 'Agrihub 越南 - 红心番石榴浓缩汁与百香果浓缩汁',
           },
           {
-            src: '/images/services/vung-trong.png',
-            alt: 'Agrihub 越南 - 标准化热带水果种植基地',
+            src: '/images/banners/Banner3.png',
+            alt: 'Agrihub 越南 - 青香蕉粉与大蒜粉加工原料',
           },
         ],
       },
@@ -956,22 +956,22 @@ export function getHomePageUi(lang: Locale) {
 
   // Default: Vietnamese
   return {
-    heroTagline: 'TỪ NÔNG TRẠI VIỆT NAM\nĐẾN THỊ TRƯỜNG THẾ GIỚI',
+    heroTagline: 'Từ Nông Trại Việt Nam\nĐến Thị Trường Thế Giới',
     heroSlider: {
       controlsLabel: 'Điều khiển ảnh nền trang chủ',
       slideLabel: 'Ảnh nền',
       slides: [
         {
-          src: '/images/banners/Banner.jpg',
-          alt: 'Agrihub Việt Nam - Nông sản chế biến xuất khẩu',
+          src: '/images/banners/Banner1.jpg',
+          alt: 'Agrihub Việt Nam - Bột dứa và bột thanh long đỏ xuất khẩu',
         },
         {
-          src: '/images/services/nha-may.png',
-          alt: 'Agrihub Việt Nam - Nhà máy chế biến nông sản đạt chuẩn',
+          src: '/images/banners/Banner2.png',
+          alt: 'Agrihub Việt Nam - Nước cốt ổi hồng và chanh dây cô đặc',
         },
         {
-          src: '/images/services/vung-trong.png',
-          alt: 'Agrihub Việt Nam - Vùng trồng nông sản nhiệt đới đạt chuẩn',
+          src: '/images/banners/Banner3.png',
+          alt: 'Agrihub Việt Nam - Bột chuối xanh và bột tỏi công nghiệp',
         },
       ],
     },

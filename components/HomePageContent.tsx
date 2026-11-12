@@ -432,9 +432,9 @@ export default function HomePageContent({
         />
 
         <Container className="relative z-10 w-full">
-          <div className="max-w-3xl space-y-5 sm:space-y-6">
+          <div className="max-w-2xl space-y-4 sm:space-y-5">
             {/* Pill Badge */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-cream-100 text-xs font-semibold shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md border border-white/25 text-cream-100 text-xs font-semibold shadow-2xs">
               <span
                 className="w-1.5 h-1.5 rounded-full bg-accent-gold"
                 aria-hidden="true"
@@ -442,9 +442,13 @@ export default function HomePageContent({
               <span>{dict.common.tagline}</span>
             </div>
 
-            {/* Headline - fluid responsive sizing to prevent overflow on laptops with 125%-150% scaling */}
-            <h1 className="text-2xl sm:text-4xl md:text-5xl lg:text-5xl font-extrabold tracking-[0.035em] sm:tracking-[0.045em] text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]">
-              <span className="flex flex-col gap-2.5 sm:gap-4 lg:gap-5 leading-[1.25]">
+            {/* Headline - tight editorial tracking & compact line rhythm */}
+            <h1
+              className={`text-3xl sm:text-4xl md:text-5xl lg:text-[52px] font-extrabold text-white drop-shadow-[0_2px_12px_rgba(0,0,0,0.45)] ${
+                currentLang === 'zh' ? 'tracking-wide' : 'tracking-[-0.025em]'
+              }`}
+            >
+              <span className="flex flex-col gap-1 sm:gap-1.5 leading-[1.12]">
                 {(ui.heroTagline.includes('\n')
                   ? ui.heroTagline.split('\n')
                   : ui.heroTagline.includes('ĐẾN')
@@ -466,7 +470,7 @@ export default function HomePageContent({
             </h1>
 
             {/* Subtitle */}
-            <p className="text-sm sm:text-base md:text-lg text-cream-100/95 leading-relaxed max-w-2xl font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
+            <p className="text-sm sm:text-base md:text-lg text-cream-100/95 leading-relaxed max-w-xl font-normal drop-shadow-[0_1px_4px_rgba(0,0,0,0.5)]">
               {dict.pages.home.heroSubtitle}
             </p>
 

@@ -530,6 +530,24 @@ export function getHomePageUi(lang: Locale) {
   if (lang === 'en') {
     return {
       heroTagline: 'From Vietnamese Farms\nTo Global Markets',
+      heroSlider: {
+        controlsLabel: 'Hero background slides',
+        slideLabel: 'Slide',
+        slides: [
+          {
+            src: '/images/banners/Banner.jpg',
+            alt: 'Agrihub Vietnam - Export-grade processed tropical fruits',
+          },
+          {
+            src: '/images/services/nha-may.png',
+            alt: 'Agrihub Vietnam - Modern agricultural processing factory',
+          },
+          {
+            src: '/images/services/vung-trong.png',
+            alt: 'Agrihub Vietnam - Standardized tropical fruit growing areas',
+          },
+        ],
+      },
       heroTrust: {
         exp: '10+ Years Export Experience',
         certs: 'HACCP • FSSC 22000 • ISO',
@@ -730,6 +748,24 @@ export function getHomePageUi(lang: Locale) {
   if (lang === 'zh') {
     return {
       heroTagline: '源自越南农场\n服务全球市场',
+      heroSlider: {
+        controlsLabel: '首页背景轮播控制',
+        slideLabel: '幻灯片',
+        slides: [
+          {
+            src: '/images/banners/Banner.jpg',
+            alt: 'Agrihub 越南 - 出口级热带农产品深加工原料',
+          },
+          {
+            src: '/images/services/nha-may.png',
+            alt: 'Agrihub 越南 - 现代化农产品加工工厂',
+          },
+          {
+            src: '/images/services/vung-trong.png',
+            alt: 'Agrihub 越南 - 标准化热带水果种植基地',
+          },
+        ],
+      },
       heroTrust: {
         exp: '10+ 年出海履约经验',
         certs: 'HACCP • FSSC 22000 • ISO',
@@ -921,6 +957,24 @@ export function getHomePageUi(lang: Locale) {
   // Default: Vietnamese
   return {
     heroTagline: 'TỪ NÔNG TRẠI VIỆT NAM\nĐẾN THỊ TRƯỜNG THẾ GIỚI',
+    heroSlider: {
+      controlsLabel: 'Điều khiển ảnh nền trang chủ',
+      slideLabel: 'Ảnh nền',
+      slides: [
+        {
+          src: '/images/banners/Banner.jpg',
+          alt: 'Agrihub Việt Nam - Nông sản chế biến xuất khẩu',
+        },
+        {
+          src: '/images/services/nha-may.png',
+          alt: 'Agrihub Việt Nam - Nhà máy chế biến nông sản đạt chuẩn',
+        },
+        {
+          src: '/images/services/vung-trong.png',
+          alt: 'Agrihub Việt Nam - Vùng trồng nông sản nhiệt đới đạt chuẩn',
+        },
+      ],
+    },
     heroTrust: {
       exp: '10+ năm kinh nghiệm xuất khẩu',
       certs: 'HACCP • FSSC 22000 • ISO',

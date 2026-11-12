@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import HomeProductShowcase from '@/components/HomeProductShowcase';
+import HeroBackgroundSlider from '@/components/HeroBackgroundSlider';
 import { Locale, Dictionary, getIngredients, getHomePageUi } from '@/lib/i18n';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
@@ -421,22 +422,14 @@ export default function HomePageContent({
 
   return (
     <div className="flex flex-col">
-      {/* SECTION 1: HERO BANNER (FULL-WIDTH BACKGROUND WITH HIGH-CONTRAST OVERLAY) */}
-      <section className="relative min-h-[480px] sm:min-h-[540px] lg:min-h-[600px] flex items-center overflow-hidden py-12 sm:py-16 lg:py-20 text-white shadow-soft">
-        {/* Full-width Background Image & Gradient Overlays for WCAG AA Contrast */}
-        <div className="absolute inset-0 z-0 pointer-events-none">
-          <Image
-            src="/images/banners/Banner.jpg"
-            alt="Agrihub Vietnam - Nông sản xuất khẩu"
-            fill
-            priority
-            className="object-cover object-center"
-            sizes="100vw"
-          />
-          {/* Clean, directional gradient on the left side to keep the photo bright and vibrant while ensuring high text readability */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/75 via-black/35 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-transparent" />
-        </div>
+      {/* SECTION 1: HERO BANNER (FULL-WIDTH BACKGROUND SLIDESHOW WITH HIGH-CONTRAST OVERLAY) */}
+      <section className="relative min-h-[480px] sm:min-h-[540px] lg:min-h-[600px] flex items-center overflow-hidden pt-12 pb-16 sm:py-16 lg:py-20 text-white shadow-soft bg-primary-950">
+        {/* Full-width Background Crossfade Slideshow */}
+        <HeroBackgroundSlider
+          slides={ui.heroSlider.slides}
+          controlsLabel={ui.heroSlider.controlsLabel}
+          slideLabelPrefix={ui.heroSlider.slideLabel}
+        />
 
         <Container className="relative z-10 w-full">
           <div className="max-w-3xl space-y-5 sm:space-y-6">

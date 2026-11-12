@@ -590,6 +590,68 @@ function getApiBaseUrl(): string {
 }
 
 /**
+ * Kiểm tra URL có trỏ tới môi trường local (.local, localhost, 127.0.0.1) hay không
+ */
+function isLocalHostUrl(urlStr: string): boolean {
+  try {
+    const { hostname } = new URL(urlStr);
+    return (
+      hostname === 'localhost' ||
+      hostname === '127.0.0.1' ||
+      hostname.endsWith('.local')
+    );
+  } catch {
+    return false;
+  }
+}
+
+/**
+ * Lấy origin (scheme + host) của WORDPRESS_API_URL để chuẩn hóa URL media khi qua tunnel/proxy
+ */
+function getApiOrigin(): string | null {
+  try {
+    return new URL(getApiBaseUrl()).origin;
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * Chuyển đổi URL media/PDF từ domain .local sang origin công khai của WORDPRESS_API_URL (khi chạy qua tunnel/cloud)
+ */
+function rewriteLocalAssetUrl(assetUrl?: string | null): string | undefined {
+  if (!assetUrl) return undefined;
+  const apiOrigin = getApiOrigin();
+  if (!apiOrigin || isLocalHostUrl(apiOrigin)) {
+    return assetUrl;
+  }
+  try {
+    const parsed = new URL(assetUrl);
+    if (isLocalHostUrl(assetUrl)) {
+      return `${apiOrigin}${parsed.pathname}${parsed.search}${parsed.hash}`;
+    }
+  } catch {
+    // Giữ nguyên nếu là đường dẫn tương đối hoặc URL không hợp lệ
+  }
+  return assetUrl;
+}
+
+/**
+ * Thay thế các URL .local bên trong nội dung HTML trả về từ WordPress
+ */
+function rewriteLocalAssetUrlsInHtml(html?: string): string | undefined {
+  if (!html) return html;
+  const apiOrigin = getApiOrigin();
+  if (!apiOrigin || isLocalHostUrl(apiOrigin)) {
+    return html;
+  }
+  return html.replace(
+    /https?:\/\/(?:[a-z0-9-]+\.local|localhost(?::\d+)?|127\.0\.0\.1(?::\d+)?)/gi,
+    apiOrigin,
+  );
+}
+
+/**
  * Hàm giải mã ký tự HTML entities cơ bản từ tiêu đề/nội dung WordPress
  */
 export function cleanHtmlEntities(text: string): string {
@@ -936,10 +998,10 @@ export function mapWordPressPostToProduct(
     moq: acf.moq,
     grade: acf.grade || 'INDUSTRIAL F&B',
     specCode: acf.spec_code || `SPEC-AGRI-${post.slug.toUpperCase()}`,
-    pdfUrl,
-    image: imageUrl,
+    pdfUrl: rewriteLocalAssetUrl(pdfUrl),
+    image: rewriteLocalAssetUrl(imageUrl),
     isFeatured,
-    content: post.content?.rendered,
+    content: rewriteLocalAssetUrlsInHtml(post.content?.rendered),
   };
 }
 
@@ -954,10 +1016,11 @@ function getFetchOptions(): RequestInit {
     ? { cache: 'no-store' }
     : { next: { revalidate: 60 } };
 
-  // Đặt timeout 1.8 giây để tránh nghẽn khi WordPress local chưa bật
+  // Đặt timeout 1.8 giây cho local (tránh nghẽn khi chưa bật LocalWP) và 6 giây cho URL từ xa/tunnel
+  const timeoutMs = isLocalHostUrl(getApiBaseUrl()) ? 1800 : 6000;
   return {
     ...baseOptions,
-    signal: AbortSignal.timeout(1800),
+    signal: AbortSignal.timeout(timeoutMs),
   };
 }
 
@@ -1119,7 +1182,7 @@ function mapWordPressPostToNewsEvent(
   lang: string,
 ): NewsEvent {
   const acf = (post.acf || {}) as Record<string, string | undefined>;
-  const image = post._embedded?.['wp:featuredmedia']?.[0]?.source_url ?? null;
+  const image = rewriteLocalAssetUrl(post._embedded?.['wp:featuredmedia']?.[0]?.source_url) ?? null;
 
   const rawTerms = post._embedded?.['wp:term']?.[0] || [];
   const categoryNames = rawTerms.map((t: { name: string }) => cleanHtmlEntities(t.name || ''));
@@ -1245,7 +1308,7 @@ function mapWordPressPostToNewsEvent(
     lang,
     title: cleanHtmlEntities(post.title?.rendered ?? ''),
     excerpt: cleanHtmlEntities(post.excerpt?.rendered ?? ''),
-    content: post.content?.rendered ?? '',
+    content: rewriteLocalAssetUrlsInHtml(post.content?.rendered) ?? '',
     date: (post.date as string) ?? '',
     image,
     category: displayCategory,

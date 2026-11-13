@@ -10,6 +10,11 @@
   body {
     @apply bg-cream-100 text-primary-850 antialiased selection:bg-primary-leaf selection:text-white font-sans;
   }
+
+  :lang(zh) {
+    line-height: 1.75;
+    letter-spacing: 0.02em;
+  }
 }
 
 @layer utilities {

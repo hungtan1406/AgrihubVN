@@ -15,16 +15,15 @@ import FadeIn from '@/components/animations/FadeIn';
 import PartnerCarousel from '@/components/PartnerCarousel';
 
 interface PageProps {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }
 
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
-  const currentLang: Locale = isValidLocale(params.lang)
-    ? params.lang
-    : defaultLocale;
-  const dict = getDictionary(currentLang);
+  const { lang } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
 
   return buildPageMetadata({
     lang: currentLang,
@@ -34,11 +33,10 @@ export async function generateMetadata({
   });
 }
 
-export default function AboutUsPage({ params }: PageProps) {
-  const currentLang: Locale = isValidLocale(params.lang)
-    ? params.lang
-    : defaultLocale;
-  const dict = getDictionary(currentLang);
+export default async function AboutUsPage({ params }: PageProps) {
+  const { lang } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
   const content = getAboutUsContent(currentLang);
 
   return (

@@ -535,7 +535,7 @@ export function getHomePageUi(lang: Locale) {
         slideLabel: 'Slide',
         slides: [
           {
-            src: '/images/banners/Banner1.jpg',
+            src: '/images/banners/Banner1.png',
             alt: 'Agrihub Vietnam - Pineapple Powder and Red Dragon Fruit Powder',
           },
           {
@@ -753,7 +753,7 @@ export function getHomePageUi(lang: Locale) {
         slideLabel: '幻灯片',
         slides: [
           {
-            src: '/images/banners/Banner1.jpg',
+            src: '/images/banners/Banner1.png',
             alt: 'Agrihub 越南 - 菠萝粉与红心火龙果粉原料',
           },
           {
@@ -962,7 +962,7 @@ export function getHomePageUi(lang: Locale) {
       slideLabel: 'Ảnh nền',
       slides: [
         {
-          src: '/images/banners/Banner1.jpg',
+          src: '/images/banners/Banner1.png',
           alt: 'Agrihub Việt Nam - Bột dứa và bột thanh long đỏ xuất khẩu',
         },
         {

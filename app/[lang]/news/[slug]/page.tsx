@@ -24,13 +24,14 @@ export async function generateStaticParams() {
 }
 
 interface PageProps {
-  params: { lang: string; slug: string };
+  params: Promise<{ lang: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
-  const post = await getNewsEventBySlug(params.slug, currentLang);
+  const { lang, slug } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
+  const post = await getNewsEventBySlug(slug, currentLang);
   const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://agrihub.vn';
 
   const title = post?.title ?? dict.news.pageTitle;
@@ -40,12 +41,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
     title: `${title} | Agrihub Vietnam`,
     description,
     alternates: {
-      canonical: `${base}/${currentLang}/news/${params.slug}`,
+      canonical: `${base}/${currentLang}/news/${slug}`,
     },
     openGraph: {
       title: `${title} | Agrihub Vietnam`,
       description,
-      url: `${base}/${currentLang}/news/${params.slug}`,
+      url: `${base}/${currentLang}/news/${slug}`,
       siteName: 'Agrihub Vietnam',
       locale:
         currentLang === 'zh' ? 'zh_CN' : currentLang === 'en' ? 'en_US' : 'vi_VN',
@@ -95,9 +96,12 @@ function getCategoryBadgeClass(category: string): string {
 // ── Page ──────────────────────────────────────────────────────────────────
 
 export default async function NewsDetailPage({ params }: PageProps) {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
-  const post = await getNewsEventBySlug(params.slug, currentLang);
+  const { lang, slug } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const [dict, post] = await Promise.all([
+    getDictionary(currentLang),
+    getNewsEventBySlug(slug, currentLang),
+  ]);
 
   if (!post) {
     notFound();

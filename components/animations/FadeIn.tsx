@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, HTMLMotionProps } from 'framer-motion';
+import { m, HTMLMotionProps } from 'framer-motion';
 
 interface FadeInProps extends HTMLMotionProps<'div'> {
   children: React.ReactNode;
@@ -37,7 +37,7 @@ export default function FadeIn({
   };
 
   return (
-    <motion.div
+    <m.div
       initial={initial}
       whileInView={{ opacity: 1, x: 0, y: 0 }}
       viewport={{ once, margin: '-60px' }}
@@ -50,6 +50,6 @@ export default function FadeIn({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }

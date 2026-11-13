@@ -7,21 +7,32 @@ import Button from './Button';
 interface ContactFormProps {
   dict: Dictionary;
   lang?: Locale;
+  initialProduct?: string;
+  initialType?: string;
 }
 
-export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
+export default function ContactForm({
+  dict,
+  lang = 'vi',
+  initialProduct,
+  initialType,
+}: ContactFormProps) {
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+
+  const initialPurpose =
+    initialType === 'sample' ? 'sample' : initialType === 'quote' ? 'quote' : 'quote';
 
   const [formData, setFormData] = useState({
     name: '',
     company: '',
     email: '',
     phone: '',
-    purpose: 'quote',
+    purpose: initialPurpose,
     category: 'fruit-powder',
-    details: '',
+    details: initialProduct ? `Sản phẩm quan tâm (Product of interest): ${initialProduct}` : '',
+    website: '', // Honeypot anti-spam
   });
 
   const t = getFormTranslations(lang);
@@ -83,6 +94,7 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
         purpose: 'quote',
         category: 'fruit-powder',
         details: '',
+        website: '',
       });
     } catch (err: unknown) {
       console.error('Submit form error:', err);
@@ -110,6 +122,20 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
 
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
+      {/* Honeypot field for bot protection */}
+      <div className="hidden" aria-hidden="true" style={{ display: 'none' }}>
+        <label htmlFor="website">Website</label>
+        <input
+          type="text"
+          id="website"
+          name="website"
+          value={formData.website}
+          onChange={handleChange}
+          tabIndex={-1}
+          autoComplete="off"
+        />
+      </div>
+
       {errorMsg && (
         <div className="p-3 bg-red-50 border border-red-200 text-red-700 rounded-xl text-sm font-medium">
           ⚠️ {errorMsg}
@@ -128,9 +154,10 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
             value={formData.name}
             onChange={handleChange}
             placeholder={t.namePlaceholder}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
+            className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white rounded-xl border border-cream-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30 focus:border-primary-leaf"
           />
         </div>
+
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
             {t.companyLabel}
@@ -142,7 +169,7 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
             value={formData.company}
             onChange={handleChange}
             placeholder={t.companyPlaceholder}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
+            className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white rounded-xl border border-cream-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30 focus:border-primary-leaf"
           />
         </div>
       </div>
@@ -159,9 +186,10 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
             value={formData.email}
             onChange={handleChange}
             placeholder={t.emailPlaceholder}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
+            className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white rounded-xl border border-cream-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30 focus:border-primary-leaf"
           />
         </div>
+
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
             {t.phoneLabel}
@@ -173,7 +201,7 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
             value={formData.phone}
             onChange={handleChange}
             placeholder={t.phonePlaceholder}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
+            className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white rounded-xl border border-cream-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30 focus:border-primary-leaf"
           />
         </div>
       </div>
@@ -185,10 +213,9 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
           </label>
           <select
             name="purpose"
-            required
             value={formData.purpose}
             onChange={handleChange}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
+            className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white rounded-xl border border-cream-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30 focus:border-primary-leaf"
           >
             <option value="quote">{t.purposeQuote}</option>
             <option value="sample">{t.purposeSample}</option>
@@ -206,7 +233,7 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
             name="category"
             value={formData.category}
             onChange={handleChange}
-            className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
+            className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white rounded-xl border border-cream-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30 focus:border-primary-leaf"
           >
             <option value="fruit-powder">{t.catPowder}</option>
             <option value="dried-fruits">{t.catDried}</option>
@@ -223,34 +250,28 @@ export default function ContactForm({ dict, lang = 'vi' }: ContactFormProps) {
         </label>
         <textarea
           name="details"
-          rows={4}
+          rows={3}
           value={formData.details}
           onChange={handleChange}
           placeholder={t.detailsPlaceholder}
-          className="w-full px-4 py-3 text-base sm:text-sm bg-cream-50 border border-cream-300 rounded-xl focus:ring-2 focus:ring-primary-leaf focus:outline-none"
-        ></textarea>
+          className="w-full px-3.5 py-2 text-xs sm:text-sm bg-white rounded-xl border border-cream-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30 focus:border-primary-leaf"
+        />
       </div>
 
       <div className="pt-2">
         <Button
           type="submit"
           variant="amber"
-          size="lg"
+          size="md"
           fullWidth
           disabled={loading}
-          className="font-extrabold tracking-wide min-h-[48px]"
+          className="font-bold shadow-md hover:shadow-lg"
         >
-          {loading ? (
-            <span className="inline-flex items-center gap-2">
-              <svg className="animate-spin h-5 w-5 text-primary-900" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z"></path>
-              </svg>
-              {lang === 'vi' ? 'Đang gửi thông tin...' : lang === 'zh' ? '正在提交...' : 'Submitting...'}
-            </span>
-          ) : (
-            <span>{t.submitBtn}</span>
-          )}
+          <span>
+            {loading
+              ? (lang === 'vi' ? 'Đang gửi...' : lang === 'zh' ? '正在发送...' : 'Submitting...')
+              : t.submitBtn}
+          </span>
         </Button>
       </div>
     </form>

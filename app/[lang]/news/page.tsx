@@ -2,20 +2,21 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
-import { Locale, getDictionary, isValidLocale, defaultLocale } from '@/lib/i18n';
+import { Locale, getDictionary, isValidLocale, defaultLocale, Dictionary } from '@/lib/i18n';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import SectionTitle from '@/components/SectionTitle';
 import { getNewsEvents, NewsEvent } from '@/lib/wordpress';
 
 interface PageProps {
-  params: { lang: string };
-  searchParams: { category?: string };
+  params: Promise<{ lang: string }>;
+  searchParams?: Promise<{ category?: string }>;
 }
 
-export async function generateMetadata({ params }: { params: { lang: string } }): Promise<Metadata> {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
+export async function generateMetadata({ params }: { params: Promise<{ lang: string }> }): Promise<Metadata> {
+  const { lang } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
   const base = process.env.NEXT_PUBLIC_BASE_URL ?? 'https://agrihub.vn';
 
   return {
@@ -173,7 +174,7 @@ function matchesFilter(post: NewsEvent, categoryParam?: string): boolean {
 
 // ── News Card (Server Component) ──────────────────────────────────────────
 
-function NewsCard({ post, lang, dict }: { post: NewsEvent; lang: string; dict: ReturnType<typeof getDictionary> }) {
+function NewsCard({ post, lang, dict }: { post: NewsEvent; lang: string; dict: Dictionary }) {
   const badgeClass = getCategoryBadgeClass(post.category);
   const formattedDate = formatDate(post.date, lang);
 
@@ -244,11 +245,15 @@ function NewsCard({ post, lang, dict }: { post: NewsEvent; lang: string; dict: R
 // ── Page ──────────────────────────────────────────────────────────────────
 
 export default async function NewsPage({ params, searchParams }: PageProps) {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
-  const allPosts = await getNewsEvents(currentLang);
+  const { lang } = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const [dict, allPosts] = await Promise.all([
+    getDictionary(currentLang),
+    getNewsEvents(currentLang),
+  ]);
 
-  const activeCategoryParam = searchParams.category;
+  const activeCategoryParam = resolvedSearchParams.category;
   const filteredPosts = allPosts.filter((post) => matchesFilter(post, activeCategoryParam));
 
   const filterPills = [

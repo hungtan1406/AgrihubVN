@@ -1010,11 +1010,11 @@ export function mapWordPressPostToProduct(
  * Ở môi trường DEV (npm run dev): cache = 'no-store' để cập nhật NGAY LẬP TỨC khi sửa trên WordPress local.
  * Ở môi trường PROD: revalidate 60 giây để đạt tốc độ tĩnh tối đa.
  */
-function getFetchOptions(): RequestInit {
+function getFetchOptions(tags: string[] = ['wordpress', 'products']): RequestInit {
   const isDev = process.env.NODE_ENV === 'development';
   const baseOptions: RequestInit = isDev
     ? { cache: 'no-store' }
-    : { next: { revalidate: 60 } };
+    : ({ next: { revalidate: 86400, tags } } as RequestInit);
 
   // Đặt timeout 1.8 giây cho local (tránh nghẽn khi chưa bật LocalWP) và 6 giây cho URL từ xa/tunnel
   const timeoutMs = isLocalHostUrl(getApiBaseUrl()) ? 1800 : 6000;

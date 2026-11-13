@@ -1,6 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
-import Image from 'next/image';
 import { Metadata } from 'next';
 import {
   Locale,
@@ -18,12 +16,13 @@ import ProductsFilterGrid from '@/components/ProductsFilterGrid';
 import { getProducts } from '@/lib/wordpress';
 
 interface PageProps {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
+  const { lang } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
   return buildPageMetadata({
     lang: currentLang,
     pathname: '/products',
@@ -33,9 +32,12 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function ProductsPage({ params }: PageProps) {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
-  const products = await getProducts(currentLang);
+  const { lang } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const [dict, products] = await Promise.all([
+    getDictionary(currentLang),
+    getProducts(currentLang),
+  ]);
   const t = getProductsPageTranslations(currentLang);
   const localizedIngredients = getIngredients(currentLang);
 
@@ -55,32 +57,27 @@ export default async function ProductsPage({ params }: PageProps) {
             href={`/${currentLang}/contact`}
             variant="primary"
             size="md"
-            className="shrink-0 self-start md:self-auto shadow-sm"
+            className="shrink-0 self-start md:self-auto font-bold"
           >
-            {dict.pages.products.primaryCta}
+            <span>{dict.common.requestQuote}</span>
           </Button>
         </div>
 
-        {/* Filterable Product Grid (Hiển thị 100% tất cả sản phẩm kèm bộ lọc đầy đủ) */}
-        <div className="mt-6">
-          <ProductsFilterGrid
-            products={products}
-            localizedIngredients={localizedIngredients}
-            currentLang={currentLang}
-            labels={t}
-            dict={dict}
-          />
-        </div>
-
-        {/* CMS Synchronization Notice */}
-        <div className="mt-8 sm:mt-10 p-6 bg-cream-100 rounded-2xl border border-cream-300 text-center">
-          <p className="text-sm text-primary-850 font-bold">
-            {t.cmsTitle}
-          </p>
-          <p className="text-xs text-slate-600 mt-1">
-            {t.cmsDesc}
-          </p>
-        </div>
+        {/* Dynamic Client Filter Tabs & Product Grid */}
+        <ProductsFilterGrid
+          currentLang={currentLang}
+          dict={dict}
+          products={products}
+          localizedIngredients={localizedIngredients}
+          labels={{
+            viewTds: t.viewTds || dict.common.viewDetails,
+            sampleBtn: t.sampleBtn || dict.common.requestSample,
+            moistureLabel: t.moistureLabel,
+            meshLabel: t.meshLabel,
+            shelfLifeLabel: t.shelfLifeLabel,
+            appLabel: t.appLabel,
+          }}
+        />
       </Container>
     </div>
   );

@@ -1,7 +1,4 @@
 import { Locale, Dictionary } from './types';
-import { vi } from './dictionaries/vi';
-import { en } from './dictionaries/en';
-import { zh } from './dictionaries/zh';
 
 export const locales: readonly Locale[] = ['vi', 'en', 'zh'] as const;
 export const defaultLocale: Locale = 'vi';
@@ -12,14 +9,15 @@ export const languageNames: Record<Locale, string> = {
   zh: '简体中文',
 };
 
-const dictionaries: Record<Locale, Dictionary> = {
-  vi,
-  en,
-  zh,
+const dictionaries: Record<Locale, () => Promise<Dictionary>> = {
+  vi: () => import('./dictionaries/vi').then((m) => m.vi),
+  en: () => import('./dictionaries/en').then((m) => m.en),
+  zh: () => import('./dictionaries/zh').then((m) => m.zh),
 };
 
-export function getDictionary(locale: Locale): Dictionary {
-  return dictionaries[locale] || dictionaries[defaultLocale];
+export async function getDictionary(locale: Locale): Promise<Dictionary> {
+  const loadDictionary = dictionaries[locale] || dictionaries[defaultLocale];
+  return loadDictionary();
 }
 
 export function isValidLocale(locale: string): locale is Locale {

@@ -3,6 +3,12 @@ import { NextRequest, NextResponse } from 'next/server';
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
+
+    // Honeypot anti-spam check for bots
+    if (body.website && String(body.website).trim() !== '') {
+      return NextResponse.json({ success: true, botFiltered: true });
+    }
+
     const {
       name,
       company,

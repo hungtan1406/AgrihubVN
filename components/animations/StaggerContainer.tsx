@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import { motion, HTMLMotionProps, Variants } from 'framer-motion';
+import { m, HTMLMotionProps, Variants } from 'framer-motion';
 
 interface StaggerContainerProps extends HTMLMotionProps<'div'> {
   children: React.ReactNode;
@@ -31,7 +31,7 @@ export default function StaggerContainer({
   };
 
   return (
-    <motion.div
+    <m.div
       variants={containerVariants}
       initial="hidden"
       whileInView="show"
@@ -40,7 +40,7 @@ export default function StaggerContainer({
       {...props}
     >
       {children}
-    </motion.div>
+    </m.div>
   );
 }
 
@@ -66,8 +66,8 @@ export function StaggerItem({
   };
 
   return (
-    <motion.div variants={itemVariants} className={className}>
+    <m.div variants={itemVariants} className={className}>
       {children}
-    </motion.div>
+    </m.div>
   );
 }

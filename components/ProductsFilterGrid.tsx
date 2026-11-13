@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState, useMemo } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Locale, Dictionary } from '@/lib/i18n';
 import { Product } from '@/lib/wordpress';
 import ProductCard from '@/components/ProductCard';
@@ -178,7 +178,7 @@ export default function ProductsFilterGrid({
                   }`}
                 >
                   {isActive && (
-                    <motion.div
+                    <m.div
                       layoutId="activeProductFilterPill"
                       className="absolute inset-0 bg-primary-leaf rounded-full shadow-xs"
                       transition={{
@@ -241,13 +241,13 @@ export default function ProductsFilterGrid({
 
       {/* Hiển thị danh sách sản phẩm với animation */}
       {filteredProducts.length > 0 ? (
-        <motion.div
+        <m.div
           layout
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6"
         >
           <AnimatePresence>
             {filteredProducts.map((p) => (
-              <motion.div
+              <m.div
                 layout
                 key={p.slug}
                 initial={{ opacity: 0, scale: 0.96 }}
@@ -269,10 +269,10 @@ export default function ProductsFilterGrid({
                   }}
                   sampleHref={`/${currentLang}/contact`}
                 />
-              </motion.div>
+              </m.div>
             ))}
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       ) : (
         /* Empty State */
         <div className="py-12 sm:py-16 text-center bg-cream-50 rounded-3xl border border-dashed border-cream-300 p-8">

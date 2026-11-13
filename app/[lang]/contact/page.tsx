@@ -14,12 +14,14 @@ import ContactForm from '@/components/ContactForm';
 import FadeIn from '@/components/animations/FadeIn';
 
 interface PageProps {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
+  const { lang } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
 
   return buildPageMetadata({
     lang: currentLang,
@@ -29,9 +31,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   });
 }
 
-export default function ContactPage({ params }: PageProps) {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
+export default async function ContactPage({ params, searchParams }: PageProps) {
+  const { lang } = await params;
+  const resolvedSearchParams = searchParams ? await searchParams : {};
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
   const content = getContactPageContent(currentLang);
 
   return (
@@ -60,68 +64,95 @@ export default function ContactPage({ params }: PageProps) {
                 <h2 className="text-base font-extrabold text-primary-850 mb-4">
                   {content.channelTitle}
                 </h2>
-                <div className="space-y-4 text-xs text-slate-600">
-                  <div>
-                    <strong className="block text-primary-850 mb-1">
-                      {content.emailTitle}
-                    </strong>
-                    <span className="text-primary-leaf font-bold text-sm">
-                      {content.emailVal}
-                    </span>
+                <div className="space-y-4 text-xs sm:text-sm text-slate-700">
+                  <div className="flex items-start gap-3">
+                    <span className="text-lg">🏢</span>
+                    <div>
+                      <strong className="block text-primary-850 font-bold mb-0.5">
+                        {content.addressTitle}
+                      </strong>
+                      <p className="text-slate-600 leading-relaxed">
+                        {content.addressVal}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <strong className="block text-primary-850 mb-1">
-                      {content.phoneTitle}
-                    </strong>
-                    <span className="text-primary-leaf font-bold text-sm">
-                      {content.phoneVal}
-                    </span>
+                  <div className="flex items-start gap-3">
+                    <span className="text-lg">🏭</span>
+                    <div>
+                      <strong className="block text-primary-850 font-bold mb-0.5">
+                        {content.factoryTitle}
+                      </strong>
+                      <p className="text-slate-600 leading-relaxed">
+                        {content.factoryVal}
+                      </p>
+                    </div>
                   </div>
-                  <div>
-                    <strong className="block text-primary-850 mb-1">
-                      {content.addressTitle}
-                    </strong>
-                    <span>{content.addressVal}</span>
+                  <div className="flex items-start gap-3">
+                    <span className="text-lg">📞</span>
+                    <div>
+                      <strong className="block text-primary-850 font-bold mb-0.5">
+                        {content.phoneTitle}
+                      </strong>
+                      <a
+                        href={`tel:${content.phoneVal.replace(/[^0-9+]/g, '')}`}
+                        className="text-primary-leaf hover:underline font-bold"
+                      >
+                        {content.phoneVal}
+                      </a>
+                    </div>
                   </div>
-                  <div>
-                    <strong className="block text-primary-850 mb-1">
-                      {content.factoryTitle}
-                    </strong>
-                    <span>{content.factoryVal}</span>
+                  <div className="flex items-start gap-3">
+                    <span className="text-lg">✉️</span>
+                    <div>
+                      <strong className="block text-primary-850 font-bold mb-0.5">
+                        {content.emailTitle}
+                      </strong>
+                      <a
+                        href={`mailto:${content.emailVal}`}
+                        className="text-primary-leaf hover:underline font-bold break-all"
+                      >
+                        {content.emailVal}
+                      </a>
+                    </div>
                   </div>
                 </div>
               </div>
 
-              <div className="bg-gradient-to-br from-primary-900 to-primary-850 text-cream-100 p-6 rounded-3xl shadow-soft border border-primary-700/40">
-                <h3 className="font-bold text-sm text-accent-gold mb-2 flex items-center gap-2">
-                  <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" aria-hidden="true" />
-                  <span>{content.commitmentTitle}</span>
-                </h3>
-                <p className="text-xs text-cream-200/80 leading-relaxed mb-3">
-                  {content.commitment1}
-                </p>
-                <p className="text-xs text-cream-200/80 leading-relaxed mb-3">
-                  {content.commitment2}
-                </p>
-                <p className="text-xs text-cream-200/80 leading-relaxed">
-                  {content.commitment3}
-                </p>
+              {/* B2B Assurance Card */}
+              <div className="bg-primary-950 text-white p-6 rounded-3xl border border-primary-800 shadow-soft">
+                <div className="flex items-center gap-2 mb-3">
+                  <span className="text-xl">🤝</span>
+                  <h3 className="font-bold text-sm text-white">
+                    {content.commitmentTitle}
+                  </h3>
+                </div>
+                <div className="space-y-1.5 text-xs text-cream-200 leading-relaxed">
+                  <p>{content.commitment1}</p>
+                  <p>{content.commitment2}</p>
+                  <p>{content.commitment3}</p>
+                </div>
               </div>
             </div>
           </FadeIn>
 
           {/* Form Column */}
           <div className="lg:col-span-2">
-            <FadeIn direction="up" delay={0.2}>
+            <FadeIn direction="up" delay={0.25}>
               <div className="bg-white p-6 sm:p-8 rounded-3xl border border-cream-200 shadow-soft">
-                <h2 className="text-lg font-extrabold text-primary-850 mb-2">
-                  {content.formTitle}
-                </h2>
-                <p className="text-xs text-slate-500 mb-6">
-                  {content.formSubtitle}
-                </p>
-
-                <ContactForm dict={dict} lang={currentLang} />
+                <ContactForm
+                  lang={currentLang}
+                  dict={dict}
+                  initialProduct={
+                    typeof resolvedSearchParams.product === 'string'
+                      ? resolvedSearchParams.product
+                      : undefined
+                  }
+                  initialType={
+                    typeof resolvedSearchParams.type === 'string'
+                      ? resolvedSearchParams.type
+                      : undefined
+                  }
+                />
               </div>
             </FadeIn>
           </div>

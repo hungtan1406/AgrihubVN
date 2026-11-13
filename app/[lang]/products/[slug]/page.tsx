@@ -32,176 +32,218 @@ export async function generateStaticParams() {
 }
 
 interface PageProps {
-  params: { lang: string; slug: string };
+  params: Promise<{ lang: string; slug: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
-  const product = await getProductBySlug(params.slug, currentLang);
+  const { lang, slug } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
+  const product = await getProductBySlug(slug, currentLang);
   const localizedIngredients = getIngredients(currentLang);
-  const matchedIngredient = localizedIngredients.find((ing) => ing.id === params.slug);
-  const productName = matchedIngredient?.name || product?.name || params.slug.replace(/-/g, ' ');
+  const matchedIngredient = localizedIngredients.find((ing) => ing.id === slug);
+  const productName = matchedIngredient?.name || product?.name || slug.replace(/-/g, ' ');
 
   return buildPageMetadata({
     lang: currentLang,
-    pathname: `/products/${params.slug}`,
+    pathname: `/products/${slug}`,
     title: `${productName} | TDS & Specification`,
     description: `${dict.pages.productDetail.subtitle} - ${productName}`,
   });
 }
 
 export default async function ProductDetailPage({ params }: PageProps) {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
+  const { lang, slug } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
   const t = getProductDetailPageTranslations(currentLang);
-  const product = await getProductBySlug(params.slug, currentLang);
+  const product = await getProductBySlug(slug, currentLang);
   const localizedIngredients = getIngredients(currentLang);
-  const matchedIngredient = localizedIngredients.find((ing) => ing.id === params.slug);
+  const matchedIngredient = localizedIngredients.find((ing) => ing.id === slug);
 
-  const fallbackName = params.slug
-    .replace(/-/g, ' ')
-    .replace(/\b\w/g, (c) => c.toUpperCase());
-  const productName = matchedIngredient?.name || product?.name || fallbackName;
+  const fallbackName = slug
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+
+  const title = matchedIngredient?.name || product?.name || fallbackName;
+  const categoryName = matchedIngredient?.categoryName || product?.category || t.defaultCategory;
 
   return (
     <div className="py-8 sm:py-12">
       <Container>
-        {/* Breadcrumb */}
-        <div className="text-xs text-slate-500 mb-4 flex items-center gap-2 flex-wrap">
-          <Link href={`/${currentLang}`} className="hover:text-primary-leaf">
-            {dict.nav.home}
-          </Link>
-          <span>/</span>
-          <Link href={`/${currentLang}/products`} className="hover:text-primary-leaf">
-            {dict.nav.products}
-          </Link>
-          <span>/</span>
-          <span className="text-primary-850 font-bold capitalize">
-            {productName}
-          </span>
-        </div>
+        {/* Navigation Breadcrumb */}
+        <nav aria-label="Breadcrumb" className="mb-6">
+          <ol className="flex items-center gap-2 text-xs sm:text-sm text-slate-500">
+            <li>
+              <Link href={`/${currentLang}`} className="hover:text-primary-leaf transition-colors">
+                {dict.nav.home}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li>
+              <Link href={`/${currentLang}/products`} className="hover:text-primary-leaf transition-colors">
+                {dict.nav.products}
+              </Link>
+            </li>
+            <li aria-hidden="true">/</li>
+            <li className="text-primary-850 font-bold truncate max-w-[200px] sm:max-w-none" aria-current="page">
+              {title}
+            </li>
+          </ol>
+        </nav>
 
-        {/* Product Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 pb-4 sm:pb-5 border-b border-cream-200/80">
+        {/* Section Title */}
+        <div className="mb-8">
           <SectionTitle
             as="h1"
-            badge={
-              (product?.processingMethod || matchedIngredient?.categoryName || product?.category)
-                ? `B2B Ingredient • ${product?.processingMethod || matchedIngredient?.categoryName || product?.category}`
-                : 'B2B Technical Data Sheet'
-            }
-            title={`${t.specDetailTitle} ${productName}`}
-            subtitle={matchedIngredient?.specs || product?.specs || dict.pages.productDetail.subtitle}
+            badge={categoryName}
+            title={title}
+            subtitle={dict.pages.productDetail.subtitle}
             className="mb-0"
           />
-          <Button
-            href={`/${currentLang}/contact`}
-            variant="primary"
-            size="md"
-            className="shrink-0 self-start md:self-auto shadow-sm"
-          >
-            {dict.pages.productDetail.primaryCta}
-          </Button>
         </div>
 
-        {/* Product Featured Image — aspect-square (1:1) + next/image per brand rules */}
-        {product?.image && (
-          <div className="my-6 overflow-hidden rounded-2xl border border-cream-200 shadow-soft bg-cream-50 aspect-square relative max-w-md mx-auto lg:mx-0">
-            <Image
-              src={product.image}
-              alt={productName}
-              fill
-              sizes="(max-width: 1024px) 90vw, 448px"
-              className="object-cover"
-              priority
-            />
-          </div>
-        )}
-
-        {/* Technical Data Sheet (TDS) Certificate Container */}
-        <div className="bg-white rounded-3xl border border-cream-200/90 overflow-hidden shadow-soft my-6 sm:my-8">
-          {/* Certificate Header */}
-          <div className="bg-primary-950 text-white px-6 sm:px-8 py-5 flex flex-col md:flex-row md:items-center justify-between gap-3 border-b border-primary-900">
-            <div>
-              <div className="flex items-center gap-2 mb-1">
-                <span className="w-2 h-2 rounded-full bg-accent-gold" />
-                <span className="text-xs text-accent-gold font-bold uppercase tracking-wider">
-                  Technical Data Sheet (TDS)
-                </span>
-              </div>
-              <h2 className="font-extrabold text-lg sm:text-xl text-white tracking-tight">
-                {t.tableTitle}
-              </h2>
-              <p className="text-xs text-cream-200/70 font-mono mt-0.5">
-                {t.refCode} {product?.specCode || `SPEC-AGRI-${params.slug.toUpperCase()}`} • ISO 22000 | HACCP | FDA COMPLIANT
-              </p>
-            </div>
-            <div className="flex items-center gap-2 self-start md:self-auto">
-              <span className="text-xs font-bold text-accent-gold bg-primary-900/90 px-3.5 py-1.5 rounded-full border border-primary-800 shadow-2xs">
-                GRADE: {product?.grade || 'INDUSTRIAL F&B'}
-              </span>
-            </div>
-          </div>
-
-          <div className="p-6 sm:p-8 space-y-6">
-            {/* Section 1: Chỉ tiêu Lý hóa & Cảm quan */}
-            <div>
-              <div className="flex items-center gap-2 pb-2 mb-3 border-b border-cream-200">
-                <span className="w-2.5 h-2.5 rounded-xs bg-primary-leaf" />
-                <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
-                  1. Chỉ tiêu Lý hóa & Cảm quan (Physical & Chemical Standards)
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
-                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
-                  <span className="font-semibold text-slate-500 text-xs">{t.colTradeName}</span>
-                  <span className="font-bold text-primary-950 mt-1">{productName}</span>
-                </div>
-                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
-                  <span className="font-semibold text-slate-500 text-xs">{t.colCategory}</span>
-                  <span className="font-bold text-primary-950 mt-1">
-                    {product?.processingMethod || matchedIngredient?.categoryName || product?.category || t.defaultCategory}
-                  </span>
-                </div>
-                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
-                  <span className="font-semibold text-slate-500 text-xs">{t.colMoisture}</span>
-                  <span className="font-bold text-primary-leaf mt-1">
-                    {matchedIngredient?.moisture || product?.moisture || t.defaultMoisture}
-                  </span>
-                </div>
-                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
-                  <span className="font-semibold text-slate-500 text-xs">{t.colMesh}</span>
-                  <span className="font-bold text-primary-leaf mt-1">
-                    {matchedIngredient?.mesh || product?.mesh || t.defaultMesh}
-                  </span>
-                </div>
-                {(matchedIngredient?.brix || product?.brix) && (
-                  <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
-                    <span className="font-semibold text-slate-500 text-xs">{t.colBrix}</span>
-                    <span className="font-bold text-primary-950 mt-1">
-                      {matchedIngredient?.brix || product?.brix}
+        {/* Main Product Specification Card */}
+        <div className="bg-white rounded-3xl border border-cream-200 shadow-soft p-6 sm:p-8 lg:p-10 mb-8">
+          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
+            {/* Left: Product Image (Square 1:1) */}
+            <div className="w-full lg:w-96 shrink-0">
+              <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-cream-50 border border-cream-200 shadow-xs">
+                {product?.image || matchedIngredient?.image ? (
+                  <Image
+                    src={product?.image || matchedIngredient?.image || ''}
+                    alt={title}
+                    fill
+                    sizes="(max-width: 1024px) 100vw, 384px"
+                    className="object-cover"
+                    priority
+                  />
+                ) : (
+                  <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 p-6 text-center">
+                    <span className="text-4xl sm:text-5xl mb-2">🌿</span>
+                    <span className="text-xs sm:text-sm font-medium">{title}</span>
+                    <span className="text-[10px] text-slate-400 mt-1 uppercase tracking-wider font-semibold">
+                      [ẢNH THẬT CẦN BỔ SUNG]
                     </span>
                   </div>
                 )}
-                <div className="p-3.5 bg-cream-50/80 rounded-xl border border-cream-200/60 flex flex-col justify-between">
-                  <span className="font-semibold text-slate-500 text-xs">{t.colShelfLife}</span>
-                  <span className="font-bold text-primary-950 mt-1">
+                {product?.grade && (
+                  <div className="absolute top-3 left-3 bg-primary-950/90 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-white/20">
+                    {product.grade}
+                  </div>
+                )}
+              </div>
+            </div>
+
+            {/* Right: Technical Summary & Overview */}
+            <div className="flex-1 space-y-6">
+              <div>
+                <span className="text-xs font-mono font-bold text-primary-leaf tracking-wider uppercase block mb-1">
+                  {t.refCode} {product?.specCode || `SPEC-AGRI-${slug.toUpperCase()}`} • ISO 22000 | HACCP | FDA COMPLIANT
+                </span>
+                <h2 className="text-xl sm:text-2xl font-extrabold text-primary-850">
+                  {title}
+                </h2>
+                <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
+                  {matchedIngredient?.specs || product?.specs}
+                </p>
+              </div>
+
+              {/* Highlight Badges */}
+              <div className="flex flex-wrap gap-2 pt-1">
+                <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
+                  🌱 100% Tự nhiên Clean-label
+                </span>
+                <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
+                  🏭 Chuẩn hóa theo tiêu chuẩn công nghiệp
+                </span>
+                <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
+                  📦 Hỗ trợ OEM & Aseptic Bulk
+                </span>
+              </div>
+
+              {/* Action Buttons with Lead Query Params */}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-4 border-t border-cream-200">
+                <Button
+                  href={`/${currentLang}/contact?product=${slug}&type=quote`}
+                  variant="amber"
+                  size="md"
+                  className="font-bold shadow-xs hover:shadow-md"
+                >
+                  <span>{t.btnQuoteSample || 'Yêu cầu Báo giá'}</span>
+                </Button>
+
+                <Button
+                  href={`/${currentLang}/contact?product=${slug}&type=sample`}
+                  variant="primary"
+                  size="md"
+                  className="font-bold shadow-xs hover:shadow-md"
+                >
+                  <span>Nhận mẫu thử (Free Sample)</span>
+                </Button>
+
+                {product?.pdfUrl && (
+                  <a
+                    href={product.pdfUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-primary-leaf border-2 border-primary-leaf hover:bg-primary-leaf hover:text-white transition-all shadow-xs"
+                  >
+                    {t.btnDownloadPdf}
+                  </a>
+                )}
+              </div>
+            </div>
+          </div>
+
+          {/* Technical Specifications Section */}
+          <div className="mt-10 sm:mt-12 pt-8 border-t border-cream-200/90 space-y-8">
+            {/* Section 1: Chỉ tiêu Lý - Hóa */}
+            <div>
+              <div className="flex items-center gap-2 pb-2 mb-4 border-b border-cream-200">
+                <span className="w-2.5 h-2.5 rounded-xs bg-primary-leaf" />
+                <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
+                  1. Chỉ tiêu Vật lý & Cảm quan (Physical & Sensory Specs)
+                </h3>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs sm:text-sm">
+                <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
+                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMoisture}</span>
+                  <span className="font-bold text-primary-850">
+                    {matchedIngredient?.moisture || product?.moisture || t.defaultMoisture}
+                  </span>
+                </div>
+                <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
+                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMesh}</span>
+                  <span className="font-bold text-primary-850">
+                    {matchedIngredient?.mesh || product?.mesh || t.defaultMesh}
+                  </span>
+                </div>
+                <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
+                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colBrix}</span>
+                  <span className="font-bold text-primary-850">
+                    {matchedIngredient?.brix || product?.brix || (currentLang === 'vi' ? 'Tiêu chuẩn tự nhiên' : currentLang === 'zh' ? '按需调配' : 'Standardized')}
+                  </span>
+                </div>
+                <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
+                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colShelfLife}</span>
+                  <span className="font-bold text-primary-850">
                     {matchedIngredient?.shelfLife || product?.shelfLife || t.defaultShelfLife}
                   </span>
                 </div>
               </div>
             </div>
 
-            {/* Section 2: Bao bì, Lưu kho & Hậu cần Công nghiệp */}
+            {/* Section 2: Quy cách Đóng gói & MOQ */}
             <div>
-              <div className="flex items-center gap-2 pb-2 mb-3 border-b border-cream-200">
+              <div className="flex items-center gap-2 pb-2 mb-4 border-b border-cream-200">
                 <span className="w-2.5 h-2.5 rounded-xs bg-accent-gold" />
                 <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
                   2. Bao bì & Hậu cần Công nghiệp (Packaging & Logistics)
                 </h3>
               </div>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-3 text-xs sm:text-sm">
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
                 <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
                   <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colPackaging}</span>
                   <span className="text-slate-800 font-medium">
@@ -251,24 +293,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
           </div>
         </div>
 
-        {/* Action Buttons */}
-        <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-2">
-          {/* CTA chính: amber (chữ tối trên nền vàng) per brand rules */}
-          <Button href={`/${currentLang}/contact`} variant="amber" size="md">
-            <span>{t.btnQuoteSample}</span>
-          </Button>
-
-          {product?.pdfUrl && (
-            <a
-              href={product.pdfUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-primary-leaf border-2 border-primary-leaf hover:bg-primary-leaf hover:text-white transition-all shadow-xs"
-            >
-              {t.btnDownloadPdf}
-            </a>
-          )}
-
+        {/* Back Button */}
+        <div className="pt-2">
           <Button href={`/${currentLang}/products`} variant="pill" size="md">
             {t.btnBackCatalog}
           </Button>

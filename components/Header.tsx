@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { Locale, Dictionary } from '@/lib/i18n';
 import Container from './Container';
 import Button from './Button';
@@ -68,7 +68,7 @@ export default function Header({ lang, dict }: HeaderProps) {
                 }`}
               >
                 {active && (
-                  <motion.div
+                  <m.div
                     layoutId="activeNavPill"
                     className="absolute inset-0 bg-white rounded-full shadow-xs"
                     transition={{ type: 'spring', stiffness: 380, damping: 30 }}
@@ -132,7 +132,7 @@ export default function Header({ lang, dict }: HeaderProps) {
       {/* Mobile Drawer Menu in warm organic style with smooth animation */}
       <AnimatePresence>
         {mobileMenuOpen && (
-          <motion.div
+          <m.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
@@ -172,7 +172,7 @@ export default function Header({ lang, dict }: HeaderProps) {
                 </Button>
               </div>
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
     </header>

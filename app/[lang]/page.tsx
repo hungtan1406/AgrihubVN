@@ -5,12 +5,13 @@ import HomePageContent from '@/components/HomePageContent';
 import { getFeaturedEvents, getFeaturedNews, getProducts } from '@/lib/wordpress';
 
 interface PageProps {
-  params: { lang: string };
+  params: Promise<{ lang: string }>;
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
+  const { lang } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const dict = await getDictionary(currentLang);
 
   return buildPageMetadata({
     lang: currentLang,
@@ -21,9 +22,10 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function HomePage({ params }: PageProps) {
-  const currentLang: Locale = isValidLocale(params.lang) ? params.lang : defaultLocale;
-  const dict = getDictionary(currentLang);
-  const [featuredNews, featuredEvents, allProducts] = await Promise.all([
+  const { lang } = await params;
+  const currentLang: Locale = isValidLocale(lang) ? lang : defaultLocale;
+  const [dict, featuredNews, featuredEvents, allProducts] = await Promise.all([
+    getDictionary(currentLang),
     getFeaturedNews(currentLang, 3),
     getFeaturedEvents(currentLang, 3),
     getProducts(currentLang),
@@ -45,4 +47,3 @@ export default async function HomePage({ params }: PageProps) {
     />
   );
 }
-

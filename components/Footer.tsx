@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Locale, Dictionary, locales, languageNames, getFooterTranslations } from '@/lib/i18n';
+import { Locale, Dictionary, getFooterTranslations } from '@/lib/i18n';
 import Container from './Container';
 
 interface FooterProps {
@@ -35,17 +35,9 @@ export default function Footer({ lang, dict }: FooterProps) {
             <p className="text-sm text-cream-200/80 leading-relaxed">
               {dict.footer.companyDescription}
             </p>
-            <div className="pt-1 text-xs text-accent-gold font-semibold flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-accent-gold" aria-hidden="true" />
-              <span>{dict.common.tagline}</span>
-            </div>
-            <div className="text-xs text-cream-200/70 space-y-1">
-              <p>{f.experience}</p>
-              <p>{f.markets}</p>
-            </div>
           </div>
 
-          {/* Column 2: Products & OEM Showcase */}
+          {/* Column 2: Products Showcase */}
           <div>
             <h3 className="text-white text-sm font-bold uppercase tracking-wider mb-4 border-l-2 border-primary-leaf pl-2.5">
               {dict.footer.productsTitle}
@@ -73,14 +65,6 @@ export default function Footer({ lang, dict }: FooterProps) {
                   className="hover:text-white hover:underline transition-colors"
                 >
                   {f.itemPuree}
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href={`/${lang}#oem-odm`}
-                  className="hover:text-white hover:underline transition-colors"
-                >
-                  {f.itemOem}
                 </Link>
               </li>
             </ul>
@@ -117,26 +101,6 @@ export default function Footer({ lang, dict }: FooterProps) {
                   {dict.nav.contact}
                 </Link>
               </li>
-              <li>
-                <Link href={`/${lang}#oem-odm`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
-                  &bull; {dict.nav.oemOdm}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${lang}#su-kien`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
-                  &bull; {dict.nav.events ?? 'Sự kiện & Triển lãm'}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${lang}#chat-luong`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
-                  &bull; {dict.nav.qualityCertifications}
-                </Link>
-              </li>
-              <li>
-                <Link href={`/${lang}/global-presence`} className="text-xs text-cream-300/70 hover:text-white transition-colors">
-                  &bull; {dict.nav.globalPresence}
-                </Link>
-              </li>
             </ul>
           </div>
 
@@ -171,26 +135,10 @@ export default function Footer({ lang, dict }: FooterProps) {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-cream-200/60 gap-4">
+        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between text-xs text-cream-200/60 gap-4">
           <p>
             &copy; {currentYear} {dict.common.brandName}. {dict.footer.rightsReserved}
           </p>
-          <div className="flex items-center gap-6">
-            <span>{dict.footer.disclaimer}</span>
-            <div className="flex items-center gap-2">
-              {locales.map((l) => (
-                <Link
-                  key={l}
-                  href={`/${l}`}
-                  className={`hover:text-white uppercase transition-colors ${
-                    lang === l ? 'text-accent-gold font-bold underline' : ''
-                  }`}
-                >
-                  {languageNames[l]}
-                </Link>
-              ))}
-            </div>
-          </div>
         </div>
       </Container>
     </footer>

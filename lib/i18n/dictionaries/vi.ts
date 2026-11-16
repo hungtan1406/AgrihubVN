@@ -38,7 +38,7 @@ export const vi: Dictionary = {
     productsTitle: 'Danh mục nguyên liệu',
     certificationsTitle: 'Chứng nhận & Xuất khẩu',
     contactTitle: 'Thông tin liên hệ B2B',
-    addressLabel: 'Trụ sở chính: [CẦN BỔ SUNG: Địa chỉ trụ sở]',
+    addressLabel: 'Trụ sở chính: 91 Đặng Dung, phường Tân Định, TP.Hồ Chí Minh',
     factoryLabel: 'Nhà máy chế biến: [CẦN BỔ SUNG: Địa chỉ nhà máy]',
     emailLabel: 'Email: [CẦN BỔ SUNG: sales@agrihub.vn]',
     hotlineLabel: 'Hotline / WhatsApp: [CẦN BỔ SUNG: Số điện thoại]',

@@ -37,7 +37,7 @@ export const zh: Dictionary = {
     productsTitle: '核心原料',
     certificationsTitle: '认证与通关资质',
     contactTitle: 'B2B 商务咨询',
-    addressLabel: '总部地址：[待补充：公司总部地址]',
+    addressLabel: '总部地址：91 Dang Dung, Tan Dinh Ward, 胡志明市',
     factoryLabel: '加工工厂：[待补充：加工厂地址]',
     emailLabel: '商务邮箱：[待补充：sales@agrihub.vn]',
     hotlineLabel: '直通热线 / WhatsApp：[待补充：联系电话]',
@@ -58,10 +58,12 @@ export const zh: Dictionary = {
       heroCtaQuote: '咨询报价',
       audienceBadge: 'B2B 定制方案',
       audienceTitle: '为不同业务形态量身定制的原料方案',
-      audienceSubtitle: '为食品工厂、大宗进口商、私标品牌及分销渠道量身规划供应链路径。',
+      audienceSubtitle:
+        '为食品工厂、大宗进口商、私标品牌及分销渠道量身规划供应链路径。',
       pillarsBadge: '核心底蕴',
       pillarsTitle: 'Agrihub 品质保障的三大基石',
-      pillarsSubtitle: '从优质种植源头到现代化精细深加工与多重实验室质检，全程透明合规。',
+      pillarsSubtitle:
+        '从优质种植源头到现代化精细深加工与多重实验室质检，全程透明合规。',
       ingredientsBadge: '主力原料',
       ingredientsTitle: '出口级工业深加工原料系列',
       ingredientsSubtitle: '大宗商业化稳定供应，四季批次理化指标高度均一。',
@@ -75,13 +77,16 @@ export const zh: Dictionary = {
       oemSubtitle: '支持目数、含水率微调、专属口味复配与私标包装工业化量产。',
       supplyBadge: '供应链与重资产',
       supplyTitle: '示范合作种植园与现代化深加工工厂',
-      supplySubtitle: '核心原料主产区合作社深度直连，搭配现代化冻干研磨生产线，保障全年交付。',
+      supplySubtitle:
+        '核心原料主产区合作社深度直连，搭配现代化冻干研磨生产线，保障全年交付。',
       qualityBadge: '权威背书',
       qualityTitle: '全球食品安全体系认证与检测单',
-      qualitySubtitle: '严苛逐批实验室质检，提供完整 COA 报告及国际通关所需的原产地与植检证明。',
+      qualitySubtitle:
+        '严苛逐批实验室质检，提供完整 COA 报告及国际通关所需的原产地与植检证明。',
       globalBadge: '全球履约',
       globalTitle: '全球贸易版图与国际专业展会',
-      globalSubtitle: '十年耕耘，将越南优质农产深加工成果成功出口至中东、欧洲及亚洲严苛市场。',
+      globalSubtitle:
+        '十年耕耘，将越南优质农产深加工成果成功出口至中东、欧洲及亚洲严苛市场。',
       featuredEventsBadge: '展会与动态',
       featuredEventsTitle: '精选活动',
       featuredEventsSubtitle:
@@ -93,13 +98,15 @@ export const zh: Dictionary = {
       viewAllNews: '查看全部新闻 →',
       contactBadge: '需求直达',
       contactTitle: '索取技术规格书 (TDS) 与实验室测试样品',
-      contactSubtitle: 'Agrihub 外贸业务团队将在 24 小时内为您提供技术参数单与大宗阶梯报价。',
+      contactSubtitle:
+        'Agrihub 外贸业务团队将在 24 小时内为您提供技术参数单与大宗阶梯报价。',
     },
     products: {
       title: '加工农产品原料系列',
       subtitle:
         '供应高规格冻干/喷雾干燥果粉、精品果干及果浆原汁，专为烘焙、糖果、咖啡及饮料工业量身定制。',
-      targetAudience: '国内外食品饮料生产企业（咖啡、巧克力、烘焙、饮品）及国际进口商',
+      targetAudience:
+        '国内外食品饮料生产企业（咖啡、巧克力、烘焙、饮品）及国际进口商',
       primaryCta: '获取报价并申请实验室样品',
     },
     productDetail: {

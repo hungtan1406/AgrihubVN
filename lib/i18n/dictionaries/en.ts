@@ -11,7 +11,8 @@ export const en: Dictionary = {
     contactUs: 'Contact Sales',
     viewDetails: 'View Details',
     backToHome: 'Back to Home',
-    placeholderNotice: '[DATA PENDING: Detailed metrics and specifications being finalized]',
+    placeholderNotice:
+      '[DATA PENDING: Detailed metrics and specifications being finalized]',
     targetCustomer: 'Target B2B Audience',
     selectLanguage: 'Select Language',
   },
@@ -37,16 +38,18 @@ export const en: Dictionary = {
     productsTitle: 'Core Ingredients',
     certificationsTitle: 'Certificates & Export',
     contactTitle: 'B2B Inquiries',
-    addressLabel: 'Headquarters: [DATA PENDING: Office address]',
+    addressLabel: 'Headquarters: 91 Dang Dung, Tan Dinh Ward, Ho Chi Minh City',
     factoryLabel: 'Processing Facility: [DATA PENDING: Plant address]',
     emailLabel: 'Email: [DATA PENDING: sales@agrihub.vn]',
     hotlineLabel: 'Direct Line / WhatsApp: [DATA PENDING: Phone number]',
     rightsReserved: 'All rights reserved.',
-    disclaimer: 'Operating strictly under Incoterms 2020 international trade rules.',
+    disclaimer:
+      'Operating strictly under Incoterms 2020 international trade rules.',
   },
   pages: {
     home: {
-      title: 'Agrihub Vietnam - Industrial Fruit Powder & Processed Ingredient Supplier',
+      title:
+        'Agrihub Vietnam - Industrial Fruit Powder & Processed Ingredient Supplier',
       metaDescription:
         'Reliable Vietnamese exporter of high-grade fruit powders, dried fruits, and concentrated juices for industrial F&B manufacturers worldwide.',
       heroTitle: 'Industrial Food Ingredients & Fruit Powders from Vietnam',
@@ -58,13 +61,16 @@ export const en: Dictionary = {
       heroCtaQuote: 'Request Quotation',
       audienceBadge: 'B2B Tailored Solutions',
       audienceTitle: 'Tailored Solutions for Industry Partners',
-      audienceSubtitle: 'Engineering supply pathways optimized for manufacturers, importers, brand owners, and distributors.',
+      audienceSubtitle:
+        'Engineering supply pathways optimized for manufacturers, importers, brand owners, and distributors.',
       pillarsBadge: 'Solid Foundations',
       pillarsTitle: 'Three Pillars of Agrihub Capability',
-      pillarsSubtitle: 'Complete transparency from certified orchards to specialized plant processing and lab verification.',
+      pillarsSubtitle:
+        'Complete transparency from certified orchards to specialized plant processing and lab verification.',
       ingredientsBadge: 'Core Ingredients',
       ingredientsTitle: 'Export-Grade Industrial Ingredients Catalog',
-      ingredientsSubtitle: 'High-volume commercial supply with consistent seasonal specifications and clean labeling.',
+      ingredientsSubtitle:
+        'High-volume commercial supply with consistent seasonal specifications and clean labeling.',
       tabAll: 'All Ingredients',
       tabPowder: 'Fruit Powders',
       tabPuree: 'Purees & Concentrates',
@@ -72,16 +78,20 @@ export const en: Dictionary = {
       tabFrozen: 'Frozen Fruits (IQF)',
       oemBadge: 'Services At Agrihub',
       oemTitle: 'OEM/ODM & Technical R&D to Factory Specs',
-      oemSubtitle: 'Co-developing proprietary formulas, customized mesh/brix parameters, and private label packaging.',
+      oemSubtitle:
+        'Co-developing proprietary formulas, customized mesh/brix parameters, and private label packaging.',
       supplyBadge: 'Supply Chain & Plant',
       supplyTitle: 'Orchard Network & Industrial Dehydration Plant',
-      supplySubtitle: 'Integrating standardized agricultural cooperatives with modern drying technology for steady annual delivery.',
+      supplySubtitle:
+        'Integrating standardized agricultural cooperatives with modern drying technology for steady annual delivery.',
       qualityBadge: 'Quality Credentials',
       qualityTitle: 'International Safety Standards & Certifications',
-      qualitySubtitle: 'Rigorous batch-by-batch QA/QC testing, transparent COA reporting, and streamlined export customs dossiers.',
+      qualitySubtitle:
+        'Rigorous batch-by-batch QA/QC testing, transparent COA reporting, and streamlined export customs dossiers.',
       globalBadge: 'Global Footprint',
       globalTitle: 'International Export Markets & Trade Shows',
-      globalSubtitle: 'Over a decade delivering processed Vietnamese agricultural treasures to discerning international markets.',
+      globalSubtitle:
+        'Over a decade delivering processed Vietnamese agricultural treasures to discerning international markets.',
       featuredEventsBadge: 'Events & Expos',
       featuredEventsTitle: 'Featured Events',
       featuredEventsSubtitle:
@@ -89,82 +99,94 @@ export const en: Dictionary = {
       viewAllEvents: 'View All Events →',
       featuredNewsBadge: 'News & Updates',
       featuredNewsTitle: 'Featured News',
-      featuredNewsSubtitle: 'Latest updates on company milestones, market insights, and industry news from Agrihub.',
+      featuredNewsSubtitle:
+        'Latest updates on company milestones, market insights, and industry news from Agrihub.',
       viewAllNews: 'View All News →',
       contactBadge: 'Direct Inquiries',
       contactTitle: 'Request Technical Quotation & Free Lab Samples',
-      contactSubtitle: 'Agrihub commercial export desk responds with full TDS specifications and price tiers within 24 business hours.',
+      contactSubtitle:
+        'Agrihub commercial export desk responds with full TDS specifications and price tiers within 24 business hours.',
     },
     products: {
       title: 'Processed Agricultural Ingredients Catalog',
       subtitle:
         'Supplying Freeze-Dried & Spray-Dried Fruit Powders, Dried Fruits, and Concentrated Purees engineered for food and beverage manufacturing.',
-      targetAudience: 'F&B Manufacturers (Coffee, Chocolate, Bakery, Confectionery, Beverages) & Global Importers',
+      targetAudience:
+        'F&B Manufacturers (Coffee, Chocolate, Bakery, Confectionery, Beverages) & Global Importers',
       primaryCta: 'Request Quote & Free Lab Sample',
     },
     productDetail: {
       title: 'Technical Data Sheet & Specifications (TDS / Spec)',
       subtitle:
         'Comprehensive breakdown of mesh size, moisture levels, brix values, F&B applications, and industrial packaging standards.',
-      targetAudience: 'R&D Teams, Quality Assurance (QA/QC) & Procurement Managers',
+      targetAudience:
+        'R&D Teams, Quality Assurance (QA/QC) & Procurement Managers',
       primaryCta: 'Request Free Sample & Official TDS',
     },
     oemOdm: {
       title: 'OEM / ODM & Custom Formulation Services',
       subtitle:
         'Custom R&D formulation, fine-tuned mesh/brix parameters, and industrial private labeling built for commercial scalability.',
-      targetAudience: 'F&B Brands requiring private label, custom formulation & food service chains',
+      targetAudience:
+        'F&B Brands requiring private label, custom formulation & food service chains',
       primaryCta: 'Schedule R&D Technical Consultation',
     },
     supplyChain: {
       title: 'Supply Chain, Processing Plant & Sourcing',
       subtitle:
         'GAP-certified partner orchards across Vietnam integrated with state-of-the-art dehydration and milling facilities ensuring year-round supply stability.',
-      targetAudience: 'Large-scale F&B Manufacturers & High-volume International Importers',
+      targetAudience:
+        'Large-scale F&B Manufacturers & High-volume International Importers',
       primaryCta: 'Download Supply & Facility Dossier',
     },
     qualityCertifications: {
       title: 'Quality Management & International Certifications',
       subtitle:
         'Strict batch-by-batch microbiological and heavy metal lab testing, traceable origin documentation, and international export certifications.',
-      targetAudience: 'Quality Assurance (QA/QC) Officers & Regulatory Compliance Buyers',
+      targetAudience:
+        'Quality Assurance (QA/QC) Officers & Regulatory Compliance Buyers',
       primaryCta: 'Request Full Certification Pack & Sample COA',
     },
     globalPresence: {
       title: 'Global Export Footprint & Trade Exhibitions',
       subtitle:
         '10+ years exporting to the UAE, Bulgaria, Cambodia, and China. Regular exhibitor at Saudi Food Show, WorldFood Moscow, Vietnam Foodexpo, Food Africa 2025.',
-      targetAudience: 'Global Importers & Regional Distributors (Middle East, Europe, Africa, Asia)',
+      targetAudience:
+        'Global Importers & Regional Distributors (Middle East, Europe, Africa, Asia)',
       primaryCta: 'Book Trade Show Meeting / Contact Export Desk',
     },
     distributionPartners: {
       title: 'Domestic Distributor & Wholesale Network',
       subtitle:
         'Competitive wholesale tiers, dedicated inventory buffers, and marketing support for domestic ingredient distributors in Vietnam.',
-      targetAudience: 'Domestic Ingredient Wholesalers & Regional B2B Distributors',
+      targetAudience:
+        'Domestic Ingredient Wholesalers & Regional B2B Distributors',
       primaryCta: 'Apply for Dealership & Receive Wholesale Sheet',
     },
     aboutUs: {
       title: 'About Agrihub Vietnam',
       subtitle:
         'Over a decade bridging Vietnamese agricultural treasures with international manufacturing supply chains, growing value together.',
-      targetAudience: 'All B2B partners seeking corporate background, verified history, and core values',
+      targetAudience:
+        'All B2B partners seeking corporate background, verified history, and core values',
       primaryCta: 'Initiate Long-term Partnership',
     },
     contact: {
       title: 'Contact & B2B Quotation',
       subtitle:
         'Submit requests for lab samples, bulk quote requests, or OEM project briefs. Our export team responds within 24 business hours.',
-      targetAudience: 'All B2B inquiries for ingredient sourcing, OEM partnerships, and sample orders',
+      targetAudience:
+        'All B2B inquiries for ingredient sourcing, OEM partnerships, and sample orders',
       primaryCta: 'Submit Commercial Inquiry',
     },
   },
   news: {
     metaTitle: 'News & Events | Agrihub Vietnam',
     metaDescription:
-      'Latest news, international trade show events and announcements from Agrihub – Vietnam\'s leading processed agricultural ingredient exporter.',
+      "Latest news, international trade show events and announcements from Agrihub – Vietnam's leading processed agricultural ingredient exporter.",
     pageTitle: 'News & Events',
-    pageSubtitle: 'Updates on our activities, international exhibitions and latest news from Agrihub',
+    pageSubtitle:
+      'Updates on our activities, international exhibitions and latest news from Agrihub',
     filterAll: 'All',
     filterFeatured: 'Featured',
     filterNews: 'News',

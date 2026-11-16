@@ -14,6 +14,7 @@ import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
 import SectionTitle from '@/components/SectionTitle';
+import ProductDetailActions from '@/components/ProductDetailActions';
 import { getAllProductSlugs, getProductBySlug } from '@/lib/wordpress';
 
 export const dynamicParams = true;
@@ -163,37 +164,22 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 </span>
               </div>
 
-              {/* Action Buttons with Lead Query Params */}
-              <div className="flex flex-wrap items-center gap-3 sm:gap-4 pt-4 border-t border-cream-200">
-                <Button
-                  href={`/${currentLang}/contact?product=${slug}&type=quote`}
-                  variant="amber"
-                  size="md"
-                  className="font-bold shadow-xs hover:shadow-md"
-                >
-                  <span>{t.btnQuoteSample || 'Yêu cầu Báo giá'}</span>
-                </Button>
-
-                <Button
-                  href={`/${currentLang}/contact?product=${slug}&type=sample`}
-                  variant="primary"
-                  size="md"
-                  className="font-bold shadow-xs hover:shadow-md"
-                >
-                  <span>Nhận mẫu thử (Free Sample)</span>
-                </Button>
-
-                {product?.pdfUrl && (
-                  <a
-                    href={product.pdfUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-primary-leaf border-2 border-primary-leaf hover:bg-primary-leaf hover:text-white transition-all shadow-xs"
-                  >
-                    {t.btnDownloadPdf}
-                  </a>
-                )}
-              </div>
+              {/* Action Buttons with Lead Query Params & Spec Sheet Modal */}
+              <ProductDetailActions
+                currentLang={currentLang}
+                slug={slug}
+                productName={title}
+                pdfUrl={product?.pdfUrl}
+                btnQuoteText={t.btnQuoteSample || 'Yêu cầu Báo giá'}
+                btnSampleText={
+                  currentLang === 'vi'
+                    ? 'Nhận mẫu thử (Free Sample)'
+                    : currentLang === 'zh'
+                    ? '免费申请样品 (Free Sample)'
+                    : 'Request Free Sample Kit'
+                }
+                btnDownloadPdfText={t.btnDownloadPdf || '📄 Tải Spec & TDS (PDF)'}
+              />
             </div>
           </div>
 

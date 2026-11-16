@@ -90,6 +90,10 @@ export default function LanguageSelect({
 
   const switchLanguage = (targetLang: Locale) => {
     setIsOpen(false);
+    // Persist choice in cookie for middleware
+    if (typeof document !== 'undefined') {
+      document.cookie = `NEXT_LOCALE=${targetLang}; path=/; max-age=31536000; SameSite=Lax`;
+    }
     if (!pathname) {
       router.push(`/${targetLang}`);
       return;

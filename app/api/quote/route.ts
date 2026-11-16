@@ -18,16 +18,35 @@ export async function POST(request: NextRequest) {
       purposeLabel,
       category,
       categoryLabel,
+      volume,
+      volumeLabel,
+      packaging,
+      packagingLabel,
+      incoterm,
+      incotermLabel,
+      destination,
+      productSlug,
       details,
       lang,
     } = body;
 
-    // Validate required fields
-    if (!name || !company || !email || !phone) {
-      return NextResponse.json(
-        { error: 'Vui lòng điền đầy đủ các thông tin bắt buộc (*)' },
-        { status: 400 }
-      );
+    const isSpecDownload = purpose === 'spec_download';
+
+    // Validate required fields: spec downloads only require email and company/name
+    if (isSpecDownload) {
+      if (!email || (!company && !name)) {
+        return NextResponse.json(
+          { error: 'Vui lòng điền Email doanh nghiệp và Tên công ty' },
+          { status: 400 }
+        );
+      }
+    } else {
+      if (!name || !company || !email || !phone) {
+        return NextResponse.json(
+          { error: 'Vui lòng điền đầy đủ các thông tin bắt buộc (*)' },
+          { status: 400 }
+        );
+      }
     }
 
     // Basic email check
@@ -41,28 +60,35 @@ export async function POST(request: NextRequest) {
 
     const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
+    // Send payload to Google Apps Script Web App
+    const payload = {
+      timestamp: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
+      type: isSpecDownload ? 'TDS_DOWNLOAD' : 'B2B_INQUIRY',
+      name: String(name || '').trim(),
+      company: String(company || '').trim(),
+      email: String(email || '').trim(),
+      phone: String(phone || '').trim(),
+      purpose: String(purposeLabel || purpose || '').trim(),
+      category: String(categoryLabel || category || '').trim(),
+      volume: String(volumeLabel || volume || '').trim(),
+      packaging: String(packagingLabel || packaging || '').trim(),
+      incoterm: String(incotermLabel || incoterm || '').trim(),
+      destination: String(destination || '').trim(),
+      productSlug: String(productSlug || '').trim(),
+      details: String(details || '').trim(),
+      lang: String(lang || 'vi').trim(),
+    };
+
     if (!webhookUrl) {
       console.warn('GOOGLE_SHEETS_WEBHOOK_URL is not set in environment variables.');
       // Return mock response in development to not block UI testing if not yet configured
       return NextResponse.json({
         success: true,
         mock: true,
+        data: payload,
         message: 'Mock submission: GOOGLE_SHEETS_WEBHOOK_URL chưa được cấu hình trong file .env.local',
       });
     }
-
-    // Send payload to Google Apps Script Web App
-    const payload = {
-      timestamp: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
-      name: String(name).trim(),
-      company: String(company).trim(),
-      email: String(email).trim(),
-      phone: String(phone).trim(),
-      purpose: String(purposeLabel || purpose || '').trim(),
-      category: String(categoryLabel || category || '').trim(),
-      details: String(details || '').trim(),
-      lang: String(lang || 'vi').trim(),
-    };
 
     const response = await fetch(webhookUrl, {
       method: 'POST',

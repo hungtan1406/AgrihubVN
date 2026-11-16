@@ -20,6 +20,7 @@ export default function ContactForm({
   const [submitted, setSubmitted] = useState(false);
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
+  const [showB2bSpecs, setShowB2bSpecs] = useState(Boolean(initialProduct || initialType === 'quote'));
 
   const initialPurpose =
     initialType === 'sample' ? 'sample' : initialType === 'quote' ? 'quote' : 'quote';
@@ -31,6 +32,11 @@ export default function ContactForm({
     phone: '',
     purpose: initialPurpose,
     category: 'fruit-powder',
+    volume: '',
+    packaging: '',
+    incoterm: '',
+    destination: '',
+    productSlug: initialProduct || '',
     details: initialProduct ? `Sản phẩm quan tâm (Product of interest): ${initialProduct}` : '',
     website: '', // Honeypot anti-spam
   });
@@ -51,6 +57,26 @@ export default function ContactForm({
     'frozen-fruits': t.catFrozen,
     puree: t.catPuree,
     multiple: t.catMultiple,
+  };
+
+  const volumeLabels: Record<string, string> = {
+    trial: t.volumeTrial,
+    pallet: t.volumePallet,
+    fcl: t.volumeFcl,
+    contract: t.volumeContract,
+  };
+
+  const packagingLabels: Record<string, string> = {
+    drum: t.packagingDrum,
+    carton: t.packagingCarton,
+    retail: t.packagingRetail,
+    custom: t.packagingCustom,
+  };
+
+  const incotermLabels: Record<string, string> = {
+    fob: t.incotermFob,
+    cif: t.incotermCif,
+    exw: t.incotermExw,
   };
 
   const handleChange = (
@@ -75,6 +101,9 @@ export default function ContactForm({
           ...formData,
           purposeLabel: purposeLabels[formData.purpose] || formData.purpose,
           categoryLabel: categoryLabels[formData.category] || formData.category,
+          volumeLabel: volumeLabels[formData.volume] || formData.volume,
+          packagingLabel: packagingLabels[formData.packaging] || formData.packaging,
+          incotermLabel: incotermLabels[formData.incoterm] || formData.incoterm,
           lang,
         }),
       });
@@ -93,6 +122,11 @@ export default function ContactForm({
         phone: '',
         purpose: 'quote',
         category: 'fruit-powder',
+        volume: '',
+        packaging: '',
+        incoterm: '',
+        destination: '',
+        productSlug: '',
         details: '',
         website: '',
       });
@@ -142,6 +176,7 @@ export default function ContactForm({
         </div>
       )}
 
+      {/* Row 1: Name & Company */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
@@ -174,6 +209,7 @@ export default function ContactForm({
         </div>
       </div>
 
+      {/* Row 2: Email & Phone */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
@@ -206,6 +242,7 @@ export default function ContactForm({
         </div>
       </div>
 
+      {/* Row 3: Purpose & Category */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         <div>
           <label className="block text-xs font-bold text-primary-850 mb-1">
@@ -244,6 +281,109 @@ export default function ContactForm({
         </div>
       </div>
 
+      {/* Row 4: Expandable Industrial B2B Specification Fields */}
+      <div className="rounded-2xl border border-cream-200/90 bg-cream-50/70 p-4 transition-all">
+        <button
+          type="button"
+          onClick={() => setShowB2bSpecs(!showB2bSpecs)}
+          className="w-full flex items-center justify-between text-left text-xs font-bold text-primary-850 hover:text-primary-leaf transition-colors"
+        >
+          <span className="flex items-center gap-2">
+            <span>📦</span>
+            <span>
+              {lang === 'vi'
+                ? 'Thông số đơn hàng B2B (Sản lượng, Bao bì, Incoterms)'
+                : lang === 'zh'
+                ? 'B2B 工业采购规格（采购量、包装、贸易条款）'
+                : 'B2B Procurement Specifications (Volume, Packaging, Incoterms)'}
+            </span>
+            <span className="text-[10px] font-normal text-slate-500 font-mono">
+              {t.optionalBadge}
+            </span>
+          </span>
+          <span className="text-sm font-bold text-slate-400">
+            {showB2bSpecs ? '▲' : '▼'}
+          </span>
+        </button>
+
+        {showB2bSpecs && (
+          <div className="mt-4 pt-3 border-t border-cream-200/70 space-y-3.5 animate-in fade-in duration-200">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  {t.volumeLabel}
+                </label>
+                <select
+                  name="volume"
+                  value={formData.volume}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 text-xs bg-white rounded-xl border border-cream-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30"
+                >
+                  <option value="">-- {lang === 'vi' ? 'Chọn sản lượng' : lang === 'zh' ? '选择预计采购量' : 'Select Volume'} --</option>
+                  <option value="trial">{t.volumeTrial}</option>
+                  <option value="pallet">{t.volumePallet}</option>
+                  <option value="fcl">{t.volumeFcl}</option>
+                  <option value="contract">{t.volumeContract}</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  {t.packagingLabel}
+                </label>
+                <select
+                  name="packaging"
+                  value={formData.packaging}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 text-xs bg-white rounded-xl border border-cream-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30"
+                >
+                  <option value="">-- {lang === 'vi' ? 'Chọn bao bì' : lang === 'zh' ? '选择包装方式' : 'Select Packaging'} --</option>
+                  <option value="drum">{t.packagingDrum}</option>
+                  <option value="carton">{t.packagingCarton}</option>
+                  <option value="retail">{t.packagingRetail}</option>
+                  <option value="custom">{t.packagingCustom}</option>
+                </select>
+              </div>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  {t.incotermLabel}
+                </label>
+                <select
+                  name="incoterm"
+                  value={formData.incoterm}
+                  onChange={handleChange}
+                  className="w-full px-3 py-2 text-xs bg-white rounded-xl border border-cream-300 text-slate-800 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30"
+                >
+                  <option value="">-- {lang === 'vi' ? 'Chọn điều kiện' : lang === 'zh' ? '选择贸易条款' : 'Select Incoterm'} --</option>
+                  <option value="fob">{t.incotermFob}</option>
+                  <option value="cif">{t.incotermCif}</option>
+                  <option value="exw">{t.incotermExw}</option>
+                </select>
+              </div>
+
+              <div>
+                <label className="block text-[11px] font-semibold text-slate-600 mb-1">
+                  {t.destinationLabel}
+                </label>
+                <input
+                  type="text"
+                  name="destination"
+                  value={formData.destination}
+                  onChange={handleChange}
+                  placeholder={t.destinationPlaceholder}
+                  className="w-full px-3 py-2 text-xs bg-white rounded-xl border border-cream-300 text-slate-800 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-leaf/30"
+                >
+                </input>
+              </div>
+            </div>
+          </div>
+        )}
+      </div>
+
+      {/* Row 5: Detailed Message */}
       <div>
         <label className="block text-xs font-bold text-primary-850 mb-1">
           {t.detailsLabel}

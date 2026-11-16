@@ -40,7 +40,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" className={`scroll-smooth ${beVietnamPro.variable}`}>
+    <html lang="vi" data-scroll-behavior="smooth" className={`scroll-smooth ${beVietnamPro.variable}`}>
       <head>
         <JsonLdOrganization />
       </head>

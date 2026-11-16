@@ -34,7 +34,7 @@ function resolvePreferredLocale(request: NextRequest): Locale {
   return 'en';
 }
 
-export function middleware(request: NextRequest) {
+export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
   // Check if pathname already has a supported locale

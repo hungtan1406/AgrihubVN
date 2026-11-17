@@ -20,6 +20,12 @@ export default async function LangLayout({ children, params }: LangLayoutProps) 
 
   return (
     <MotionProvider>
+      {/* Client runtime language sync for accessibility & translators */}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `document.documentElement.lang="${currentLang}";`,
+        }}
+      />
       <div className="flex flex-col min-h-screen">
         <Header lang={currentLang} dict={dict} />
         <main className="flex-1">{children}</main>

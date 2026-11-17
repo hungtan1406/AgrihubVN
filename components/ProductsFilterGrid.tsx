@@ -159,7 +159,7 @@ export default function ProductsFilterGrid({
   return (
     <div className="space-y-6 sm:space-y-8">
       {/* Thanh điều khiển: Tabs danh mục & Ô tìm kiếm nhanh */}
-      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-cream-100/60 p-3 sm:p-4 rounded-2xl sm:rounded-3xl border border-cream-200/80">
+      <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4 bg-cream-100/60 p-3 sm:p-4 rounded-2xl sm:rounded-3xl">
         {/* Category Tabs */}
         <div className="w-full lg:w-auto overflow-x-auto no-scrollbar py-0.5">
           <div className="inline-flex items-center bg-cream-300/80 p-1 rounded-full border border-cream-400/30 text-xs font-bold gap-1 shrink-0">

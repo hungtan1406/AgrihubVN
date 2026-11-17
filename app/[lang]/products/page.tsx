@@ -45,7 +45,7 @@ export default async function ProductsPage({ params }: PageProps) {
     <div className="py-8 sm:py-12">
       <Container>
         {/* Header Section with natural CTA */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-cream-200/80">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 sm:mb-8">
           <SectionTitle
             as="h1"
             badge="B2B Ingredients"

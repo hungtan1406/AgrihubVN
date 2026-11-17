@@ -77,7 +77,7 @@ export default function HeroBackgroundSlider({
                 alt={slide.alt}
                 fill
                 priority={idx === 0}
-                loading={idx === 0 ? undefined : 'eager'}
+                loading={idx === 0 ? undefined : 'lazy'}
                 className="object-cover object-center"
                 sizes="100vw"
               />

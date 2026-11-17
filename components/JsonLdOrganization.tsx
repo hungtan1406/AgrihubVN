@@ -23,7 +23,6 @@ export default function JsonLdOrganization() {
     contactPoint: [
       {
         '@type': 'ContactPoint',
-        telephone: '+84 90 123 4567',
         contactType: 'sales',
         email: 'sales@agrihub.vn',
         areaServed: ['VN', 'AE', 'BG', 'CN', 'KH'],

@@ -6,8 +6,16 @@ export async function POST(request: NextRequest) {
     const { searchParams } = new URL(request.url);
     const secret = searchParams.get('secret');
 
-    // Expected secret token from environment or fallback for verification
-    const expectedSecret = process.env.REVALIDATION_SECRET || 'agrihub_revalidate_secret_2026';
+    // Expected secret token from environment
+    const expectedSecret = process.env.REVALIDATION_SECRET;
+
+    if (!expectedSecret) {
+      console.error('REVALIDATION_SECRET environment variable is not configured.');
+      return NextResponse.json(
+        { message: 'Revalidation endpoint is not configured securely' },
+        { status: 500 }
+      );
+    }
 
     if (secret !== expectedSecret) {
       return NextResponse.json({ message: 'Invalid secret token' }, { status: 401 });

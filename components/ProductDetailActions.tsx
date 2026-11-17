@@ -50,9 +50,12 @@ export default function ProductDetailActions({
         <button
           type="button"
           onClick={() => setModalOpen(true)}
-          className="inline-flex items-center justify-center px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-primary-leaf border-2 border-primary-leaf hover:bg-primary-leaf hover:text-white transition-all shadow-xs cursor-pointer"
+          className="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-full text-xs sm:text-sm font-bold bg-white text-primary-leaf border-2 border-primary-leaf hover:bg-primary-leaf hover:text-white transition-all shadow-xs cursor-pointer"
         >
-          <span>{btnDownloadPdfText || '📄 Download Spec & TDS (PDF)'}</span>
+          <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+          </svg>
+          <span>{btnDownloadPdfText ? btnDownloadPdfText.replace(/^[^\w\s\u00C0-\u1EF9\u4E00-\u9FFF]+\s*/, '') : 'Download Spec & TDS (PDF)'}</span>
         </button>
       </div>
 

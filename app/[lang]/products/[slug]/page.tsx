@@ -2,6 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import {
   Locale,
   getDictionary,
@@ -62,12 +63,11 @@ export default async function ProductDetailPage({ params }: PageProps) {
   const localizedIngredients = getIngredients(currentLang);
   const matchedIngredient = localizedIngredients.find((ing) => ing.id === slug);
 
-  const fallbackName = slug
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
+  if (!product && !matchedIngredient) {
+    notFound();
+  }
 
-  const title = matchedIngredient?.name || product?.name || fallbackName;
+  const title = matchedIngredient?.name || product?.name || slug;
   const categoryName = matchedIngredient?.categoryName || product?.category || t.defaultCategory;
 
   return (

@@ -3,7 +3,6 @@ import { Be_Vietnam_Pro } from 'next/font/google';
 import './globals.css';
 import { SITE_URL } from '@/lib/seo';
 import JsonLdOrganization from '@/components/JsonLdOrganization';
-import ScrollProgress from '@/components/animations/ScrollProgress';
 
 const beVietnamPro = Be_Vietnam_Pro({
   weight: ['400', '500', '600', '700'],
@@ -45,7 +44,6 @@ export default function RootLayout({
         <JsonLdOrganization />
       </head>
       <body className={`${beVietnamPro.className} font-sans min-h-screen flex flex-col bg-cream-100 text-primary-850 antialiased`}>
-        <ScrollProgress />
         {children}
       </body>
     </html>

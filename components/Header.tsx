@@ -88,7 +88,7 @@ export default function Header({ lang, dict }: HeaderProps) {
           {/* Let's Talk / Request Quote Action Pill (desktop only; hidden on tablet & mobile as it is inside the hamburger drawer) */}
           <Button
             href={`/${lang}/contact`}
-            variant="primary"
+            variant="amber"
             size="sm"
             className="hidden lg:inline-flex items-center gap-1.5 shadow-sm text-xs font-bold shrink-0"
           >
@@ -163,7 +163,7 @@ export default function Header({ lang, dict }: HeaderProps) {
               <div className="pt-3 border-t border-cream-200">
                 <Button
                   href={`/${lang}/contact`}
-                  variant="primary"
+                  variant="amber"
                   size="md"
                   fullWidth
                   onClick={() => setMobileMenuOpen(false)}

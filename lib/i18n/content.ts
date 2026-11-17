@@ -595,15 +595,15 @@ export function getHomePageUi(lang: Locale) {
         slideLabel: 'Slide',
         slides: [
           {
-            src: '/images/banners/Banner1.png',
+            src: '/images/banners/Banner1.webp',
             alt: 'Agrihub Vietnam - Pineapple Powder and Red Dragon Fruit Powder',
           },
           {
-            src: '/images/banners/Banner2.png',
+            src: '/images/banners/Banner2.webp',
             alt: 'Agrihub Vietnam - Pink Guava Juice Concentrate and Passion Fruit Concentrate',
           },
           {
-            src: '/images/banners/Banner3.png',
+            src: '/images/banners/Banner3.webp',
             alt: 'Agrihub Vietnam - Green Banana Powder and Garlic Powder',
           },
         ],
@@ -813,15 +813,15 @@ export function getHomePageUi(lang: Locale) {
         slideLabel: '幻灯片',
         slides: [
           {
-            src: '/images/banners/Banner1.png',
+            src: '/images/banners/Banner1.webp',
             alt: 'Agrihub 越南 - 菠萝粉与红心火龙果粉原料',
           },
           {
-            src: '/images/banners/Banner2.png',
+            src: '/images/banners/Banner2.webp',
             alt: 'Agrihub 越南 - 红心番石榴浓缩汁与百香果浓缩汁',
           },
           {
-            src: '/images/banners/Banner3.png',
+            src: '/images/banners/Banner3.webp',
             alt: 'Agrihub 越南 - 青香蕉粉与大蒜粉加工原料',
           },
         ],
@@ -1022,15 +1022,15 @@ export function getHomePageUi(lang: Locale) {
       slideLabel: 'Ảnh nền',
       slides: [
         {
-          src: '/images/banners/Banner1.png',
+          src: '/images/banners/Banner1.webp',
           alt: 'Agrihub Việt Nam - Bột dứa và bột thanh long đỏ xuất khẩu',
         },
         {
-          src: '/images/banners/Banner2.png',
+          src: '/images/banners/Banner2.webp',
           alt: 'Agrihub Việt Nam - Nước cốt ổi hồng và chanh dây cô đặc',
         },
         {
-          src: '/images/banners/Banner3.png',
+          src: '/images/banners/Banner3.webp',
           alt: 'Agrihub Việt Nam - Bột chuối xanh và bột tỏi công nghiệp',
         },
       ],

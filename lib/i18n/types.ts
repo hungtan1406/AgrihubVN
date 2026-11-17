@@ -68,6 +68,7 @@ export interface Dictionary {
       tabPuree?: string;
       tabDried?: string;
       tabFrozen?: string;
+      viewAllProducts?: string;
       oemBadge: string;
       oemTitle: string;
       oemSubtitle: string;

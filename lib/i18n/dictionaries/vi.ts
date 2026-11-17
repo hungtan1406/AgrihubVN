@@ -75,6 +75,7 @@ export const vi: Dictionary = {
       tabPuree: 'Nước cốt',
       tabDried: 'Trái cây sấy',
       tabFrozen: 'Trái cây đông lạnh',
+      viewAllProducts: 'Xem toàn bộ danh mục sản phẩm',
       oemBadge: 'Dịch Vụ Tại Agrihub',
       oemTitle: 'Gia công OEM/ODM & R&D theo tiêu chuẩn nhà máy',
       oemSubtitle:

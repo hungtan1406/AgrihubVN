@@ -76,6 +76,7 @@ export const en: Dictionary = {
       tabPuree: 'Purees & Concentrates',
       tabDried: 'Dried Fruits',
       tabFrozen: 'Frozen Fruits (IQF)',
+      viewAllProducts: 'View All Products & Catalogue',
       oemBadge: 'Services At Agrihub',
       oemTitle: 'OEM/ODM & Technical R&D to Factory Specs',
       oemSubtitle:

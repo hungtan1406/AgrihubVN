@@ -72,6 +72,7 @@ export const zh: Dictionary = {
       tabPuree: '果浆与浓缩原汁',
       tabDried: '水果干',
       tabFrozen: '冷冻水果 (IQF)',
+      viewAllProducts: '查看全部产品目录',
       oemBadge: 'Agrihub 核心服务',
       oemTitle: 'OEM/ODM 代工与专属性配方研发',
       oemSubtitle: '支持目数、含水率微调、专属口味复配与私标包装工业化量产。',

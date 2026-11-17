@@ -120,11 +120,7 @@ export default function HomeProductShowcase({
           className="shadow-sm hover:shadow-md transition-all group"
         >
           <span>
-            {currentLang === 'en'
-              ? 'View All Products & Catalogue'
-              : currentLang === 'zh'
-                ? '查看全部产品目录'
-                : 'Xem toàn bộ danh mục sản phẩm'}
+            {dict.pages.home.viewAllProducts || dict.common.viewDetails}
           </span>
         </Button>
       </div>

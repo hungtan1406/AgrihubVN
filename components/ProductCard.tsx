@@ -57,127 +57,6 @@ export default function ProductCard({
   const isPuree = product.category === 'puree';
   const isFrozen = product.category === 'frozen';
 
-  // Resolve product category to standard groups: powder | puree | dried | frozen
-  const rawCat = (product.category || '').toLowerCase();
-  const rawCatName = (product.categoryName || '').toLowerCase();
-
-  let categoryGroup: 'powder' | 'puree' | 'dried' | 'frozen' = 'powder';
-  if (
-    rawCat === 'frozen' ||
-    rawCatName.includes('đông lạnh') ||
-    rawCatName.includes('frozen') ||
-    rawCatName.includes('iqf') ||
-    rawCatName.includes('冷冻')
-  ) {
-    categoryGroup = 'frozen';
-  } else if (
-    rawCat === 'puree' ||
-    rawCatName.includes('cốt') ||
-    rawCatName.includes('pure') ||
-    rawCatName.includes('juice') ||
-    rawCatName.includes('原浆') ||
-    rawCatName.includes('原汁')
-  ) {
-    categoryGroup = 'puree';
-  } else if (
-    rawCat === 'dried' ||
-    rawCatName.includes('sấy') ||
-    rawCatName.includes('dried') ||
-    rawCatName.includes('thăng hoa') ||
-    rawCatName.includes('水果干') ||
-    rawCatName.includes('冻干')
-  ) {
-    categoryGroup = 'dried';
-  } else {
-    categoryGroup = 'powder';
-  }
-
-  // Get standardized specs items based on category and language
-  const getProductSpecsList = () => {
-    if (categoryGroup === 'puree') {
-      if (currentLang === 'en') {
-        return [
-          { label: 'Packaging', value: product.packaging || '1kg/bag, 5kg/bag, 10kg/bag, bottled or PET or custom requested' },
-          { label: 'Storage Temperature', value: product.storage || '18°C' },
-        ];
-      }
-      if (currentLang === 'zh') {
-        return [
-          { label: '包装规格', value: product.packaging || '1kg/袋、5kg/袋、10kg/袋，瓶装或PET装或按客户要求定制' },
-          { label: '储存温度', value: product.storage || '18°C' },
-        ];
-      }
-      return [
-        { label: 'Quy cách đóng gói', value: product.packaging || '1kg/bịch, 5kg/bịch, 10kg/bịch, đóng chai hoặc PET hoặc theo yêu cầu của khách hàng' },
-        { label: 'Nhiệt độ bảo quản', value: product.storage || '18°C' },
-      ];
-    }
-
-    if (categoryGroup === 'dried') {
-      if (currentLang === 'en') {
-        return [
-          { label: 'Packaging', value: product.packaging || '400g' },
-          { label: 'Storage', value: product.storage || 'Store in a cool, dry place and seal tightly after use' },
-        ];
-      }
-      if (currentLang === 'zh') {
-        return [
-          { label: '包装规格', value: product.packaging || '400g' },
-          { label: '储存条件', value: product.storage || '置于阴凉干燥处，使用后密封保存' },
-        ];
-      }
-      return [
-        { label: 'Quy cách đóng gói', value: product.packaging || '400g' },
-        { label: 'Bảo quản', value: product.storage || 'Nơi khô ráo, thoáng mát và đóng kín sau khi dùng' },
-      ];
-    }
-
-    if (categoryGroup === 'frozen') {
-      if (currentLang === 'en') {
-        return [
-          { label: 'Packaging', value: product.packaging || '1kg/bag, 5kg/bag, 10kg/bag or custom requested' },
-          { label: 'Shelf Life', value: product.shelfLife || '24 months from manufacturing date' },
-          { label: 'Storage Temperature', value: product.storage || '18 °C' },
-        ];
-      }
-      if (currentLang === 'zh') {
-        return [
-          { label: '包装规格', value: product.packaging || '1kg/袋、5kg/袋、10kg/袋或按客户要求定制' },
-          { label: '保质期', value: product.shelfLife || '自生产之日起24个月' },
-          { label: '储存温度', value: product.storage || '18 °C' },
-        ];
-      }
-      return [
-        { label: 'Quy cách đóng gói', value: product.packaging || '1kg/bịch, 5kg/bịch, 10kg/bịch hoặc theo yêu cầu của khách hàng' },
-        { label: 'Hạn sử dụng', value: product.shelfLife || '24 tháng kể từ ngày sản xuất' },
-        { label: 'Nhiệt độ bảo quản', value: product.storage || '18 °C' },
-      ];
-    }
-
-    // Default: powder
-    if (currentLang === 'en') {
-      return [
-        { label: 'Packaging', value: product.packaging || '10g - 5000g/bag or custom requested' },
-        { label: 'Shelf Life', value: product.shelfLife || '12 months from manufacturing date' },
-        { label: 'Storage', value: product.storage || 'Store in cool dry place, avoid direct sunlight' },
-      ];
-    }
-    if (currentLang === 'zh') {
-      return [
-        { label: '包装规格', value: product.packaging || '10g - 5000g/袋或按客户要求定制' },
-        { label: '保质期', value: product.shelfLife || '自生产之日起12个月' },
-        { label: '储存条件', value: product.storage || '阴凉干燥处存放，避免阳光直射' },
-      ];
-    }
-    return [
-      { label: 'Quy cách đóng gói', value: product.packaging || '10g - 5000g/bịch hoặc theo yêu cầu khách hàng' },
-      { label: 'Hạn sử dụng', value: product.shelfLife || '12 tháng tính từ ngày sản xuất' },
-      { label: 'Bảo quản', value: product.storage || 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp' },
-    ];
-  };
-
-  const specsList = getProductSpecsList();
-
   // Processing badge style mapping for clean industrial identity
   const getBadgeStyle = () => {
     const lower = (product.categoryName || '').toLowerCase();
@@ -199,10 +78,10 @@ export default function ProductCard({
   return (
     <div className="bg-white border border-cream-200/90 rounded-2xl p-4 sm:p-5 shadow-soft hover:shadow-md hover:border-primary-leaf/60 transition-all duration-300 flex flex-col justify-between group h-full">
       <div className="flex-1 flex flex-col">
-        {/* Product Image: Sleek 16:10 Aspect Ratio (significantly reduced height) */}
+        {/* Product Image: Clean 1:1 Aspect Ratio with uncropped full view */}
         <Link
           href={detailLink}
-          className="mb-3 overflow-hidden rounded-xl bg-cream-50 aspect-[16/10] relative border border-cream-200/60 block group/img"
+          className="mb-3 overflow-hidden rounded-xl bg-white aspect-square relative border border-cream-200/60 block group/img"
         >
           {product.image ? (
             <Image
@@ -210,7 +89,7 @@ export default function ProductCard({
               alt={product.name}
               fill
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 380px"
-              className="object-cover group-hover/img:scale-105 transition-transform duration-500"
+              className="object-contain p-2 group-hover/img:scale-105 transition-transform duration-500"
             />
           ) : (
             <div className="w-full h-full flex flex-col items-center justify-center p-3 text-center bg-gradient-to-br from-cream-50 via-white to-cream-100/70 select-none">
@@ -253,22 +132,9 @@ export default function ProductCard({
         )}
 
         {/* Product Title */}
-        <h3 className="text-base font-bold text-primary-850 leading-snug group-hover:text-primary-leaf transition-colors mb-1.5">
+        <h3 className="text-base font-bold text-primary-850 leading-snug group-hover:text-primary-leaf transition-colors mb-3">
           <Link href={detailLink}>{product.name}</Link>
         </h3>
-
-        {/* Category Specifications List */}
-        <div className="my-2.5 p-3 bg-cream-50/75 rounded-xl border border-cream-200/80 space-y-1.5 text-xs flex-1 flex flex-col justify-center">
-          {specsList.map((item, idx) => (
-            <div key={idx} className="flex items-start gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-primary-leaf shrink-0 mt-1.5" />
-              <p className="leading-relaxed">
-                <span className="font-semibold text-primary-900">{item.label}: </span>
-                <span className="text-slate-700">{item.value}</span>
-              </p>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* Card Actions: TDS Specs & Sample Request */}

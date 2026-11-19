@@ -269,7 +269,7 @@ export default async function NewsPage({ params, searchParams }: PageProps) {
       <Container>
         <SectionTitle
           as="h1"
-          badge="Agrihub News"
+          badge={currentLang === 'vi' ? 'Bản tin Agrihub' : currentLang === 'zh' ? 'Agrihub 资讯' : 'Agrihub News'}
           title={dict.news.pageTitle}
           subtitle={dict.news.pageSubtitle}
         />

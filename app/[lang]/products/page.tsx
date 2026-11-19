@@ -48,7 +48,7 @@ export default async function ProductsPage({ params }: PageProps) {
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-6 sm:mb-8">
           <SectionTitle
             as="h1"
-            badge="B2B Ingredients"
+            badge={currentLang === 'vi' ? 'Nguyên liệu B2B' : currentLang === 'zh' ? 'B2B 工业原料' : 'B2B Ingredients'}
             title={dict.pages.products.title}
             subtitle={dict.pages.products.subtitle}
             className="mb-0"

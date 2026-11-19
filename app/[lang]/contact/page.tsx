@@ -41,22 +41,18 @@ export default async function ContactPage({ params, searchParams }: PageProps) {
   return (
     <div className="py-8 sm:py-12">
       <Container>
-        {/* Header Section with SLA Response Badge */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-cream-200/80">
+        {/* Header Section */}
+        <div className="mb-6 sm:mb-8">
           <SectionTitle
             as="h1"
-            badge="B2B Inquiry"
+            badge={currentLang === 'vi' ? 'Liên hệ & Báo giá' : currentLang === 'zh' ? '商务咨询' : 'B2B Inquiry'}
             title={dict.pages.contact.title}
             subtitle={dict.pages.contact.subtitle}
             className="mb-0"
           />
-          <div className="inline-flex items-center gap-2 text-xs text-primary-850 font-semibold bg-primary-50 px-3.5 py-2 rounded-full border border-primary-200 shrink-0 self-start md:self-auto">
-            <span className="w-2 h-2 rounded-full bg-primary-leaf animate-pulse" aria-hidden="true" />
-            <span>{content.responseBadge}</span>
-          </div>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8 mt-2">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
           {/* Contact Details Column */}
           <FadeIn direction="up" delay={0.15}>
             <div className="space-y-6">

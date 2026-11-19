@@ -60,10 +60,12 @@ export async function POST(request: NextRequest) {
 
     const webhookUrl = process.env.GOOGLE_SHEETS_WEBHOOK_URL;
 
+    const isSample = purpose === 'sample';
+
     // Send payload to Google Apps Script Web App
     const payload = {
       timestamp: new Date().toLocaleString('vi-VN', { timeZone: 'Asia/Ho_Chi_Minh' }),
-      type: isSpecDownload ? 'TDS_DOWNLOAD' : 'B2B_INQUIRY',
+      type: isSpecDownload ? 'TDS_DOWNLOAD' : isSample ? 'SAMPLE_REQUEST' : 'B2B_INQUIRY',
       name: String(name || '').trim(),
       company: String(company || '').trim(),
       email: String(email || '').trim(),

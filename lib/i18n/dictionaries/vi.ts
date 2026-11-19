@@ -53,7 +53,7 @@ export const vi: Dictionary = {
         'Nhà cung ứng B2B bột trái cây, trái cây sấy và nước cốt nguyên chất từ Việt Nam cho các nhà máy F&B và nhà nhập khẩu quốc tế.',
       heroTitle: 'Nhà cung cấp & Xuất khẩu Nguyên liệu Nông sản Chế biến',
       heroSubtitle:
-        'Cung ứng ổn định Bột trái cây, Trái cây sấy và Nước cốt chuẩn quốc tế cho các nhà máy F&B và nhà nhập khẩu toàn cầu.',
+        'Agrihub nguồn cung ứng ổn định Bột trái cây, Trái cây sấy và Nước cốt chuẩn quốc tế cho các nhà máy F&B và nhập khẩu toàn cầu.',
       primaryCta: 'Yêu cầu Báo giá & Mẫu thử',
       secondaryCta: 'Tải Hồ sơ Năng lực (PDF)',
       heroCtaSample: 'Đăng kí mẫu thử',

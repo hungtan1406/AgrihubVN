@@ -3,6 +3,7 @@ import { Locale, getDictionary, isValidLocale, defaultLocale, locales } from '@/
 import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import MotionProvider from '@/components/animations/MotionProvider';
+import DocumentLangSync from '@/components/DocumentLangSync';
 
 export async function generateStaticParams() {
   return locales.map((lang) => ({ lang }));
@@ -21,11 +22,7 @@ export default async function LangLayout({ children, params }: LangLayoutProps) 
   return (
     <MotionProvider>
       {/* Client runtime language sync for accessibility & translators */}
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `document.documentElement.lang="${currentLang}";`,
-        }}
-      />
+      <DocumentLangSync lang={currentLang} />
       <div className="flex flex-col min-h-screen">
         <Header lang={currentLang} dict={dict} />
         <main className="flex-1">{children}</main>

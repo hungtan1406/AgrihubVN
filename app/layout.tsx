@@ -14,11 +14,12 @@ const beVietnamPro = Be_Vietnam_Pro({
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: 'Agrihub Việt Nam - Nhà Cung Ứng & Xuất Khẩu Nguyên Liệu Nông Sản Chế Biến',
+    default:
+      'Agrihub Việt Nam - Nhà Cung Ứng & Xuất Khẩu Nguyên Liệu Nông Sản Chế Biến',
     template: '%s | Agrihub Việt Nam',
   },
   description:
-    'Cung ứng ổn định Bột trái cây, Trái cây sấy thăng hoa và Nước cốt chuẩn quốc tế cho các nhà máy F&B và nhà nhập khẩu toàn cầu.',
+    'Agrihub nguồn cung ứng ổn định Bột trái cây, Trái cây sấy và Nước cốt chuẩn quốc tế cho các nhà máy F&B và nhập khẩu toàn cầu.',
   icons: {
     icon: '/images/logo-clean.png',
     shortcut: '/images/logo-clean.png',
@@ -39,11 +40,17 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="vi" data-scroll-behavior="smooth" className={`scroll-smooth ${beVietnamPro.variable}`}>
+    <html
+      lang="vi"
+      data-scroll-behavior="smooth"
+      className={`scroll-smooth ${beVietnamPro.variable}`}
+    >
       <head>
         <JsonLdOrganization />
       </head>
-      <body className={`${beVietnamPro.className} font-sans min-h-screen flex flex-col bg-cream-100 text-primary-850 antialiased`}>
+      <body
+        className={`${beVietnamPro.className} font-sans min-h-screen flex flex-col bg-cream-100 text-primary-850 antialiased`}
+      >
         {children}
       </body>
     </html>

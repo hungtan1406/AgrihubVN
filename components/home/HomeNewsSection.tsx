@@ -200,7 +200,7 @@ export default function HomeNewsSection({
                             />
                           </svg>
                           <span className="text-[11px] font-bold tracking-wider uppercase text-primary-700/80">
-                            Agrihub News
+                            {currentLang === 'vi' ? 'Bản tin Agrihub' : currentLang === 'zh' ? 'Agrihub 资讯' : 'Agrihub News'}
                           </span>
                         </div>
                       )}

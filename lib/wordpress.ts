@@ -72,6 +72,26 @@ export interface WordPressPost {
 
 export const FALLBACK_PRODUCTS_VI: Product[] = [
   {
+    id: 'thanh-long-do',
+    slug: 'thanh-long-do',
+    category: 'Trái cây sấy',
+    categoryGroup: 'dried',
+    processingMethod: 'Sấy thăng hoa',
+    name: 'Thanh Long Đỏ Sấy Thăng Hoa',
+    specs: 'Độ ẩm theo yêu cầu | Cắt lát 5-7mm | 100% tự nhiên không chất bảo quản',
+    application: 'Ứng dụng chính trong sản xuất thực phẩm & đồ uống',
+    moisture: 'Theo yêu cầu của quý đối tác',
+    mesh: 'Theo yêu cầu của quý đối tác',
+    brix: 'Tiêu chuẩn tự nhiên',
+    shelfLife: '12 - 24 tháng',
+    packaging: 'Túi PE, Thùng Carton, phuy 20kg',
+    storage: 'Nơi khô ráo thoáng mát, tránh ánh nắng trực tiếp',
+    moq: 'Linh hoạt',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-TLD-01',
+    isFeatured: true,
+  },
+  {
     id: 'dragon-fruit-powder',
     slug: 'dragon-fruit-powder',
     category: 'Bột sấy nghiền',
@@ -239,6 +259,26 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
 
 export const FALLBACK_PRODUCTS_EN: Product[] = [
   {
+    id: 'thanh-long-do',
+    slug: 'thanh-long-do',
+    category: 'Freeze-Dried Fruit',
+    categoryGroup: 'dried',
+    processingMethod: 'Freeze-Dried',
+    name: 'Freeze-Dried Red Dragon Fruit',
+    specs: 'Moisture upon request | 5-7mm slices | 100% natural, clean-label',
+    application: 'Main applications in food & beverage manufacturing',
+    moisture: "Customized upon partner's request",
+    mesh: "Customized upon partner's request",
+    brix: 'Natural fruit standard',
+    shelfLife: '12 - 24 months',
+    packaging: 'PE bag, Carton box, 20kg drum',
+    storage: 'Store in cool dry place, avoid direct sunlight',
+    moq: 'Flexible',
+    grade: 'INDUSTRIAL F&B',
+    specCode: 'SPEC-AGRI-TLD-01',
+    isFeatured: true,
+  },
+  {
     id: 'dragon-fruit-powder',
     slug: 'dragon-fruit-powder',
     category: 'Milled Fruit Powder',
@@ -405,6 +445,26 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
 ];
 
 export const FALLBACK_PRODUCTS_ZH: Product[] = [
+  {
+    id: 'thanh-long-do',
+    slug: 'thanh-long-do',
+    category: '精品冻干果品',
+    categoryGroup: 'dried',
+    processingMethod: '冻干脆片',
+    name: '冻干红心火龙果脆片',
+    specs: '水分按需定制 | 5-7mm 原切片 | 100% 纯天然清洁标签',
+    application: '主要应用于食品与饮料生产制造',
+    moisture: '按客户需求定制',
+    mesh: '按客户需求定制',
+    brix: '自然风味标准',
+    shelfLife: '12 - 24 个月',
+    packaging: 'PE袋，瓦楞纸箱，20kg桶装',
+    storage: '阴凉干燥处存放，避免阳光直射',
+    moq: '灵活起订',
+    grade: '工业级 F&B',
+    specCode: 'SPEC-AGRI-TLD-01',
+    isFeatured: true,
+  },
   {
     id: 'dragon-fruit-powder',
     slug: 'dragon-fruit-powder',
@@ -920,8 +980,8 @@ export function mapWordPressPostToProduct(
     if (post.slug === 'san-pham') {
       name = 'Freeze-Dried Dragon Fruit (Export Grade)';
       categoryName = 'Freeze-Dried Fruit';
-      defaultSpecs = 'Moisture ≤ 4% | 5-7mm slices | 100% natural, clean-label';
-      defaultApp = 'Bakery, confectionery, breakfast cereals, healthy snacks';
+      defaultSpecs = 'Moisture upon request | 5-7mm slices | 100% natural, clean-label';
+      defaultApp = 'Main applications in food & beverage manufacturing';
     } else if (post.slug === 'thanh-long-do') {
       if (categoryGroup === 'puree') {
         name = 'Red Dragon Fruit Puree (Concentrate)';
@@ -930,6 +990,8 @@ export function mapWordPressPostToProduct(
         name = 'Freeze-Dried Red Dragon Fruit';
         categoryName = 'Freeze-Dried Fruit';
       }
+      defaultSpecs = 'Moisture upon request | 5-7mm slices | 100% natural, clean-label';
+      defaultApp = 'Main applications in food & beverage manufacturing';
     }
   } else if (lang === 'zh') {
     const pmLower = processingMethod.toLowerCase();
@@ -937,7 +999,7 @@ export function mapWordPressPostToProduct(
       processingMethod = '果浆原汁';
       defaultCategory = '果浆与浓缩原汁';
       defaultSpecs = '糖度 12-16 Brix | 无菌冷灌装 | 100% 原果萃取';
-      defaultApp = '果汁茶饮、乳品酸奶、烘焙果馅、商用冰品';
+      defaultApp = '主要应用于食品与饮料生产制造';
     } else if (pmLower.includes('phun') || pmLower.includes('spray')) {
       processingMethod = '喷雾干燥粉';
       defaultCategory = '喷雾干燥果粉';
@@ -961,8 +1023,8 @@ export function mapWordPressPostToProduct(
     if (post.slug === 'san-pham') {
       name = '冻干火龙果脆片 (出口级)';
       categoryName = '精品冻干果品';
-      defaultSpecs = '水分 ≤ 4% | 5-7mm 原切片 | 100% 纯天然清洁标签';
-      defaultApp = '烘焙西点、糖果巧克力、燕麦代餐、健康果脆';
+      defaultSpecs = '水分按需定制 | 5-7mm 原切片 | 100% 纯天然清洁标签';
+      defaultApp = '主要应用于食品与饮料生产制造';
     } else if (post.slug === 'thanh-long-do') {
       if (categoryGroup === 'puree') {
         name = '红心火龙果原浆 (无菌包装)';
@@ -971,14 +1033,62 @@ export function mapWordPressPostToProduct(
         name = '冻干红心火龙果脆片';
         categoryName = '精品冻干果品';
       }
+      defaultSpecs = '水分按需定制 | 5-7mm 原切片 | 100% 纯天然清洁标签';
+      defaultApp = '主要应用于食品与饮料生产制造';
     }
   }
 
+  const hasVietnameseChars = (str: string) => /[\u00C0-\u1EF9]/i.test(str);
+
   const rawSpecs = acf.specs || post.excerpt?.rendered || '';
-  const specs = cleanHtmlEntities(rawSpecs);
+  let specs = cleanHtmlEntities(rawSpecs);
+  if (lang !== 'vi' && hasVietnameseChars(specs)) {
+    specs = defaultSpecs;
+  }
 
   const rawApplication = acf.application || acf.applications || '';
-  const application = cleanHtmlEntities(rawApplication);
+  let application = cleanHtmlEntities(rawApplication);
+  if (lang === 'vi') {
+    application = 'Ứng dụng chính trong sản xuất thực phẩm & đồ uống';
+  } else if (hasVietnameseChars(application) || !application) {
+    application = defaultApp || (lang === 'zh' ? '主要应用于食品与饮料生产制造' : 'Main applications in food & beverage manufacturing');
+  }
+
+  // Chuẩn hóa các thông số kỹ thuật mặc định theo từng ngôn ngữ
+  const localizedMoisture =
+    lang === 'vi'
+      ? (acf.moisture && !hasVietnameseChars(acf.moisture) ? acf.moisture : 'Theo yêu cầu của quý đối tác')
+      : lang === 'zh'
+      ? '按客户需求定制'
+      : "Customized upon partner's request";
+
+  const localizedMesh =
+    lang === 'vi'
+      ? ((acf.mesh || acf.mesh_size) && !hasVietnameseChars(String(acf.mesh || '')) ? (acf.mesh || acf.mesh_size) : 'Theo yêu cầu của quý đối tác')
+      : lang === 'zh'
+      ? '按客户需求定制'
+      : "Customized upon partner's request";
+
+  const localizedShelfLife =
+    lang === 'vi'
+      ? '12 - 24 tháng'
+      : lang === 'zh'
+      ? '12 - 24 个月'
+      : '12 - 24 months';
+
+  const localizedPackaging =
+    lang === 'vi'
+      ? 'Túi PE, Thùng Carton, phuy 20kg'
+      : lang === 'zh'
+      ? 'PE袋，瓦楞纸箱，20kg桶装'
+      : 'PE bag, Carton box, 20kg drum';
+
+  const localizedMoq =
+    lang === 'vi'
+      ? 'Linh hoạt'
+      : lang === 'zh'
+      ? '灵活起订'
+      : 'Flexible';
 
   return {
     id: post.id,
@@ -989,13 +1099,13 @@ export function mapWordPressPostToProduct(
     processingMethod,
     specs: specs || defaultSpecs,
     application: application || defaultApp,
-    moisture: acf.moisture,
-    mesh: acf.mesh || acf.mesh_size,
+    moisture: localizedMoisture,
+    mesh: localizedMesh,
     brix: acf.brix,
-    shelfLife: acf.shelf_life || acf.shelflife,
-    packaging: acf.packaging,
+    shelfLife: localizedShelfLife,
+    packaging: localizedPackaging,
     storage: acf.storage || acf.storage_condition,
-    moq: acf.moq,
+    moq: localizedMoq,
     grade: acf.grade || 'INDUSTRIAL F&B',
     specCode: acf.spec_code || `SPEC-AGRI-${post.slug.toUpperCase()}`,
     pdfUrl: rewriteLocalAssetUrl(pdfUrl),

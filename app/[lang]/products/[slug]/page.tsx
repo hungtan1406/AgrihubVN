@@ -110,14 +110,14 @@ export default async function ProductDetailPage({ params }: PageProps) {
           <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
             {/* Left: Product Image (Square 1:1) */}
             <div className="w-full lg:w-96 shrink-0">
-              <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-cream-50 border border-cream-200 shadow-xs">
+              <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white border border-cream-200 shadow-xs">
                 {product?.image || matchedIngredient?.image ? (
                   <Image
                     src={product?.image || matchedIngredient?.image || ''}
                     alt={title}
                     fill
                     sizes="(max-width: 1024px) 100vw, 384px"
-                    className="object-cover"
+                    className="object-contain p-3"
                     priority
                   />
                 ) : (
@@ -125,13 +125,8 @@ export default async function ProductDetailPage({ params }: PageProps) {
                     <span className="text-4xl sm:text-5xl mb-2">🌿</span>
                     <span className="text-xs sm:text-sm font-medium">{title}</span>
                     <span className="text-[10px] text-slate-400 mt-1 uppercase tracking-wider font-semibold">
-                      [ẢNH THẬT CẦN BỔ SUNG]
+                      {t.placeholderImageText || '[ẢNH THẬT SẼ CẬP NHẬT]'}
                     </span>
-                  </div>
-                )}
-                {product?.grade && (
-                  <div className="absolute top-3 left-3 bg-primary-950/90 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-1 rounded-full uppercase tracking-wider border border-white/20">
-                    {product.grade}
                   </div>
                 )}
               </div>
@@ -154,13 +149,13 @@ export default async function ProductDetailPage({ params }: PageProps) {
               {/* Highlight Badges */}
               <div className="flex flex-wrap gap-2 pt-1">
                 <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
-                  🌱 100% Tự nhiên Clean-label
+                  {t.badgeCleanLabel}
                 </span>
                 <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
-                  🏭 Chuẩn hóa theo tiêu chuẩn công nghiệp
+                  {t.badgeStandardized}
                 </span>
                 <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
-                  📦 Hỗ trợ OEM & Aseptic Bulk
+                  {t.badgeBulkSupply}
                 </span>
               </div>
 
@@ -170,15 +165,9 @@ export default async function ProductDetailPage({ params }: PageProps) {
                 slug={slug}
                 productName={title}
                 pdfUrl={product?.pdfUrl}
-                btnQuoteText={t.btnQuoteSample || 'Yêu cầu Báo giá'}
-                btnSampleText={
-                  currentLang === 'vi'
-                    ? 'Nhận mẫu thử (Free Sample)'
-                    : currentLang === 'zh'
-                    ? '免费申请样品 (Free Sample)'
-                    : 'Request Free Sample Kit'
-                }
-                btnDownloadPdfText={t.btnDownloadPdf || '📄 Tải Spec & TDS (PDF)'}
+                btnQuoteText={t.btnQuoteText || t.btnQuoteSample || 'Yêu cầu Báo giá'}
+                btnSampleText={t.btnSampleText || 'Nhận mẫu thử miễn phí'}
+                btnDownloadPdfText={t.btnDownloadPdf || '📄 Tải thông số kỹ thuật (TDS)'}
               />
             </div>
           </div>
@@ -190,32 +179,32 @@ export default async function ProductDetailPage({ params }: PageProps) {
               <div className="flex items-center gap-2 pb-2 mb-4 border-b border-cream-200">
                 <span className="w-2.5 h-2.5 rounded-xs bg-primary-leaf" />
                 <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
-                  1. Chỉ tiêu Vật lý & Cảm quan (Physical & Sensory Specs)
+                  {t.sectionPhysical}
                 </h3>
               </div>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs sm:text-sm">
                 <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
                   <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMoisture}</span>
                   <span className="font-bold text-primary-850">
-                    {matchedIngredient?.moisture || product?.moisture || t.defaultMoisture}
+                    {product?.moisture || matchedIngredient?.moisture || t.defaultMoisture}
                   </span>
                 </div>
                 <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
                   <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMesh}</span>
                   <span className="font-bold text-primary-850">
-                    {matchedIngredient?.mesh || product?.mesh || t.defaultMesh}
+                    {product?.mesh || matchedIngredient?.mesh || t.defaultMesh}
                   </span>
                 </div>
                 <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
                   <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colBrix}</span>
                   <span className="font-bold text-primary-850">
-                    {matchedIngredient?.brix || product?.brix || (currentLang === 'vi' ? 'Tiêu chuẩn tự nhiên' : currentLang === 'zh' ? '按需调配' : 'Standardized')}
+                    {product?.brix || matchedIngredient?.brix || (currentLang === 'vi' ? 'Tiêu chuẩn tự nhiên' : currentLang === 'zh' ? '自然风味标准' : 'Natural standard')}
                   </span>
                 </div>
                 <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
                   <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colShelfLife}</span>
                   <span className="font-bold text-primary-850">
-                    {matchedIngredient?.shelfLife || product?.shelfLife || t.defaultShelfLife}
+                    {product?.shelfLife || matchedIngredient?.shelfLife || t.defaultShelfLife}
                   </span>
                 </div>
               </div>
@@ -226,21 +215,21 @@ export default async function ProductDetailPage({ params }: PageProps) {
               <div className="flex items-center gap-2 pb-2 mb-4 border-b border-cream-200">
                 <span className="w-2.5 h-2.5 rounded-xs bg-accent-gold" />
                 <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
-                  2. Bao bì & Hậu cần Công nghiệp (Packaging & Logistics)
+                  {t.sectionPackaging}
                 </h3>
               </div>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
                 <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
                   <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colPackaging}</span>
                   <span className="text-slate-800 font-medium">
-                    {matchedIngredient?.packaging || product?.packaging || t.defaultPackaging}
+                    {product?.packaging || matchedIngredient?.packaging || t.defaultPackaging}
                   </span>
                 </div>
                 {(matchedIngredient?.storage || product?.storage) && (
                   <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
-                    <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colStorage || 'Bảo quản'}</span>
+                    <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colStorage || (currentLang === 'en' ? 'Storage Conditions' : currentLang === 'zh' ? '储存条件与温度' : 'Điều kiện bảo quản')}</span>
                     <span className="text-slate-800 font-medium">
-                      {matchedIngredient?.storage || product?.storage}
+                      {product?.storage || matchedIngredient?.storage}
                     </span>
                   </div>
                 )}
@@ -258,13 +247,16 @@ export default async function ProductDetailPage({ params }: PageProps) {
               <div className="flex items-center gap-2 pb-2 mb-3 border-b border-cream-200">
                 <span className="w-2.5 h-2.5 rounded-xs bg-emerald-600" />
                 <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
-                  3. Ứng dụng & Formulations (Applications & Clean Label)
+                  {t.sectionApplication}
                 </h3>
               </div>
               <div className="p-4 bg-cream-50/60 rounded-xl border border-cream-200 text-xs sm:text-sm">
-                <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colApplication}</span>
-                <p className="text-slate-800 leading-relaxed">
-                  {matchedIngredient?.applications || product?.application || t.defaultApplication}
+                <p className="text-slate-800 font-medium leading-relaxed">
+                  {currentLang === 'vi'
+                    ? 'Ứng dụng chính trong sản xuất thực phẩm & đồ uống'
+                    : currentLang === 'zh'
+                    ? '主要应用于食品与饮料生产制造'
+                    : 'Main applications in food & beverage manufacturing'}
                 </p>
               </div>
             </div>
@@ -273,7 +265,7 @@ export default async function ProductDetailPage({ params }: PageProps) {
             <div className="p-4 bg-primary-50 rounded-2xl border border-primary-200/80 flex items-start gap-3 text-xs sm:text-sm text-primary-950">
               <span className="text-primary-leaf text-lg leading-none mt-0.5">ℹ</span>
               <p className="leading-relaxed">
-                <strong>Cam kết tùy biến theo R&D:</strong> Agrihub có thể điều chỉnh chuẩn hóa các chỉ số kỹ thuật (độ ẩm, độ mịn, tỷ lệ phối trộn) và quy cách đóng gói vô trùng theo yêu cầu chuyên biệt cho từng dây chuyền sản xuất của đối tác.
+                <strong>{t.rdNoticeTitle}</strong> {t.rdNoticeDesc}
               </p>
             </div>
           </div>

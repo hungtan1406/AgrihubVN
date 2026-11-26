@@ -2,7 +2,12 @@
 
 import React, { useState, useMemo } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import { Locale, Dictionary } from '@/lib/i18n';
+import {
+  Locale,
+  Dictionary,
+  localizeProductName,
+  hasVietnameseChars,
+} from '@/lib/i18n';
 import { Product } from '@/lib/wordpress';
 import ProductCard from '@/components/ProductCard';
 import Button from '@/components/Button';
@@ -56,7 +61,17 @@ export default function ProductsFilterGrid({
       const match = localizedIngredients.find(
         (ing) => ing.id === p.slug || ing.id === String(p.id),
       );
-      const displayName = p.name || match?.name || p.slug;
+      const rawName = p.name || match?.name || p.slug;
+      const displayName =
+        currentLang !== 'vi' && hasVietnameseChars(rawName)
+          ? match?.name ||
+            localizeProductName({
+              viName: rawName,
+              slug: p.slug,
+              lang: currentLang,
+              categoryGroup: p.categoryGroup || match?.category,
+            })
+          : rawName;
       const displayCategory = p.processingMethod || match?.categoryName || p.category;
       const displaySpecs = p.specs || match?.specs || '';
       const displayApp = p.application || match?.applications || '';

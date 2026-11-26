@@ -26,3 +26,6 @@ export function isValidLocale(locale: string): locale is Locale {
 
 export * from './types';
 export * from './content';
+export * from './product-names';
+export * from './product-tech-types';
+export * from './product-tech-data';

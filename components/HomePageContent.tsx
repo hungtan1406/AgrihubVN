@@ -1,5 +1,12 @@
 import React from 'react';
-import { Locale, Dictionary, getIngredients, getHomePageUi } from '@/lib/i18n';
+import {
+  Locale,
+  Dictionary,
+  getIngredients,
+  getHomePageUi,
+  localizeProductName,
+  hasVietnameseChars,
+} from '@/lib/i18n';
 import { NewsEvent, Product } from '@/lib/wordpress';
 import {
   HomeHero,
@@ -124,9 +131,26 @@ export default function HomePageContent({
           const processingBadge =
             p.processingMethod || match?.categoryName || p.category;
 
+          const rawName = p.name || match?.name || '';
+          const localizedName =
+            currentLang !== 'vi' && hasVietnameseChars(rawName)
+              ? match?.name ||
+                localizeProductName({
+                  viName: rawName,
+                  slug: p.slug,
+                  lang: currentLang,
+                  categoryGroup: catKey,
+                })
+              : rawName ||
+                (currentLang === 'en'
+                  ? 'Agrihub Ingredient'
+                  : currentLang === 'zh'
+                    ? 'Agrihub 原料产品'
+                    : 'Sản phẩm Agrihub');
+
           return {
             id: String(p.slug || p.id),
-            name: p.name || match?.name || 'Sản phẩm Agrihub',
+            name: localizedName,
             category: catKey,
             categoryName: processingBadge,
             badgeColor: getProductBadgeColor(processingBadge, catKey),

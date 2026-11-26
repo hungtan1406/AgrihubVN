@@ -172,6 +172,77 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         applications:
           'Beverage manufacturing, drinking yogurt, ice cream popsicles, F&B jams.',
       },
+      {
+        id: 'bot-oi-say-phun',
+        category: 'powder',
+        categoryName: 'Spray-Dried Powder',
+        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+        name: 'Spray-Dried Guava Powder',
+        specs:
+          'High fineness | Characteristic aroma | 100% natural, clean-label',
+        moisture: 'Standardized upon request',
+        mesh: 'Superfine powder',
+        brix: 'Formula trial basis',
+        shelfLife: 'According to packaging dossier',
+        packaging: 'Industrial multi-layer barrier bag or customized',
+        storage: 'Store in a cool, dry place, avoid direct sunlight',
+        applications:
+          'Instant beverages, yogurt, fruit tea, confectionery & nutrition blends.',
+        image: '/images/products/bot-oi-say-phun.jpg',
+      },
+      {
+        id: 'bot-oi-say-nghien',
+        category: 'powder',
+        categoryName: 'Milled Powder',
+        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+        name: 'Dried and Milled Guava Powder',
+        specs: 'Natural fruit particle structure | Custom mesh | Clean-label',
+        moisture: 'Standardized upon request',
+        mesh: 'Adjusted by sieve mesh request',
+        brix: 'Natural fruit content',
+        shelfLife: 'According to packaging dossier',
+        packaging: 'Industrial multi-layer barrier bag or customized',
+        storage: 'Store in a cool, dry place, avoid direct sunlight',
+        applications:
+          'Bakery, granola, breakfast cereals, pulpy beverage formulations.',
+        image: '/images/products/bot-oi-say-nghien.jpg',
+      },
+      {
+        id: 'puree-oi',
+        category: 'puree',
+        categoryName: 'Fruit Purée',
+        badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
+        name: 'Guava Purée',
+        specs:
+          'Smooth velvety fruit pulp | Characteristic aroma | No preservatives',
+        moisture: 'Velvety homogeneous purée',
+        mesh: 'Smooth refined pulp',
+        brix: 'Natural fruit standard',
+        shelfLife: 'According to packaging dossier',
+        packaging: 'Aseptic bag in drum / pail or custom',
+        storage: 'Regulated cold storage temperature',
+        applications:
+          'Smoothies, drinking yogurt, ice cream, dessert fillings & fruit glazes.',
+        image: '/images/products/puree-oi.jpg',
+      },
+      {
+        id: 'oi-co-dac',
+        category: 'puree',
+        categoryName: 'Concentrate',
+        badgeColor: 'bg-orange-100 text-orange-800 border-orange-200',
+        name: 'Guava Concentrate',
+        specs:
+          'High soluble solids (°Brix) | Vacuum low-temp evaporation | Freight-optimized',
+        moisture: 'Viscous concentrate',
+        mesh: 'Refined juice/puree base',
+        brix: 'Standardized per customer formulation',
+        shelfLife: 'According to packaging dossier',
+        packaging: 'Aseptic industrial drum or custom',
+        storage: 'Regulated cold storage temperature',
+        applications:
+          'Beverage syrup, fruit soft drinks, jams, yogurt base & confectioneries.',
+        image: '/images/products/oi-co-dac.jpg',
+      },
     ];
   }
 
@@ -312,6 +383,73 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
         storage: '18°C',
         applications: '果汁饮料加工、风味酸奶、雪糕冰品、餐饮调味果酱。',
       },
+      {
+        id: 'bot-oi-say-phun',
+        category: 'powder',
+        categoryName: '喷雾干燥果粉',
+        badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+        name: '喷雾干燥番石榴粉',
+        specs: '微细粉末 | 特征香气浓郁 | 100%纯天然清洁标签',
+        moisture: '依客户标准定制',
+        mesh: '超细微粉',
+        brix: '配方试验基准',
+        shelfLife: '以官方产品标贴为准',
+        packaging: '工业级防潮多层铝箔袋或依需求定制',
+        storage: '阴凉干燥处，避免阳光直射，开封后密封',
+        applications:
+          '固体冲调饮品、乳酸菌饮品、特调果茶、糖果焙烤及代餐营养粉。',
+        image: '/images/products/bot-oi-say-phun.jpg',
+      },
+      {
+        id: 'bot-oi-say-nghien',
+        category: 'powder',
+        categoryName: '研磨果粉',
+        badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+        name: '烘干研磨番石榴粉',
+        specs: '保留天然果肉颗粒结构 | 筛网目数可调 | 清洁标签',
+        moisture: '依客户标准定制',
+        mesh: '按客户指定目数精密研磨',
+        brix: '天然原果固形物',
+        shelfLife: '以官方产品标贴为准',
+        packaging: '工业级多层防潮袋或按需定制',
+        storage: '阴凉干燥处，避免阳光直射，开封后密封',
+        applications:
+          '烘焙饼干、海绵蛋糕、Granola谷物棒、营养代餐粉及浓郁质感饮品。',
+        image: '/images/products/bot-oi-say-nghien.jpg',
+      },
+      {
+        id: 'puree-oi',
+        category: 'puree',
+        categoryName: '原果浆',
+        badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
+        name: '番石榴原果浆',
+        specs: '浓郁细腻果肉浆体 | 特征香气保留 | 零防腐剂',
+        moisture: '均质细腻流体果浆',
+        mesh: '精细均质去籽',
+        brix: '天然原果糖度标准',
+        shelfLife: '以官方产品标贴为准',
+        packaging: '无菌袋配铁桶/大桶或按需定制',
+        storage: '必须遵循规定冷链低温储存',
+        applications: '果昔、调味发酵乳、高端冰淇淋、烘焙果泥夹心及淋面果酱。',
+        image: '/images/products/puree-oi.jpg',
+      },
+      {
+        id: 'oi-co-dac',
+        category: 'puree',
+        categoryName: '浓缩果汁/浆',
+        badgeColor: 'bg-orange-100 text-orange-800 border-orange-200',
+        name: '番石榴浓缩汁/浆',
+        specs: '高可溶性固形物(°Brix) | 低温真空浓缩 | 显著节约物流能耗',
+        moisture: '浓稠物料流体',
+        mesh: '清汁或果浆基底精制',
+        brix: '依客户配方指标精准调控',
+        shelfLife: '以官方产品标贴为准',
+        packaging: '无菌工业大桶或按需定制',
+        storage: '必须遵循规定冷链低温储存',
+        applications:
+          '饮料复原果汁、风味糖浆、软糖果冻、调味酸奶底料及烘焙调味。',
+        image: '/images/products/oi-co-dac.jpg',
+      },
     ];
   }
 
@@ -324,7 +462,7 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
       name: 'Thanh Long Đỏ Sấy Thăng Hoa',
       specs:
-        'Độ ẩm theo yêu cầu | Cắt lát 5-7mm | 100% tự nhiên không chất bảo quản',
+        'Độ ẩm theo yêu cầu | Cắt lát 5-7mm | Tự nhiên không chất bảo quản',
       moisture: 'Theo yêu cầu của quý đối tác',
       mesh: 'Theo yêu cầu của quý đối tác',
       brix: 'Tiêu chuẩn tự nhiên',
@@ -339,7 +477,7 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       categoryName: 'Bột sấy nghiền',
       badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
       name: 'Bột Thanh Long Đỏ',
-      specs: 'Độ ẩm ≤ 5% | 80-100 mesh | 100% tự nhiên không chất bảo quản',
+      specs: 'Độ ẩm ≤ 5% | 80-100 mesh | Tự nhiên không chất bảo quản',
       moisture: '≤ 5.0%',
       mesh: '80 - 100 mesh',
       brix: 'Tự nhiên từ quả',
@@ -468,6 +606,78 @@ export function getIngredients(lang: Locale): ProductIngredient[] {
       storage: '18°C',
       applications:
         'Sản xuất nước giải khát, sữa chua uống, kem que, mứt sốt F&B.',
+    },
+    {
+      id: 'bot-oi-say-phun',
+      category: 'powder',
+      categoryName: 'Bột sấy phun',
+      badgeColor: 'bg-emerald-100 text-emerald-800 border-emerald-200',
+      name: 'Bột Ổi Sấy Phun AGRIHUB',
+      specs: 'Độ mịn cao | Hương ổi đặc trưng | Tự nhiên không chất bảo quản',
+      moisture: 'Tiêu chuẩn theo yêu cầu',
+      mesh: 'Bột mịn đồng đều',
+      brix: 'Thử mẫu theo công thức',
+      shelfLife: 'Theo công bố trên bao bì',
+      packaging: 'Đa dạng quy cách B2B theo nhu cầu',
+      storage:
+        'Nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp, đậy kín sau mở',
+      applications:
+        'Bột pha uống hương ổi, trà trái cây, sữa chua, kem, bánh kẹo & ngũ cốc.',
+      image: '/images/products/bot-oi-say-phun.jpg',
+    },
+    {
+      id: 'bot-oi-say-nghien',
+      category: 'powder',
+      categoryName: 'Bột sấy nghiền',
+      badgeColor: 'bg-amber-100 text-amber-800 border-amber-200',
+      name: 'Bột Ổi Sấy Nghiền AGRIHUB',
+      specs:
+        'Cấu trúc hạt tự nhiên | Cỡ rây mesh tùy chỉnh | Không chất bảo quản',
+      moisture: 'Tiêu chuẩn theo yêu cầu',
+      mesh: 'Nghiền theo cỡ rây yêu cầu',
+      brix: 'Tự nhiên từ quả',
+      shelfLife: 'Theo công bố trên bao bì',
+      packaging: 'Đa dạng quy cách B2B theo nhu cầu',
+      storage:
+        'Nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp, đóng kín sau mở',
+      applications:
+        'Bánh và thực phẩm nướng, granola, thanh ngũ cốc, đồ uống có kết cấu sánh.',
+      image: '/images/products/bot-oi-say-nghien.jpg',
+    },
+    {
+      id: 'puree-oi',
+      category: 'puree',
+      categoryName: 'Puree trái cây',
+      badgeColor: 'bg-rose-100 text-rose-800 border-rose-200',
+      name: 'Puree Ổi AGRIHUB',
+      specs: 'Thịt quả sánh nhuyễn | Vị chua ngọt rõ nét | Không chất bảo quản',
+      moisture: 'Dạng thịt quả sánh nhuyễn',
+      mesh: 'Xay nhuyễn mịn màng',
+      brix: 'Tiêu chuẩn tự nhiên từ quả',
+      shelfLife: 'Theo công bố trên bao bì',
+      packaging: 'Quy cách chuyên dụng B2B / Túi vô trùng',
+      storage: 'Bảo quản nhiệt độ quy định (kho mát/lạnh)',
+      applications:
+        'Sinh tố ổi, nectar, sữa chua, kem, sốt ổi, nhân bánh & topping.',
+      image: '/images/products/puree-oi.jpg',
+    },
+    {
+      id: 'oi-co-dac',
+      category: 'puree',
+      categoryName: 'Ổi cô đặc',
+      badgeColor: 'bg-orange-100 text-orange-800 border-orange-200',
+      name: 'Ổi Cô Đặc AGRIHUB',
+      specs:
+        'Hàm lượng chất khô cao (°Brix) | Cô đặc chân không | Giảm khối lượng vận chuyển',
+      moisture: 'Dạng cô đặc sánh',
+      mesh: 'Nền dịch hoặc puree cô đặc',
+      brix: 'Điều chỉnh theo công thức khách hàng',
+      shelfLife: 'Theo công bố trên bao bì',
+      packaging: 'Quy cách chuyên dụng B2B / Phuy vô trùng',
+      storage: 'Bảo quản nhiệt độ quy định (kho mát/lạnh)',
+      applications:
+        'Nước giải khát hương ổi, syrup pha chế, sữa chua, kem, sốt mứt & nhân bánh.',
+      image: '/images/products/oi-co-dac.jpg',
     },
   ];
 }
@@ -630,7 +840,7 @@ export function getFormTranslations(lang: Locale) {
     specModalSubtitle:
       'Vui lòng cung cấp email doanh nghiệp để mở khóa tài liệu kỹ thuật chuẩn xác từ Agrihub.',
     specModalDownloadBtn: 'Xác nhận & Tải TDS (PDF)',
-    submitBtn: 'Gửi yêu cầu B2B → Cam kết phản hồi trong 24 giờ',
+    submitBtn: 'Gửi yêu cầu B2B → Chúng tôi phản hồi trong thời gian sớm nhất',
     successTitle: '✓ Đã tiếp nhận yêu cầu',
     successDesc:
       'Cảm ơn quý đối tác. Chuyên viên thương mại B2B của Agrihub sẽ liên hệ qua Email / WhatsApp trong vòng 24 giờ làm việc.',
@@ -1094,7 +1304,7 @@ export function getHomePageUi(lang: Locale) {
     },
     about: {
       tag: 'Vietnamese Tropical Fruits',
-      natural: '100% Tự Nhiên',
+      natural: 'Tự Nhiên',
       fruitList: 'Xoài cát, Thanh long đỏ, Chanh dây, Chuối, Mít...',
       qualityStat: 'Chất lượng kiểm định',
       originStat: 'Truy xuất nguồn gốc',
@@ -1297,6 +1507,9 @@ export function getFooterTranslations(lang: Locale) {
       lblFactory: 'Processing Plant:',
       lblEmail: 'Email:',
       lblHotline: 'Direct Hotline:',
+      socialFacebookLabel: 'Connect with Agrihub on Facebook',
+      socialZaloLabel: 'Chat with Agrihub on Zalo',
+      socialWhatsappLabel: 'Chat with Agrihub on WhatsApp',
     };
   }
 
@@ -1314,6 +1527,9 @@ export function getFooterTranslations(lang: Locale) {
       lblFactory: '加工工厂：',
       lblEmail: '商务邮箱：',
       lblHotline: '直通热线：',
+      socialFacebookLabel: '关注 Agrihub Facebook 官方主页',
+      socialZaloLabel: '通过 Zalo 联系 Agrihub',
+      socialWhatsappLabel: '通过 WhatsApp 联系 Agrihub',
     };
   }
 
@@ -1330,6 +1546,9 @@ export function getFooterTranslations(lang: Locale) {
     lblFactory: 'Nhà máy:',
     lblEmail: 'Email:',
     lblHotline: 'Hotline B2B:',
+    socialFacebookLabel: 'Kết nối Facebook Agrihub',
+    socialZaloLabel: 'Nhắn tin Zalo với Agrihub',
+    socialWhatsappLabel: 'Nhắn tin WhatsApp với Agrihub',
   };
 }
 
@@ -1482,11 +1701,11 @@ export function getAboutUsContent(lang: Locale) {
       'Việt Nam sở hữu thổ nhưỡng nhiệt đới trù phú với các loại trái cây có hương vị và màu sắc đặc trưng hiếm nơi nào có được. Với hơn 10 năm kinh nghiệm trong ngành chế biến nông sản, Agrihub ra đời với sứ mệnh nâng tầm giá trị nông sản bản địa bằng công nghệ sấy và chiết xuất hiện đại, đưa nguyên liệu chất lượng cao của Việt Nam vào chuỗi cung ứng của các tập đoàn sản xuất thực phẩm và đồ uống quốc tế.',
     pillars: [
       {
-        title: 'Chất lượng chuẩn BRC',
+        title: 'Chất lượng chuẩn An toàn thực phẩm',
         desc: 'Hệ thống quản lý chất lượng được vận hành, duy trì và cải tiến liên tục theo tiêu chuẩn quốc tế BRC.',
       },
       {
-        title: '100% Tự nhiên & Khép kín',
+        title: 'Tự nhiên & Khép kín',
         desc: 'Quy trình chế biến từ nguyên liệu thô đến thành phẩm đảm bảo khép kín hoàn toàn. Chúng tôi cam kết không sử dụng hóa chất hay phụ gia thực phẩm, giữ trọn hương vị tươi mới và giá trị dinh dưỡng của sản phẩm.',
       },
       {
@@ -1513,12 +1732,12 @@ export function getAboutUsContent(lang: Locale) {
     whyChooseBadge: 'Giá Trị Khác Biệt',
     whyChooseTitle: 'Tại Sao Chọn AGRIHUB?',
     whyChooseSubtitle:
-      'Đến với AGRIHUB, Quý đối tác không chỉ tìm thấy giải pháp nguyên liệu tối ưu về chất lượng - giá thành - tiến độ, mà còn nhận được sự đồng hành tư vấn chuyên sâu từ đội ngũ chuyên gia của chúng tôi.',
+      'Đến với AGRIHUB, Quý đối tác không chỉ tìm thấy giải pháp nguyên liệu tối ưu về chất lượng - giá thành - tiến độ, mà còn nhận được sự đồng hành của chúng tôi theo đúng yêu cầu của khách hàng.',
     whyChoosePillars: [
       {
         icon: '🥇',
         title: 'Chất Lượng Tối Ưu',
-        desc: 'Quy trình kiểm soát nghiêm ngặt theo chuẩn BRC, HACCP, ISO. 100% tự nhiên, minh bạch COA và kiểm nghiệm vi sinh trên từng lô hàng xuất khẩu.',
+        desc: 'Quy trình kiểm soát nghiêm ngặt theo chuẩn BRC, HACCP, ISO. Tự nhiên, minh bạch COA và kiểm nghiệm vi sinh trên từng lô hàng xuất khẩu.',
       },
       {
         icon: '💰',
@@ -2127,7 +2346,7 @@ export function getContactPageContent(lang: Locale) {
     phoneVal: '+84 90 123 4567',
     addressTitle: 'Trụ sở chính:',
     addressVal: 'TP. Hồ Chí Minh, Việt Nam',
-    factoryTitle: 'Cơ sở sản xuất & Kho hàng:',
+    factoryTitle: 'Cơ sở sản xuất:',
     factoryVal: 'Vùng nguyên liệu Đồng bằng Sông Cửu Long, Việt Nam',
     commitmentTitle: 'Cam kết dịch vụ B2B',
     commitment1:
@@ -2249,7 +2468,7 @@ export function getProductDetailPageTranslations(lang: Locale) {
     defaultPackaging: 'Túi PE, Thùng Carton, phuy 20kg',
     defaultApplication: 'Ứng dụng chính trong sản xuất thực phẩm & đồ uống',
     defaultMoq: 'Linh hoạt',
-    badgeCleanLabel: '🌱 100% Tự nhiên',
+    badgeCleanLabel: '🌱 Tự nhiên',
     badgeStandardized: '🏭 Chuẩn hóa chất lượng công nghiệp',
     badgeBulkSupply: '📦 Hỗ trợ OEM & Đóng gói số lượng lớn',
     rdNoticeTitle: 'Cam kết tùy biến theo R&D:',

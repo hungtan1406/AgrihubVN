@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import {
@@ -10,12 +9,22 @@ import {
   defaultLocale,
   getProductDetailPageTranslations,
   getIngredients,
+  resolveProductTechDetail,
+  localizeProductName,
+  hasVietnameseChars,
 } from '@/lib/i18n';
 import { buildPageMetadata } from '@/lib/seo';
 import Container from '@/components/Container';
 import Button from '@/components/Button';
-import SectionTitle from '@/components/SectionTitle';
-import ProductDetailActions from '@/components/ProductDetailActions';
+import {
+  ProductHeroSection,
+  ProductProcessStepper,
+  ProductValueGrid,
+  ProductApplicationsMatrix,
+  ProductLogisticsStrip,
+  ProductPartnerAdvisory,
+  ProductTechnicalFaq,
+} from '@/components/product';
 import { getAllProductSlugs, getProductBySlug } from '@/lib/wordpress';
 
 export const dynamicParams = true;
@@ -44,7 +53,17 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const product = await getProductBySlug(slug, currentLang);
   const localizedIngredients = getIngredients(currentLang);
   const matchedIngredient = localizedIngredients.find((ing) => ing.id === slug);
-  const productName = matchedIngredient?.name || product?.name || slug.replace(/-/g, ' ');
+  const rawName = product?.name || matchedIngredient?.name || slug.replace(/-/g, ' ');
+  const productName =
+    currentLang !== 'vi' && hasVietnameseChars(rawName)
+      ? matchedIngredient?.name ||
+        localizeProductName({
+          viName: rawName,
+          slug,
+          lang: currentLang,
+          categoryGroup: product?.categoryGroup || matchedIngredient?.category,
+        })
+      : rawName;
 
   return buildPageMetadata({
     lang: currentLang,
@@ -67,11 +86,39 @@ export default async function ProductDetailPage({ params }: PageProps) {
     notFound();
   }
 
-  const title = matchedIngredient?.name || product?.name || slug;
-  const categoryName = matchedIngredient?.categoryName || product?.category || t.defaultCategory;
+  // Sanitize specs to ensure placeholder texts like "Tiêu chuẩn xuất khẩu B2B" never leak
+  const rawSpecs = matchedIngredient?.specs || product?.specs || '';
+  const cleanSpecs = rawSpecs.replace(/Tiêu chuẩn xuất khẩu B2B/gi, '').trim();
+
+  const rawDetailName = product?.name || matchedIngredient?.name || slug.replace(/-/g, ' ');
+  const localizedProductName =
+    currentLang !== 'vi' && hasVietnameseChars(rawDetailName)
+      ? matchedIngredient?.name ||
+        localizeProductName({
+          viName: rawDetailName,
+          slug,
+          lang: currentLang,
+          categoryGroup: product?.categoryGroup || matchedIngredient?.category,
+        })
+      : rawDetailName;
+
+  // Resolve structured 7-section B2B product technology detail
+  const techDetail = resolveProductTechDetail(slug, currentLang, {
+    name: localizedProductName,
+    category: matchedIngredient?.categoryName || product?.category,
+    processingMethod: product?.processingMethod,
+    categoryGroup: product?.categoryGroup || matchedIngredient?.category,
+    specs: cleanSpecs,
+    packaging: product?.packaging || matchedIngredient?.packaging,
+    storage: product?.storage || matchedIngredient?.storage,
+    shelfLife: product?.shelfLife || matchedIngredient?.shelfLife,
+    image: product?.image || matchedIngredient?.image,
+  });
+
+  const displayTitle = techDetail.displayName || localizedProductName;
 
   return (
-    <div className="py-8 sm:py-12">
+    <div className="py-8 sm:py-12 bg-cream-50/40">
       <Container>
         {/* Navigation Breadcrumb */}
         <nav aria-label="Breadcrumb" className="mb-6">
@@ -89,192 +136,91 @@ export default async function ProductDetailPage({ params }: PageProps) {
             </li>
             <li aria-hidden="true">/</li>
             <li className="text-primary-850 font-bold truncate max-w-[200px] sm:max-w-none" aria-current="page">
-              {title}
+              {displayTitle}
             </li>
           </ol>
         </nav>
 
-        {/* Section Title */}
-        <div className="mb-8">
-          <SectionTitle
-            as="h1"
-            badge={categoryName}
-            title={title}
-            subtitle={dict.pages.productDetail.subtitle}
-            className="mb-0"
-          />
-        </div>
+        {/* Section A: Giới thiệu sản phẩm (Hero Block) */}
+        <ProductHeroSection
+          currentLang={currentLang}
+          slug={slug}
+          productName={displayTitle}
+          vietnameseName={techDetail.vietnameseName}
+          englishName={techDetail.englishName}
+          typeBadge={techDetail.typeBadge}
+          technologyType={techDetail.technologyType}
+          italicIntro={techDetail.italicIntro}
+          image={techDetail.image}
+          imageAlt={techDetail.imageAlt}
+          highlights={techDetail.highlights}
+          pdfUrl={product?.pdfUrl}
+          btnQuoteText={t.btnQuoteText || (currentLang === 'vi' ? 'Nhận báo giá B2B' : currentLang === 'zh' ? '获取 B2B 报价' : 'Request B2B Quote')}
+          btnSampleText={t.btnSampleText || (currentLang === 'vi' ? 'Nhận mẫu thử R&D' : currentLang === 'zh' ? '申请研发打样' : 'Request R&D Sample')}
+          btnConsultText={currentLang === 'vi' ? 'Liên hệ tư vấn kỹ thuật' : currentLang === 'zh' ? '技术应用咨询' : 'Technical Consultation'}
+        />
 
-        {/* Main Product Specification Card */}
-        <div className="bg-white rounded-3xl border border-cream-200 shadow-soft p-6 sm:p-8 lg:p-10 mb-8">
-          <div className="flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
-            {/* Left: Product Image (Square 1:1) */}
-            <div className="w-full lg:w-96 shrink-0">
-              <div className="relative aspect-square w-full rounded-2xl overflow-hidden bg-white border border-cream-200 shadow-xs">
-                {product?.image || matchedIngredient?.image ? (
-                  <Image
-                    src={product?.image || matchedIngredient?.image || ''}
-                    alt={title}
-                    fill
-                    sizes="(max-width: 1024px) 100vw, 384px"
-                    className="object-contain p-3"
-                    priority
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center text-slate-400 p-6 text-center">
-                    <span className="text-4xl sm:text-5xl mb-2">🌿</span>
-                    <span className="text-xs sm:text-sm font-medium">{title}</span>
-                    <span className="text-[10px] text-slate-400 mt-1 uppercase tracking-wider font-semibold">
-                      {t.placeholderImageText || '[ẢNH THẬT SẼ CẬP NHẬT]'}
-                    </span>
-                  </div>
-                )}
-              </div>
-            </div>
+        {/* Section B: Quy trình sản xuất (5-Step Process Stepper) */}
+        <ProductProcessStepper
+          title={techDetail.processTitle}
+          intro={techDetail.processIntro}
+          steps={techDetail.processSteps}
+          technologyType={techDetail.technologyType}
+        />
 
-            {/* Right: Technical Summary & Overview */}
-            <div className="flex-1 space-y-6">
-              <div>
-                <span className="text-xs font-mono font-bold text-primary-leaf tracking-wider uppercase block mb-1">
-                  {t.refCode} {product?.specCode || `SPEC-AGRI-${slug.toUpperCase()}`} • ISO 22000 | HACCP | FDA COMPLIANT
-                </span>
-                <h2 className="text-xl sm:text-2xl font-extrabold text-primary-850">
-                  {title}
-                </h2>
-                <p className="text-xs sm:text-sm text-slate-600 mt-2 leading-relaxed">
-                  {matchedIngredient?.specs || product?.specs}
-                </p>
-              </div>
+        {/* Section C: Vì sao chọn AGRIHUB? (B2B Value Grid) */}
+        <ProductValueGrid
+          title={techDetail.whyChooseTitle}
+          intro={techDetail.whyChooseIntro}
+          benefits={techDetail.benefits}
+        />
 
-              {/* Highlight Badges */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
-                  {t.badgeCleanLabel}
-                </span>
-                <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
-                  {t.badgeStandardized}
-                </span>
-                <span className="px-3 py-1 bg-cream-100 text-primary-850 text-xs font-semibold rounded-full border border-cream-300">
-                  {t.badgeBulkSupply}
-                </span>
-              </div>
+        {/* Section D: Ứng dụng F&B (Grouped Applications Matrix) */}
+        <ProductApplicationsMatrix
+          title={techDetail.applicationsTitle}
+          groups={techDetail.applicationGroups}
+        />
 
-              {/* Action Buttons with Lead Query Params & Spec Sheet Modal */}
-              <ProductDetailActions
-                currentLang={currentLang}
-                slug={slug}
-                productName={title}
-                pdfUrl={product?.pdfUrl}
-                btnQuoteText={t.btnQuoteText || t.btnQuoteSample || 'Yêu cầu Báo giá'}
-                btnSampleText={t.btnSampleText || 'Nhận mẫu thử miễn phí'}
-                btnDownloadPdfText={t.btnDownloadPdf || '📄 Tải thông số kỹ thuật (TDS)'}
-              />
-            </div>
-          </div>
+        {/* Section E: Quy cách đóng gói & bảo quản (Logistics Strip) */}
+        <ProductLogisticsStrip
+          title={techDetail.packagingStorageTitle}
+          specs={techDetail.packagingStorage}
+          labels={{
+            packaging: t.colPackaging || (currentLang === 'vi' ? 'Quy cách đóng gói' : currentLang === 'zh' ? '包装规格' : 'Packaging Standard'),
+            shelfLife: t.colShelfLife || (currentLang === 'vi' ? 'Hạn sử dụng' : currentLang === 'zh' ? '保质期限' : 'Shelf Life'),
+            storage: t.colStorage || (currentLang === 'vi' ? 'Hướng dẫn bảo quản' : currentLang === 'zh' ? '储存指引' : 'Storage Conditions'),
+          }}
+        />
 
-          {/* Technical Specifications Section */}
-          <div className="mt-10 sm:mt-12 pt-8 border-t border-cream-200/90 space-y-8">
-            {/* Section 1: Chỉ tiêu Lý - Hóa */}
-            <div>
-              <div className="flex items-center gap-2 pb-2 mb-4 border-b border-cream-200">
-                <span className="w-2.5 h-2.5 rounded-xs bg-primary-leaf" />
-                <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
-                  {t.sectionPhysical}
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 text-xs sm:text-sm">
-                <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
-                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMoisture}</span>
-                  <span className="font-bold text-primary-850">
-                    {product?.moisture || matchedIngredient?.moisture || t.defaultMoisture}
-                  </span>
-                </div>
-                <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
-                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMesh}</span>
-                  <span className="font-bold text-primary-850">
-                    {product?.mesh || matchedIngredient?.mesh || t.defaultMesh}
-                  </span>
-                </div>
-                <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
-                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colBrix}</span>
-                  <span className="font-bold text-primary-850">
-                    {product?.brix || matchedIngredient?.brix || (currentLang === 'vi' ? 'Tiêu chuẩn tự nhiên' : currentLang === 'zh' ? '自然风味标准' : 'Natural standard')}
-                  </span>
-                </div>
-                <div className="p-3.5 bg-cream-50/70 rounded-xl border border-cream-200">
-                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colShelfLife}</span>
-                  <span className="font-bold text-primary-850">
-                    {product?.shelfLife || matchedIngredient?.shelfLife || t.defaultShelfLife}
-                  </span>
-                </div>
-              </div>
-            </div>
+        {/* Section F: AGRIHUB – Đối tác cung ứng và tư vấn (Partnership & Consultation) */}
+        <ProductPartnerAdvisory
+          currentLang={currentLang}
+          slug={slug}
+          title={techDetail.partnerTitle}
+          intro={techDetail.partnerIntro}
+          points={techDetail.partnerPoints}
+          ctaText={techDetail.partnerCtaText}
+        />
 
-            {/* Section 2: Quy cách Đóng gói & MOQ */}
-            <div>
-              <div className="flex items-center gap-2 pb-2 mb-4 border-b border-cream-200">
-                <span className="w-2.5 h-2.5 rounded-xs bg-accent-gold" />
-                <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
-                  {t.sectionPackaging}
-                </h3>
-              </div>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs sm:text-sm">
-                <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
-                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colPackaging}</span>
-                  <span className="text-slate-800 font-medium">
-                    {product?.packaging || matchedIngredient?.packaging || t.defaultPackaging}
-                  </span>
-                </div>
-                {(matchedIngredient?.storage || product?.storage) && (
-                  <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
-                    <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colStorage || (currentLang === 'en' ? 'Storage Conditions' : currentLang === 'zh' ? '储存条件与温度' : 'Điều kiện bảo quản')}</span>
-                    <span className="text-slate-800 font-medium">
-                      {product?.storage || matchedIngredient?.storage}
-                    </span>
-                  </div>
-                )}
-                <div className="p-3.5 bg-white rounded-xl border border-cream-200 shadow-2xs">
-                  <span className="font-semibold text-slate-500 text-xs block mb-1">{t.colMoq}</span>
-                  <span className="text-slate-800 font-medium">
-                    {product?.moq || t.defaultMoq}
-                  </span>
-                </div>
-              </div>
-            </div>
+        {/* Section G: Câu hỏi thường gặp kỹ thuật (Vetted FAQs Accordion) */}
+        <ProductTechnicalFaq
+          title={techDetail.faqTitle}
+          faqs={techDetail.faqs}
+        />
 
-            {/* Section 3: Ứng dụng F&B */}
-            <div>
-              <div className="flex items-center gap-2 pb-2 mb-3 border-b border-cream-200">
-                <span className="w-2.5 h-2.5 rounded-xs bg-emerald-600" />
-                <h3 className="text-xs sm:text-sm font-bold text-primary-850 uppercase tracking-wider">
-                  {t.sectionApplication}
-                </h3>
-              </div>
-              <div className="p-4 bg-cream-50/60 rounded-xl border border-cream-200 text-xs sm:text-sm">
-                <p className="text-slate-800 font-medium leading-relaxed">
-                  {currentLang === 'vi'
-                    ? 'Ứng dụng chính trong sản xuất thực phẩm & đồ uống'
-                    : currentLang === 'zh'
-                    ? '主要应用于食品与饮料生产制造'
-                    : 'Main applications in food & beverage manufacturing'}
-                </p>
-              </div>
-            </div>
-
-            {/* R&D Customization Notice */}
-            <div className="p-4 bg-primary-50 rounded-2xl border border-primary-200/80 flex items-start gap-3 text-xs sm:text-sm text-primary-950">
-              <span className="text-primary-leaf text-lg leading-none mt-0.5">ℹ</span>
-              <p className="leading-relaxed">
-                <strong>{t.rdNoticeTitle}</strong> {t.rdNoticeDesc}
-              </p>
-            </div>
-          </div>
-        </div>
-
-        {/* Back Button */}
-        <div className="pt-2">
+        {/* Back to Catalog Navigation Button */}
+        <div className="pt-4 pb-8 flex items-center justify-between">
           <Button href={`/${currentLang}/products`} variant="pill" size="md">
             {t.btnBackCatalog}
+          </Button>
+
+          <Button
+            href={`/${currentLang}/contact?product=${slug}&type=quote`}
+            variant="amber"
+            size="md"
+            className="font-bold shadow-xs hover:shadow-md"
+          >
+            {currentLang === 'vi' ? 'Gửi yêu cầu báo giá ngay' : currentLang === 'zh' ? '立即发送询价' : 'Send RFQ Inquiry'}
           </Button>
         </div>
       </Container>

@@ -4,6 +4,7 @@
  */
 
 import { Locale } from './i18n/types';
+import { localizeProductName, hasVietnameseChars } from './i18n/product-names';
 
 export interface Product {
   id: string | number;
@@ -30,6 +31,12 @@ export interface Product {
 }
 
 export interface WordPressACF {
+  english_name?: string;
+  name_en?: string;
+  title_en?: string;
+  chinese_name?: string;
+  name_zh?: string;
+  title_zh?: string;
   specs?: string;
   application?: string;
   applications?: string;
@@ -78,7 +85,7 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     categoryGroup: 'dried',
     processingMethod: 'Sấy thăng hoa',
     name: 'Thanh Long Đỏ Sấy Thăng Hoa',
-    specs: 'Độ ẩm theo yêu cầu | Cắt lát 5-7mm | 100% tự nhiên không chất bảo quản',
+    specs: 'Độ ẩm theo yêu cầu | Cắt lát 5-7mm | Tự nhiên không chất bảo quản',
     application: 'Ứng dụng chính trong sản xuất thực phẩm & đồ uống',
     moisture: 'Theo yêu cầu của quý đối tác',
     mesh: 'Theo yêu cầu của quý đối tác',
@@ -98,7 +105,7 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     categoryGroup: 'powder',
     processingMethod: 'Bột sấy nghiền',
     name: 'Bột Thanh Long Đỏ',
-    specs: 'Độ ẩm ≤ 5% | 80-100 mesh | 100% tự nhiên không chất bảo quản',
+    specs: 'Độ ẩm ≤ 5% | 80-100 mesh | Tự nhiên không chất bảo quản',
     application:
       'Bánh kẹo, Đồ uống dinh dưỡng, Sữa chua, Tạo màu tự nhiên Clean-label',
     moisture: '≤ 5.0%',
@@ -140,7 +147,8 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     processingMethod: 'Bột sấy phun',
     name: 'Bột Chuối Sấy Phun',
     specs: 'Màu vàng kem | Hương thơm đậm đà | Dồi dào chất xơ & Kali',
-    application: 'Ngũ cốc ăn sáng, thức ăn dặm trẻ em, sinh tố protein, bánh quy',
+    application:
+      'Ngũ cốc ăn sáng, thức ăn dặm trẻ em, sinh tố protein, bánh quy',
     moisture: '≤ 5.0%',
     mesh: '80 mesh',
     brix: 'Tự nhiên',
@@ -180,8 +188,10 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     categoryGroup: 'dried',
     processingMethod: 'Sấy thăng hoa',
     name: 'Mít Sấy Thăng Hoa',
-    specs: 'Vàng óng tự nhiên | Giòn xốp thơm lừng | Không chiên dầu, không đường',
-    application: 'Snack văn phòng lành mạnh, granola, topping kem & trà hoa quả',
+    specs:
+      'Vàng óng tự nhiên | Giòn xốp thơm lừng | Không chiên dầu, không đường',
+    application:
+      'Snack văn phòng lành mạnh, granola, topping kem & trà hoa quả',
     moisture: '≤ 4.0%',
     mesh: 'Nguyên múi hoặc nửa múi',
     brix: 'Tự nhiên từ quả',
@@ -201,7 +211,7 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     processingMethod: 'Cấp đông IQF',
     name: 'Xoài Cấp Đông IQF',
     specs:
-      'Cấp đông nhanh IQF (-35°C) | 100% tự nhiên | Cắt hạt lựu 15x15mm hoặc nửa quả',
+      'Cấp đông nhanh IQF (-35°C) | Tự nhiên | Cắt hạt lựu 15x15mm hoặc nửa quả',
     application: 'Sinh tố, Topping trà trái cây, Kem xoài, Mứt F&B',
     moisture: 'Dạng đông rời IQF',
     mesh: 'Cắt hạt lựu 10-15mm / Má xoài',
@@ -221,7 +231,7 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     categoryGroup: 'frozen',
     processingMethod: 'Cấp đông IQF',
     name: 'Thanh Long Đỏ Cấp Đông IQF',
-    specs: 'Đông rời từng hạt IQF | Ruột đỏ thắm 100% tự nhiên | Cắt hạt 10x10mm',
+    specs: 'Đông rời từng hạt IQF | Ruột đỏ thắm Tự nhiên | Cắt hạt 10x10mm',
     application: 'Trà hoa quả thương mại, smoothie bowl, sữa chua công nghiệp',
     moisture: 'Dạng đông rời IQF',
     mesh: 'Hạt lựu đều đặn 10x10mm',
@@ -253,6 +263,98 @@ export const FALLBACK_PRODUCTS_VI: Product[] = [
     moq: '1 phuy (200kg) hoặc 1 pallet',
     grade: 'ASEPTIC INDUSTRIAL',
     specCode: 'SPEC-AGRI-PFP-03',
+    isFeatured: true,
+  },
+  {
+    id: 'bot-oi-say-phun',
+    slug: 'bot-oi-say-phun',
+    category: 'Bột sấy phun',
+    categoryGroup: 'powder',
+    processingMethod: 'Sấy phun công nghệ cao',
+    name: 'Bột Ổi Sấy Phun AGRIHUB',
+    specs: 'Độ mịn cao | Hương ổi đặc trưng | Tự nhiên không chất bảo quản',
+    application:
+      'Bột pha uống hương ổi, trà trái cây, sữa chua, kem, bánh kẹo & ngũ cốc',
+    moisture: 'Tiêu chuẩn theo yêu cầu',
+    mesh: 'Bột mịn đồng đều',
+    brix: 'Thử mẫu theo công thức',
+    shelfLife: 'Theo công bố trên bao bì',
+    packaging: 'Đa dạng quy cách B2B theo nhu cầu',
+    storage:
+      'Nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp, đậy kín sau mở',
+    moq: 'Linh hoạt theo đơn hàng',
+    grade: 'SPRAY-DRIED INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVP-01',
+    image: '/images/products/bot-oi-say-phun.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'bot-oi-say-nghien',
+    slug: 'bot-oi-say-nghien',
+    category: 'Bột sấy nghiền',
+    categoryGroup: 'powder',
+    processingMethod: 'Sấy khô và nghiền',
+    name: 'Bột Ổi Sấy Nghiền AGRIHUB',
+    specs:
+      'Cấu trúc hạt tự nhiên | Cỡ rây mesh tùy chỉnh | Không chất bảo quản',
+    application:
+      'Bánh và thực phẩm nướng, granola, thanh ngũ cốc, đồ uống sánh',
+    moisture: 'Tiêu chuẩn theo yêu cầu',
+    mesh: 'Nghiền theo cỡ rây yêu cầu',
+    brix: 'Tự nhiên từ quả',
+    shelfLife: 'Theo công bố trên bao bì',
+    packaging: 'Đa dạng quy cách B2B theo nhu cầu',
+    storage:
+      'Nơi khô ráo, thoáng mát, tránh ánh nắng trực tiếp, đóng kín sau mở',
+    moq: 'Linh hoạt theo đơn hàng',
+    grade: 'MILLED INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVM-02',
+    image: '/images/products/bot-oi-say-nghien.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'puree-oi',
+    slug: 'puree-oi',
+    category: 'Puree trái cây',
+    categoryGroup: 'puree',
+    processingMethod: 'Xay nhuyễn thịt quả',
+    name: 'Puree Ổi AGRIHUB',
+    specs: 'Thịt quả sánh nhuyễn | Vị chua ngọt rõ nét | Không chất bảo quản',
+    application:
+      'Sinh tố ổi, nectar, sữa chua, kem, sốt ổi, nhân bánh & topping',
+    moisture: 'Dạng thịt quả sánh nhuyễn',
+    mesh: 'Xay nhuyễn mịn màng',
+    brix: 'Tiêu chuẩn tự nhiên từ quả',
+    shelfLife: 'Theo công bố trên bao bì',
+    packaging: 'Quy cách chuyên dụng B2B / Túi vô trùng',
+    storage: 'Bảo quản nhiệt độ quy định (kho mát/lạnh)',
+    moq: 'Linh hoạt theo đơn hàng',
+    grade: 'ASEPTIC PUREE INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVP-03',
+    image: '/images/products/puree-oi.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'oi-co-dac',
+    slug: 'oi-co-dac',
+    category: 'Ổi cô đặc',
+    categoryGroup: 'puree',
+    processingMethod: 'Cô đặc chân không',
+    name: 'Ổi Cô Đặc AGRIHUB',
+    specs:
+      'Hàm lượng chất khô cao (°Brix) | Cô đặc chân không | Giảm khối lượng vận chuyển',
+    application:
+      'Nước giải khát hương ổi, syrup pha chế, sữa chua, kem, sốt mứt & nhân bánh',
+    moisture: 'Dạng cô đặc sánh',
+    mesh: 'Nền dịch hoặc puree cô đặc',
+    brix: 'Điều chỉnh theo công thức khách hàng',
+    shelfLife: 'Theo công bố trên bao bì',
+    packaging: 'Quy cách chuyên dụng B2B / Phuy vô trùng',
+    storage: 'Bảo quản nhiệt độ quy định (kho mát/lạnh)',
+    moq: 'Linh hoạt theo đơn hàng',
+    grade: 'VACUUM CONCENTRATE INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVC-04',
+    image: '/images/products/oi-co-dac.jpg',
     isFeatured: true,
   },
 ];
@@ -307,7 +409,8 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     processingMethod: 'Spray-Dried Powder',
     name: 'Instant Passion Fruit Powder',
     specs: 'Solubility > 95% | Natural refreshing tartness | Rich in Vitamin C',
-    application: 'Fruit teas, beverage syrups, bakery fillings, gourmet ice cream',
+    application:
+      'Fruit teas, beverage syrups, bakery fillings, gourmet ice cream',
     moisture: '≤ 4.5%',
     mesh: '100 mesh',
     brix: 'Standardized upon request',
@@ -326,7 +429,8 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     categoryGroup: 'powder',
     processingMethod: 'Spray-Dried Powder',
     name: 'Spray-Dried Banana Powder',
-    specs: 'Creamy yellow | Rich natural aroma | High dietary fiber & Potassium',
+    specs:
+      'Creamy yellow | Rich natural aroma | High dietary fiber & Potassium',
     application: 'Breakfast cereals, baby food, protein smoothies, biscuits',
     moisture: '≤ 5.0%',
     mesh: '80 mesh',
@@ -367,7 +471,8 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     processingMethod: 'Freeze-Dried',
     name: 'Freeze-Dried Jackfruit Pieces',
     specs: 'Natural golden aroma | Crisp texture | Zero added oil, zero sugar',
-    application: 'Office healthy snacking, premium tea blends, artisanal bakery',
+    application:
+      'Office healthy snacking, premium tea blends, artisanal bakery',
     moisture: '≤ 4.0%',
     mesh: 'Whole / Half pods',
     brix: 'Natural fruit sugar',
@@ -408,8 +513,10 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     categoryGroup: 'frozen',
     processingMethod: 'IQF Frozen Fruit',
     name: 'IQF Frozen Red Dragon Fruit Dices',
-    specs: 'Individually Quick Frozen | 100% natural red flesh | 10x10mm uniform dices',
-    application: 'Commercial fruit tea, smoothie packs, sorbet, dairy yogurt base',
+    specs:
+      'Individually Quick Frozen | 100% natural red flesh | 10x10mm uniform dices',
+    application:
+      'Commercial fruit tea, smoothie packs, sorbet, dairy yogurt base',
     moisture: 'Frozen fruit dices',
     mesh: '10x10mm uniform diced',
     brix: '10 - 12° Brix',
@@ -440,6 +547,96 @@ export const FALLBACK_PRODUCTS_EN: Product[] = [
     moq: '1 drum (200kg) or 1 pallet',
     grade: 'ASEPTIC INDUSTRIAL',
     specCode: 'SPEC-AGRI-PFP-03',
+    isFeatured: true,
+  },
+  {
+    id: 'bot-oi-say-phun',
+    slug: 'bot-oi-say-phun',
+    category: 'Spray-Dried Powder',
+    categoryGroup: 'powder',
+    processingMethod: 'High-Tech Spray Drying',
+    name: 'Spray-Dried Guava Powder',
+    specs: 'High fineness | Characteristic aroma | 100% natural, clean-label',
+    application:
+      'Instant drink mixes, fruit tea infusions, yogurt, ice cream, bakery and nutrition blends',
+    moisture: 'Standardized upon request',
+    mesh: 'Superfine powder',
+    brix: 'Validated via trial formula',
+    shelfLife: 'According to packaging dossier',
+    packaging: 'Diverse industrial B2B bulk packaging',
+    storage: 'Store in a cool, dry place, avoid direct sunlight, keep sealed',
+    moq: 'Flexible according to order',
+    grade: 'SPRAY-DRIED INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVP-01',
+    image: '/images/products/bot-oi-say-phun.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'bot-oi-say-nghien',
+    slug: 'bot-oi-say-nghien',
+    category: 'Milled Powder',
+    categoryGroup: 'powder',
+    processingMethod: 'Dehydration and Fine Milling',
+    name: 'Dried and Milled Guava Powder',
+    specs: 'Natural fruit particle structure | Custom mesh | Clean-label',
+    application:
+      'Bakery and pastries, granola, breakfast cereals, pulpy beverages',
+    moisture: 'Standardized upon request',
+    mesh: 'Adjusted per sieve mesh specification',
+    brix: 'Natural fruit content',
+    shelfLife: 'According to packaging dossier',
+    packaging: 'Diverse industrial B2B bulk packaging',
+    storage: 'Store in a cool, dry place, avoid direct sunlight, keep sealed',
+    moq: 'Flexible according to order',
+    grade: 'MILLED INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVM-02',
+    image: '/images/products/bot-oi-say-nghien.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'puree-oi',
+    slug: 'puree-oi',
+    category: 'Fruit Purée',
+    categoryGroup: 'puree',
+    processingMethod: 'Smooth Pulp Refining',
+    name: 'Guava Purée',
+    specs:
+      'Smooth velvety fruit pulp | Balanced sweet-tart flavor | No preservatives',
+    application:
+      'Smoothies, nectars, drinkable yogurt, ice cream, fruit glazes & toppings',
+    moisture: 'Velvety homogeneous fruit purée',
+    mesh: 'Smooth refined pulp',
+    brix: 'Natural fruit standard',
+    shelfLife: 'According to packaging dossier',
+    packaging: 'B2B aseptic bags in drums / pails',
+    storage: 'Regulated cold chain temperature',
+    moq: 'Flexible according to order',
+    grade: 'ASEPTIC PUREE INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVP-03',
+    image: '/images/products/puree-oi.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'oi-co-dac',
+    slug: 'oi-co-dac',
+    category: 'Concentrate',
+    categoryGroup: 'puree',
+    processingMethod: 'Low-Temperature Vacuum Evaporation',
+    name: 'Guava Concentrate',
+    specs:
+      'High soluble solids (°Brix) | Vacuum low-temp evaporation | Freight-optimized',
+    application:
+      'Guava soft drinks, beverage syrups, fruit sauces, yogurt base & confectioneries',
+    moisture: 'Viscous fruit concentrate',
+    mesh: 'Refined juice/puree base',
+    brix: 'Adjusted to client target Brix',
+    shelfLife: 'According to packaging dossier',
+    packaging: 'B2B aseptic bags in industrial drums',
+    storage: 'Regulated cold chain temperature',
+    moq: 'Flexible according to order',
+    grade: 'VACUUM CONCENTRATE INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVC-04',
+    image: '/images/products/oi-co-dac.jpg',
     isFeatured: true,
   },
 ];
@@ -625,6 +822,90 @@ export const FALLBACK_PRODUCTS_ZH: Product[] = [
     specCode: 'SPEC-AGRI-PFP-03',
     isFeatured: true,
   },
+  {
+    id: 'bot-oi-say-phun',
+    slug: 'bot-oi-say-phun',
+    category: '喷雾干燥果粉',
+    categoryGroup: 'powder',
+    processingMethod: '先进喷雾干燥工艺',
+    name: '喷雾干燥番石榴粉',
+    specs: '微细粉末 | 特征香气浓郁 | 100%纯天然清洁标签',
+    application: '固体冲调饮品、乳酸菌饮品、特调果茶、糖果焙烤及代餐营养粉',
+    moisture: '依客户标准定制',
+    mesh: '超细微粉',
+    brix: '配方试验基准',
+    shelfLife: '以官方产品标贴为准',
+    packaging: '工业级防潮多层铝箔袋或依需求定制',
+    storage: '阴凉干燥处，避免阳光直射，开封后密封',
+    moq: '根据订单灵活确定',
+    grade: 'SPRAY-DRIED INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVP-01',
+    image: '/images/products/bot-oi-say-phun.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'bot-oi-say-nghien',
+    slug: 'bot-oi-say-nghien',
+    category: '研磨果粉',
+    categoryGroup: 'powder',
+    processingMethod: '脱水烘干与精密研磨',
+    name: '烘干研磨番石榴粉',
+    specs: '保留天然果肉颗粒结构 | 筛网目数可调 | 清洁标签',
+    application: '烘焙饼干、海绵蛋糕、Granola谷物棒、营养代餐粉及浓郁质感饮品',
+    moisture: '依客户标准定制',
+    mesh: '按客户指定目数精密研磨',
+    brix: '天然原果固形物',
+    shelfLife: '以官方产品标贴为准',
+    packaging: '工业级多层防潮袋或按需定制',
+    storage: '阴凉干燥处，避免阳光直射，开封后密封',
+    moq: '根据订单灵活确定',
+    grade: 'MILLED INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVM-02',
+    image: '/images/products/bot-oi-say-nghien.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'puree-oi',
+    slug: 'puree-oi',
+    category: '原果浆',
+    categoryGroup: 'puree',
+    processingMethod: '果肉精细均质打浆',
+    name: '番石榴原果浆',
+    specs: '浓郁细腻果肉浆体 | 特征香气保留 | 零防腐剂',
+    application: '果昔、调味发酵乳、高端冰淇淋、烘焙果泥夹心及淋面果酱',
+    moisture: '均质细腻流体果浆',
+    mesh: '精细均质去籽',
+    brix: '天然原果糖度标准',
+    shelfLife: '以官方产品标贴为准',
+    packaging: '无菌袋配铁桶/大桶或按需定制',
+    storage: '必须遵循规定冷链低温储存',
+    moq: '根据订单灵活确定',
+    grade: 'ASEPTIC PUREE INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVP-03',
+    image: '/images/products/puree-oi.jpg',
+    isFeatured: true,
+  },
+  {
+    id: 'oi-co-dac',
+    slug: 'oi-co-dac',
+    category: '浓缩果汁/浆',
+    categoryGroup: 'puree',
+    processingMethod: '低温真空减压浓缩',
+    name: '番石榴浓缩汁/浆',
+    specs: '高可溶性固形物(°Brix) | 低温真空浓缩 | 显著节约物流能耗',
+    application: '饮料复原果汁、风味糖浆、软糖果冻、调味酸奶底料及烘焙调味',
+    moisture: '浓稠物料流体',
+    mesh: '清汁或果浆基底精制',
+    brix: '依客户配方指标精准调控',
+    shelfLife: '以官方产品标贴为准',
+    packaging: '无菌工业大桶或按需定制',
+    storage: '必须遵循规定冷链低温储存',
+    moq: '根据订单灵活确定',
+    grade: 'VACUUM CONCENTRATE INDUSTRIAL',
+    specCode: 'SPEC-AGRI-GVC-04',
+    image: '/images/products/oi-co-dac.jpg',
+    isFeatured: true,
+  },
 ];
 
 export const FALLBACK_PRODUCTS = FALLBACK_PRODUCTS_VI;
@@ -758,7 +1039,10 @@ export function mapWordPressPostToProduct(
   post: WordPressPost,
   lang: Locale = 'vi',
 ): Product {
-  const acf = (post.acf && typeof post.acf === 'object' && !Array.isArray(post.acf)) ? post.acf : {};
+  const acf =
+    post.acf && typeof post.acf === 'object' && !Array.isArray(post.acf)
+      ? post.acf
+      : {};
 
   // Lấy ảnh đại diện: ưu tiên trường ACF image/product_image, sau đó đến featured media của WordPress
   const featuredMedia = post._embedded?.['wp:featuredmedia']?.[0]?.source_url;
@@ -798,16 +1082,16 @@ export function mapWordPressPostToProduct(
 
   // Lấy danh mục mặc định ban đầu
   let defaultCategory = 'Nguyên liệu nông sản';
-  let defaultSpecs = 'Tiêu chuẩn xuất khẩu B2B';
+  let defaultSpecs = '';
   let defaultApp = 'Ứng dụng trong sản xuất thực phẩm & đồ uống';
 
   if (lang === 'en') {
     defaultCategory = 'Processed Agricultural Ingredients';
-    defaultSpecs = 'Export B2B Standard Specification';
+    defaultSpecs = '';
     defaultApp = 'Food & Beverage industrial manufacturing';
   } else if (lang === 'zh') {
     defaultCategory = '深加工特色农产品原料';
-    defaultSpecs = '国际出口 B2B 工业级技术标准';
+    defaultSpecs = '';
     defaultApp = '食品与饮料工业制造应用';
   }
 
@@ -843,7 +1127,9 @@ export function mapWordPressPostToProduct(
     typeof acf.category_group === 'object' &&
     'value' in acf.category_group
   ) {
-    rawCategoryGroup = String((acf.category_group as { value: string }).value).trim().toLowerCase();
+    rawCategoryGroup = String((acf.category_group as { value: string }).value)
+      .trim()
+      .toLowerCase();
   }
 
   if (
@@ -922,13 +1208,17 @@ export function mapWordPressPostToProduct(
     typeof acf.processing_method === 'object' &&
     'label' in acf.processing_method
   ) {
-    processingMethod = String((acf.processing_method as { label: string }).label).trim();
+    processingMethod = String(
+      (acf.processing_method as { label: string }).label,
+    ).trim();
   } else if (
     acf.processing_method &&
     typeof acf.processing_method === 'object' &&
     'value' in acf.processing_method
   ) {
-    processingMethod = String((acf.processing_method as { value: string }).value).trim();
+    processingMethod = String(
+      (acf.processing_method as { value: string }).value,
+    ).trim();
   }
 
   if (!processingMethod) {
@@ -956,7 +1246,8 @@ export function mapWordPressPostToProduct(
       processingMethod = 'Puree & Juice';
       defaultCategory = 'Fruit Puree & Concentrates';
       defaultSpecs = 'Brix 12-16% | Aseptic Sterile Processing | 100% Pure';
-      defaultApp = 'Beverage manufacturing, drinking yogurt, ice cream, bakery fillings, syrups';
+      defaultApp =
+        'Beverage manufacturing, drinking yogurt, ice cream, bakery fillings, syrups';
     } else if (pmLower.includes('phun') || pmLower.includes('spray')) {
       processingMethod = 'Spray-Dried Powder';
       defaultCategory = 'Spray-Dried Fruit Powder';
@@ -978,20 +1269,20 @@ export function mapWordPressPostToProduct(
     }
 
     if (post.slug === 'san-pham') {
-      name = 'Freeze-Dried Dragon Fruit (Export Grade)';
       categoryName = 'Freeze-Dried Fruit';
-      defaultSpecs = 'Moisture upon request | 5-7mm slices | 100% natural, clean-label';
+      defaultSpecs =
+        'Moisture upon request | 5-7mm slices | 100% natural, clean-label';
       defaultApp = 'Main applications in food & beverage manufacturing';
     } else if (post.slug === 'thanh-long-do') {
-      if (categoryGroup === 'puree') {
-        name = 'Red Dragon Fruit Puree (Concentrate)';
-        categoryName = 'Fruit Puree & Juice';
-      } else {
-        name = 'Freeze-Dried Red Dragon Fruit';
-        categoryName = 'Freeze-Dried Fruit';
-      }
-      defaultSpecs = 'Moisture upon request | 5-7mm slices | 100% natural, clean-label';
+      categoryName =
+        categoryGroup === 'puree'
+          ? 'Fruit Puree & Juice'
+          : 'Freeze-Dried Fruit';
+      defaultSpecs =
+        'Moisture upon request | 5-7mm slices | 100% natural, clean-label';
       defaultApp = 'Main applications in food & beverage manufacturing';
+    } else if (hasVietnameseChars(categoryName)) {
+      categoryName = defaultCategory;
     }
   } else if (lang === 'zh') {
     const pmLower = processingMethod.toLowerCase();
@@ -1021,24 +1312,27 @@ export function mapWordPressPostToProduct(
     }
 
     if (post.slug === 'san-pham') {
-      name = '冻干火龙果脆片 (出口级)';
       categoryName = '精品冻干果品';
       defaultSpecs = '水分按需定制 | 5-7mm 原切片 | 100% 纯天然清洁标签';
       defaultApp = '主要应用于食品与饮料生产制造';
     } else if (post.slug === 'thanh-long-do') {
-      if (categoryGroup === 'puree') {
-        name = '红心火龙果原浆 (无菌包装)';
-        categoryName = '果浆与浓缩原汁';
-      } else {
-        name = '冻干红心火龙果脆片';
-        categoryName = '精品冻干果品';
-      }
+      categoryName =
+        categoryGroup === 'puree' ? '果浆与浓缩原汁' : '精品冻干果品';
       defaultSpecs = '水分按需定制 | 5-7mm 原切片 | 100% 纯天然清洁标签';
       defaultApp = '主要应用于食品与饮料生产制造';
+    } else if (hasVietnameseChars(categoryName)) {
+      categoryName = defaultCategory;
     }
   }
 
-  const hasVietnameseChars = (str: string) => /[\u00C0-\u1EF9]/i.test(str);
+  // Chuyển đổi tên sản phẩm theo ngôn ngữ đích (ưu tiên ACF từ WordPress, kết hợp bộ chuẩn hóa tên B2B)
+  name = localizeProductName({
+    viName: name,
+    slug: post.slug,
+    lang,
+    acf,
+    categoryGroup,
+  });
 
   const rawSpecs = acf.specs || post.excerpt?.rendered || '';
   let specs = cleanHtmlEntities(rawSpecs);
@@ -1051,44 +1345,61 @@ export function mapWordPressPostToProduct(
   if (lang === 'vi') {
     application = 'Ứng dụng chính trong sản xuất thực phẩm & đồ uống';
   } else if (hasVietnameseChars(application) || !application) {
-    application = defaultApp || (lang === 'zh' ? '主要应用于食品与饮料生产制造' : 'Main applications in food & beverage manufacturing');
+    application =
+      defaultApp ||
+      (lang === 'zh'
+        ? '主要应用于食品与饮料生产制造'
+        : 'Main applications in food & beverage manufacturing');
   }
 
   // Chuẩn hóa các thông số kỹ thuật mặc định theo từng ngôn ngữ
   const localizedMoisture =
     lang === 'vi'
-      ? (acf.moisture && !hasVietnameseChars(acf.moisture) ? acf.moisture : 'Theo yêu cầu của quý đối tác')
+      ? acf.moisture && !hasVietnameseChars(acf.moisture)
+        ? acf.moisture
+        : 'Theo yêu cầu của quý đối tác'
       : lang === 'zh'
-      ? '按客户需求定制'
-      : "Customized upon partner's request";
+        ? '按客户需求定制'
+        : "Customized upon partner's request";
 
   const localizedMesh =
     lang === 'vi'
-      ? ((acf.mesh || acf.mesh_size) && !hasVietnameseChars(String(acf.mesh || '')) ? (acf.mesh || acf.mesh_size) : 'Theo yêu cầu của quý đối tác')
+      ? (acf.mesh || acf.mesh_size) &&
+        !hasVietnameseChars(String(acf.mesh || ''))
+        ? acf.mesh || acf.mesh_size
+        : 'Theo yêu cầu của quý đối tác'
       : lang === 'zh'
-      ? '按客户需求定制'
-      : "Customized upon partner's request";
+        ? '按客户需求定制'
+        : "Customized upon partner's request";
 
   const localizedShelfLife =
     lang === 'vi'
       ? '12 - 24 tháng'
       : lang === 'zh'
-      ? '12 - 24 个月'
-      : '12 - 24 months';
+        ? '12 - 24 个月'
+        : '12 - 24 months';
 
   const localizedPackaging =
     lang === 'vi'
       ? 'Túi PE, Thùng Carton, phuy 20kg'
       : lang === 'zh'
-      ? 'PE袋，瓦楞纸箱，20kg桶装'
-      : 'PE bag, Carton box, 20kg drum';
+        ? 'PE袋，瓦楞纸箱，20kg桶装'
+        : 'PE bag, Carton box, 20kg drum';
+
+  const rawStorage = cleanHtmlEntities(
+    String(acf.storage || acf.storage_condition || ''),
+  );
+  const localizedStorage =
+    lang === 'vi'
+      ? rawStorage || undefined
+      : !rawStorage || hasVietnameseChars(rawStorage)
+        ? lang === 'zh'
+          ? '置于阴凉干燥处，避免阳光直射；开封后请务必密封保存。'
+          : 'Store in cool, dry conditions away from direct sunlight. Reseal tightly after opening.'
+        : rawStorage;
 
   const localizedMoq =
-    lang === 'vi'
-      ? 'Linh hoạt'
-      : lang === 'zh'
-      ? '灵活起订'
-      : 'Flexible';
+    lang === 'vi' ? 'Linh hoạt' : lang === 'zh' ? '灵活起订' : 'Flexible';
 
   return {
     id: post.id,
@@ -1104,7 +1415,7 @@ export function mapWordPressPostToProduct(
     brix: acf.brix,
     shelfLife: localizedShelfLife,
     packaging: localizedPackaging,
-    storage: acf.storage || acf.storage_condition,
+    storage: localizedStorage,
     moq: localizedMoq,
     grade: acf.grade || 'INDUSTRIAL F&B',
     specCode: acf.spec_code || `SPEC-AGRI-${post.slug.toUpperCase()}`,
@@ -1120,7 +1431,9 @@ export function mapWordPressPostToProduct(
  * Ở môi trường DEV (npm run dev): cache = 'no-store' để cập nhật NGAY LẬP TỨC khi sửa trên WordPress local.
  * Ở môi trường PROD: revalidate 60 giây để đạt tốc độ tĩnh tối đa.
  */
-function getFetchOptions(tags: string[] = ['wordpress', 'products']): RequestInit {
+function getFetchOptions(
+  tags: string[] = ['wordpress', 'products'],
+): RequestInit {
   const isDev = process.env.NODE_ENV === 'development';
   const baseOptions: RequestInit = isDev
     ? { cache: 'no-store' }
@@ -1152,7 +1465,10 @@ async function fetchFromEndpoints(
   const allEndpoints = ['products', 'product', 'posts'];
   // If we already know which endpoint works, prioritize it first
   const endpoints = cachedProductEndpoint
-    ? [cachedProductEndpoint, ...allEndpoints.filter((ep) => ep !== cachedProductEndpoint)]
+    ? [
+        cachedProductEndpoint,
+        ...allEndpoints.filter((ep) => ep !== cachedProductEndpoint),
+      ]
     : allEndpoints;
 
   for (const ep of endpoints) {
@@ -1292,15 +1608,26 @@ function mapWordPressPostToNewsEvent(
   lang: string,
 ): NewsEvent {
   const acf = (post.acf || {}) as Record<string, string | undefined>;
-  const image = rewriteLocalAssetUrl(post._embedded?.['wp:featuredmedia']?.[0]?.source_url) ?? null;
+  const image =
+    rewriteLocalAssetUrl(
+      post._embedded?.['wp:featuredmedia']?.[0]?.source_url,
+    ) ?? null;
 
   const rawTerms = post._embedded?.['wp:term']?.[0] || [];
-  const categoryNames = rawTerms.map((t: { name: string }) => cleanHtmlEntities(t.name || ''));
-  const categorySlugs = rawTerms.map((t: { slug: string }) => (t.slug || '').toLowerCase());
+  const categoryNames = rawTerms.map((t: { name: string }) =>
+    cleanHtmlEntities(t.name || ''),
+  );
+  const categorySlugs = rawTerms.map((t: { slug: string }) =>
+    (t.slug || '').toLowerCase(),
+  );
 
   const rawTags = post._embedded?.['wp:term']?.[1] || [];
-  const tags = rawTags.map((t: { name: string }) => cleanHtmlEntities(t.name || ''));
-  const tagSlugs = rawTags.map((t: { slug: string }) => (t.slug || '').toLowerCase());
+  const tags = rawTags.map((t: { name: string }) =>
+    cleanHtmlEntities(t.name || ''),
+  );
+  const tagSlugs = rawTags.map((t: { slug: string }) =>
+    (t.slug || '').toLowerCase(),
+  );
 
   const titleLower = (post.title?.rendered || '').toLowerCase();
   const slugLower = (post.slug || '').toLowerCase();
@@ -1328,7 +1655,10 @@ function mapWordPressPostToNewsEvent(
         lower.includes('活动')
       );
     }) ||
-    tagSlugs.some((s) => s.includes('su-kien') || s.includes('event') || s.includes('trien-lam')) ||
+    tagSlugs.some(
+      (s) =>
+        s.includes('su-kien') || s.includes('event') || s.includes('trien-lam'),
+    ) ||
     tags.some((t) => {
       const lower = t.toLowerCase();
       return (
@@ -1388,7 +1718,8 @@ function mapWordPressPostToNewsEvent(
       );
     });
     displayCategory =
-      eventTerm || (lang === 'en' ? 'Events' : lang === 'zh' ? '活动' : 'Sự kiện');
+      eventTerm ||
+      (lang === 'en' ? 'Events' : lang === 'zh' ? '活动' : 'Sự kiện');
   } else {
     const newsTerm = categoryNames.find((n) => {
       const lower = n.toLowerCase();
@@ -1403,7 +1734,8 @@ function mapWordPressPostToNewsEvent(
     });
     displayCategory =
       newsTerm ||
-      (categoryNames.length > 0 && !categoryNames[0].toLowerCase().includes('nổi bật')
+      (categoryNames.length > 0 &&
+      !categoryNames[0].toLowerCase().includes('nổi bật')
         ? categoryNames[0]
         : lang === 'en'
           ? 'News'
@@ -1699,7 +2031,10 @@ async function fetchNewsFromEndpoints(
   const allEndpoints = ['news_events', 'news_event', 'posts'];
   // If we already know which endpoint works, prioritize it first
   const endpoints = cachedNewsEndpoint
-    ? [cachedNewsEndpoint, ...allEndpoints.filter((ep) => ep !== cachedNewsEndpoint)]
+    ? [
+        cachedNewsEndpoint,
+        ...allEndpoints.filter((ep) => ep !== cachedNewsEndpoint),
+      ]
     : allEndpoints;
 
   for (const ep of endpoints) {
@@ -1818,8 +2153,17 @@ export async function getFeaturedEvents(
       const names = item.categories || [];
       const tags = (item.tags || []).map((t) => t.toLowerCase());
       return (
-        slugs.some((s) => s.includes('su-kien') || s.includes('event') || s.includes('trien-lam')) ||
-        names.some((n) => n.toLowerCase().includes('sự kiện') || n.toLowerCase().includes('event')) ||
+        slugs.some(
+          (s) =>
+            s.includes('su-kien') ||
+            s.includes('event') ||
+            s.includes('trien-lam'),
+        ) ||
+        names.some(
+          (n) =>
+            n.toLowerCase().includes('sự kiện') ||
+            n.toLowerCase().includes('event'),
+        ) ||
         catLower.includes('kiện') ||
         catLower.includes('event') ||
         catLower.includes('活动') ||
@@ -1849,7 +2193,11 @@ export async function getFeaturedEvents(
         const tags = (item.tags || []).map((t) => t.toLowerCase());
         return (
           slugs.some((s) => s.includes('noi-bat') || s.includes('featured')) ||
-          names.some((n) => n.toLowerCase().includes('nổi bật') || n.toLowerCase().includes('featured')) ||
+          names.some(
+            (n) =>
+              n.toLowerCase().includes('nổi bật') ||
+              n.toLowerCase().includes('featured'),
+          ) ||
           catLower.includes('nổi bật') ||
           catLower.includes('featured') ||
           tags.some((t) => t.includes('nổi bật') || t.includes('featured'))
@@ -1898,7 +2246,9 @@ export async function getFeaturedNews(
     );
 
     if (!allNews || allNews.length === 0) {
-      return (fallbackNewsOnly.length > 0 ? fallbackNewsOnly : getFallbackNews(lang)).slice(0, limit);
+      return (
+        fallbackNewsOnly.length > 0 ? fallbackNewsOnly : getFallbackNews(lang)
+      ).slice(0, limit);
     }
 
     // Tách riêng tin tức không phải sự kiện (loại trừ tất cả sự kiện)
@@ -1908,8 +2258,17 @@ export async function getFeaturedNews(
       const names = item.categories || [];
       const catLower = (item.category || '').toLowerCase();
       const isAnEvent =
-        slugs.some((s) => s.includes('su-kien') || s.includes('event') || s.includes('trien-lam')) ||
-        names.some((n) => n.toLowerCase().includes('sự kiện') || n.toLowerCase().includes('event')) ||
+        slugs.some(
+          (s) =>
+            s.includes('su-kien') ||
+            s.includes('event') ||
+            s.includes('trien-lam'),
+        ) ||
+        names.some(
+          (n) =>
+            n.toLowerCase().includes('sự kiện') ||
+            n.toLowerCase().includes('event'),
+        ) ||
         catLower.includes('kiện') ||
         catLower.includes('event') ||
         catLower.includes('活动') ||
@@ -1929,7 +2288,11 @@ export async function getFeaturedNews(
       const tags = (item.tags || []).map((t) => t.toLowerCase());
       return (
         slugs.some((s) => s.includes('noi-bat') || s.includes('featured')) ||
-        names.some((n) => n.toLowerCase().includes('nổi bật') || n.toLowerCase().includes('featured')) ||
+        names.some(
+          (n) =>
+            n.toLowerCase().includes('nổi bật') ||
+            n.toLowerCase().includes('featured'),
+        ) ||
         catLower.includes('nổi bật') ||
         catLower.includes('featured') ||
         tags.some((t) => t.includes('nổi bật') || t.includes('featured'))
@@ -1951,6 +2314,8 @@ export async function getFeaturedNews(
         !(item.category || '').toLowerCase().includes('event') &&
         !(item.category || '').toLowerCase().includes('活动'),
     );
-    return (fallbackNewsOnly.length > 0 ? fallbackNewsOnly : getFallbackNews(lang)).slice(0, limit);
+    return (
+      fallbackNewsOnly.length > 0 ? fallbackNewsOnly : getFallbackNews(lang)
+    ).slice(0, limit);
   }
 }
